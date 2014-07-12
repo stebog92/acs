@@ -1,0 +1,274 @@
+!!ro.pub.cs.lcpl.Program
+classes:
+- features:
+  - !!ro.pub.cs.lcpl.Attribute
+    init: !!ro.pub.cs.lcpl.Addition
+      e1: !!ro.pub.cs.lcpl.StringConstant {lineNumber: 3, type: null, value: Infinite}
+      e2: !!ro.pub.cs.lcpl.Symbol {lineNumber: 3, name: t, type: null}
+      lineNumber: 3
+      type: null
+    lineNumber: 3
+    name: s
+    type: String
+  - !!ro.pub.cs.lcpl.Attribute
+    init: !!ro.pub.cs.lcpl.Addition
+      e1: !!ro.pub.cs.lcpl.Symbol {lineNumber: 4, name: s, type: null}
+      e2: !!ro.pub.cs.lcpl.StringConstant {lineNumber: 4, type: null, value: ' monkeys '}
+      lineNumber: 4
+      type: null
+    lineNumber: 4
+    name: t
+    type: String
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.LocalDefinition
+        init: !!ro.pub.cs.lcpl.Addition
+          e1: !!ro.pub.cs.lcpl.Addition
+            e1: !!ro.pub.cs.lcpl.Symbol {lineNumber: 8, name: t, type: null}
+            e2: !!ro.pub.cs.lcpl.Symbol {lineNumber: 8, name: s, type: null}
+            lineNumber: 8
+            type: null
+          e2: !!ro.pub.cs.lcpl.StringConstant {lineNumber: 8, type: null, value: ' '}
+          lineNumber: 8
+          type: null
+        lineNumber: 8
+        name: t
+        scope: !!ro.pub.cs.lcpl.Block
+          expressions:
+          - !!ro.pub.cs.lcpl.Assignment
+            e1: !!ro.pub.cs.lcpl.Addition
+              e1: !!ro.pub.cs.lcpl.Symbol {lineNumber: 10, name: t, type: null}
+              e2: !!ro.pub.cs.lcpl.StringConstant {lineNumber: 10, type: null, value: 'write '}
+              lineNumber: 10
+              type: null
+            lineNumber: 10
+            symbol: s
+            type: null
+          - !!ro.pub.cs.lcpl.IfStatement
+            condition: !!ro.pub.cs.lcpl.EqualComparison
+              e1: !!ro.pub.cs.lcpl.IntConstant {lineNumber: 11, type: null, value: 27}
+              e2: !!ro.pub.cs.lcpl.Dispatch
+                arguments: []
+                lineNumber: 11
+                name: length
+                object: !!ro.pub.cs.lcpl.Symbol {lineNumber: 11, name: s, type: null}
+                type: null
+              lineNumber: 11
+              type: null
+            ifExpr: !!ro.pub.cs.lcpl.Block
+              expressions:
+              - !!ro.pub.cs.lcpl.LocalDefinition
+                init: !!ro.pub.cs.lcpl.Addition
+                  e1: !!ro.pub.cs.lcpl.Symbol {lineNumber: 12, name: s, type: null}
+                  e2: !!ro.pub.cs.lcpl.StringConstant {lineNumber: 12, type: null,
+                    value: Macbeth}
+                  lineNumber: 12
+                  type: null
+                lineNumber: 12
+                name: t
+                scope: !!ro.pub.cs.lcpl.Block
+                  expressions:
+                  - !!ro.pub.cs.lcpl.Assignment
+                    e1: !!ro.pub.cs.lcpl.Addition
+                      e1: !!ro.pub.cs.lcpl.Symbol {lineNumber: 13, name: t, type: null}
+                      e2: !!ro.pub.cs.lcpl.StringConstant {lineNumber: 13, type: null,
+                        value: .}
+                      lineNumber: 13
+                      type: null
+                    lineNumber: 13
+                    symbol: s
+                    type: null
+                  lineNumber: 13
+                  type: null
+                type: String
+              lineNumber: 12
+              type: null
+            lineNumber: 11
+            thenExpr: !!ro.pub.cs.lcpl.Block
+              expressions:
+              - !!ro.pub.cs.lcpl.Assignment
+                e1: !!ro.pub.cs.lcpl.Addition
+                  e1: !!ro.pub.cs.lcpl.Symbol {lineNumber: 15, name: t, type: null}
+                  e2: !!ro.pub.cs.lcpl.StringConstant {lineNumber: 15, type: null,
+                    value: .}
+                  lineNumber: 15
+                  type: null
+                lineNumber: 15
+                symbol: s
+                type: null
+              lineNumber: 15
+              type: null
+            type: null
+          lineNumber: 10
+          type: null
+        type: String
+      lineNumber: 7
+      type: null
+    lineNumber: 6
+    name: mm
+    parameters:
+    - {lineNumber: 6, name: s, type: String}
+    returnType: String
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.Dispatch
+        arguments:
+        - !!ro.pub.cs.lcpl.StringConstant {lineNumber: 20, type: null, value: can}
+        lineNumber: 20
+        name: mm
+        object: null
+        type: null
+      lineNumber: 20
+      type: null
+    lineNumber: 19
+    name: m_m
+    parameters: []
+    returnType: String
+  lineNumber: 1
+  name: m
+  parent: null
+- features:
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.Dispatch
+        arguments:
+        - !!ro.pub.cs.lcpl.StringConstant {lineNumber: 26, type: null, value: are expensive to feed}
+        lineNumber: 26
+        name: mm
+        object: !!ro.pub.cs.lcpl.NewObject {lineNumber: 26, type: m}
+        type: null
+      lineNumber: 26
+      type: null
+    lineNumber: 25
+    name: m
+    parameters: []
+    returnType: String
+  lineNumber: 24
+  name: mm
+  parent: null
+- features:
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.Addition
+        e1: !!ro.pub.cs.lcpl.Addition
+          e1: !!ro.pub.cs.lcpl.Addition
+            e1: !!ro.pub.cs.lcpl.Dispatch
+              arguments: []
+              lineNumber: 32
+              name: m_m
+              object: !!ro.pub.cs.lcpl.NewObject {lineNumber: 32, type: m}
+              type: null
+            e2: !!ro.pub.cs.lcpl.StringConstant
+              lineNumber: 32
+              type: null
+              value: |2+
+
+            lineNumber: 32
+            type: null
+          e2: !!ro.pub.cs.lcpl.Dispatch
+            arguments: []
+            lineNumber: 32
+            name: m
+            object: !!ro.pub.cs.lcpl.NewObject {lineNumber: 32, type: mm}
+            type: null
+          lineNumber: 32
+          type: null
+        e2: !!ro.pub.cs.lcpl.StringConstant
+          lineNumber: 32
+          type: null
+          value: |2+
+
+        lineNumber: 32
+        type: null
+      lineNumber: 32
+      type: null
+    lineNumber: 31
+    name: m
+    parameters: []
+    returnType: String
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.Addition
+        e1: !!ro.pub.cs.lcpl.Addition
+          e1: !!ro.pub.cs.lcpl.Addition
+            e1: !!ro.pub.cs.lcpl.Symbol {lineNumber: 34, name: who, type: null}
+            e2: !!ro.pub.cs.lcpl.StringConstant {lineNumber: 34, type: null, value: ' was '}
+            lineNumber: 34
+            type: null
+          e2: !!ro.pub.cs.lcpl.Symbol {lineNumber: 34, name: what, type: null}
+          lineNumber: 34
+          type: null
+        e2: !!ro.pub.cs.lcpl.StringConstant {lineNumber: 34, type: null, value: .}
+        lineNumber: 34
+        type: null
+      lineNumber: 34
+      type: null
+    lineNumber: 34
+    name: m_
+    parameters:
+    - {lineNumber: 34, name: who, type: String}
+    - {lineNumber: 34, name: what, type: String}
+    returnType: String
+  lineNumber: 30
+  name: m_m
+  parent: null
+- features:
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.Dispatch
+        arguments:
+        - !!ro.pub.cs.lcpl.Dispatch
+          arguments:
+          - !!ro.pub.cs.lcpl.StringConstant {lineNumber: 39, type: null, value: Shakespeare}
+          - !!ro.pub.cs.lcpl.StringConstant {lineNumber: 39, type: null, value: cost-effective}
+          lineNumber: 39
+          name: m_
+          object: !!ro.pub.cs.lcpl.NewObject {lineNumber: 39, type: m_m}
+          type: null
+        lineNumber: 39
+        name: out
+        object: !!ro.pub.cs.lcpl.Dispatch
+          arguments:
+          - !!ro.pub.cs.lcpl.Dispatch
+            arguments: []
+            lineNumber: 39
+            name: m
+            object: !!ro.pub.cs.lcpl.NewObject {lineNumber: 39, type: m_m}
+            type: null
+          lineNumber: 39
+          name: out
+          object: !!ro.pub.cs.lcpl.NewObject {lineNumber: 39, type: IO}
+          type: null
+        type: null
+      lineNumber: 39
+      type: null
+    lineNumber: 38
+    name: print
+    parameters: []
+    returnType: void
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.Dispatch
+        arguments: []
+        lineNumber: 42
+        name: print
+        object: null
+        type: null
+      lineNumber: 42
+      type: null
+    lineNumber: 41
+    name: main
+    parameters: []
+    returnType: void
+  lineNumber: 37
+  name: Main
+  parent: null
+lineNumber: 1
+

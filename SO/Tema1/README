@@ -1,0 +1,45 @@
+OPERATING SYSTEMS 2013
+Tema1 - Mini-shell
+
+Ciocan Mihai
+334CA
+
+Pentru construirea Mini-shell-ului am implementat o serie de functii in fisierul utils-lin.c :
+    - int process_command (command_t *): in functie de operatorul pe care parametrul il are face o serie de alte operatii;
+        - daca operatorul este OP_NONE: se executa comanda simpla;
+        - daca operatorul este OP_SEQUENTIAL: se executa comenzile secvential, una dupa cealalta, apeland tot process_command;
+        - daca operatorul este OP_PARALLEL: se apeleaza run_parallel cu cele 2 comenzi
+        - daca operatorul este OP_PIPE: se apeleaza run_piped_commands cu cele 2 comenzi
+        - daca operatorul este OP_CONDITIONAL_ZERO :se executa comanda a doua daca reuseste prima, apelamd process_command;
+        - daca operatorul este OP_CONDITIONAL_NZERO:se executa comanda a doua daca prima nu reuseste;
+
+    - int run_simple_command(simple_command_t *cmd):
+        - functia face practic un fork, procesul copil ruland execvp pe comanda
+        cmd, procesul parinte asteptand terminarea procesului si returnand starea de iesire a acestuia;
+        - procesul copil verifica si modifica in consecinta descriptorii in cazul in care este nevoie de redirectare
+        utilizand functiile handle_input, handle_output etc;
+        - daca comanda este interna (se verifica inainte de fork) se executa si se intoarce 0 daca reuseste sau 1 in
+        caz contrar;
+    - int run_parallel(command_t*, command_t*) :
+        - ruleaza comenzile in paralel
+        - se creeaza un proces copil, in care se apeleaza process_command pentru comanda 1
+        - a doua comanda se poate executa in paralel in procesul parinte
+        - parintele asteapta ca procesul copil sa se termine
+    - int run_piped_commands(command_t*, command_t*) :
+        - se creeaza un pipe anonim in parinte si se retine in variabila aux a fiecarei comenzi;
+        - se ruleaza cele 2 comenzi in paralel folosind run_parallel
+    - bool handle_input(simple_command_t*):
+        - se verifica daca exista un fisier redirectat catre input pentru comanda actuala
+        - in caz afirmativ se deschide fisierul respectiv si se executa dup2 pe descriptorii stdin si cel
+        fisierului;
+        - analog in cazul handle_error si handle_output, in plus se verifica si io_flag pentru tratarea cazului
+        append si trunc;
+    - bool handle_pipe (simple_command_t*) :
+        - functia verifica daca comanda se afla intr-o constructie de tip pipe
+        - in caz afirmativ, se verifica ce fel de comanda este (cea care face output catre a doua, sau cea care citeste
+        output prime)
+        - in cele 2 cazuri se inchid capetele nefolosite, celelalte modifica stdin, stdout prin dup2
+        - in cazul in care constructia este de asemenea in alta constructie de tip pipe, outputul comenzii a doua
+        se redirecteaza catre inputul comenzii de pe nivelul superior (pipe-ul este retinut in aux-ul fiecarei comenzi
+        daca se afla in operatie de pipe);
+Mentionez ca eventualele leak-uri de memorie nu imi apartin (din ce arata valgrind-ul par sa fie de la parser), verific valorile de return ale functiilor close, pipe, open etc si le tratez in consecinta.

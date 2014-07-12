@@ -1,0 +1,172 @@
+#include <stdio.h>
+#include <mpi.h>
+
+int main (int argc, char** argv) {
+    
+    int rank, type, max_steps, size, chunk_size, i;
+    long double x_min, x_max, y_min, y_max, x, y, res, a, b;
+    FILE *in, *out;
+    
+    
+    MPI_Init (&argc, &argv);
+    MPI_Comm_rank (MPI_COMM_WORLD, &rank);
+    MPI_Comm_size (MPI_COMM_WORLD, &size);
+    long double *chunks, recv_chunk[9];
+    int *matrix_colors;
+    int chunk_total_x;
+    int chunk_total_y;
+    chunk_size = 9;
+
+    if (rank == 0) {
+        if (argc < 3) {
+            printf ("Usage: ./exec in out\n");
+            return 0;
+        }
+
+        in = fopen (argv[1], "r");
+        out = fopen (argv[2], "w");
+
+        fscanf (in, "%d", &type);
+        fscanf (in, "%Lf %Lf %Lf %Lf", &x_min, &x_max, &y_min, &y_max);
+        fscanf (in, "%Lf", &res);
+        fscanf (in, "%d", &max_steps);
+        if (type) {
+            fscanf (in, "%Lf %Lf", &x, &y);
+        }
+
+        fclose (in);
+        
+        //printf ("%d", size);
+   
+        if ((int)res < 1000) {
+            double res_copy = res;
+            long double chunk_total_x_copy = (x_max - x_min);
+            long double chunk_total_y_copy = (y_max - y_min);
+
+            while ((int)res_copy < 100000) {
+                res_copy *= 10;
+                chunk_total_x_copy *= 10;
+                chunk_total_y_copy *= 10;
+            }
+            chunk_total_x = (int)chunk_total_x_copy / (int)res_copy;
+            chunk_total_y = (int)chunk_total_y_copy / (int)res_copy;
+        }
+        else {
+            chunk_total_x = (x_max - x_min) / (int)res;
+            chunk_total_y = (y_max - y_min) / (int)res;
+        }
+
+        int chunk_size_x = chunk_total_x/size;
+        int chunk_size_y = chunk_total_y/size;
+        if (chunk_total_x % size != 0) {
+            chunk_size_x ++;
+        }
+        if (chunk_total_y % size != 0) {
+            chunk_size_y ++;
+        }
+
+        chunks = new long double[chunk_size * size];
+
+        for (i = 0; i < size; i++) {
+            chunks[chunk_size * i] = x_min;
+            chunks[chunk_size * i + 1] = chunk_total_x;
+            chunks[chunk_size * i + 2] = y_min + (i * chunk_size_y) * res;
+            chunks[chunk_size * i + 3] = chunk_size_y;
+            chunks[chunk_size * i + 4] = type;
+            chunks[chunk_size * i + 5] = res;
+            chunks[chunk_size * i + 6] = max_steps;
+            if (type) {
+                chunks[chunk_size * i + 7] = x;
+                chunks[chunk_size * i + 8] = y;
+            }
+
+        }
+
+        if (chunk_total_y % size != 0) {
+            chunks[chunk_size * (i - 1) + 3] = chunk_total_y - ((size - 1) * chunk_size_y);
+        }
+    }
+    
+    
+    MPI_Scatter (chunks, chunk_size, MPI_LONG_DOUBLE, recv_chunk, 9, MPI_LONG_DOUBLE, 0, MPI_COMM_WORLD);
+
+    //printf("Process %d    %Lf %Lf %Lf %Lf %.15Lf\n", rank, recv_chunk[0], recv_chunk[1], recv_chunk[2], recv_chunk[3], recv_chunk[5]);
+    double end_x;
+    double end_y;
+    int pos;
+    int *colors;
+
+    if (!(int)recv_chunk[4]) {
+        end_x = recv_chunk[0] + recv_chunk[5] * (int)recv_chunk[1];
+        end_y = recv_chunk[2] + recv_chunk[5] * (int)recv_chunk[3];
+        //printf("%d %lf %lf\n", rank, end_x, end_y);
+        pos = 0;
+        colors = new int[(int)recv_chunk[1] * (int)recv_chunk[3]];
+        //printf ("%d", (int)recv_chunk[1] * (int)recv_chunk[3]);
+        for (double y0 = recv_chunk[2]; end_y - y0 > recv_chunk[5]/10; y0 += recv_chunk[5]) {
+            for (double x0 = recv_chunk[0]; end_x - x0 > recv_chunk[5]/10; x0 += recv_chunk[5]) {
+                int step = 0;
+                x = 0;
+                y = 0;
+                while (x*x + y*y < 4.0 && step < recv_chunk[6]) {
+                    double xtemp = (x * x) - (y * y) + x0;
+                    y = 2 * x * y + y0;
+                    x = xtemp;
+                    step ++;
+                }
+                colors [pos] = step % 256;
+                pos++;
+            }
+        }
+    }
+
+    if ((int) recv_chunk[4]) {
+        end_x = recv_chunk[0] + recv_chunk[5] * (int)recv_chunk[1];
+        end_y = recv_chunk[2] + recv_chunk[5] * (int)recv_chunk[3];
+
+        pos = 0;
+        colors = new int[(int) recv_chunk[1] * (int)recv_chunk[3]];
+        for (double y0 = recv_chunk[2]; end_y - y0 > recv_chunk[5]/10; y0 += recv_chunk[5]) {
+           for (double x0 = recv_chunk[0]; end_x - x0 > recv_chunk[5]/10; x0 += recv_chunk[5]) {
+               int step = 0;
+               x = x0;
+               y = y0;
+               while (x*x + y*y < 4.0 && step < recv_chunk[6]) {
+                   double xtemp = (x * x) - (y * y) + recv_chunk[7];
+                   y = 2 * x * y + recv_chunk[8];
+                   x = xtemp;
+                   step++;
+               }
+               colors[pos] = step % 256;
+               pos++;
+           }
+        }
+    }
+
+    if (rank == 0) {
+        matrix_colors = new int [chunk_total_x * chunk_total_y];
+    }
+
+    MPI_Gather(colors, pos, MPI_INT, matrix_colors, pos, MPI_INT, 0, MPI_COMM_WORLD);
+    if (rank == 0) {
+        fprintf (out, "P2\n");
+        fprintf (out, "%d %d\n", chunk_total_x, chunk_total_y);
+        fprintf (out, "255\n");
+        int offset = chunk_total_x * chunk_total_y - chunk_total_x;
+        for (; offset >= 0; offset -= chunk_total_x) {
+            for (int i = 0; i < chunk_total_x; i++) {
+                fprintf (out, "%d", matrix_colors[offset + i]);
+                if (i != chunk_total_x - 1) {
+                    fprintf (out, " ");
+                }
+            }
+            fprintf (out, "\n");
+        }
+        fclose(out);
+    }
+    
+
+    MPI_Finalize();
+    return 0;
+}
+

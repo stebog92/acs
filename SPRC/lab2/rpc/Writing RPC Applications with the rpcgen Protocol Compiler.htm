@@ -1,0 +1,1552 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0070)http://www.cs.uregina.ca/~hamilton/courses/430/notes/rpc-language.html -->
+<HTML><HEAD><TITLE>Writing RPC Applications with the rpcgen Protocol Compiler</TITLE>
+<META content="text/html; charset=iso-8859-1" http-equiv=Content-Type>
+<META content=nofollow name=robots>
+<META content="Programming with ONC RPC: DIGITAL UNIX Version&#10; 4.0D" 
+name=description>
+<META 
+content="Copyright (c) Digital Equipment Corporation 1997. A&#10;ll rights reserved." 
+name=author>
+<META content="MSHTML 5.00.2920.0" name=GENERATOR></HEAD>
+<BODY bgColor=#cccccc><A name=chap2></A>
+<P>
+<HR>
+
+<H1>2&nbsp;&nbsp;&nbsp;&nbsp;Writing RPC Applications with the rpcgen Protocol 
+Compiler</H1><A name=nx_id_8></A>The <CODE>rpcgen</CODE> protocol compiler 
+accepts a remote program interface definition written in RPC language, which is 
+similar to C. It then produces C language output consisting of skeleton versions 
+of the client routines, a server skeleton, XDR <A name=nx_id_9></A>filter 
+routines for both parameters and results, a header file that contains common 
+definitions, and optionally, dispatch tables that the server uses to invoke 
+routines that are based on authorization checks. See <A 
+href="http://www.cs.uregina.ca/~hamilton/courses/430/MAN/MAN1/0320____.HTM" 
+target=RefPages><CODE>rpcgen</CODE>(1)</A> for more information. 
+<P>The <STRONG>client skeleton</STRONG> interface to the RPC library hides the 
+network from its callers, and the <STRONG>server skeleton</STRONG> hides the 
+network from the server procedures invoked by remote clients. You compile and 
+link output files from <CODE>rpcgen</CODE> as usual. The server code generated 
+by <CODE>rpcgen</CODE> supports <CODE>inetd</CODE>. You can start the server via 
+<CODE>inetd</CODE> or at the command line. 
+<P>You can write server procedures in any language that has system calling 
+conventions. To get an executable server program, link the server procedure with 
+the server skeleton from <CODE>rpcgen</CODE>. To create an executable program 
+for a remote program, write an ordinary main program that makes local procedure 
+calls to the client skeletons, and link the program with the <CODE>rpcgen</CODE> 
+skeletons. If necessary, the <CODE>rpcgen</CODE> options enable you to suppress 
+skeleton generation and specify the transport to be used by the server skeleton. 
+
+<P>The <CODE>rpcgen</CODE> protocol compiler helps to reduce development time in 
+the following ways: 
+<UL>
+  <P>
+  <LI>It greatly reduces network interface programming. 
+  <P></P>
+  <LI>It can mix low-level code with high-level code. 
+  <P></P>
+  <LI>For speed-critical applications, you can link customized high-level code 
+  with the <CODE>rpcgen</CODE> output. 
+  <P></P>
+  <LI>You can use <CODE>rpcgen</CODE> output as a starting point, and rewrite as 
+  necessary. </LI></UL>
+<P>
+<P>Refer to <A 
+href="http://www.cs.uregina.ca/~hamilton/courses/430/MAN/MAN1/0320____.HTM" 
+target=RefPages><CODE>rpcgen</CODE>(1)</A> for more information about 
+programming applications that use remote procedure calls or for writing XDR 
+routines that convert procedure arguments and results into their network format 
+(or vice versa). For a discussion of RPC programming without 
+<CODE>rpcgen</CODE>, see <A 
+href="http://www.cs.uregina.ca/~hamilton/courses/430/notes/DOCU_004.HTM#chap3">Chapter 
+3</A>. <A name=rpcgen_exam_sec></A>
+<P>
+<HR>
+
+<H2>2.1&nbsp;&nbsp;&nbsp;&nbsp;Simple Example: Using rpcgen to Generate Client 
+and Server RPC Code </H2>
+<P><A name=nx_id_10></A><A name=nx_id_11></A>This section shows how to convert a 
+simple routine -- one that prints messages to the console of a single machine -- 
+to an ONC RPC application that runs remotely over the network. To do this, the 
+<CODE>rpcgen</CODE> protocol compiler is used to generate client and server RPC 
+code. <A 
+href="http://www.cs.uregina.ca/~hamilton/courses/430/notes/DOCU_003.HTM#without_rpc_ex">Example 
+2-1</A> shows the routine before conversion. <A name=without_rpc_ex></A>
+<H3>Example 2-1: Printing a Remote Message Without ONC RPC </H3>
+<P><PRE>/* printmsg.c: print a message on the console */
+#include &lt;stdio.h&gt;
+<BR>&nbsp;<BR>
+main(argc, argv)
+        int argc;
+        char *argv[];
+{
+        char *message;
+<BR>&nbsp;<BR>
+        if (argc != 2) {
+                fprintf(stderr, "usage: %s &lt;message&gt;\n", argv[0]);
+                exit (1);
+        }
+        message = argv[1];
+<BR>&nbsp;<BR>
+        if (!printmessage(message)) {
+                fprintf(stderr, "%s: couldn't print your message\n",
+                        argv[0]);
+                exit (1);
+        }
+        printf("Message Delivered!\n");
+        exit (0);
+}
+/*
+ * Print a message to the console.  Return a Boolean showing result.
+ */
+printmessage(msg)
+        char *msg;
+{
+        FILE *f;
+<BR>&nbsp;<BR>
+        f = fopen("/dev/console", "w");
+        if (f == NULL) {
+                return (0);
+        }
+        fprintf(f, "%s\n", msg);
+        fclose(f);
+        return (1);
+}
+</PRE>
+<P>
+<P>Compile and run this program from a machine called <CODE>cyrkle</CODE>: 
+<P><CODE>cyrkle%&nbsp; <STRONG>cc&nbsp;printmsg.c&nbsp;-o&nbsp;printmsg</STRONG> 
+<BR>cyrkle%&nbsp; <STRONG>printmsg&nbsp;"red&nbsp;rubber&nbsp;ball"</STRONG> 
+</CODE><BR><PRE>Message delivered!
+</PRE><CODE>cyrkle%&nbsp; </CODE><BR>
+<P>
+<P>If the <CODE>printmessage</CODE> procedure at the bottom of the 
+<CODE>printmsg.c</CODE> program of <A 
+href="http://www.cs.uregina.ca/~hamilton/courses/430/notes/DOCU_003.HTM#without_rpc_ex">Example 
+2-1</A> were converted into a remote procedure, you could call it from anywhere 
+in the network, instead of only from the program where it is embedded. Before 
+doing this, it is necessary to write a protocol specification in RPC language 
+that describes the remote procedure, as shown in the next section. <A 
+name=spec_file_sec></A>
+<P>
+<HR>
+
+<H3>2.1.1&nbsp;&nbsp;&nbsp;&nbsp;RPC Protocol Specification File Describing 
+Remote Procedure </H3>
+<P>To create the specification file, you must know all the input and output 
+parameter types. In <A 
+href="http://www.cs.uregina.ca/~hamilton/courses/430/notes/DOCU_003.HTM#without_rpc_ex">Example 
+2-1</A>, the <CODE>printmessage</CODE> procedure takes a string as input, and 
+returns an integer as output. <A 
+href="http://www.cs.uregina.ca/~hamilton/courses/430/notes/DOCU_003.HTM#spec_file_simple_ex">Example 
+2-2</A> is the RPC protocol specification file that describes the remote version 
+of the <CODE>printmessage</CODE> procedure. <A name=spec_file_simple_ex></A>
+<H3>Example 2-2: RPC Protocol Specification File, Simple Example </H3>
+<P><PRE>/*
+ * msg.x: Remote message printing protocol
+ */
+<BR>&nbsp;<BR>
+program MESSAGEPROG {
+        version MESSAGEVERS {
+                int PRINTMESSAGE(string) = 1;
+        } = 1;
+} = 0x20000099;
+</PRE>
+<P>
+<P>Remote procedures are part of remote programs, so <A 
+href="http://www.cs.uregina.ca/~hamilton/courses/430/notes/DOCU_003.HTM#spec_file_simple_ex">Example 
+2-2</A> actually declares a remote program containing a single procedure, 
+<CODE>PRINTMESSAGE</CODE>. By convention, all RPC services provide for a NULL 
+procedure (procedure 0), normally used for "pinging." (See <A 
+href="http://www.cs.uregina.ca/~hamilton/courses/430/MAN/MAN8/0232____.HTM" 
+target=RefPages><CODE>ping</CODE>(8)</A>.) The RPC protocol specification file 
+in <A 
+href="http://www.cs.uregina.ca/~hamilton/courses/430/notes/DOCU_003.HTM#spec_file_simple_ex">Example 
+2-2</A> declares the <CODE>PRINTMESSAGE</CODE> procedure to be in version 1 of 
+the remote program. No NULL procedure (procedure 0) is necessary in the protocol 
+definition because <CODE>rpcgen</CODE> generates it automatically and the user 
+does not need it. 
+<P>In RPC language, the convention (though not a requirement) is to make all 
+declarations in uppercase characters. Notice that the argument type is 
+<CODE>string</CODE>, not <CODE>char *</CODE>, because <CODE>char *</CODE> in C 
+is ambiguous. Programmers usually intend it to mean a null-terminated string of 
+characters, but it could also be a pointer to a single character or to an array 
+of characters. In RPC language, a null-terminated string is unambiguously of 
+type <CODE>string</CODE>. <A name=proc_decl_imple_sec></A>
+<P>
+<HR>
+
+<H3>2.1.2&nbsp;&nbsp;&nbsp;&nbsp;Implementing the Procedure Declared in the 
+Protocol Specification </H3>
+<P><A 
+href="http://www.cs.uregina.ca/~hamilton/courses/430/notes/DOCU_003.HTM#rpc_decl_imple_ex">Example 
+2-3</A> defines the remote procedure declared in the RPC protocol specification 
+file of the previous example. <A name=rpc_decl_imple_ex></A>
+<H3>Example 2-3: Remote Procedure Definition </H3>
+<P><PRE>/*
+ * msg_proc.c: implementation of the remote procedure
+ * "printmessage"
+ */
+<BR>&nbsp;<BR>
+#include &lt;stdio.h&gt;
+#include &lt;rpc/rpc.h&gt;  /* always needed */
+#include "msg.h"      /* msg.h will be generated by rpcgen */
+<BR>&nbsp;<BR>
+/*
+ * Remote version of "printmessage"
+ */
+int *
+printmessage_1(msg)    <A name=co_id_5_rtn_1></A><A href="http://www.cs.uregina.ca/~hamilton/courses/430/notes/rpc-language.html#co_id_5_1"><STRONG>[1]</STRONG></A>
+        char **msg;        <A name=co_id_5_rtn_2></A><A href="http://www.cs.uregina.ca/~hamilton/courses/430/notes/rpc-language.html#co_id_5_2"><STRONG>[2]</STRONG></A>
+{
+        static int result; /* must be static! */
+        FILE *f;
+<BR>&nbsp;<BR>
+        f = fopen("/dev/console", "w");
+        if (f == NULL) {
+                result = 0;
+                return (&amp;result);
+        }
+        fprintf(f, "%s\n", *msg);
+        fclose(f);
+        result = 1;
+        return (&amp;result);     <A name=co_id_5_rtn_3></A><A href="http://www.cs.uregina.ca/~hamilton/courses/430/notes/rpc-language.html#co_id_5_3"><STRONG>[3]</STRONG></A>
+}
+</PRE>
+<P>
+<P>In this example, the declaration of the remote procedure, 
+<CODE>printmessage_1</CODE>, differs from that of the local procedure 
+<CODE>printmessage</CODE> in three ways: 
+<OL>
+  <P>
+  <LI><A name=co_id_5_1></A>It has <CODE>_1</CODE> appended to its name. In 
+  general, all remote procedures called by <CODE>rpcgen</CODE> are named by the 
+  following rule: the name in the procedure definition (here, 
+  <CODE>PRINTMESSAGE</CODE>) is converted to all lowercase letters, and an 
+  underscore (<CODE>_</CODE>) and version number (here, 1) is appended to it. <A 
+  href="http://www.cs.uregina.ca/~hamilton/courses/430/notes/rpc-language.html#co_id_5_rtn_1">[Return 
+  to example]</A> 
+  <P></P>
+  <LI><A name=co_id_5_2></A>It takes a pointer to a string instead of a string 
+  itself. This is true of all remote procedures -- they always take pointers to 
+  their arguments rather than the arguments themselves; if there are no 
+  arguments, specify <CODE>void</CODE>. <A 
+  href="http://www.cs.uregina.ca/~hamilton/courses/430/notes/rpc-language.html#co_id_5_rtn_2">[Return 
+  to example]</A> 
+  <P></P>
+  <LI><A name=co_id_5_3></A>It returns a pointer to an integer instead of an 
+  integer itself. This is also characteristic of remote procedures -- they 
+  return pointers to their results. Therefore it is important to have the result 
+  declared as a <CODE>static</CODE>; if there are no arguments, specify 
+  <CODE>void</CODE>. <A 
+  href="http://www.cs.uregina.ca/~hamilton/courses/430/notes/rpc-language.html#co_id_5_rtn_3">[Return 
+  to example]</A> </LI></OL>
+<P><A name=calling_cli_sec></A>
+<P>
+<HR>
+
+<H3>2.1.3&nbsp;&nbsp;&nbsp;&nbsp;The Client Program That Calls the Remote 
+Procedure </H3>
+<P><A 
+href="http://www.cs.uregina.ca/~hamilton/courses/430/notes/DOCU_003.HTM#calling_cli_ex">Example 
+2-4</A> declares the main client program, <CODE>rprintmsg.c</CODE>, that will 
+call the remote procedure. <A name=calling_cli_ex></A>
+<H3>Example 2-4: Client Program that Calls the Remote Procedure </H3>
+<P><PRE>/*
+ * rprintmsg.c: remote version of "printmsg.c"
+ */
+<BR>&nbsp;<BR>
+#include &lt;stdio.h&gt;
+#include &lt;rpc/rpc.h&gt;     /* always needed  */
+#include "msg.h"         /* msg.h will be generated by rpcgen */
+<BR>&nbsp;<BR>
+main(argc, argv)
+        int argc;
+        char *argv[];
+{
+        CLIENT *cl;
+        int *result;
+        char *server;
+        char *message;
+<BR>&nbsp;<BR>
+        if (argc != 3) {
+                fprintf(stderr,
+                "usage: %s host message\n", argv[0]);
+                exit(1);
+        }
+<BR>&nbsp;<BR>
+        server = argv[1];
+        message = argv[2];
+<BR>&nbsp;<BR>
+        /*
+         * Create client "handle" used for calling MESSAGEPROG on
+         * the server designated on the command line.  We tell
+         * the RPC package to use the TCP protocol when
+         * contacting the server.
+         */
+<BR>&nbsp;<BR>
+        cl = clnt_create(server, MESSAGEPROG, MESSAGEVERS,
+           "tcp");             <A name=co_id_6_rtn_1></A><A href="http://www.cs.uregina.ca/~hamilton/courses/430/notes/rpc-language.html#co_id_6_1"><STRONG>[1]</STRONG></A>  <A name=co_id_6_rtn_2></A><A href="http://www.cs.uregina.ca/~hamilton/courses/430/notes/rpc-language.html#co_id_6_2"><STRONG>[2]</STRONG></A>
+        if (cl == NULL) {
+<BR>&nbsp;<BR>
+                /*
+                 * Couldn't establish connection with server.
+                 * Print error message and stop.
+                 */
+<BR>&nbsp;<BR>
+                clnt_pcreateerror(server);
+                exit(1);
+        }
+<BR>&nbsp;<BR>
+        /*
+         * Call the remote procedure "printmessage" on the server
+         */
+<BR>&nbsp;<BR>
+        result = printmessage_1(&amp;message, cl);   <A name=co_id_6_rtn_3></A><A href="http://www.cs.uregina.ca/~hamilton/courses/430/notes/rpc-language.html#co_id_6_3"><STRONG>[3]</STRONG></A>
+        if (result == NULL) {                  <A name=co_id_6_rtn_4></A><A href="http://www.cs.uregina.ca/~hamilton/courses/430/notes/rpc-language.html#co_id_6_4"><STRONG>[4]</STRONG></A>
+<BR>&nbsp;<BR>
+                /*
+                 * An error occurred while calling the server.
+                 * Print error message and stop.
+                 */
+<BR>&nbsp;<BR>
+                clnt_perror(cl, server);
+                exit(1);
+        }
+<BR>&nbsp;<BR>
+        /*
+         * Okay, we successfully called the remote procedure.
+         */
+<BR>&nbsp;<BR>
+        if (*result == 0) {      <A href="http://www.cs.uregina.ca/~hamilton/courses/430/notes/rpc-language.html#co_id_6_4"><STRONG>[4]</STRONG></A>
+<BR>&nbsp;<BR>
+                /*
+                 * Server was unable to print our message.
+                 * Print error message and stop.
+                 */
+<BR>&nbsp;<BR>
+        fprintf(stderr, "%s: %s couldn't print your message\n",
+                argv[0], server);
+                exit(1);
+        }
+<BR>&nbsp;<BR>
+        /*
+         * The message got printed on the server's console
+         */
+<BR>&nbsp;<BR>
+        printf("Message delivered to %s!\n", server);
+        exit(0);
+}
+</PRE>
+<P>
+<P>In this example, the following events occur: 
+<OL>
+  <P>
+  <LI><A name=co_id_6_1></A><A name=nx_id_12></A><A name=nx_id_13></A>A client 
+  "handle" is created first, using the RPC library routine 
+  <CODE>clnt_create()</CODE>. This client handle will be passed to the skeleton 
+  routines that call the remote procedure. <A 
+  href="http://www.cs.uregina.ca/~hamilton/courses/430/notes/rpc-language.html#co_id_6_rtn_1">[Return 
+  to example]</A> 
+  <P></P>
+  <LI><A name=co_id_6_2></A>The last parameter to <CODE>clnt_create</CODE> is 
+  <CODE>tcp</CODE>, the transport on which you want to run your application. 
+  (Alternatively <CODE>udp</CODE> could have been used.) <A 
+  href="http://www.cs.uregina.ca/~hamilton/courses/430/notes/rpc-language.html#co_id_6_rtn_2">[Return 
+  to example]</A> 
+  <P></P>
+  <LI><A name=co_id_6_3></A>The remote procedure <CODE>printmessage_1</CODE> is 
+  called exactly the same way as in <CODE>msg_proc.c</CODE>, except for the 
+  inserted client handle as the second argument. <A 
+  href="http://www.cs.uregina.ca/~hamilton/courses/430/notes/rpc-language.html#co_id_6_rtn_3">[Return 
+  to example]</A> 
+  <P></P>
+  <LI><A name=co_id_6_4></A>The remote procedure call can fail in two ways: the 
+  RPC mechanism itself can fail or there can be an error in the execution of the 
+  remote procedure. In the former case, the remote procedure, 
+  <CODE>print_message_1</CODE>, returns with a NULL. In the latter case, error 
+  reporting is application-dependent. In this example, the error is reported via 
+  <CODE>*result</CODE>. <A 
+  href="http://www.cs.uregina.ca/~hamilton/courses/430/notes/rpc-language.html#co_id_6_rtn_4">[Return 
+  to example]</A> </LI></OL>
+<P><A name=running_rpcgen_sec></A>
+<P>
+<HR>
+
+<H3>2.1.4&nbsp;&nbsp;&nbsp;&nbsp;Running rpcgen </H3>
+<P>Use the <CODE>rpcgen</CODE> protocol compiler on the RPC protocol 
+specification file, <CODE>msg.x</CODE>, (from <A 
+href="http://www.cs.uregina.ca/~hamilton/courses/430/notes/DOCU_003.HTM#spec_file_simple_ex">Example 
+2-2</A>) to generate client and server RPC code automatically: 
+<P><CODE>cyrkle%&nbsp; <STRONG>rpcgen&nbsp;msg.x</STRONG> </CODE><BR>
+<P>
+<P>Using <CODE>rpcgen</CODE> like this -- without options -- automatically 
+creates the following files from the input file <CODE>msg.x</CODE>: 
+<UL>
+  <P>
+  <LI>A header file called <CODE>msg.h</CODE> that contains <CODE>#define</CODE> 
+  statements for <CODE>MESSAGEPROG</CODE>, <CODE>MESSAGEVERS</CODE>, and 
+  <CODE>PRINTMESSAGE</CODE> so that they can be used in the other modules. You 
+  must include <CODE>msg.h</CODE> in both the client and server modules. 
+  <P></P>
+  <LI>An output file and the client skeleton routines within it. The output 
+  file, <CODE>msg_clnt.c</CODE>, is formed by appending <CODE>_clnt</CODE> to 
+  the file name and substituting the file type suffix, <CODE>.c</CODE>. The 
+  <CODE>msg_clnt.c</CODE> file contains only one client skeleton routine, 
+  <CODE>printmessage_1</CODE>, referred from the <CODE>printmsg</CODE> client 
+  program. 
+  <P></P>
+  <LI>The server program, <CODE>msg_svc.c</CODE>, created by appending 
+  <CODE>_svc</CODE> to the file name and substituting the file type suffix, 
+  <CODE>.c</CODE>. The <CODE>msg_svc.c</CODE> program calls 
+  <CODE>printmessage_1</CODE> from <CODE>msg_proc.c</CODE>. </LI></UL>
+<P>
+<P>
+<BLOCKQUOTE>
+  <P align=center><FONT size=+1><STRONG>Note</STRONG></FONT>
+  <P>The <CODE>-T</CODE> option of <CODE>rpcgen</CODE> creates an additional 
+  output file of index information for dispatching service routines. 
+</P></BLOCKQUOTE>
+<P><A name=compile_cli_srv_sec></A>
+<P>
+<HR>
+
+<H3>2.1.5&nbsp;&nbsp;&nbsp;&nbsp;Compiling the Client and Server Programs </H3>
+<P>After the <CODE>rpcgen</CODE> protocol compilation, use two <CODE>cc</CODE> 
+compilation statements to create a client program and a server program: 
+<UL>
+  <P>
+  <LI>To create the client program called <CODE>rprintmsg</CODE>, compile the 
+  <CODE>rprintmsg.c</CODE> and <CODE>msg_clnt.c</CODE> programs together, and 
+  use the <CODE>-o</CODE> option to specify the executable output in the file 
+  <CODE>rprintmsg</CODE>: 
+  <P><CODE>cyrkle%&nbsp; 
+  <STRONG>cc&nbsp;rprintmsg.c&nbsp;msg_clnt.c&nbsp;-o&nbsp;rprintmsg</STRONG> 
+  </CODE><BR>
+  <P>
+  <P></P>
+  <LI>To create a server program called <CODE>msg_server</CODE>, compile the 
+  <CODE>msg_proc.c</CODE> and <CODE>msg_svc.c</CODE> programs together, and use 
+  the <CODE>-o</CODE> option to specify the executable output in the file 
+  <CODE>msg_server</CODE>: 
+  <P><CODE>cyrkle%&nbsp; 
+  <STRONG>cc&nbsp;msg_proc.c&nbsp;msg_svc.c&nbsp;-o&nbsp;msg_server</STRONG> 
+  </CODE><BR>
+  <P></P></LI></UL>
+<P><A name=copy_srv_sec></A>
+<P>
+<HR>
+
+<H3>2.1.6&nbsp;&nbsp;&nbsp;&nbsp;Copying the Server to a Remote Machine and 
+Running It </H3>
+<P>Copy the server program <CODE>msg_server</CODE> to a remote machine called 
+<CODE>space</CODE> in this example. Then, run it in background mode there -- 
+indicated by <CODE>&amp;</CODE>: 
+<P><CODE>space%&nbsp; <STRONG>msg_server&nbsp;&amp;</STRONG> </CODE><BR>
+<P>
+<BLOCKQUOTE>
+  <P align=center><FONT size=+1><STRONG>Note</STRONG></FONT>
+  <P>Servers generated by <CODE>rpcgen</CODE> can be invoked with port monitors 
+  like <CODE>inetd</CODE>, as well as from the command line, if they are invoked 
+  with the <CODE>-I</CODE> option. </P></BLOCKQUOTE>
+<P>
+<P>From a local machine (<CODE>earth</CODE>) you can now print a message on the 
+console of the remote machine <CODE>space</CODE>: 
+<P><CODE>earth%&nbsp; 
+<STRONG>rprintmsg&nbsp;space&nbsp;"Hello&nbsp;out&nbsp;there..."</STRONG> 
+</CODE><BR>
+<P>
+<P>The message <CODE>Hello out there...</CODE> will appear on the console of the 
+machine <CODE>space</CODE>. You can print a message on any console (including 
+your own) with this program if you copy the server to that machine and run it. 
+<BR><A name=spec_file_adv_sec></A>
+<P>
+<HR>
+
+<H2>2.2&nbsp;&nbsp;&nbsp;&nbsp;Advanced Example: Using rpcgen to Generate XDR 
+Routines </H2>
+<P><A name=nx_id_14></A><A name=nx_id_15></A>
+<P><A 
+href="http://www.cs.uregina.ca/~hamilton/courses/430/notes/DOCU_003.HTM#rpcgen_exam_sec">Section 
+2.1</A> explains how to use <CODE>rpcgen</CODE> to generate client and server 
+RPC code automatically to convert a simple procedure to one that can be run 
+remotely over the network. The <CODE>rpcgen</CODE> protocol compiler can also 
+generate the external data representation (XDR) routines that convert local data 
+structures into network format (and vice versa). 
+<P>The following sections present a more advanced example of a complete RPC 
+service -- a remote directory listing service that uses <CODE>rpcgen</CODE> to 
+generate both skeleton and XDR routines. <A name=rpc_proto_spec_sec></A>
+<P>
+<HR>
+
+<H3>2.2.1&nbsp;&nbsp;&nbsp;&nbsp;The RPC Protocol Specification </H3>
+<P>As with the simple example, you must first create an RPC protocol 
+specification file. This file, <CODE>dir.x</CODE>, is for a remote directory 
+listing, shown in !A spec_file_adv_ex . <A name=spec_file_adv_ex></A>
+<H3>Example 2-5: RPC Protocol Specification File, Advanced Example </H3>
+<P><PRE>/*
+ * dir.x: Remote directory listing protocol
+ */
+<BR>&nbsp;<BR>
+/* maximum length of a directory entry */
+const MAXNAMELEN = 255;
+<BR>&nbsp;<BR>
+/* a directory entry */
+typedef string nametype&lt;MAXNAMELEN&gt;;
+<BR>&nbsp;<BR>
+/* a link in the listing */
+typedef struct namenode *namelist;
+<BR>&nbsp;<BR>
+/*
+ * A node in the directory listing
+ */
+struct namenode {
+        nametype name;          /* name of directory entry */
+        namelist next;          /* next entry */
+};
+<BR>&nbsp;<BR>
+/*
+ * The result of a READDIR operation.
+ */
+union readdir_res switch (int errno) {
+<BR>&nbsp;<BR>
+case 0:
+        namelist list;  /* no error: return directory listing */
+<BR>&nbsp;<BR>
+default:
+        void;           /* error occurred: nothing else to return */
+};
+<BR>&nbsp;<BR>
+/*
+ * The directory program definition
+ */
+program DIRPROG {
+        version DIRVERS {
+                readdir_res
+                READDIR(nametype) = 1;
+        } = 1;
+} = 0x20000076;
+</PRE>
+<P>
+<P>
+<BLOCKQUOTE>
+  <P align=center><FONT size=+1><STRONG>Note</STRONG></FONT>
+  <P>You can define types (like <CODE>readdir_res</CODE> in <A 
+  href="http://www.cs.uregina.ca/~hamilton/courses/430/notes/DOCU_003.HTM#spec_file_adv_ex">Example 
+  2-5</A>) by using the <CODE>struct</CODE>, <CODE>union</CODE>, and 
+  <CODE>enum</CODE> keywords, but do not use these keywords in later variable 
+  declarations of those types. For example, if you define <CODE>union 
+  foo</CODE>, you must declare it later by using <CODE>foo</CODE>, not 
+  <CODE>union foo</CODE>. The <CODE>rpcgen</CODE> protocol compiler compiles RPC 
+  unions into C structures, so it is an error to declare them later by using the 
+  <CODE>union</CODE> keyword. </P></BLOCKQUOTE>
+<P>
+<P>Running <CODE>rpcgen</CODE> on <CODE>dir.x</CODE> creates four output files: 
+<UL>
+  <P>
+  <LI>Header file 
+  <P></P>
+  <LI>File of client skeleton routines 
+  <P></P>
+  <LI>Server skeleton file 
+  <P></P>
+  <LI>File of XDR routines </LI></UL>
+<P>
+<P>The first three files have already been described. The fourth file, 
+<CODE>dir_xdr.c</CODE>, contains the XDR routines that convert the declared data 
+types into XDR format (and vice versa). For each data type used in the 
+<CODE>.x</CODE> file, <CODE>rpcgen</CODE> assumes that the RPC/XDR library 
+contains a routine with the name of that data type prefixed by 
+<CODE>xdr_</CODE>, for example, <CODE>xdr_int</CODE>. If the data type was 
+defined in the <CODE>.x</CODE> file, then <CODE>rpcgen</CODE> generates the 
+required XDR routine. If there are no such data types, then the file (for 
+example, <CODE>dir_xdr.c</CODE>) will not be generated. If the data types were 
+used but not defined, then the user has to provide that XDR routine. This 
+enables you to create your own customized XDR routines. 
+<P><A name=imple_proc_sec></A>
+<P>
+<HR>
+
+<H3>2.2.2&nbsp;&nbsp;&nbsp;&nbsp;Implementing the Procedure Declared in the 
+Protocol Specification </H3>
+<P><A 
+href="http://www.cs.uregina.ca/~hamilton/courses/430/notes/DOCU_003.HTM#readdir_ex">Example 
+2-6</A> consists of the <CODE>dir_proc.c</CODE> file that implements the remote 
+<CODE>READDIR</CODE> procedure from the previous RPC protocol specification 
+file. <A name=readdir_ex></A>
+<H3>Example 2-6: Remote Procedure Implementation </H3>
+<P><PRE>/*
+ * dir_proc.c: remote readdir implementation
+ */
+#include &lt;rpc/rpc.h&gt;            /* Always needed */
+#include &lt;sys/dir.h&gt;
+#include "dir.h"                /* Created by rpcgen */
+<BR>&nbsp;<BR>
+extern int errno;
+extern char *malloc();
+extern char *strdup();
+<BR>&nbsp;<BR>
+readdir_res *
+readdir_1(dirname)
+        nametype *dirname;
+{
+        DIR *dirp;
+        struct direct *d;
+        namelist nl;
+        namelist *nlp;
+        static readdir_res res; /* must be static! */
+<BR>&nbsp;<BR>
+        /*
+         * Open directory
+         */
+        dirp = opendir(*dirname);
+        if (dirp == NULL) {
+                res.errno = errno;
+                return (&amp;res);
+        }
+<BR>&nbsp;<BR>
+        /*
+         * Free previous result
+         */
+        xdr_free(xdr_readdir_res, &amp;res);
+<BR>&nbsp;<BR>
+        /*
+         * Collect directory entries.
+         * Memory allocated here will be freed by xdr_free
+         * next time readdir_1 is called
+         */
+        nlp = &amp;res.readdir_res_u.list;
+        while (d = readdir(dirp)) {
+                nl = *nlp = (namenode *) malloc(sizeof(namenode));
+                nl-&gt;name = strdup(d-&gt;d_name);
+                nlp = &amp;nl-&gt;next;
+        }
+        *nlp = NULL;
+<BR>&nbsp;<BR>
+        /*
+         * Return the result
+         */
+        res.errno = 0;
+        closedir(dirp);
+        return (&amp;res);
+}
+</PRE>
+<P><A name=call_serv_sec></A>
+<P>
+<HR>
+
+<H3>2.2.3&nbsp;&nbsp;&nbsp;&nbsp;The Client Program that Calls the Remote 
+Procedure </H3>
+<P><A 
+href="http://www.cs.uregina.ca/~hamilton/courses/430/notes/DOCU_003.HTM#call_serv_ex">Example 
+2-7</A> shows the client side program, <CODE>rls.c</CODE>, that calls the remote 
+server procedure. <A name=call_serv_ex></A>
+<H3>Example 2-7: Client Program that Calls the Server </H3>
+<P><PRE>/*
+ * rls.c: Remote directory listing client
+ */
+#include &lt;stdio.h&gt;
+#include &lt;rpc/rpc.h&gt;    /* always need this */
+#include "dir.h"        /* will be generated by rpcgen */
+<BR>&nbsp;<BR>
+extern int errno;
+<BR>&nbsp;<BR>
+main(argc, argv)
+        int argc;
+        char *argv[];
+{
+        CLIENT *cl;
+        char *server;
+        char *dir;
+        readdir_res *result;
+        namelist nl;
+<BR>&nbsp;<BR>
+        if (argc != 3) {
+                fprintf(stderr, "usage: %s host directory\n",
+                  argv[0]);
+                exit(1);
+        }
+<BR>&nbsp;<BR>
+        server = argv[1];
+        dir = argv[2];
+<BR>&nbsp;<BR>
+        /*
+         * Create client "handle" used for calling DIRPROG on
+         * the server designated on the command line.  Use
+         * the tcp protocol when contacting the server.
+         */
+        cl = clnt_create(server, DIRPROG, DIRVERS, "tcp");
+        if (cl == NULL) {
+                /*
+                 * Couldn't establish connection with server.
+                 * Print error message and stop.
+                 */
+                clnt_pcreateerror(server);
+                exit(1);
+        }
+<BR>&nbsp;<BR>
+        /*
+         * Call the remote procedure readdir on the server
+         */
+        result = readdir_1(&amp;dir, cl);
+        if (result == NULL) {
+                /*
+                 * An RPC error occurred while calling the server.
+                 * Print error message and stop.
+                 */
+                clnt_perror(cl, server);
+                exit(1);
+        }
+<BR>&nbsp;<BR>
+        /*
+         * Okay, we successfully called the remote procedure.
+         */
+        if (result-&gt;errno != 0) {
+                /*
+                 * A remote system error occurred.
+                 * Print error message and stop.
+                 */
+                errno = result-&gt;errno;
+                perror(dir);
+                exit(1);
+        }
+<BR>&nbsp;<BR>
+        /*
+         * Successfully got a directory listing.
+         * Print it out.
+         */
+        for (nl = result-&gt;readdir_res_u.list; nl != NULL;
+          nl = nl-&gt;next) {
+                printf("%s\n", nl-&gt;name);
+        }
+        exit(0);
+}
+</PRE>
+<P><A name=running_rpcgen_subsec></A>
+<P>
+<HR>
+
+<H3>2.2.4&nbsp;&nbsp;&nbsp;&nbsp;Running rpcgen </H3>
+<P>As with the simple example, you must run the <CODE>rpcgen</CODE> protocol 
+compiler on the RPC protocol specification file <CODE>dir.x</CODE>, to create a 
+header file, <CODE>dir.h</CODE>, an output file of client skeletons, 
+<CODE>dir_clnt.c</CODE>, and a server program, <CODE>dir_svc.c</CODE>. For this 
+advanced example, <CODE>rpcgen</CODE> also generates the file of XDR routines, 
+<CODE>dir_xdr.c</CODE>: 
+<P><CODE>earth%&nbsp; <STRONG>rpcgen&nbsp;dir.x</STRONG> </CODE><BR>
+<P><A name=xdr_compile_sec></A>
+<P>
+<HR>
+
+<H3>2.2.5&nbsp;&nbsp;&nbsp;&nbsp;Compiling the File of XDR Routines </H3>
+<P>The next step is to compile the file of XDR routines, <CODE>dir_xdr.c</CODE>, 
+with the following <CODE>cc -c</CODE> command: 
+<P><CODE>earth%&nbsp; <STRONG>cc&nbsp;-c&nbsp;dir_xdr.c</STRONG> </CODE><BR>
+<P>
+<P>Here, the <CODE>-c</CODE> option is used to suppress the loading phase of the 
+compilation and to produce an object file, even if only one program is compiled. 
+<A name=cli_compile_sec></A>
+<P>
+<HR>
+
+<H3>2.2.6&nbsp;&nbsp;&nbsp;&nbsp;Compiling the Client Side Program with rpcgen 
+Output </H3>
+<P>Next, the remote directory listing client program, <CODE>rls.c</CODE>, is 
+compiled with the file of client skeletons, <CODE>dir_clnt.c</CODE>, and the 
+object file of the previous compilation, <CODE>dir_xdr.o</CODE>. The 
+<CODE>-o</CODE> option places the executable output of the compilation into the 
+file <CODE>rls</CODE>: 
+<P><CODE>earth%&nbsp; 
+<STRONG>cc&nbsp;rls.c&nbsp;dir_clnt.c&nbsp;dir_xdr.o&nbsp;-o&nbsp;rls</STRONG> 
+</CODE><BR>
+<P><A name=srv_compile_sec></A>
+<P>
+<HR>
+
+<H3>2.2.7&nbsp;&nbsp;&nbsp;&nbsp;Compiling the Server Side Program with rpcgen 
+Output </H3>
+<P>The following statement compiles three files together: the server program 
+from the original <CODE>rpcgen</CODE> compilation, <CODE>dir_svc.c</CODE>; the 
+remote READDIR implementation program, <CODE>dir_proc.c</CODE>; and the object 
+file, <CODE>dir_xdr.o</CODE>, produced by the recent <CODE>cc</CODE> compilation 
+of the file of XDR routines. Through the <CODE>-o</CODE> option, the executable 
+output is placed in the file <CODE>dir_svc</CODE>: 
+<P><CODE>earth%&nbsp; 
+<STRONG>cc&nbsp;dir_svc.c&nbsp;dir_proc.c&nbsp;dir_xdr.o&nbsp;-o&nbsp;dir_svc</STRONG> 
+</CODE><BR>
+<P><A name=remote_run_sec></A>
+<P>
+<HR>
+
+<H3>2.2.8&nbsp;&nbsp;&nbsp;&nbsp;Running the Remote Directory Program </H3>
+<P>To run the remote directory program, use the new <CODE>dir_svc</CODE> and 
+<CODE>rls</CODE> commands. The following statement runs the <CODE>dir_svc</CODE> 
+command in background mode on the local machine <CODE>earth</CODE>: <BR>
+<P><CODE>earth%&nbsp; <STRONG>dir_svc&nbsp;&amp;</STRONG> </CODE><BR>
+<P>
+<P>The <CODE>rls</CODE> command can then be used from the remote machine 
+<CODE>space</CODE> to provide a directory listing on the machine where 
+<CODE>dir_svc</CODE> is running in background mode. The command and output (a 
+directory listing of <CODE>/usr/pub</CODE> on machine <CODE>earth</CODE>) is 
+shown here: 
+<P><CODE>space%&nbsp; <STRONG>rls&nbsp;earth&nbsp;/usr/pub</STRONG> </CODE><BR><PRE>.
+..
+ascii
+eqnchar
+kbd
+marg8
+tabclr
+tabs
+tabs4
+</PRE>
+<P>
+<BLOCKQUOTE>
+  <P align=center><FONT size=+1><STRONG>Note</STRONG></FONT>
+  <P>Client code generated by <CODE>rpcgen</CODE> does not release the memory 
+  allocated for the results of the RPC call. You can call <CODE>xdr_free</CODE> 
+  to deallocate the memory when no longer needed. This is similar to calling 
+  <CODE>free</CODE>, except that you must also pass the XDR routine for the 
+  result. For example, after printing the directory listing in the previous 
+  example, you could call <CODE>xdr_free</CODE> as follows: 
+  <P><PRE>xdr_free(xdr_readdir_res, result);
+</PRE>
+  <P></P></BLOCKQUOTE>
+<P><A name=nx_id_16></A><A name=nx_id_17></A><A name=debugging_sec></A>
+<P>
+<HR>
+
+<H2>2.3&nbsp;&nbsp;&nbsp;&nbsp;Debugging Applications </H2>
+<P>It is difficult to debug distributed applications that have separate client 
+and server processes. To simplify this, you can test the client program and the 
+server procedure as a single program by linking them with each other rather than 
+with the client and server skeletons. To do this, you must first remove calls to 
+client creation RPC library routines (for example, <CODE>clnt_create)</CODE>. To 
+create the single debuggable file <CODE>rls</CODE>, use the <CODE>-o</CODE> 
+option when you compile <CODE>rls.c</CODE>, <CODE>dir_clnt.c</CODE>, 
+<CODE>dir_proc.c</CODE>, and <CODE>dir_xdr.c</CODE> together as follows: 
+<P><CODE>%&nbsp; 
+<STRONG>cc&nbsp;rls.c&nbsp;dir_clnt.c&nbsp;dir_proc.c&nbsp;dir_xdr.c&nbsp;-o&nbsp;rls</STRONG> 
+</CODE><BR>
+<P>The procedure calls are executed as ordinary local procedure calls and the 
+program can be debugged with a local debugger such as <CODE>dbx</CODE>. When the 
+program is working, the client program can be linked to the client skeleton 
+produced by <CODE>rpcgen</CODE> and the server procedures can be linked to the 
+server skeleton produced by <CODE>rpcgen</CODE>. 
+<P>There are two kinds of errors possible in an RPC call: 
+<UL>
+  <P>
+  <LI>A problem with the remote procedure call mechanism 
+  <P>This occurs when a procedure is unavailable, the remote server does not 
+  respond, the remote server cannot decode the arguments, and so on. As in <A 
+  href="http://www.cs.uregina.ca/~hamilton/courses/430/notes/DOCU_003.HTM#call_serv_ex">Example 
+  2-7</A>, an RPC error occurs if <CODE>result</CODE> is NULL. 
+  <P>The reason for the failure can be printed by using 
+  <CODE>clnt_perror</CODE>, or you can return an error string through 
+  <CODE>clnt_sperror</CODE>. 
+  <P></P>
+  <LI>A problem with the server itself 
+  <P>As in <A 
+  href="http://www.cs.uregina.ca/~hamilton/courses/430/notes/DOCU_003.HTM#readdir_ex">Example 
+  2-6</A>, an error occurs if <CODE>opendir</CODE> fails; that is why 
+  <CODE>readdir_res</CODE> is of type <CODE>union</CODE>. The handling of these 
+  types of errors are the responsibility of the programmer. </P></LI></UL>
+<P><A name=c_preproc_sec></A>
+<P>
+<HR>
+
+<H2>2.4&nbsp;&nbsp;&nbsp;&nbsp;The C-Preprocessor </H2>
+<P><A name=nx_id_18></A><A name=nx_id_19></A>The C-preprocessor, 
+<CODE>cpp</CODE>, runs on all input files before they are compiled, so all the 
+preprocessor directives are legal within an <CODE>.x</CODE> file. Five macro 
+identifiers may have been defined, depending upon which output file is being 
+generated. The following table lists these macros: 
+<TABLE border=4 cellPadding=4>
+  <TBODY>
+  <TR>
+    <TD align=left vAlign=top><STRONG>Identifier </STRONG></TD>
+    <TD align=left vAlign=top><STRONG>Usage </STRONG></TD></TR>
+  <TR>
+    <TD align=left vAlign=top>RPC_HDR </TD>
+    <TD align=left vAlign=top>For header-file output </TD></TR>
+  <TR>
+    <TD align=left vAlign=top>RPC_XDR </TD>
+    <TD align=left vAlign=top>For XDR routine output </TD></TR>
+  <TR>
+    <TD align=left vAlign=top>RPC_SVC </TD>
+    <TD align=left vAlign=top>For server-skeleton output </TD></TR>
+  <TR>
+    <TD align=left vAlign=top>RPC_CLNT </TD>
+    <TD align=left vAlign=top>For client-skeleton output </TD></TR>
+  <TR>
+    <TD align=left vAlign=top>RPC_TBL </TD>
+    <TD align=left vAlign=top>For index-table output </TD></TR></TBODY></TABLE>
+<P>
+<P>Also, <CODE>rpcgen</CODE> does some additional preprocessing of the input 
+file. Any line that begins with a percent sign (<CODE>%</CODE>) passes directly 
+into the output file, without any interpretation. <A 
+href="http://www.cs.uregina.ca/~hamilton/courses/430/notes/DOCU_003.HTM#percent_ex">Example 
+2-8</A> demonstrates this processing feature. <A name=percent_ex></A>
+<H3>Example 2-8: Using the Percent Sign to Bypass Interpretation of a Line </H3>
+<P><PRE>/*
+ * time.x: Remote time protocol
+ */
+program TIMEPROG {
+                version TIMEVERS {
+                                unsigned int TIMEGET(void) = 1;
+                } = 1;
+} = 44;
+<BR>&nbsp;<BR>
+#ifdef RPC_SVC
+%int *
+%timeget_1()
+%{
+%               static int thetime;
+%
+%               thetime = time(0);
+%               return (&amp;thetime);
+%}
+#endif
+</PRE>
+<P>
+<P>Using the percent sign feature does not guarantee that <CODE>rpcgen</CODE> 
+will place the output where you intend. If you have problems of this type, do 
+not use this feature. <A name=rpc_prog_sec></A>
+<P>
+<HR>
+
+<H2>2.5&nbsp;&nbsp;&nbsp;&nbsp;rpcgen Programming </H2>
+<P><A name=nx_id_20></A><A name=nx_id_21></A>The following sections contain 
+additional <CODE>rpcgen</CODE> programming information about network types, 
+defining symbols, <CODE>inetd</CODE> support, and dispatch tables. <A 
+name=network_types_sec></A>
+<P>
+<HR>
+
+<H3>2.5.1&nbsp;&nbsp;&nbsp;&nbsp;Network Types </H3>
+<P><A name=nx_id_22></A><A name=nx_id_23></A>By default, <CODE>rpcgen</CODE> 
+generates server code for both UDP and TCP transports. The <CODE>-s</CODE> flag 
+creates a server that responds to requests on the specified transport. The 
+following example creates a UDP server: 
+<P><PRE>rpcgen -s udp proto.x
+</PRE>
+<P><A name=user_define_sec></A>
+<P>
+<HR>
+
+<H3>2.5.2&nbsp;&nbsp;&nbsp;&nbsp;User-Provided Define Statements </H3>
+<P><A name=nx_id_24></A>The <CODE>rpcgen</CODE> protocol compiler provides a way 
+to define symbols and assign values to them. These defined symbols are passed on 
+to the C preprocessor when it is invoked. This facility is useful when, for 
+example, invoking debugging code that is enabled only when the 
+<CODE>DEBUG</CODE> symbol is defined. For example: 
+<P><PRE>rpcgen -DDEBUG proto.x
+</PRE>
+<P><A name=inetd_sec></A>
+<P>
+<HR>
+
+<H3>2.5.3&nbsp;&nbsp;&nbsp;&nbsp;inetd Support </H3>
+<P><A name=nx_id_25></A><A name=nx_id_26></A>The <CODE>rpcgen</CODE> protocol 
+compiler can create RPC servers that can be invoked by <CODE>inetd</CODE> when a 
+request for that service is received. 
+<P><PRE>rpcgen -I proto.x
+</PRE>
+<P>
+<P>The server code in <CODE>proto_svc.c</CODE> supports <CODE>inetd</CODE>. For 
+more information on setting up the entry for RPC services in 
+<CODE>/etc/inetd.conf</CODE>, see <A 
+href="http://www.cs.uregina.ca/~hamilton/courses/430/notes/DOCU_004.HTM#inetd_using_sec">Section 
+3.3.6</A>. 
+<P>In many applications, it is useful for services to wait after responding to a 
+request, on the chance that another will soon follow. However, if there is no 
+call within a certain time (by default, 120 seconds), the server exits and the 
+port monitor continues to monitor requests for its services. You can use the 
+<CODE>-K</CODE> option to change the default waiting time. In the following 
+example, the server waits only 20 seconds before exiting: 
+<P><PRE>rpcgen -I -K 20 proto.x
+</PRE>
+<P>If you want the server to exit immediately, use <CODE>-K 0</CODE>; if you 
+want the server to wait forever (a normal server situation), use <CODE>-K 
+-1</CODE>. <A name=dispatch_table_sec></A>
+<P>
+<HR>
+
+<H3>2.5.4&nbsp;&nbsp;&nbsp;&nbsp;Dispatch Tables </H3>
+<P><A name=nx_id_27></A><A name=nx_id_28></A>Dispatch tables are often useful. 
+For example, the server dispatch routine may need to check authorization and 
+then invoke the service routine, or a client library may need to control all 
+details of storage management and XDR data conversion. The following 
+<CODE>rpcgen</CODE> command generates RPC dispatch tables for each program 
+defined in the protocol description file, <CODE>proto.x</CODE>, and places them 
+in the file <CODE>proto_tbl.i</CODE> (the suffix <CODE>.i</CODE> indicates 
+index): 
+<P><PRE>rpcgen -T proto.x
+</PRE>
+<P>
+<P>Each entry in the table is a <CODE>struct rpcgen_table</CODE> defined in the 
+header file, <CODE>proto.h</CODE>, as follows: 
+<P><PRE>struct rpcgen_table {
+        char        *(*proc)();
+        xdrproc_t   xdr_arg;
+        unsigned    len_arg;
+        xdrproc_t   xdr_res;
+        unsigned    len_res;
+};
+</PRE>
+<P>
+<P>In this <CODE>proto.h</CODE> definition, <CODE>proc</CODE> is a pointer to 
+the service routine, <CODE>xdr_arg</CODE> is a pointer to the input (argument) 
+<CODE>xdr_routine</CODE>, <CODE>len_arg</CODE> is the length in bytes of the 
+input argument, <CODE>xdr_res</CODE> is a pointer to the output (result) 
+<CODE>xdr_routine</CODE>, and <CODE>len_res</CODE> is the length in bytes of the 
+output result. 
+<P>The table <CODE>dirprog_1_table</CODE> is indexed by procedure number. The 
+variable <CODE>dirprog_1_nproc</CODE> contains the number of entries in the 
+table. The <CODE>find_proc</CODE> routine in <A 
+href="http://www.cs.uregina.ca/~hamilton/courses/430/notes/DOCU_003.HTM#locating_proc_ex">Example 
+2-9</A> shows how to locate a procedure in the dispatch tables. <A 
+name=locating_proc_ex></A>
+<H3>Example 2-9: Locating a Procedure in a Dispatch Table </H3>
+<P><PRE>struct rpcgen_table *
+find_proc(proc)
+        long    proc;
+{
+        if (proc &gt;= dirprog_1_nproc)
+<BR>&nbsp;<BR>
+                /* error */
+        else
+                return (&amp;dirprog_1_table[proc]);
+}
+</PRE>
+<P>
+<P>Each entry in the dispatch table contains a pointer to the corresponding 
+service routine. However, the service routine is not defined in the client code. 
+To avoid generating unresolved external references, and to require only one 
+source file for the dispatch table, the actual service routine initializer is 
+<CODE>RPCGEN_ACTION(proc_ver)</CODE>. With this, you can include the same 
+dispatch table in both the client and the server. Use the following 
+<CODE>define</CODE> statement when compiling the client: 
+<P><PRE>#define RPCGEN_ACTION(routine)  0
+</PRE>
+<P>
+<P>Next, use the following <CODE>define</CODE> statement when compiling the 
+server: 
+<P><PRE>#define RPCGEN_ACTION(routine)  routine
+</PRE>
+<P><A name=client_prog_sec></A>
+<P>
+<HR>
+
+<H2>2.6&nbsp;&nbsp;&nbsp;&nbsp;Client Programming </H2>
+<P>The following sections contain client programming information about default 
+timeouts and client authentication. <A name=nx_id_29></A><A name=nx_id_30></A><A 
+name=timeout_change_sec></A>
+<P>
+<HR>
+
+<H3>2.6.1&nbsp;&nbsp;&nbsp;&nbsp;Timeout Changes </H3>
+<P><A name=nx_id_31></A><A name=nx_id_32></A>RPC sets a default timeout of 25 
+seconds for RPC calls when <CODE>clnt_create</CODE> is used. RPC waits for 25 
+seconds to get the results from the server. If it does not, then this usually 
+means one of the following conditions exists: 
+<UL>
+  <P>
+  <LI>The server is not running 
+  <P></P>
+  <LI>The remote machine has crashed 
+  <P></P>
+  <LI>The network is unreachable </LI></UL>
+<P>In such cases, the function returns NULL; you can print the error with 
+<CODE>clnt_perrno</CODE>. 
+<P>Sometimes you may need to change the timeout value to accommodate the 
+application or because the server is too slow or far away. Change the timeout by 
+using <CODE>clnt_control</CODE>. The code segment in <A 
+href="http://www.cs.uregina.ca/~hamilton/courses/430/notes/DOCU_003.HTM#clnt_control_ex">Example 
+2-10</A> demonstrates the use of <CODE>clnt_control</CODE>. <A 
+name=clnt_control_ex></A>
+<H3>Example 2-10: Using the clnt_control Routine </H3>
+<P><PRE>struct timeval tv;
+CLIENT *cl;
+<BR>&nbsp;<BR>
+cl = clnt_create("somehost", SOMEPROG, SOMEVERS, "tcp");
+if (cl == NULL) {
+        exit(1);
+}
+tv.tv_sec = 60; /* change timeout to 1 minute */
+tv.tv_usec = 0; /* this should always be set  */
+clnt_control(cl, CLSET_TIMEOUT, &amp;tv);
+</PRE>
+<P><A name=authentication_sec></A>
+<P>
+<HR>
+
+<H3>2.6.2&nbsp;&nbsp;&nbsp;&nbsp;Client Authentication </H3>
+<P><A name=nx_id_33></A><A name=nx_id_34></A><A name=nx_id_35></A>By default, 
+client creation routines do not handle client authentication. Sometimes, you may 
+want the client to authenticate itself to the server. This is easy to do, as 
+shown in the following coding: 
+<P><PRE>CLIENT *cl;
+<BR>&nbsp;<BR>
+cl = client_create("somehost", SOMEPROG, SOMEVERS, "udp");
+if (cl != NULL) {
+        /* To set UNIX style authentication */
+        cl-&gt;cl_auth = authunix_create_default();
+}
+</PRE>
+<P>
+<P>For more information on authentication, see <A 
+href="http://www.cs.uregina.ca/~hamilton/courses/430/notes/DOCU_004.HTM#opsys_authentic_sec">Section 
+3.3.5</A>. <A name=server_prog_sec></A>
+<P>
+<HR>
+
+<H2>2.7&nbsp;&nbsp;&nbsp;&nbsp;Server Programming </H2>
+<P>The following sections contain server programming information about system 
+broadcasts and passing data to server procedures. <A name=nx_id_36></A><A 
+name=nx_id_37></A><A name=broadcast_sec></A>
+<P>
+<HR>
+
+<H3>2.7.1&nbsp;&nbsp;&nbsp;&nbsp;Handling Broadcasts </H3>
+<P><A name=nx_id_38></A><A name=nx_id_39></A>Sometimes, clients broadcast to 
+determine whether a particular server exists on the network, or to determine all 
+the servers for a particular program and version number. You make these calls 
+with <CODE>clnt_broadcast</CODE> (for which there is no <CODE>rpcgen</CODE> 
+support). Refer to <A 
+href="http://www.cs.uregina.ca/~hamilton/courses/430/notes/DOCU_004.HTM#broadcast_rpc_sec">Section 
+3.3.2</A>. 
+<P>When a procedure is known to be called via broadcast RPC, it is best for the 
+server not to reply unless it can provide useful information to the client. 
+Otherwise, the network can be overloaded with useless replies. To prevent the 
+server from replying, a remote procedure can return NULL as its result; the 
+server code generated by <CODE>rpcgen</CODE> can detect this and prevent a 
+reply. <BR>
+<P>The following example shows a procedure that replies only if it acts as an 
+NFS server: 
+<P><PRE>void *
+reply_if_nfsserver()
+{
+        char notnull;   /* just here so we can use its address */
+<BR>&nbsp;<BR>
+        if (access("/etc/exports", F_OK) &lt; 0) {
+                return (NULL);  /* prevent RPC from replying */
+        }
+        /*
+         * return non-null pointer so RPC will send out a reply
+         */
+        return ((void *)&amp;notnull);
+}
+</PRE>
+<P>
+<P>If a procedure returns type <CODE>void *</CODE>, it must return a non-NULL 
+pointer if it wants RPC to reply for it. <A name=data_passing_sec></A>
+<P>
+<HR>
+
+<H3>2.7.2&nbsp;&nbsp;&nbsp;&nbsp;Passing Data to Server Procedures </H3>
+<P>Server procedures often need to know more about an RPC call than just its 
+arguments. For example, getting authentication information is useful to 
+procedures that want to implement some level of security. This information is 
+supplied to the server procedure as a second argument. (For details see the 
+structure of <CODE>svc_req</CODE> in <A 
+href="http://www.cs.uregina.ca/~hamilton/courses/430/notes/DOCU_004.HTM#srv_auth_sec">Section 
+3.3.5.2</A>.) The following example shows the use of <CODE>svc_req</CODE>, where 
+the previous <CODE>printmessage_1</CODE> procedure is rewritten to allow only 
+root users to print a message to the console: 
+<P><PRE>int *
+printmessage_1(msg, rqstp)
+        char **msg;
+        struct svc_req  *rqstp;
+{
+        static int result;      /* Must be static */
+        FILE *f;
+        struct authunix_parms *aup;
+<BR>&nbsp;<BR>
+        aup = (struct authunix_parms *)rqstp-&gt;rq_clntcred;
+        if (aup-&gt;aup_uid != 0) {
+                result = 0;
+                return (&amp;result);
+        }
+<BR>&nbsp;<BR>
+        /*
+         * Same code as before.
+         */
+}
+</PRE>
+<P><A name=rpc_xdr_sec></A>
+<P>
+<HR>
+
+<H2>2.8&nbsp;&nbsp;&nbsp;&nbsp;RPC and XDR Languages </H2>
+<P><A name=nx_id_40></A>RPC language is an extension of XDR language, through 
+the addition of the <CODE>program</CODE> and <CODE>version</CODE> types. The XDR 
+language is similar to C. For a complete description of the XDR language syntax, 
+see the <CITE>External Data Representation Standard: Protocol Specification RFC 
+1014</CITE>. For a description of the RPC extensions to the XDR language, see 
+the <CITE>Remote Procedure Calls: Protocol Specification RFC 1050</CITE>. 
+<P>The following sections describe the syntax of the RPC and XDR languages, with 
+examples and descriptions of how the various RPC and XDR type definitions are 
+compiled into C type definitions in the output header file. <A 
+name=definitions_sec></A>
+<P>
+<HR>
+
+<H3>2.8.1&nbsp;&nbsp;&nbsp;&nbsp;Definitions </H3>
+<P><A name=nx_id_41></A>An RPC language file consists of a series of 
+definitions: 
+<P><PRE>        definition-list:
+                definition ";"
+                definition ";" definition-list
+</PRE>
+<P>
+<P>RPC recognizes the following definition types: 
+<P><PRE>        definition:
+                enum-definition
+                typedef-definition
+                const-definition
+                declaration-definition
+                struct-definition
+                union-definition
+                program-definition
+</PRE>
+<P><A name=enumerations_sec></A>
+<P>
+<HR>
+
+<H3>2.8.2&nbsp;&nbsp;&nbsp;&nbsp;Enumerations </H3>
+<P><A name=nx_id_42></A><A name=nx_id_43></A><A name=nx_id_44></A>XDR 
+enumerations have the same syntax as C enumerations: 
+<P><PRE>        enum-definition:
+                "enum" enum-ident "{"
+                        enum-value-list
+                "}"
+<BR>&nbsp;<BR>
+        enum-value-list:
+                enum-value
+                enum-value "," enum-value-list
+<BR>&nbsp;<BR>
+        enum-value:
+                enum-value-ident
+                enum-value-ident "=" value
+</PRE>
+<P>
+<P>A comparison of the next two examples show how close XDR language is to C by 
+showing an XDR language <CODE>enum</CODE> (<A 
+href="http://www.cs.uregina.ca/~hamilton/courses/430/notes/DOCU_003.HTM#before_enum_ex">Example 
+2-11</A>), followed by the C language <CODE>enum</CODE> that results after 
+compilation (<A 
+href="http://www.cs.uregina.ca/~hamilton/courses/430/notes/DOCU_003.HTM#after_enum_ex">Example 
+2-12</A>). <A name=before_enum_ex></A>
+<H3>Example 2-11: XDR enum Before Compilation </H3>
+<P><PRE>        enum colortype {
+                RED = 0,
+                GREEN = 1,
+                BLUE = 2
+        };
+</PRE>
+<P><A name=after_enum_ex></A>
+<H3>Example 2-12: C enum Resulting from Compiling XDR enum </H3>
+<P><PRE>        enum colortype {
+                RED = 0,
+                GREEN = 1,
+                BLUE = 2,
+        };
+        typedef enum colortype colortype;
+</PRE>
+<P><A name=typedefs_sec></A>
+<P>
+<HR>
+
+<H3>2.8.3&nbsp;&nbsp;&nbsp;&nbsp;Typedefs </H3>
+<P><A name=nx_id_45></A><A name=nx_id_46></A>
+<P>XDR typedefs have the same syntax as C typedefs: 
+<P><PRE>        typedef-definition:
+                "typedef" declaration
+</PRE>
+<P>
+<P>The following example in XDR defines a <CODE>fname_type</CODE> that declares 
+file name strings with a maximum length of 255 characters: 
+<P><PRE>typedef string fname_type&lt;255&gt;;
+</PRE>
+<P>
+<P>The following example shows the corresponding C definition for this: 
+<P><PRE>typedef char *fname_type;
+</PRE>
+<P><A name=constants_sec></A>
+<P>
+<HR>
+
+<H3>2.8.4&nbsp;&nbsp;&nbsp;&nbsp;Constants </H3>
+<P><A name=nx_id_47></A><A name=nx_id_48></A>XDR constants are used wherever an 
+integer constant is used (for example, in array size specifications), as shown 
+by the following syntax: 
+<P><PRE>        const-definition:
+                "const" const-ident "=" integer
+</PRE>
+<P>
+<P>The following XDR example defines a constant <CODE>DOZEN</CODE> equal to 
+<CODE>12</CODE>: 
+<P><PRE>        const DOZEN = 12;
+</PRE>
+<P>
+<P>The following example shows the corresponding C definition for this: 
+<P><PRE>        #define DOZEN 12
+</PRE>
+<P><A name=declarations_sec></A>
+<P>
+<HR>
+
+<H3>2.8.5&nbsp;&nbsp;&nbsp;&nbsp;Declarations </H3>
+<P><A name=nx_id_49></A><A name=nx_id_50></A>
+<P>XDR provides only four kinds of declarations, shown by the following syntax: 
+<P><PRE>        declaration:
+                simple-declaration        <A name=co_id_48_rtn_1></A><A href="http://www.cs.uregina.ca/~hamilton/courses/430/notes/rpc-language.html#co_id_48_1"><STRONG>[1]</STRONG></A>
+                fixed-array-declaration       <A name=co_id_48_rtn_2></A><A href="http://www.cs.uregina.ca/~hamilton/courses/430/notes/rpc-language.html#co_id_48_2"><STRONG>[2]</STRONG></A>
+                variable-array-declaration        <A name=co_id_48_rtn_3></A><A href="http://www.cs.uregina.ca/~hamilton/courses/430/notes/rpc-language.html#co_id_48_3"><STRONG>[3]</STRONG></A>
+                pointer-declaration           <A name=co_id_48_rtn_4></A><A href="http://www.cs.uregina.ca/~hamilton/courses/430/notes/rpc-language.html#co_id_48_4"><STRONG>[4]</STRONG></A>
+</PRE>
+<P>
+<P>The syntax for each, followed by examples, is listed here: 
+<OL>
+  <P>
+  <LI><A name=co_id_48_1></A>Simple declarations 
+  <P><PRE>        simple-declaration:
+                type-ident variable-ident
+</PRE>
+  <P>For example, <CODE>colortype color</CODE> in XDR, is the same in C: 
+  <CODE>colortype color</CODE>. <A 
+  href="http://www.cs.uregina.ca/~hamilton/courses/430/notes/rpc-language.html#co_id_48_rtn_1">[Return 
+  to example]</A> 
+  <P></P>
+  <LI><A name=co_id_49_2></A>Fixed-length array declarations 
+  <P><PRE>        fixed-array-declaration:
+                type-ident variable-ident "[" value "]"
+</PRE>
+  <P>For example, <CODE>colortype palette[8]</CODE> in XDR, is the same in C: 
+  <CODE>colortype palette[8]</CODE>. <A 
+  href="http://www.cs.uregina.ca/~hamilton/courses/430/notes/rpc-language.html#co_id_49_rtn_2">[Return 
+  to example]</A> 
+  <P></P>
+  <LI><A name=co_id_50_3></A>Variable-length array declarations 
+  <P>These have no explicit syntax in C, so XDR creates its own by using angle 
+  brackets, as in the following syntax: 
+  <P><PRE>variable-array-declaration:
+        type-ident variable-ident "&lt;" value "&gt;"
+        type-ident variable-ident "&lt;" "&gt;"
+</PRE>
+  <P>The maximum size is specified between the angle brackets; it may be 
+  omitted, indicating that the array can be of any size, as shown in the 
+  following example: 
+  <P><PRE>        int heights&lt;12&gt;;        /* at most 12 items */
+        int widths&lt;&gt;;           /* any number of items */
+</PRE>
+  <P>Variable-length arrays have no explicit syntax in C, so each of their 
+  declarations is compiled into a <CODE>struct</CODE>. For example, the 
+  <CODE>heights</CODE> declaration is compiled into the following struct: 
+  <P><PRE>    struct {
+        u_int heights_len; /* number of items in array */
+        int *heights_val;  /* pointer to array */
+    } heights;
+</PRE>
+  <P>Here, the <CODE>_len</CODE> component stores the number of items in the 
+  array and the <CODE>_val</CODE> component stores the pointer to the array. The 
+  first part of each of these component names is the same as the name of the 
+  declared XDR variable. <A 
+  href="http://www.cs.uregina.ca/~hamilton/courses/430/notes/rpc-language.html#co_id_50_rtn_3">[Return 
+  to example]</A> 
+  <P></P>
+  <LI><A name=co_id_53_4></A>Pointer declarations 
+  <P>These are the same in XDR as in C. You cannot send pointers over the 
+  network, but you can use XDR pointers to send recursive data types, such as 
+  lists and trees. In XDR language, this type is called 
+  <CODE>optional-data</CODE>, not <CODE>pointer</CODE>, as in the following 
+  syntax: 
+  <P><PRE>optional-data:
+        type-ident "*"variable-ident
+</PRE>
+  <P>An example of this (the same in both XDR and C) follows: 
+  <P><PRE>        listitem *next;
+</PRE>
+  <P><A 
+  href="http://www.cs.uregina.ca/~hamilton/courses/430/notes/rpc-language.html#co_id_53_rtn_4">[Return 
+  to example]</A> </P></LI></OL>
+<P><A name=struct_sec></A>
+<P>
+<HR>
+
+<H3>2.8.6&nbsp;&nbsp;&nbsp;&nbsp;Structures </H3>
+<P><A name=nx_id_51></A><A name=nx_id_52></A>XDR declares a <CODE>struct</CODE> 
+almost exactly like its C counterpart. The XDR syntax is the following: 
+<P><PRE>        struct-definition:
+                "struct" struct-ident "{"
+                        declaration-list
+                "}"
+<BR>&nbsp;<BR>
+        declaration-list:
+                declaration ";"
+                declaration ";" declaration-list
+</PRE>
+<P>
+<P>The following example shows an XDR structure to a two-dimensional coordinate, 
+followed by the C structure into which it is compiled in the output header file: 
+
+<P><PRE>        struct coord {
+                int x;
+                int y;
+        };
+</PRE>
+<P><BR>
+<P>The following example shows the C structure that results from compiling the 
+previous XDR structure: 
+<P><PRE>        struct coord {
+                int x;
+                int y;
+        };
+        typedef struct coord coord;
+</PRE>
+<P>
+<P>Here, the output is identical to the input, except for the added 
+<CODE>typedef</CODE> at the end of the output. This enables the use of 
+<CODE>coord</CODE> instead of <CODE>struct coord</CODE> in declarations. <A 
+name=unions_sec></A>
+<P>
+<HR>
+
+<H3>2.8.7&nbsp;&nbsp;&nbsp;&nbsp;Unions </H3>
+<P><A name=nx_id_53></A><A name=nx_id_54></A><A name=nx_id_55></A>XDR unions are 
+discriminated unions, and are different from C unions. They are more analogous 
+to Pascal variant records than to C unions. The syntax is shown here: 
+<P><PRE>        union-definition:
+                "union" union-ident "switch" ("simple declaration") "{"
+                        case-list
+                "}"
+<BR>&nbsp;<BR>
+        case-list:
+                "case" value ":" declaration ";"
+                "case" value ":" declaration ";" case-list
+                "default" ":" declaration ";"
+</PRE>
+<P>
+<P>The following is an example of a type that might be returned as the result of 
+a <CODE>read data</CODE>. If there is no error, it returns a block of data; 
+otherwise, it returns nothing: 
+<P><PRE>        union read_result switch (int errno) {
+        case 0:
+                opaque data[1024];
+        default:
+                void;
+        };
+</PRE>
+<P>
+<P>This coding is compiled into the following: 
+<P><PRE>        struct read_result {
+                int errno;
+                union {
+                        char data[1024];
+                } read_result_u;
+        };
+        typedef struct read_result read_result;
+</PRE>
+<P>
+<P>Notice that the <CODE>union</CODE> component of the output 
+<CODE>struct</CODE> has the same name as the structure type name, except for the 
+suffix, <CODE>_u</CODE>. <A name=programs_sec></A>
+<P>
+<HR>
+
+<H3>2.8.8&nbsp;&nbsp;&nbsp;&nbsp;Programs </H3>
+<P><A name=nx_id_56></A>You declare RPC programs using the following syntax: 
+<P><PRE>program-definition:
+        "program" program-ident "{"
+                version-list
+        "}" "=" value
+<BR>&nbsp;<BR>
+version-list:
+        version ";"
+        version ";" version-list
+<BR>&nbsp;<BR>
+version:
+        "version" version-ident "{"
+                procedure-list
+        "}" "=" value
+<BR>&nbsp;<BR>
+procedure-list:
+        procedure ";"
+        procedure ";" procedure-list
+<BR>&nbsp;<BR>
+procedure:
+        type-ident procedure-ident "("type-ident")" "=" value
+</PRE>
+<P>
+<P><A 
+href="http://www.cs.uregina.ca/~hamilton/courses/430/notes/DOCU_003.HTM#time_pro_ex">Example 
+2-13</A> shows a program of time protocol. <A name=time_pro_ex></A>
+<H3>Example 2-13: RPC Program Illustrating Time Protocol </H3>
+<P><PRE>/*
+ * time.x: Get or set the time.  Time is represented as number
+ * of seconds since 0:00, January 1, 1970.
+ */
+program TIMEPROG {
+        version TIMEVERS {
+                unsigned int TIMEGET(void) = 1;
+                void TIMESET(unsigned) = 2;
+        } = 1;
+} = 44;
+</PRE>
+<P>
+<P>This file compiles into the following <CODE>#define</CODE> statements in the 
+output header file: 
+<P><PRE>#define TIMEPROG 44
+#define TIMEVERS 1
+#define TIMEGET 1
+#define TIMESET 2
+</PRE>
+<P><A name=special_cases_sec></A>
+<P>
+<HR>
+
+<H3>2.8.9&nbsp;&nbsp;&nbsp;&nbsp;Special Cases </H3>
+<P><A name=nx_id_57></A>The following list describes exceptions to the syntax 
+rules described in the previous sections: 
+<UL>
+  <P>
+  <LI>Booleans 
+  <P>C has no built-in Boolean type. However, the RPC library has a Boolean type 
+  called <CODE>bool_t</CODE> that is either TRUE or FALSE. Items declared as 
+  type <CODE>bool</CODE> in XDR language are compiled into <CODE>bool_t</CODE> 
+  in the output header file. For example, <CODE>bool married</CODE> is compiled 
+  into <CODE>bool_t married</CODE>. 
+  <P></P>
+  <LI>Strings 
+  <P>C has no built-in string type, but instead uses the null-terminated 
+  <CODE>char *</CODE> convention. In XDR language, you declare strings by using 
+  the <CODE>string</CODE> keyword, and each string is compiled into a <CODE>char 
+  *</CODE> in the output header file. The maximum size contained in the angle 
+  brackets specifies the maximum number of characters allowed in the strings 
+  (excluding the NULL character). For example, <CODE>string 
+  name&lt;32&gt;</CODE> would be compiled into <CODE>char *name</CODE>. You can 
+  omit a maximum size to indicate a string of arbitrary length. For example, 
+  <CODE>string longname&lt;&gt;</CODE> would be compiled into <CODE>char 
+  *longname</CODE>. 
+  <P></P>
+  <LI>Opaque data 
+  <P>RPC and XDR use <STRONG>opaque data</STRONG> to describe untyped data, 
+  which consists simply of sequences of arbitrary bytes. You declare opaque data 
+  as an array of either fixed or variable length. An <CODE>opaque</CODE> 
+  declaration of a fixed length array is <CODE>opaque diskblock[512]</CODE>, 
+  whose C counterpart is <CODE>char diskblock[512]</CODE>. An 
+  <CODE>opaque</CODE> declaration of a variable length array is <CODE>opaque 
+  filedata&lt;1024&gt;</CODE>, whose C counterpart could be the following: 
+  <P><PRE>        struct {
+                u_int filedata_len;
+                char *filedata_val;
+        } filedata;
+</PRE>
+  <P>
+  <P></P>
+  <LI>Voids 
+  <P>In a <CODE>void</CODE> declaration, the variable is not named. The 
+  declaration is just a <CODE>void</CODE>. Declarations of <CODE>void</CODE> 
+  occur only in union and program definitions (as the argument or result of a 
+  remote procedure). </P></LI></UL>
+<P></P></BODY></HTML>

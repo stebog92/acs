@@ -1,0 +1,103 @@
+!!ro.pub.cs.lcpl.Program
+classes:
+- features:
+  - !!ro.pub.cs.lcpl.Attribute
+    init: !!ro.pub.cs.lcpl.StringConstant {lineNumber: 5, type: null, value: This is a string literal}
+    lineNumber: 5
+    name: a
+    type: String
+  - !!ro.pub.cs.lcpl.Attribute
+    init: !!ro.pub.cs.lcpl.StringConstant
+      lineNumber: 7
+      type: null
+      value: "This\r\n\tis\r\n\tanother\r\n\tstring literal\r\n\t"
+    lineNumber: 7
+    name: b
+    type: String
+  - !!ro.pub.cs.lcpl.Attribute
+    init: !!ro.pub.cs.lcpl.StringConstant
+      lineNumber: 13
+      type: null
+      value: "This is\r\n\t#(* a literal *)\r\n\ttoo"
+    lineNumber: 13
+    name: c
+    type: String
+  - !!ro.pub.cs.lcpl.Attribute
+    init: !!ro.pub.cs.lcpl.StringConstant
+      lineNumber: 17
+      type: null
+      value: "abcdefghijklm\nopq\rs\tuvwxyz\"\r\n\t'{};"
+    lineNumber: 17
+    name: d
+    type: String
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.Dispatch
+        arguments:
+        - !!ro.pub.cs.lcpl.Addition
+          e1: !!ro.pub.cs.lcpl.Addition
+            e1: !!ro.pub.cs.lcpl.StringConstant {lineNumber: 22, type: null, value: '>>>'}
+            e2: !!ro.pub.cs.lcpl.Symbol {lineNumber: 22, name: s, type: null}
+            lineNumber: 22
+            type: null
+          e2: !!ro.pub.cs.lcpl.StringConstant
+            lineNumber: 22
+            type: null
+            value: |
+              <<<
+          lineNumber: 22
+          type: null
+        lineNumber: 22
+        name: out
+        object: !!ro.pub.cs.lcpl.NewObject {lineNumber: 22, type: IO}
+        type: null
+      lineNumber: 22
+      type: null
+    lineNumber: 21
+    name: print
+    parameters:
+    - {lineNumber: 21, name: s, type: String}
+    returnType: void
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.Dispatch
+        arguments:
+        - !!ro.pub.cs.lcpl.Symbol {lineNumber: 26, name: a, type: null}
+        lineNumber: 26
+        name: print
+        object: null
+        type: null
+      - !!ro.pub.cs.lcpl.Dispatch
+        arguments:
+        - !!ro.pub.cs.lcpl.Symbol {lineNumber: 26, name: b, type: null}
+        lineNumber: 26
+        name: print
+        object: null
+        type: null
+      - !!ro.pub.cs.lcpl.Dispatch
+        arguments:
+        - !!ro.pub.cs.lcpl.Symbol {lineNumber: 26, name: c, type: null}
+        lineNumber: 26
+        name: print
+        object: null
+        type: null
+      - !!ro.pub.cs.lcpl.Dispatch
+        arguments:
+        - !!ro.pub.cs.lcpl.Symbol {lineNumber: 26, name: d, type: null}
+        lineNumber: 26
+        name: print
+        object: null
+        type: null
+      lineNumber: 26
+      type: null
+    lineNumber: 25
+    name: main
+    parameters: []
+    returnType: void
+  lineNumber: 3
+  name: Main
+  parent: null
+lineNumber: 3
+

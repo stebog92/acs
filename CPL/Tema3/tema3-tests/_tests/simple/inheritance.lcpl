@@ -1,0 +1,17 @@
+# Simple inheritance scheme 
+
+class Main inherits B 
+	main:
+		a;
+	end;
+end;
+
+class A 
+	var
+		Int a;
+	end;
+end;
+
+class B inherits A
+	
+end;		

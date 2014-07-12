@@ -1,0 +1,12 @@
+class s inherits Int
+  add2 -> Int : self + 2; end;
+end;
+
+class Main inherits IO
+    main :
+        local 
+           s i = new s;
+        end;
+        [out [i.add2]];
+    end;
+end;

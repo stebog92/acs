@@ -1,0 +1,9 @@
+class Main inherits IO
+    main :
+        local
+            Int i = new Int;
+        end;
+        i = 422;
+        [out i];
+    end;
+end;

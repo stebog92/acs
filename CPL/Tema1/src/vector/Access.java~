@@ -1,0 +1,21 @@
+package vector;
+
+import ro.pub.cs.lcpl.*;
+
+public class UnaryBracket extends Expression {
+	
+	int value;
+	Expression expression;
+	public Integer getValue() {
+		return this.index;
+	}
+	public Integer getExpression() {
+		return this.expression;
+	}
+	public Access(int lineNumber, Expression e, int value) {
+		super(lineNumber);
+		this.value = value;
+		this.expression = expression;
+	}
+
+}

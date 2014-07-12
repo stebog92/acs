@@ -1,0 +1,37 @@
+<project name="Tema2" default="all" basedir=".">
+
+    <target name="all" depends="client" />
+    <target name="encryption">
+        <javac srcdir = "encryption" destdir = "." includeantruntime="false" />
+    </target>
+
+    <target name="client" depends = "encryption, interfaces">
+        <javac srcdir = "." includeantruntime="false" />
+    </target>
+    <target name="interfaces">
+        <javac srcdir = "interfaces" includeantruntime="false"/>
+    </target>
+
+    <target name="run_client">
+        <java classname="Client" fork = "true">
+            <arg value = "localhost" />
+            <jvmarg value = "-Djava.rmi.server.codebase=http://localhost:8000/"/>
+            <jvmarg value = "-Djava.security.policy=client.policy" />
+        </java>
+    </target>
+
+    <target name="clean">
+        <delete>
+            <fileset dir="interfaces" includes="*.class"/>
+        </delete>
+        <delete>
+            <fileset dir="." includes="*.class"/>
+        </delete>
+        <delete>
+            <fileset dir="encryption" includes="*.class"/>
+        </delete>
+
+    </target>
+
+
+</project>

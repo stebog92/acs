@@ -1,0 +1,198 @@
+!!ro.pub.cs.lcpl.Program
+classes:
+- features: []
+  lineNumber: 1
+  name: List
+  parent: null
+- features: []
+  lineNumber: 4
+  name: Cons
+  parent: null
+- features:
+  - !!ro.pub.cs.lcpl.Attribute {init: null, lineNumber: 8, name: xcar, type: Int}
+  - !!ro.pub.cs.lcpl.Attribute {init: null, lineNumber: 8, name: xcdr, type: List}
+  lineNumber: 7
+  name: test
+  parent: null
+- features:
+  - !!ro.pub.cs.lcpl.Attribute
+    init: !!ro.pub.cs.lcpl.Addition
+      e1: !!ro.pub.cs.lcpl.IntConstant {lineNumber: 12, type: null, value: 2}
+      e2: !!ro.pub.cs.lcpl.IntConstant {lineNumber: 12, type: null, value: 3}
+      lineNumber: 12
+      type: null
+    lineNumber: 12
+    name: xcar
+    type: Int
+  lineNumber: 11
+  name: test2
+  parent: null
+- features:
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.Addition
+        e1: !!ro.pub.cs.lcpl.Addition
+          e1: !!ro.pub.cs.lcpl.StringConstant {lineNumber: 19, type: null, value: 'Hello '}
+          e2: !!ro.pub.cs.lcpl.Symbol {lineNumber: 19, name: b, type: null}
+          lineNumber: 19
+          type: null
+        e2: !!ro.pub.cs.lcpl.Symbol {lineNumber: 19, name: a, type: null}
+        lineNumber: 19
+        type: null
+      lineNumber: 19
+      type: null
+    lineNumber: 18
+    name: hello
+    parameters:
+    - {name: a, type: Int}
+    - {name: b, type: String}
+    returnType: String
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.Dispatch
+        arguments:
+        - !!ro.pub.cs.lcpl.Dispatch
+          arguments:
+          - !!ro.pub.cs.lcpl.Symbol {lineNumber: 23, name: a, type: null}
+          - !!ro.pub.cs.lcpl.Symbol {lineNumber: 23, name: b, type: null}
+          lineNumber: 23
+          name: hello
+          object: null
+          type: null
+        lineNumber: 23
+        name: out
+        object: null
+        type: null
+      lineNumber: 23
+      type: null
+    lineNumber: 22
+    name: printHello
+    parameters:
+    - {name: a, type: Int}
+    - {name: b, type: String}
+    returnType: void
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.IntConstant {lineNumber: 27, type: null, value: 314}
+      lineNumber: 27
+      type: null
+    lineNumber: 26
+    name: piTimes100
+    parameters: []
+    returnType: Int
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.Dispatch
+        arguments:
+        - !!ro.pub.cs.lcpl.Dispatch
+          arguments: []
+          lineNumber: 31
+          name: piTimes100
+          object: null
+          type: null
+        - !!ro.pub.cs.lcpl.StringConstant {lineNumber: 31, type: null, value: 'world '}
+        lineNumber: 31
+        name: printHello
+        object: null
+        type: null
+      - !!ro.pub.cs.lcpl.Dispatch
+        arguments: []
+        lineNumber: 32
+        name: empty
+        object: null
+        type: null
+      lineNumber: 31
+      type: null
+    lineNumber: 30
+    name: main
+    parameters: []
+    returnType: void
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions: []
+      lineNumber: 0
+      type: null
+    lineNumber: 35
+    name: empty
+    parameters: []
+    returnType: void
+  lineNumber: 17
+  name: Main
+  parent: IO
+- features:
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.LocalDefinition
+        init: null
+        lineNumber: 40
+        name: c
+        scope: !!ro.pub.cs.lcpl.LocalDefinition
+          init: null
+          lineNumber: 40
+          name: x
+          scope: !!ro.pub.cs.lcpl.Block
+            expressions:
+            - !!ro.pub.cs.lcpl.Assignment
+              e1: !!ro.pub.cs.lcpl.NewObject {lineNumber: 41, type: Cons}
+              lineNumber: 41
+              symbol: c
+              type: null
+            - !!ro.pub.cs.lcpl.Assignment
+              e1: !!ro.pub.cs.lcpl.IntConstant {lineNumber: 42, type: null, value: 0}
+              lineNumber: 42
+              symbol: x
+              type: null
+            lineNumber: 41
+            type: null
+          type: Int
+        type: Cons
+      lineNumber: 40
+      type: null
+    lineNumber: 39
+    name: main
+    parameters: []
+    returnType: void
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.LocalDefinition
+        init: !!ro.pub.cs.lcpl.NewObject {lineNumber: 46, type: Cons}
+        lineNumber: 46
+        name: c
+        scope: !!ro.pub.cs.lcpl.LocalDefinition
+          init: !!ro.pub.cs.lcpl.IntConstant {lineNumber: 46, type: null, value: 0}
+          lineNumber: 46
+          name: x
+          scope: !!ro.pub.cs.lcpl.Block
+            expressions: []
+            lineNumber: 0
+            type: null
+          type: Int
+        type: Cons
+      lineNumber: 46
+      type: null
+    lineNumber: 45
+    name: main2
+    parameters: []
+    returnType: void
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.Symbol {lineNumber: 49, name: n, type: null}
+      lineNumber: 49
+      type: null
+    lineNumber: 49
+    name: m
+    parameters:
+    - {name: n, type: Int}
+    returnType: void
+  lineNumber: 38
+  name: Main2
+  parent: null
+lineNumber: 1
+

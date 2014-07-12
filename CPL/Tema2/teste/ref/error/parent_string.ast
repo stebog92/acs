@@ -1,0 +1,52 @@
+!!ro.pub.cs.lcpl.Program
+classes:
+- features:
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.Addition
+        e1: !!ro.pub.cs.lcpl.Dispatch
+          arguments: []
+          lineNumber: 2
+          name: length
+          object: !!ro.pub.cs.lcpl.Symbol {lineNumber: 2, name: self, type: null}
+          type: null
+        e2: !!ro.pub.cs.lcpl.IntConstant {lineNumber: 2, type: null, value: 2}
+        lineNumber: 2
+        type: null
+      lineNumber: 2
+      type: null
+    lineNumber: 2
+    name: length2
+    parameters: []
+    returnType: Int
+  lineNumber: 1
+  name: s
+  parent: String
+- features:
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.Dispatch
+        arguments:
+        - !!ro.pub.cs.lcpl.Dispatch
+          arguments: []
+          lineNumber: 7
+          name: length2
+          object: !!ro.pub.cs.lcpl.StringConstant {lineNumber: 7, type: null, value: Hello world!}
+          type: null
+        lineNumber: 7
+        name: out
+        object: null
+        type: null
+      lineNumber: 7
+      type: null
+    lineNumber: 6
+    name: main
+    parameters: []
+    returnType: void
+  lineNumber: 5
+  name: Main
+  parent: IO
+lineNumber: 1
+

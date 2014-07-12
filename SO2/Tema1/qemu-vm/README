@@ -1,0 +1,71 @@
+Minimal qemu dev environment, Vlad Dogaru, 21.01.2014
+
+Slightly modified from an earlier version by Octavian Purdilă.
+
+Dev environment is 32bit, even if host machine is 64bit.
+
+
+== Required files ==
+
+You need a `bzImage' and a `busybox' in the current directory.  They are
+not included in the repo, but there are instructions to build them
+below.
+
+For a simple setup, you can get the two files via scp from
+
+	so2@elf.cs.pub.ro:tools/
+
+
+== To rebuild bzImage ==
+
+Grab kernel_config, stick it in a kernel tree, run
+
+	make
+
+New bzImage will be available in arch/x86/boot/bzImage.  Config is for a
+32bit kernel.
+
+Make sure you use the same kernel version as the students, so you'll
+probably need to checkout to a tagged revision if you're building from a
+git tree.
+
+
+== To rebuild busybox ==
+
+Grab busybox_config, stick it in a busybox config, run
+
+	LDFLAGS=-m32 make
+
+There is an `extra LDFLAGS' option in busybox, but it does not seem to
+work.
+
+
+== To build modules (homework) ==
+
+Grab kernel_config, stick it in a kernel tree, run
+
+	make prepare
+
+Modules should then have the following line at the top:
+
+	KDIR=/usr/src/linux-so2
+
+This saves students the burdain of having a full kernel tree on their
+disk.  Of course, if you have such a tree (e.g. you compiled a bzImage
+earlier), you can use that one.
+
+But you might get in trouble if your tree is not at the exact version
+students should use (currently tentatively set at 3.13, as it's the most
+recent at the time of this writing).
+
+
+== To put files in the virtual machine ==
+
+Best stick anything you need (modules and test programs) in fsimg/root.
+
+You will need to statically link non-trivial programs.  Additionally,
+make sure you specify -m32 when compiling everything except modules
+(kernel build system takes care of that).
+
+
+Direct all questions to the list.

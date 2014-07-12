@@ -1,0 +1,26 @@
+Tema 1 - Simularea activitatii unui cluster
+
+Ciocan Mihai
+334CA
+
+In rezolvarea temei, am implementat clasa Node dupa cum urmeaza:
+    - in constructor se creeaza threadul care se ocupa de rezolvarea cererilor; acesta se inregistreaza
+    in metoda run la data_store-ul propriu nodului; este un singur thread pentru rezolvarea cererilor
+
+    - in metoda set_nodes se creeaza un dictionar populat cu nodurile din cluster; astfel pentru orice
+    element din matrice, nodul necesar e gasit in O(1)
+
+    - in compute_matrix_block se realizeaza calculul portiunii de matrice, prin 3 foruri;
+    elementele necesare sunt cerute la nodurile care le contin, prin metoda process_request
+
+    - am definit o clasa ce extinde Thread - ProcessRequests (cred ca puteam sa omit definirea clasei), 
+    ce se ocupa cu rezolvarea de cereri(clasa are o metoda ce se numeste tot process_request ce e apelata
+    din metoda process_request a nodului - nu cred ca are relevanta)
+
+    - in metoda process_request, threadul nodului comunica sincronizat cu threadul ce rezolva cererile;
+    utilizeaza 2 obiecte de tip condition, unul astepta ca threadul parinte sa seteze campurile pentru
+    cerere, celalt asteapta ca threadul copil sa rezolve cererea; metoda poate fi apelata cel mult o data
+    de orice thread, astfel orice cerere este inconjurata de un acquire si un release
+
+
+

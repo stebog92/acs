@@ -1,0 +1,23 @@
+# flex + C/C++
+
+mtx-c : mtx.o
+	gcc -o $@ $^ -lfl
+
+mtx.o : mtx.c
+	gcc -c -g -Wall -o $@ $<
+
+mtx.c : mtx.l
+	flex -o $@ $<
+
+# JFlex + Java
+
+mtx-java : mtx.
+
+
+# Haskell + alex
+
+
+.PHONY: clean
+
+clean: 
+	rm *~ *.o mtx.c

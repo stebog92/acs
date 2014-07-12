@@ -1,0 +1,6 @@
+class Main
+    main:
+        local Main m; end;
+        [m.main];
+    end;
+end;

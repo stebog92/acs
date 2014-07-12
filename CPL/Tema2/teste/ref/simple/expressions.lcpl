@@ -1,0 +1,19 @@
+# Simple expressions, no precedence or associativity involved
+
+class Main inherits IO
+    o String s: [out s+"\n"]; end;
+	main:
+			[o 1 + 2];
+			[o 123 - 1000];
+			[o 3 / 4];
+			[o 10 * 20];
+			[o - 100];
+			[o 5 < 3];
+			[o 4 <= 7];
+			[o 100 == 100];
+			[o ! 10];
+			[o void == void];
+			[o void == self];
+			[o 0];
+	end;
+end;

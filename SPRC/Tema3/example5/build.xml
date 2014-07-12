@@ -1,0 +1,51 @@
+<project name="XORCryptograpgy" default="run" basedir=".">
+	
+	<target name="clean">
+		<delete dir="bin"/>
+		<delete file="example5.jar"/>
+		<delete file="keystore.ks"/>
+	</target>
+	
+	<target name="build" depends="clean">
+		<echo message="${line.separator}Sisteme de programe pentru retele de calculatoare 
+			${line.separator}
+			${line.separator}Copyright (C) 2008 Ciprian Dobre &amp; Florin Pop 
+			${line.separator}Univerity Politehnica of Bucharest, Romania 
+			${line.separator}
+			${line.separator}"/>
+		<echo message="Compiling"/>
+		<mkdir dir="bin/"/>
+		<javac srcdir="." destdir="bin" nowarn="on" debug="true" optimize="true" verbose="false"/>
+	</target>
+
+	<target name="keystore" depends="build">
+		<echo message="Creating fresh keystore"/>
+		<exec command="keytool -genkey -alias student -keyalg DSA -keysize 1024 -keystore keystore.ks -keypass password 
+		-storepass password -dname &quot;CN=Ciprian Dobre, OU=UPB, O=UPB, C=RO&quot;"/>
+	</target>
+	
+	<target name="jar" depends="keystore">
+		<echo message="Pack" />
+		<jar jarfile="example5.jar" basedir="bin/" update="true">
+			<manifest>
+				<attribute name="Build" value="${CRTDATE}"/>
+			</manifest>
+		</jar>
+		<echo message="Sign" />
+		<signjar keystore="keystore.ks" alias="student" keypass="password" storepass="password" lazy="true">
+			<fileset dir=".">
+				<include name="*.jar"/>
+			</fileset>
+		</signjar>
+		<delete dir="bin"/>
+	</target>
+	
+	<target name="run" depends="jar">
+		<java classname="cap5.example5.Main" jvmargs="-Djava.security.policy=policy.all" fork="true">
+        	<classpath>
+                <pathelement path="example5.jar"/>
+        	</classpath>
+		</java>
+	</target>
+	
+</project>

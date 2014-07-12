@@ -1,0 +1,88 @@
+!!ro.pub.cs.lcpl.Program
+classes:
+- features:
+  - !!ro.pub.cs.lcpl.Attribute {init: null, lineNumber: 5, name: name, type: String}
+  - !!ro.pub.cs.lcpl.Attribute {init: null, lineNumber: 6, name: age, type: Int}
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.Assignment
+        e1: !!ro.pub.cs.lcpl.Dispatch
+          arguments: []
+          lineNumber: 10
+          name: in
+          object: !!ro.pub.cs.lcpl.Dispatch
+            arguments:
+            - !!ro.pub.cs.lcpl.StringConstant {lineNumber: 10, type: null, value: 'Please
+                enter your name: '}
+            lineNumber: 10
+            name: out
+            object: null
+            type: null
+          type: null
+        lineNumber: 10
+        symbol: name
+        type: null
+      - !!ro.pub.cs.lcpl.Assignment
+        e1: !!ro.pub.cs.lcpl.Dispatch
+          arguments: []
+          lineNumber: 11
+          name: toInt
+          object: !!ro.pub.cs.lcpl.Dispatch
+            arguments: []
+            lineNumber: 11
+            name: in
+            object: !!ro.pub.cs.lcpl.Dispatch
+              arguments:
+              - !!ro.pub.cs.lcpl.StringConstant {lineNumber: 11, type: null, value: 'Please
+                  enter your age: '}
+              lineNumber: 11
+              name: out
+              object: null
+              type: null
+            type: null
+          type: null
+        lineNumber: 11
+        symbol: age
+        type: null
+      - !!ro.pub.cs.lcpl.Dispatch
+        arguments:
+        - !!ro.pub.cs.lcpl.Addition
+          e1: !!ro.pub.cs.lcpl.Addition
+            e1: !!ro.pub.cs.lcpl.StringConstant {lineNumber: 12, type: null, value: ' Bond
+                and you are 00'}
+            e2: !!ro.pub.cs.lcpl.Symbol {lineNumber: 12, name: age, type: null}
+            lineNumber: 12
+            type: null
+          e2: !!ro.pub.cs.lcpl.StringConstant {lineNumber: 12, type: null, value: ' movies
+              old'}
+          lineNumber: 12
+          type: null
+        lineNumber: 12
+        name: out
+        object: !!ro.pub.cs.lcpl.Dispatch
+          arguments:
+          - !!ro.pub.cs.lcpl.Symbol {lineNumber: 12, name: name, type: null}
+          lineNumber: 12
+          name: out
+          object: !!ro.pub.cs.lcpl.Dispatch
+            arguments:
+            - !!ro.pub.cs.lcpl.StringConstant {lineNumber: 12, type: null, value: 'Your
+                name is Bond, '}
+            lineNumber: 12
+            name: out
+            object: null
+            type: null
+          type: null
+        type: null
+      lineNumber: 10
+      type: null
+    lineNumber: 9
+    name: main
+    parameters: []
+    returnType: void
+  lineNumber: 3
+  name: Main
+  parent: IO
+lineNumber: 3
+

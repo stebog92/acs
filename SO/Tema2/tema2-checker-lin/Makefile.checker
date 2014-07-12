@@ -1,0 +1,19 @@
+.PHONY: all clean run pack build-pre build-post
+
+all: build-pre build-post run
+
+build-pre:
+
+build-post:
+	@$(MAKE) -s -C _test tests
+
+run:
+	@export LD_LIBRARY_PATH=$(PWD) && ./run_all.sh
+
+pack:
+	zip -r run_test_lin.zip _test/ Makefile.checker \
+		run_all.sh
+
+clean:
+	$(MAKE) -C _test clean
+	-rm -f *~

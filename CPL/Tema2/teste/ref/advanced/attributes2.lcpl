@@ -1,0 +1,44 @@
+class m
+  var
+    String s = "Infinite" + t;
+    String t = s + " monkeys ";
+  end;
+  mm String s -> String:
+    local
+       String t = t + s + " ";
+    end;
+    s = t + "write ";
+    if 27 == [s.length] then
+       local String t = s + "Macbeth"; end;
+       s = t + ".";
+    else
+       s = t + ".";
+    end;
+  end;
+  
+  m_m -> String:
+    [mm "can"];
+  end;
+end;
+
+class mm
+  m -> String:
+    [(new m).mm "are expensive to feed"];
+  end;
+end;
+  
+class m_m
+  m -> String:
+    [(new m).m_m] + "\n" + [(new mm).m] + "\n";
+  end; 
+  m_ String who, String what -> String : who + " was " +  what + "."; end; 
+end;
+
+class Main
+  print:
+    [[(new IO).out [(new m_m).m]].out [(new m_m).m_ "Shakespeare", "cost-effective"]];
+  end;
+  main:
+    [print];
+  end;
+end;

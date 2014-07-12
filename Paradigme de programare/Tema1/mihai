@@ -1,0 +1,140 @@
+(define True
+  (lambda (x y)
+    x
+    )
+  )
+(define False
+  (lambda (x y)
+    y
+    )
+  )
+(define And 
+  (lambda (a b)
+    (b a False))
+  )
+(define Not
+  (lambda (a)
+    (a False True))
+  )
+(define Or
+  (lambda (a b)
+    (a True b)
+    )
+  )
+(define Cons
+  (lambda (x y)
+    (lambda (z) (z x y)))
+  )
+(define Car
+  (lambda (p) 
+    (p True)
+    )
+  )
+(define Cdr
+  (lambda (p)
+    (p False)
+    )
+  )
+(define Nil
+  (lambda (z) True)
+  )
+
+(define Null?
+  (lambda (l)
+    (l (lambda (x y) False)))
+  )
+(define-macro If
+  (lambda (c t e)
+    `((,c (lambda() ,t) (lambda() ,e)))
+    )
+  )
+(define Zero
+   Nil
+  )
+(define Succ
+  (lambda (n) (Cons Nil n)
+    )
+  )
+(define Pred
+  (lambda (x)
+    (Cdr x)
+    ))
+
+(define L2N
+  (lambda(x)
+    (If (Null? x)
+        0
+        (+ (L2N (Cdr x)) 1)
+    )
+  )
+)
+(define N2L
+  (lambda (x)
+    (if (= x 0)
+        Zero
+        (Succ (N2L (- x 1)))
+        )
+    )
+  )
+;(L2N (N2L 3))
+(define Append
+  (lambda (x y)
+    (If (Null? x)
+        y
+        (Cons (Car x) (Append (Cdr x) y)))
+    )
+  )
+
+
+(define L2SL
+  (lambda (x)
+    (If (Null? x)
+        '()
+        (cons (Car x) (L2SL (Cdr x)))
+        )
+    )
+  )
+
+(define SL2L
+  (lambda (x)
+    (if (null? x)
+        Nil
+        (Cons (car x) (SL2L (cdr x)))
+        )
+    )
+  )
+(define Reverse
+  (lambda (x)
+    (If (Null? x)
+        Nil
+    (Append (Reverse (Cdr x)) (Cons (Car x) Nil))
+    )
+    )
+  )
+(define Plus
+  (lambda (x y)
+    (Append x y)
+    )
+  )
+(define Eq
+  (lambda (x y)
+    (If (Null? x)
+        (If (Null? y)
+            True
+            False
+            )
+        (If (Null? y)
+          False
+                
+            (Eq (Cdr x) (Cdr y))
+            )
+        )
+    )
+  )
+(define Pi (Succ (Succ Zero)))
+(define Pi2 (Succ Zero))
+(L2N (Append Pi Pi2))
+(L2SL (Reverse (SL2L '(1 2 3))))
+(L2N (Plus Pi Pi2))
+(Eq Pi2 Pi)
+

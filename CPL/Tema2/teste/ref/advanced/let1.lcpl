@@ -1,0 +1,28 @@
+#(* Nested local blocks *)
+
+class Main
+	main:
+	   local
+	       Int v;
+	       Int a = 10;
+	       Int b = 20;
+	    end;
+	    v = a + 2 * b;
+	    local
+	       Int v2;
+	       Int a = 50;
+	       Int c = 30;
+	    end;
+	    v = v + a + b + c;
+	    local
+	       Int x = 20;
+	    end;
+	    v2 = 
+	    v = v - 3 * b * (x * if b < 30 then
+	       local Int b = 100; end;
+	           a * b;
+	       else 0;
+	       end) * c;
+	    [(new IO).out v];
+	end;
+end;

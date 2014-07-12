@@ -1,0 +1,71 @@
+!!ro.pub.cs.lcpl.Program
+classes:
+- features:
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.IfStatement
+        condition: !!ro.pub.cs.lcpl.LessThan
+          e1: !!ro.pub.cs.lcpl.Symbol {lineNumber: 3, name: a, type: null}
+          e2: !!ro.pub.cs.lcpl.StringConstant {lineNumber: 3, type: null, value: '10'}
+          lineNumber: 3
+          type: null
+        ifExpr: !!ro.pub.cs.lcpl.Block
+          expressions:
+          - !!ro.pub.cs.lcpl.Dispatch
+            arguments:
+            - !!ro.pub.cs.lcpl.StringConstant {lineNumber: 3, type: null, value: small}
+            lineNumber: 3
+            name: out
+            object: null
+            type: null
+          lineNumber: 3
+          type: null
+        lineNumber: 3
+        thenExpr: !!ro.pub.cs.lcpl.Block
+          expressions:
+          - !!ro.pub.cs.lcpl.Dispatch
+            arguments:
+            - !!ro.pub.cs.lcpl.StringConstant {lineNumber: 3, type: null, value: huge}
+            lineNumber: 3
+            name: out
+            object: null
+            type: null
+          lineNumber: 3
+          type: null
+        type: null
+      lineNumber: 3
+      type: null
+    lineNumber: 2
+    name: mc
+    parameters:
+    - {lineNumber: 2, name: a, type: Int}
+    returnType: void
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.Dispatch
+        arguments:
+        - !!ro.pub.cs.lcpl.IntConstant {lineNumber: 6, type: null, value: 2}
+        lineNumber: 6
+        name: mc
+        object: null
+        type: null
+      - !!ro.pub.cs.lcpl.Dispatch
+        arguments:
+        - !!ro.pub.cs.lcpl.IntConstant {lineNumber: 7, type: null, value: 21}
+        lineNumber: 7
+        name: mc
+        object: null
+        type: null
+      lineNumber: 6
+      type: null
+    lineNumber: 5
+    name: main
+    parameters: []
+    returnType: void
+  lineNumber: 1
+  name: Main
+  parent: IO
+lineNumber: 1
+

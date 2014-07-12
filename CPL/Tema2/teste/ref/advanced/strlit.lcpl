@@ -1,0 +1,28 @@
+#(* String literal tests *)
+
+class Main
+	var
+	String a = "This is a string literal";
+	
+	String b = "This\
+	is\
+	another\
+	string literal\
+	";
+	
+	String c = "This is\
+	#(* a literal *)\
+	too";
+	
+	String d = "\a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z\"\
+	\'\{\}\;";
+	end;
+	
+	print String s:
+		[(new IO).out ">>>"+s+"<<<\n"];
+	end;
+	
+	main:
+		[print a];[print b]; [print c]; [print d];
+	end;
+end;

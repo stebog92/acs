@@ -1,0 +1,10 @@
+package vector;
+import ro.pub.cs.lcpl.*;
+
+public class NewObjectArray extends UnaryBracket {
+
+	public NewArrayObject(int lineNumber, Expression type, Expression size) {
+		super(lineNumber,type, size);
+	}
+
+}

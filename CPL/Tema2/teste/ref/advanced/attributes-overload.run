@@ -1,0 +1,1081 @@
+!!ro.pub.cs.lcpl.Program
+classes:
+- &id007
+  features:
+  - &id014 !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.Dispatch
+        arguments:
+        - !!ro.pub.cs.lcpl.Addition
+          e1: !!ro.pub.cs.lcpl.Addition
+            e1: !!ro.pub.cs.lcpl.Addition
+              e1: !!ro.pub.cs.lcpl.Addition
+                e1: !!ro.pub.cs.lcpl.StringConstant
+                  lineNumber: 2
+                  type: String
+                  typeData: &id001 !!ro.pub.cs.lcpl.LCPLClass
+                    features:
+                    - !!ro.pub.cs.lcpl.Method
+                      body: null
+                      lineNumber: 0
+                      name: length
+                      parameters: []
+                      parent: *id001
+                      returnType: Int
+                      returnTypeData: &id002 !!ro.pub.cs.lcpl.IntType {}
+                      self:
+                        lineNumber: 0
+                        name: self
+                        type: String
+                        variableType: *id001
+                    - !!ro.pub.cs.lcpl.Method
+                      body: null
+                      lineNumber: 0
+                      name: toInt
+                      parameters: []
+                      parent: *id001
+                      returnType: Int
+                      returnTypeData: *id002
+                      self:
+                        lineNumber: 0
+                        name: self
+                        type: String
+                        variableType: *id001
+                    lineNumber: 0
+                    name: String
+                    parent: Object
+                    parentData: &id003
+                      features:
+                      - !!ro.pub.cs.lcpl.Method
+                        body: null
+                        lineNumber: 0
+                        name: abort
+                        parameters: []
+                        parent: *id003
+                        returnType: void
+                        returnTypeData: &id008 !!ro.pub.cs.lcpl.NoType {}
+                        self:
+                          lineNumber: 0
+                          name: self
+                          type: Object
+                          variableType: *id003
+                      - !!ro.pub.cs.lcpl.Method
+                        body: null
+                        lineNumber: 0
+                        name: typeName
+                        parameters: []
+                        parent: *id003
+                        returnType: String
+                        returnTypeData: *id001
+                        self:
+                          lineNumber: 0
+                          name: self
+                          type: Object
+                          variableType: *id003
+                      - !!ro.pub.cs.lcpl.Method
+                        body: null
+                        lineNumber: 0
+                        name: copy
+                        parameters: []
+                        parent: *id003
+                        returnType: Object
+                        returnTypeData: *id003
+                        self:
+                          lineNumber: 0
+                          name: self
+                          type: Object
+                          variableType: *id003
+                      lineNumber: 0
+                      name: Object
+                      parent: null
+                      parentData: null
+                  value: (
+                e2: !!ro.pub.cs.lcpl.Cast
+                  e1: !!ro.pub.cs.lcpl.Symbol
+                    lineNumber: 2
+                    name: x
+                    type: Int
+                    typeData: *id002
+                    variable: &id009 !!ro.pub.cs.lcpl.Attribute
+                      attrInitSelf: null
+                      init: null
+                      lineNumber: 12
+                      name: x
+                      type: Int
+                      typeData: *id002
+                  lineNumber: 2
+                  type: String
+                  typeData: *id001
+                lineNumber: 2
+                type: String
+                typeData: *id001
+              e2: !!ro.pub.cs.lcpl.StringConstant
+                lineNumber: 2
+                type: String
+                typeData: *id001
+                value: ','
+              lineNumber: 2
+              type: String
+              typeData: *id001
+            e2: !!ro.pub.cs.lcpl.Cast
+              e1: !!ro.pub.cs.lcpl.Symbol
+                lineNumber: 2
+                name: y
+                type: Int
+                typeData: *id002
+                variable: &id010 !!ro.pub.cs.lcpl.Attribute
+                  attrInitSelf: null
+                  init: null
+                  lineNumber: 12
+                  name: y
+                  type: Int
+                  typeData: *id002
+              lineNumber: 2
+              type: String
+              typeData: *id001
+            lineNumber: 2
+            type: String
+            typeData: *id001
+          e2: !!ro.pub.cs.lcpl.StringConstant
+            lineNumber: 2
+            type: String
+            typeData: *id001
+            value: )
+          lineNumber: 2
+          type: String
+          typeData: *id001
+        lineNumber: 2
+        method: &id004
+          body: null
+          lineNumber: 0
+          name: out
+          parameters:
+          - lineNumber: 0
+            name: msg
+            type: String
+            variableType: *id001
+          parent: &id005
+            features:
+            - *id004
+            - !!ro.pub.cs.lcpl.Method
+              body: null
+              lineNumber: 0
+              name: in
+              parameters: []
+              parent: *id005
+              returnType: String
+              returnTypeData: *id001
+              self:
+                lineNumber: 0
+                name: self
+                type: IO
+                variableType: *id005
+            lineNumber: 0
+            name: IO
+            parent: Object
+            parentData: *id003
+          returnType: IO
+          returnTypeData: *id005
+          self:
+            lineNumber: 0
+            name: self
+            type: IO
+            variableType: *id005
+        name: out
+        object: !!ro.pub.cs.lcpl.Symbol
+          lineNumber: 2
+          name: stream
+          type: IO
+          typeData: *id005
+          variable: &id006 !!ro.pub.cs.lcpl.FormalParam
+            lineNumber: 2
+            name: stream
+            type: IO
+            variableType: *id005
+        type: IO
+        typeData: *id005
+      lineNumber: 2
+      type: IO
+      typeData: *id005
+    lineNumber: 2
+    name: print
+    parameters:
+    - *id006
+    parent: *id007
+    returnType: void
+    returnTypeData: *id008
+    self:
+      lineNumber: 0
+      name: self
+      type: Vertex
+      variableType: *id007
+  - &id026 !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.Assignment
+        e1: !!ro.pub.cs.lcpl.Symbol
+          lineNumber: 4
+          name: x
+          type: Int
+          typeData: *id002
+          variable: &id011 !!ro.pub.cs.lcpl.FormalParam
+            lineNumber: 3
+            name: x
+            type: Int
+            variableType: *id002
+        lineNumber: 4
+        symbol: x
+        symbolData: *id009
+        type: Int
+        typeData: *id002
+      - !!ro.pub.cs.lcpl.Assignment
+        e1: !!ro.pub.cs.lcpl.Symbol
+          lineNumber: 5
+          name: y
+          type: Int
+          typeData: *id002
+          variable: &id012 !!ro.pub.cs.lcpl.FormalParam
+            lineNumber: 3
+            name: y
+            type: Int
+            variableType: *id002
+        lineNumber: 5
+        symbol: y
+        symbolData: *id010
+        type: Int
+        typeData: *id002
+      - !!ro.pub.cs.lcpl.Assignment
+        e1: !!ro.pub.cs.lcpl.Symbol
+          lineNumber: 6
+          name: next
+          type: Vertex
+          typeData: *id007
+          variable: &id013 !!ro.pub.cs.lcpl.FormalParam
+            lineNumber: 3
+            name: next
+            type: Vertex
+            variableType: *id007
+        lineNumber: 6
+        symbol: next
+        symbolData: &id015 !!ro.pub.cs.lcpl.Attribute
+          attrInitSelf: null
+          init: null
+          lineNumber: 12
+          name: next
+          type: Vertex
+          typeData: *id007
+        type: Vertex
+        typeData: *id007
+      lineNumber: 4
+      type: Vertex
+      typeData: *id007
+    lineNumber: 3
+    name: init
+    parameters:
+    - *id011
+    - *id012
+    - *id013
+    parent: *id007
+    returnType: void
+    returnTypeData: *id008
+    self:
+      lineNumber: 0
+      name: self
+      type: Vertex
+      variableType: *id007
+  - &id017 !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.Dispatch
+        arguments:
+        - !!ro.pub.cs.lcpl.Symbol
+          lineNumber: 9
+          name: stream
+          type: IO
+          typeData: *id005
+          variable: &id016 !!ro.pub.cs.lcpl.FormalParam
+            lineNumber: 8
+            name: stream
+            type: IO
+            variableType: *id005
+        lineNumber: 9
+        method: *id014
+        name: print
+        object: !!ro.pub.cs.lcpl.Symbol
+          lineNumber: 8
+          name: self
+          type: Vertex
+          typeData: *id007
+          variable: &id018 !!ro.pub.cs.lcpl.FormalParam
+            lineNumber: 0
+            name: self
+            type: Vertex
+            variableType: *id007
+        type: (none)
+        typeData: *id008
+      - !!ro.pub.cs.lcpl.IfStatement
+        condition: !!ro.pub.cs.lcpl.LogicalNegation
+          e1: !!ro.pub.cs.lcpl.EqualComparison
+            e1: !!ro.pub.cs.lcpl.VoidConstant
+              lineNumber: 10
+              type: void
+              typeData: &id024 !!ro.pub.cs.lcpl.NullType {}
+            e2: !!ro.pub.cs.lcpl.Cast
+              e1: !!ro.pub.cs.lcpl.Symbol
+                lineNumber: 10
+                name: next
+                type: Vertex
+                typeData: *id007
+                variable: *id015
+              lineNumber: 10
+              type: Object
+              typeData: *id003
+            lineNumber: 10
+            type: Int
+            typeData: *id002
+          lineNumber: 10
+          type: Int
+          typeData: *id002
+        ifExpr: !!ro.pub.cs.lcpl.Block
+          expressions:
+          - !!ro.pub.cs.lcpl.Dispatch
+            arguments:
+            - !!ro.pub.cs.lcpl.StringConstant
+              lineNumber: 10
+              type: String
+              typeData: *id001
+              value: '-'
+            lineNumber: 10
+            method: *id004
+            name: out
+            object: !!ro.pub.cs.lcpl.Symbol
+              lineNumber: 10
+              name: stream
+              type: IO
+              typeData: *id005
+              variable: *id016
+            type: IO
+            typeData: *id005
+          - !!ro.pub.cs.lcpl.Dispatch
+            arguments:
+            - !!ro.pub.cs.lcpl.Symbol
+              lineNumber: 10
+              name: stream
+              type: IO
+              typeData: *id005
+              variable: *id016
+            lineNumber: 10
+            method: *id017
+            name: print_all
+            object: !!ro.pub.cs.lcpl.Symbol
+              lineNumber: 10
+              name: next
+              type: Vertex
+              typeData: *id007
+              variable: *id015
+            type: (none)
+            typeData: *id008
+          lineNumber: 10
+          type: (none)
+          typeData: *id008
+        lineNumber: 10
+        thenExpr: null
+        type: (none)
+        typeData: *id008
+      lineNumber: 9
+      type: (none)
+      typeData: *id008
+    lineNumber: 8
+    name: print_all
+    parameters:
+    - *id016
+    parent: *id007
+    returnType: void
+    returnTypeData: *id008
+    self: *id018
+  - *id009
+  - *id010
+  - *id015
+  lineNumber: 1
+  name: Vertex
+  parent: Object
+  parentData: *id003
+- &id019
+  features:
+  - &id023 !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.IntConstant
+        lineNumber: 16
+        type: Int
+        typeData: *id002
+        value: 0
+      lineNumber: 16
+      type: Int
+      typeData: *id002
+    lineNumber: 16
+    name: sides
+    parameters: []
+    parent: *id019
+    returnType: Int
+    returnTypeData: *id002
+    self:
+      lineNumber: 0
+      name: self
+      type: Shape
+      variableType: *id019
+  lineNumber: 15
+  name: Shape
+  parent: Object
+  parentData: *id003
+- &id020
+  features:
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.IntConstant
+        lineNumber: 20
+        type: Int
+        typeData: *id002
+        value: 3
+      lineNumber: 20
+      type: Int
+      typeData: *id002
+    lineNumber: 20
+    name: sides
+    parameters: []
+    parent: *id020
+    returnType: Int
+    returnTypeData: *id002
+    self:
+      lineNumber: 0
+      name: self
+      type: Triangle
+      variableType: *id020
+  lineNumber: 19
+  name: Triangle
+  parent: Shape
+  parentData: *id019
+- &id021
+  features:
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.IntConstant
+        lineNumber: 24
+        type: Int
+        typeData: *id002
+        value: 1
+      lineNumber: 24
+      type: Int
+      typeData: *id002
+    lineNumber: 24
+    name: sides
+    parameters: []
+    parent: *id021
+    returnType: Int
+    returnTypeData: *id002
+    self:
+      lineNumber: 0
+      name: self
+      type: Line
+      variableType: *id021
+  lineNumber: 23
+  name: Line
+  parent: Shape
+  parentData: *id019
+- &id022
+  features:
+  - &id038 !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.Dispatch
+        arguments:
+        - !!ro.pub.cs.lcpl.Symbol
+          lineNumber: 28
+          name: stream
+          type: IO
+          typeData: *id005
+          variable: &id032 !!ro.pub.cs.lcpl.FormalParam
+            lineNumber: 28
+            name: stream
+            type: IO
+            variableType: *id005
+        lineNumber: 28
+        method: *id017
+        name: print_all
+        object: !!ro.pub.cs.lcpl.Symbol
+          lineNumber: 28
+          name: vx
+          type: Vertex
+          typeData: *id007
+          variable: &id033 !!ro.pub.cs.lcpl.Attribute
+            attrInitSelf:
+              lineNumber: 0
+              name: self
+              type: Vertex
+              variableType: *id022
+            init: !!ro.pub.cs.lcpl.IfStatement
+              condition: !!ro.pub.cs.lcpl.EqualComparison
+                e1: !!ro.pub.cs.lcpl.Dispatch
+                  arguments: []
+                  lineNumber: 32
+                  method: *id023
+                  name: sides
+                  object: !!ro.pub.cs.lcpl.Symbol
+                    lineNumber: 32
+                    name: s
+                    type: Shape
+                    typeData: *id019
+                    variable: &id029 !!ro.pub.cs.lcpl.Attribute
+                      attrInitSelf: &id025
+                        lineNumber: 0
+                        name: self
+                        type: Shape
+                        variableType: *id022
+                      init: !!ro.pub.cs.lcpl.Dispatch
+                        arguments: []
+                        lineNumber: 30
+                        method: &id034
+                          body: !!ro.pub.cs.lcpl.Block
+                            expressions:
+                            - !!ro.pub.cs.lcpl.VoidConstant
+                              lineNumber: 57
+                              type: void
+                              typeData: *id024
+                            lineNumber: 57
+                            type: void
+                            typeData: *id024
+                          lineNumber: 57
+                          name: baseShape
+                          parameters: []
+                          parent: *id022
+                          returnType: Shape
+                          returnTypeData: *id019
+                          self:
+                            lineNumber: 0
+                            name: self
+                            type: Poly
+                            variableType: *id022
+                        name: baseShape
+                        object: !!ro.pub.cs.lcpl.Symbol
+                          lineNumber: 30
+                          name: self
+                          type: Poly
+                          typeData: *id022
+                          variable: *id025
+                        type: Shape
+                        typeData: *id019
+                      lineNumber: 30
+                      name: s
+                      type: Shape
+                      typeData: *id019
+                  type: Int
+                  typeData: *id002
+                e2: !!ro.pub.cs.lcpl.IntConstant
+                  lineNumber: 32
+                  type: Int
+                  typeData: *id002
+                  value: 3
+                lineNumber: 32
+                type: Int
+                typeData: *id002
+              ifExpr: !!ro.pub.cs.lcpl.Block
+                expressions:
+                - &id027 !!ro.pub.cs.lcpl.LocalDefinition
+                  init: !!ro.pub.cs.lcpl.NewObject
+                    lineNumber: 34
+                    type: Vertex
+                    typeData: *id007
+                  lineNumber: 34
+                  name: vx
+                  scope: &id028 !!ro.pub.cs.lcpl.LocalDefinition
+                    init: null
+                    lineNumber: 35
+                    name: vy
+                    scope: !!ro.pub.cs.lcpl.Block
+                      expressions:
+                      - !!ro.pub.cs.lcpl.Dispatch
+                        arguments:
+                        - !!ro.pub.cs.lcpl.IntConstant
+                          lineNumber: 37
+                          type: Int
+                          typeData: *id002
+                          value: 0
+                        - !!ro.pub.cs.lcpl.IntConstant
+                          lineNumber: 37
+                          type: Int
+                          typeData: *id002
+                          value: 0
+                        - !!ro.pub.cs.lcpl.VoidConstant
+                          lineNumber: 37
+                          type: void
+                          typeData: *id024
+                        lineNumber: 37
+                        method: *id026
+                        name: init
+                        object: !!ro.pub.cs.lcpl.Symbol
+                          lineNumber: 37
+                          name: vx
+                          type: Vertex
+                          typeData: *id007
+                          variable: *id027
+                        type: (none)
+                        typeData: *id008
+                      - !!ro.pub.cs.lcpl.Assignment
+                        e1: !!ro.pub.cs.lcpl.NewObject
+                          lineNumber: 38
+                          type: Vertex
+                          typeData: *id007
+                        lineNumber: 38
+                        symbol: vy
+                        symbolData: *id028
+                        type: Vertex
+                        typeData: *id007
+                      - !!ro.pub.cs.lcpl.Dispatch
+                        arguments:
+                        - !!ro.pub.cs.lcpl.IntConstant
+                          lineNumber: 39
+                          type: Int
+                          typeData: *id002
+                          value: 0
+                        - !!ro.pub.cs.lcpl.IntConstant
+                          lineNumber: 39
+                          type: Int
+                          typeData: *id002
+                          value: 2
+                        - !!ro.pub.cs.lcpl.Symbol
+                          lineNumber: 39
+                          name: vx
+                          type: Vertex
+                          typeData: *id007
+                          variable: *id027
+                        lineNumber: 39
+                        method: *id026
+                        name: init
+                        object: !!ro.pub.cs.lcpl.Symbol
+                          lineNumber: 39
+                          name: vy
+                          type: Vertex
+                          typeData: *id007
+                          variable: *id028
+                        type: (none)
+                        typeData: *id008
+                      - !!ro.pub.cs.lcpl.Assignment
+                        e1: !!ro.pub.cs.lcpl.NewObject
+                          lineNumber: 40
+                          type: Vertex
+                          typeData: *id007
+                        lineNumber: 40
+                        symbol: vx
+                        symbolData: *id027
+                        type: Vertex
+                        typeData: *id007
+                      - !!ro.pub.cs.lcpl.Dispatch
+                        arguments:
+                        - !!ro.pub.cs.lcpl.IntConstant
+                          lineNumber: 41
+                          type: Int
+                          typeData: *id002
+                          value: 1
+                        - !!ro.pub.cs.lcpl.IntConstant
+                          lineNumber: 41
+                          type: Int
+                          typeData: *id002
+                          value: 1
+                        - !!ro.pub.cs.lcpl.Symbol
+                          lineNumber: 41
+                          name: vy
+                          type: Vertex
+                          typeData: *id007
+                          variable: *id028
+                        lineNumber: 41
+                        method: *id026
+                        name: init
+                        object: !!ro.pub.cs.lcpl.Symbol
+                          lineNumber: 41
+                          name: vx
+                          type: Vertex
+                          typeData: *id007
+                          variable: *id027
+                        type: (none)
+                        typeData: *id008
+                      - !!ro.pub.cs.lcpl.Symbol
+                        lineNumber: 42
+                        name: vx
+                        type: Vertex
+                        typeData: *id007
+                        variable: *id027
+                      lineNumber: 37
+                      type: Vertex
+                      typeData: *id007
+                    type: Vertex
+                    typeData: *id007
+                    variableType: *id007
+                  type: Vertex
+                  typeData: *id007
+                  variableType: *id007
+                lineNumber: 33
+                type: Vertex
+                typeData: *id007
+              lineNumber: 32
+              thenExpr: !!ro.pub.cs.lcpl.Block
+                expressions:
+                - !!ro.pub.cs.lcpl.IfStatement
+                  condition: !!ro.pub.cs.lcpl.EqualComparison
+                    e1: !!ro.pub.cs.lcpl.IntConstant
+                      lineNumber: 44
+                      type: Int
+                      typeData: *id002
+                      value: 1
+                    e2: !!ro.pub.cs.lcpl.Dispatch
+                      arguments: []
+                      lineNumber: 44
+                      method: *id023
+                      name: sides
+                      object: !!ro.pub.cs.lcpl.Symbol
+                        lineNumber: 44
+                        name: s
+                        type: Shape
+                        typeData: *id019
+                        variable: *id029
+                      type: Int
+                      typeData: *id002
+                    lineNumber: 44
+                    type: Int
+                    typeData: *id002
+                  ifExpr: !!ro.pub.cs.lcpl.Block
+                    expressions:
+                    - &id030 !!ro.pub.cs.lcpl.LocalDefinition
+                      init: !!ro.pub.cs.lcpl.NewObject
+                        lineNumber: 46
+                        type: Vertex
+                        typeData: *id007
+                      lineNumber: 46
+                      name: vx
+                      scope: &id031 !!ro.pub.cs.lcpl.LocalDefinition
+                        init: !!ro.pub.cs.lcpl.NewObject
+                          lineNumber: 47
+                          type: Vertex
+                          typeData: *id007
+                        lineNumber: 47
+                        name: vy
+                        scope: !!ro.pub.cs.lcpl.Block
+                          expressions:
+                          - !!ro.pub.cs.lcpl.Dispatch
+                            arguments:
+                            - !!ro.pub.cs.lcpl.IntConstant
+                              lineNumber: 49
+                              type: Int
+                              typeData: *id002
+                              value: 1
+                            - !!ro.pub.cs.lcpl.IntConstant
+                              lineNumber: 49
+                              type: Int
+                              typeData: *id002
+                              value: 1
+                            - !!ro.pub.cs.lcpl.VoidConstant
+                              lineNumber: 49
+                              type: void
+                              typeData: *id024
+                            lineNumber: 49
+                            method: *id026
+                            name: init
+                            object: !!ro.pub.cs.lcpl.Symbol
+                              lineNumber: 49
+                              name: vx
+                              type: Vertex
+                              typeData: *id007
+                              variable: *id030
+                            type: (none)
+                            typeData: *id008
+                          - !!ro.pub.cs.lcpl.Dispatch
+                            arguments:
+                            - !!ro.pub.cs.lcpl.IntConstant
+                              lineNumber: 50
+                              type: Int
+                              typeData: *id002
+                              value: 0
+                            - !!ro.pub.cs.lcpl.IntConstant
+                              lineNumber: 50
+                              type: Int
+                              typeData: *id002
+                              value: 0
+                            - !!ro.pub.cs.lcpl.Symbol
+                              lineNumber: 50
+                              name: vx
+                              type: Vertex
+                              typeData: *id007
+                              variable: *id030
+                            lineNumber: 50
+                            method: *id026
+                            name: init
+                            object: !!ro.pub.cs.lcpl.Symbol
+                              lineNumber: 50
+                              name: vy
+                              type: Vertex
+                              typeData: *id007
+                              variable: *id031
+                            type: (none)
+                            typeData: *id008
+                          - !!ro.pub.cs.lcpl.Symbol
+                            lineNumber: 51
+                            name: vy
+                            type: Vertex
+                            typeData: *id007
+                            variable: *id031
+                          lineNumber: 49
+                          type: Vertex
+                          typeData: *id007
+                        type: Vertex
+                        typeData: *id007
+                        variableType: *id007
+                      type: Vertex
+                      typeData: *id007
+                      variableType: *id007
+                    lineNumber: 45
+                    type: Vertex
+                    typeData: *id007
+                  lineNumber: 44
+                  thenExpr: !!ro.pub.cs.lcpl.Block
+                    expressions:
+                    - !!ro.pub.cs.lcpl.VoidConstant
+                      lineNumber: 53
+                      type: void
+                      typeData: *id024
+                    lineNumber: 53
+                    type: void
+                    typeData: *id024
+                  type: Vertex
+                  typeData: *id007
+                lineNumber: 44
+                type: Vertex
+                typeData: *id007
+              type: Vertex
+              typeData: *id007
+            lineNumber: 31
+            name: vx
+            type: Vertex
+            typeData: *id007
+        type: (none)
+        typeData: *id008
+      - !!ro.pub.cs.lcpl.Dispatch
+        arguments:
+        - !!ro.pub.cs.lcpl.StringConstant
+          lineNumber: 28
+          type: String
+          typeData: *id001
+          value: |2+
+
+        lineNumber: 28
+        method: *id004
+        name: out
+        object: !!ro.pub.cs.lcpl.Symbol
+          lineNumber: 28
+          name: stream
+          type: IO
+          typeData: *id005
+          variable: *id032
+        type: IO
+        typeData: *id005
+      lineNumber: 28
+      type: IO
+      typeData: *id005
+    lineNumber: 28
+    name: print
+    parameters:
+    - *id032
+    parent: *id022
+    returnType: void
+    returnTypeData: *id008
+    self:
+      lineNumber: 0
+      name: self
+      type: Poly
+      variableType: *id022
+  - *id029
+  - *id033
+  - *id034
+  lineNumber: 27
+  name: Poly
+  parent: Object
+  parentData: *id003
+- &id035
+  features:
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Cast
+      e1: !!ro.pub.cs.lcpl.Block
+        expressions:
+        - !!ro.pub.cs.lcpl.NewObject
+          lineNumber: 61
+          type: Triangle
+          typeData: *id020
+        lineNumber: 61
+        type: Triangle
+        typeData: *id020
+      lineNumber: 61
+      type: Shape
+      typeData: *id019
+    lineNumber: 61
+    name: baseShape
+    parameters: []
+    parent: *id035
+    returnType: Shape
+    returnTypeData: *id019
+    self:
+      lineNumber: 0
+      name: self
+      type: Poly3
+      variableType: *id035
+  lineNumber: 60
+  name: Poly3
+  parent: Poly
+  parentData: *id022
+- &id036
+  features:
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Cast
+      e1: !!ro.pub.cs.lcpl.Block
+        expressions:
+        - !!ro.pub.cs.lcpl.NewObject
+          lineNumber: 64
+          type: Line
+          typeData: *id021
+        lineNumber: 64
+        type: Line
+        typeData: *id021
+      lineNumber: 64
+      type: Shape
+      typeData: *id019
+    lineNumber: 64
+    name: baseShape
+    parameters: []
+    parent: *id036
+    returnType: Shape
+    returnTypeData: *id019
+    self:
+      lineNumber: 0
+      name: self
+      type: Poly1
+      variableType: *id036
+  lineNumber: 63
+  name: Poly1
+  parent: Poly
+  parentData: *id022
+- &id037
+  features:
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.Dispatch
+        arguments:
+        - !!ro.pub.cs.lcpl.Cast
+          e1: !!ro.pub.cs.lcpl.Symbol
+            lineNumber: 69
+            name: self
+            type: Main
+            typeData: *id037
+            variable: &id039 !!ro.pub.cs.lcpl.FormalParam
+              lineNumber: 0
+              name: self
+              type: Main
+              variableType: *id037
+          lineNumber: 69
+          type: IO
+          typeData: *id005
+        lineNumber: 69
+        method: *id038
+        name: print
+        object: !!ro.pub.cs.lcpl.Symbol
+          lineNumber: 69
+          name: p
+          type: Poly
+          typeData: *id022
+          variable: &id040 !!ro.pub.cs.lcpl.Attribute
+            attrInitSelf:
+              lineNumber: 0
+              name: self
+              type: Poly
+              variableType: *id037
+            init: !!ro.pub.cs.lcpl.Cast
+              e1: !!ro.pub.cs.lcpl.NewObject
+                lineNumber: 73
+                type: Poly1
+                typeData: *id036
+              lineNumber: 73
+              type: Poly
+              typeData: *id022
+            lineNumber: 73
+            name: p
+            type: Poly
+            typeData: *id022
+        type: (none)
+        typeData: *id008
+      - !!ro.pub.cs.lcpl.Dispatch
+        arguments:
+        - !!ro.pub.cs.lcpl.Cast
+          e1: !!ro.pub.cs.lcpl.Symbol
+            lineNumber: 70
+            name: self
+            type: Main
+            typeData: *id037
+            variable: *id039
+          lineNumber: 70
+          type: IO
+          typeData: *id005
+        lineNumber: 70
+        method: *id038
+        name: print
+        object: !!ro.pub.cs.lcpl.Symbol
+          lineNumber: 70
+          name: p3
+          type: Poly
+          typeData: *id022
+          variable: &id041 !!ro.pub.cs.lcpl.Attribute
+            attrInitSelf:
+              lineNumber: 0
+              name: self
+              type: Poly
+              variableType: *id037
+            init: !!ro.pub.cs.lcpl.Cast
+              e1: !!ro.pub.cs.lcpl.NewObject
+                lineNumber: 74
+                type: Poly3
+                typeData: *id035
+              lineNumber: 74
+              type: Poly
+              typeData: *id022
+            lineNumber: 74
+            name: p3
+            type: Poly
+            typeData: *id022
+        type: (none)
+        typeData: *id008
+      lineNumber: 69
+      type: (none)
+      typeData: *id008
+    lineNumber: 68
+    name: main
+    parameters: []
+    parent: *id037
+    returnType: void
+    returnTypeData: *id008
+    self: *id039
+  - *id040
+  - *id041
+  lineNumber: 67
+  name: Main
+  parent: IO
+  parentData: *id005
+- *id003
+- *id005
+- *id001
+intType: *id002
+ioType: *id005
+lineNumber: 1
+noType: *id008
+nullType: *id024
+objectType: *id003
+stringType: *id001
+

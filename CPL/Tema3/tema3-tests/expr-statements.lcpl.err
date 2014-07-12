@@ -1,0 +1,8 @@
+llc: expr-statements.lcpl.ir:87:2: error: instruction expected to be numbered '%5'
+	%7 = add i32 %5, %6
+	^
+/tmp/lcpl_runtime-T8FA40.o: In function `main':
+_runtime/lcpl_runtime.c:(.text+0x5ee): undefined reference to `startup'
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+./eval.sh: line 27: ./expr-statements: No such file or directory
+rm: cannot remove `expr-statements': No such file or directory

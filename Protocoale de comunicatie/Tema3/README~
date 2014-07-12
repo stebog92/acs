@@ -1,0 +1,41 @@
+Protocoale de comunicatie
+
+Ciocan Mihai
+324CA
+
+Server :
+
+Pentru server astept pe un socket conexiuni de la clienti care vor trimite mesaje de tip "Info nume port adresa"; aceste informatii se stocheaza pentru fiecare client intr-un vector de clienti impreuna cu file descriptor-ul. Serverul poate primi mesaje de felul :
+	-quit de la stdin care inchide toate conexiunile apoi se inchide si serverul;
+	-stats de la stdin care afiseaza tot vectorul de clienti ,ce sunt momentan conectati, aceasta insemnand numele, portul, adresa precum si
+		lista de fisiere shareuite;
+	
+	-listclients de la un client; mesajul trimite lista de clienti catre clientul care a facut cererea
+	-infoclient clienT de la un client; mesajul trimite informatii despre clienT catre clientul care a facut cererea; daca nu exista se trimite
+		mesaj de notificare a acestui lucru;
+	-sharefile file de la un client ; insereaza file in lista de fisiere shareuite pentru clientul respectiv
+	-unsharefile file de la un client; scoate file din lista de fisiere shareuite pentru clientul respectiv; daca nu exista se trimite mesaj
+		de notificare a acestui lucru;
+	-getshare clienT de la un client; trimite lista de fisiere a lui clienT catre clientul care a facut cererea; daca nu exista clientul se 
+		trimite mesaj de notificare;
+	-Iquit de la client; mesajul informeaza serverul ca se inchide iar serverul inchide conexiunea respectiva si il scoate din lista de clienti;
+
+Client :
+
+Clientul tine o conexiune permanenta doar cu serverul. Clientul poate primi urmatoarele comenzi :
+	-listclients de la stdin; comanda trimite o cerere catre server si afiseaza clientii conectati la server;
+	-infoclient clienT de la stdin; comanda trimite cerere catre server si afiseaza informatiile despre clinT;
+	-message clienT msg de la stdin; se trimitere o cerere catre server pt a afla informatiile pentru clientul respectiv, daca acesta exista
+		atunci se stabileste o conexiune directa cu el se trimite mesajul si apoi se inchide conexiune imediat;
+	-sharefile file de la stdin; comanda trimite numele fisierului ls server pentru a-l insera in lista de fisiere shareuite; se executa numai
+		daca fisierul exista si se poate deschide;
+	-unsharefile file de la stdin; comanda trimite o cerere de scoatere nume fisier din lista de fisiere shareuite, acest lucru se intampla
+		numai daca exista in lista.
+	-getshare clienT de la stdin; trimite o cerere catre server pt a afla lista de fisiere shareuite a clienT, se executa numai daca clienT
+		exista;
+	-getfile clienT fisier de la stdin; comanda afla informatiile despre clienT, iar daca acesta exista, se face o cerere de transmitere a 
+		fisierului (trebuie sa existe in lista sa). clienT trimite 1024B catre cel ce a facut cererea printr-un mesaj de tip 
+		"sendedfile file descript continut_fisier". La primirea acestui tip de mesaj clientul scrie continut_fisier, si trimite mesaj
+		de tipul "more from descript to local_file_descript". Astfel cel care trimite stie de pe ce descriptor sa citeasca iar cel care
+		primeste stie pe ce sa scrie; Cand se termina fisierul de citit se trimite "receivedAll from descrip" astfel ca senderul stie ce
+		descriptor sa inchida;

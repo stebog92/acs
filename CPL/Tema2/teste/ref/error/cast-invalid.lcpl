@@ -1,0 +1,22 @@
+#(* cast tests *)
+
+class A inherits IO
+    greet -> A :
+        {A [out "Hello from class A!"]};
+        end;
+end;
+
+class B inherits A 
+    goodbye -> B :
+        {B [out "Bye says B, then!"]};
+    end;
+end;
+
+class Main 
+    main:
+        local 
+          A speaker = new B; 
+        end;
+        [{b [speaker.greet]}.goodbye];
+    end;
+end;

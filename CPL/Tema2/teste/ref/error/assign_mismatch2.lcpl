@@ -1,0 +1,17 @@
+class Main inherits IO
+    print Int x :
+        local String s; end;
+        s = if x < 0 then
+                "Minus " +  -x;
+            else
+                x;
+            end
+        ;
+        [out s];              
+    end;
+    
+    main :
+        [print -4];
+        [print 25];
+    end;
+end;

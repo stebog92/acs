@@ -1,0 +1,428 @@
+!!ro.pub.cs.lcpl.Program
+classes:
+- features:
+  - !!ro.pub.cs.lcpl.Attribute {init: null, lineNumber: 2, name: x, type: Int}
+  - !!ro.pub.cs.lcpl.Attribute {init: null, lineNumber: 2, name: y, type: Int}
+  - !!ro.pub.cs.lcpl.Attribute {init: null, lineNumber: 2, name: x2, type: Int}
+  - !!ro.pub.cs.lcpl.Attribute {init: null, lineNumber: 2, name: y2, type: Int}
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.Assignment
+        e1: !!ro.pub.cs.lcpl.Symbol {lineNumber: 4, name: x, type: null}
+        lineNumber: 4
+        symbol: self.x
+        type: null
+      - !!ro.pub.cs.lcpl.Assignment
+        e1: !!ro.pub.cs.lcpl.Symbol {lineNumber: 4, name: y, type: null}
+        lineNumber: 4
+        symbol: self.y
+        type: null
+      - !!ro.pub.cs.lcpl.Assignment
+        e1: !!ro.pub.cs.lcpl.Addition
+          e1: !!ro.pub.cs.lcpl.Symbol {lineNumber: 5, name: x, type: null}
+          e2: !!ro.pub.cs.lcpl.Symbol {lineNumber: 5, name: dx, type: null}
+          lineNumber: 5
+          type: null
+        lineNumber: 5
+        symbol: x2
+        type: null
+      - !!ro.pub.cs.lcpl.Assignment
+        e1: !!ro.pub.cs.lcpl.Addition
+          e1: !!ro.pub.cs.lcpl.Symbol {lineNumber: 5, name: y, type: null}
+          e2: !!ro.pub.cs.lcpl.Symbol {lineNumber: 5, name: dy, type: null}
+          lineNumber: 5
+          type: null
+        lineNumber: 5
+        symbol: y2
+        type: null
+      lineNumber: 4
+      type: null
+    lineNumber: 3
+    name: init
+    parameters:
+    - {lineNumber: 3, name: x, type: Int}
+    - {lineNumber: 3, name: y, type: Int}
+    - {lineNumber: 3, name: dx, type: Int}
+    - {lineNumber: 3, name: dy, type: Int}
+    returnType: void
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.Dispatch
+        arguments:
+        - !!ro.pub.cs.lcpl.Addition
+          e1: !!ro.pub.cs.lcpl.Addition
+            e1: !!ro.pub.cs.lcpl.Addition
+              e1: !!ro.pub.cs.lcpl.Addition
+                e1: !!ro.pub.cs.lcpl.Addition
+                  e1: !!ro.pub.cs.lcpl.Addition
+                    e1: !!ro.pub.cs.lcpl.Addition
+                      e1: !!ro.pub.cs.lcpl.Addition
+                        e1: !!ro.pub.cs.lcpl.StringConstant {lineNumber: 8, type: null,
+                          value: (}
+                        e2: !!ro.pub.cs.lcpl.Symbol {lineNumber: 8, name: x, type: null}
+                        lineNumber: 8
+                        type: null
+                      e2: !!ro.pub.cs.lcpl.StringConstant {lineNumber: 8, type: null,
+                        value: ','}
+                      lineNumber: 8
+                      type: null
+                    e2: !!ro.pub.cs.lcpl.Symbol {lineNumber: 8, name: y, type: null}
+                    lineNumber: 8
+                    type: null
+                  e2: !!ro.pub.cs.lcpl.StringConstant {lineNumber: 8, type: null,
+                    value: )(}
+                  lineNumber: 8
+                  type: null
+                e2: !!ro.pub.cs.lcpl.Symbol {lineNumber: 8, name: x2, type: null}
+                lineNumber: 8
+                type: null
+              e2: !!ro.pub.cs.lcpl.StringConstant {lineNumber: 8, type: null, value: ','}
+              lineNumber: 8
+              type: null
+            e2: !!ro.pub.cs.lcpl.Symbol {lineNumber: 8, name: y2, type: null}
+            lineNumber: 8
+            type: null
+          e2: !!ro.pub.cs.lcpl.StringConstant {lineNumber: 8, type: null, value: )}
+          lineNumber: 8
+          type: null
+        lineNumber: 8
+        name: out
+        object: !!ro.pub.cs.lcpl.Symbol {lineNumber: 8, name: stream, type: null}
+        type: null
+      lineNumber: 8
+      type: null
+    lineNumber: 7
+    name: print
+    parameters:
+    - {lineNumber: 7, name: stream, type: IO}
+    returnType: void
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.Multiplication
+        e1: !!ro.pub.cs.lcpl.Subtraction
+          e1: !!ro.pub.cs.lcpl.Symbol {lineNumber: 10, name: x2, type: null}
+          e2: !!ro.pub.cs.lcpl.Symbol {lineNumber: 10, name: x, type: null}
+          lineNumber: 10
+          type: null
+        e2: !!ro.pub.cs.lcpl.Subtraction
+          e1: !!ro.pub.cs.lcpl.Symbol {lineNumber: 10, name: y2, type: null}
+          e2: !!ro.pub.cs.lcpl.Symbol {lineNumber: 10, name: y, type: null}
+          lineNumber: 10
+          type: null
+        lineNumber: 10
+        type: null
+      lineNumber: 10
+      type: null
+    lineNumber: 10
+    name: area
+    parameters: []
+    returnType: Int
+  lineNumber: 1
+  name: Shape
+  parent: null
+- features:
+  - !!ro.pub.cs.lcpl.Attribute {init: null, lineNumber: 14, name: rx, type: Int}
+  - !!ro.pub.cs.lcpl.Attribute {init: null, lineNumber: 14, name: ry, type: Int}
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.StaticDispatch
+        arguments:
+        - !!ro.pub.cs.lcpl.Symbol {lineNumber: 16, name: x, type: null}
+        - !!ro.pub.cs.lcpl.Symbol {lineNumber: 16, name: y, type: null}
+        - !!ro.pub.cs.lcpl.Symbol {lineNumber: 16, name: dx, type: null}
+        - !!ro.pub.cs.lcpl.Symbol {lineNumber: 16, name: dy, type: null}
+        lineNumber: 16
+        name: init
+        object: !!ro.pub.cs.lcpl.Symbol {lineNumber: 16, name: self, type: null}
+        type: Shape
+      - !!ro.pub.cs.lcpl.Assignment
+        e1: !!ro.pub.cs.lcpl.Division
+          e1: !!ro.pub.cs.lcpl.Symbol {lineNumber: 17, name: dx, type: null}
+          e2: !!ro.pub.cs.lcpl.IntConstant {lineNumber: 17, type: null, value: 2}
+          lineNumber: 17
+          type: null
+        lineNumber: 17
+        symbol: rx
+        type: null
+      - !!ro.pub.cs.lcpl.Assignment
+        e1: !!ro.pub.cs.lcpl.Division
+          e1: !!ro.pub.cs.lcpl.Symbol {lineNumber: 17, name: dy, type: null}
+          e2: !!ro.pub.cs.lcpl.IntConstant {lineNumber: 17, type: null, value: 2}
+          lineNumber: 17
+          type: null
+        lineNumber: 17
+        symbol: ry
+        type: null
+      lineNumber: 16
+      type: null
+    lineNumber: 15
+    name: init
+    parameters:
+    - {lineNumber: 15, name: x, type: Int}
+    - {lineNumber: 15, name: y, type: Int}
+    - {lineNumber: 15, name: dx, type: Int}
+    - {lineNumber: 15, name: dy, type: Int}
+    returnType: void
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.Assignment
+        e1: !!ro.pub.cs.lcpl.Symbol {lineNumber: 20, name: rx, type: null}
+        lineNumber: 20
+        symbol: self.rx
+        type: null
+      - !!ro.pub.cs.lcpl.Assignment
+        e1: !!ro.pub.cs.lcpl.Symbol {lineNumber: 20, name: ry, type: null}
+        lineNumber: 20
+        symbol: self.ry
+        type: null
+      lineNumber: 20
+      type: null
+    lineNumber: 19
+    name: setR
+    parameters:
+    - {lineNumber: 19, name: rx, type: Int}
+    - {lineNumber: 19, name: ry, type: Int}
+    returnType: void
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.StaticDispatch
+        arguments:
+        - !!ro.pub.cs.lcpl.Symbol {lineNumber: 23, name: stream, type: null}
+        lineNumber: 23
+        name: print
+        object: !!ro.pub.cs.lcpl.Symbol {lineNumber: 23, name: self, type: null}
+        type: Shape
+      - !!ro.pub.cs.lcpl.Dispatch
+        arguments:
+        - !!ro.pub.cs.lcpl.Addition
+          e1: !!ro.pub.cs.lcpl.Addition
+            e1: !!ro.pub.cs.lcpl.StringConstant {lineNumber: 24, type: null, value: '['}
+            e2: !!ro.pub.cs.lcpl.Division
+              e1: !!ro.pub.cs.lcpl.Addition
+                e1: !!ro.pub.cs.lcpl.Symbol {lineNumber: 24, name: rx, type: null}
+                e2: !!ro.pub.cs.lcpl.Symbol {lineNumber: 24, name: ry, type: null}
+                lineNumber: 24
+                type: null
+              e2: !!ro.pub.cs.lcpl.IntConstant {lineNumber: 24, type: null, value: 2}
+              lineNumber: 24
+              type: null
+            lineNumber: 24
+            type: null
+          e2: !!ro.pub.cs.lcpl.StringConstant {lineNumber: 24, type: null, value: ']'}
+          lineNumber: 24
+          type: null
+        lineNumber: 24
+        name: out
+        object: !!ro.pub.cs.lcpl.Symbol {lineNumber: 24, name: stream, type: null}
+        type: null
+      lineNumber: 23
+      type: null
+    lineNumber: 22
+    name: print
+    parameters:
+    - {lineNumber: 22, name: stream, type: IO}
+    returnType: void
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.Division
+        e1: !!ro.pub.cs.lcpl.Multiplication
+          e1: !!ro.pub.cs.lcpl.Multiplication
+            e1: !!ro.pub.cs.lcpl.Symbol {lineNumber: 26, name: rx, type: null}
+            e2: !!ro.pub.cs.lcpl.Symbol {lineNumber: 26, name: ry, type: null}
+            lineNumber: 26
+            type: null
+          e2: !!ro.pub.cs.lcpl.IntConstant {lineNumber: 26, type: null, value: 314}
+          lineNumber: 26
+          type: null
+        e2: !!ro.pub.cs.lcpl.IntConstant {lineNumber: 26, type: null, value: 100}
+        lineNumber: 26
+        type: null
+      lineNumber: 26
+      type: null
+    lineNumber: 26
+    name: area
+    parameters: []
+    returnType: Int
+  lineNumber: 13
+  name: Ellipse
+  parent: Shape
+- features:
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.Dispatch
+        arguments:
+        - !!ro.pub.cs.lcpl.Symbol {lineNumber: 31, name: self, type: null}
+        lineNumber: 31
+        name: print
+        object: !!ro.pub.cs.lcpl.Symbol {lineNumber: 31, name: s, type: null}
+        type: null
+      - !!ro.pub.cs.lcpl.Dispatch
+        arguments:
+        - !!ro.pub.cs.lcpl.Addition
+          e1: !!ro.pub.cs.lcpl.Dispatch
+            arguments: []
+            lineNumber: 31
+            name: typeName
+            object: !!ro.pub.cs.lcpl.Symbol {lineNumber: 31, name: s, type: null}
+            type: null
+          e2: !!ro.pub.cs.lcpl.StringConstant
+            lineNumber: 31
+            type: null
+            value: |2+
+
+          lineNumber: 31
+          type: null
+        lineNumber: 31
+        name: out
+        object: null
+        type: null
+      - !!ro.pub.cs.lcpl.Dispatch
+        arguments:
+        - !!ro.pub.cs.lcpl.Addition
+          e1: !!ro.pub.cs.lcpl.Addition
+            e1: !!ro.pub.cs.lcpl.Addition
+              e1: !!ro.pub.cs.lcpl.Addition
+                e1: !!ro.pub.cs.lcpl.StringConstant {lineNumber: 32, type: null, value: ' > '}
+                e2: !!ro.pub.cs.lcpl.Dispatch
+                  arguments: []
+                  lineNumber: 32
+                  name: area
+                  object: !!ro.pub.cs.lcpl.Symbol {lineNumber: 32, name: s, type: null}
+                  type: null
+                lineNumber: 32
+                type: null
+              e2: !!ro.pub.cs.lcpl.StringConstant {lineNumber: 32, type: null, value: ' vs '}
+              lineNumber: 32
+              type: null
+            e2: !!ro.pub.cs.lcpl.StaticDispatch
+              arguments: []
+              lineNumber: 32
+              name: area
+              object: !!ro.pub.cs.lcpl.Symbol {lineNumber: 32, name: s, type: null}
+              type: Shape
+            lineNumber: 32
+            type: null
+          e2: !!ro.pub.cs.lcpl.StringConstant
+            lineNumber: 32
+            type: null
+            value: |2+
+
+          lineNumber: 32
+          type: null
+        lineNumber: 32
+        name: out
+        object: null
+        type: null
+      lineNumber: 31
+      type: null
+    lineNumber: 30
+    name: print
+    parameters:
+    - {lineNumber: 30, name: s, type: Shape}
+    returnType: void
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.LocalDefinition
+        init: !!ro.pub.cs.lcpl.NewObject {lineNumber: 36, type: Ellipse}
+        lineNumber: 36
+        name: s1
+        scope: !!ro.pub.cs.lcpl.LocalDefinition
+          init: !!ro.pub.cs.lcpl.NewObject {lineNumber: 37, type: Shape}
+          lineNumber: 37
+          name: s2
+          scope: !!ro.pub.cs.lcpl.LocalDefinition
+            init: null
+            lineNumber: 38
+            name: s3
+            scope: !!ro.pub.cs.lcpl.Block
+              expressions:
+              - !!ro.pub.cs.lcpl.Dispatch
+                arguments:
+                - !!ro.pub.cs.lcpl.IntConstant {lineNumber: 40, type: null, value: 1}
+                - !!ro.pub.cs.lcpl.IntConstant {lineNumber: 40, type: null, value: 2}
+                - !!ro.pub.cs.lcpl.IntConstant {lineNumber: 40, type: null, value: 10}
+                - !!ro.pub.cs.lcpl.IntConstant {lineNumber: 40, type: null, value: 20}
+                lineNumber: 40
+                name: init
+                object: !!ro.pub.cs.lcpl.Symbol {lineNumber: 40, name: s1, type: null}
+                type: null
+              - !!ro.pub.cs.lcpl.Dispatch
+                arguments:
+                - !!ro.pub.cs.lcpl.IntConstant {lineNumber: 41, type: null, value: 0}
+                - !!ro.pub.cs.lcpl.IntConstant {lineNumber: 41, type: null, value: 0}
+                - !!ro.pub.cs.lcpl.IntConstant {lineNumber: 41, type: null, value: 100}
+                - !!ro.pub.cs.lcpl.IntConstant {lineNumber: 41, type: null, value: 100}
+                lineNumber: 41
+                name: init
+                object: !!ro.pub.cs.lcpl.Symbol {lineNumber: 41, name: s2, type: null}
+                type: null
+              - !!ro.pub.cs.lcpl.Assignment
+                e1: !!ro.pub.cs.lcpl.Cast
+                  e1: !!ro.pub.cs.lcpl.Dispatch
+                    arguments: []
+                    lineNumber: 42
+                    name: copy
+                    object: !!ro.pub.cs.lcpl.Symbol {lineNumber: 42, name: s1, type: null}
+                    type: null
+                  lineNumber: 42
+                  type: Shape
+                lineNumber: 42
+                symbol: s3
+                type: null
+              - !!ro.pub.cs.lcpl.Dispatch
+                arguments:
+                - !!ro.pub.cs.lcpl.IntConstant {lineNumber: 43, type: null, value: 8}
+                - !!ro.pub.cs.lcpl.IntConstant {lineNumber: 43, type: null, value: 10}
+                lineNumber: 43
+                name: setR
+                object: !!ro.pub.cs.lcpl.Cast
+                  e1: !!ro.pub.cs.lcpl.Symbol {lineNumber: 43, name: s3, type: null}
+                  lineNumber: 43
+                  type: Ellipse
+                type: null
+              - !!ro.pub.cs.lcpl.Dispatch
+                arguments:
+                - !!ro.pub.cs.lcpl.Symbol {lineNumber: 44, name: s1, type: null}
+                lineNumber: 44
+                name: print
+                object: null
+                type: null
+              - !!ro.pub.cs.lcpl.Dispatch
+                arguments:
+                - !!ro.pub.cs.lcpl.Symbol {lineNumber: 45, name: s2, type: null}
+                lineNumber: 45
+                name: print
+                object: null
+                type: null
+              - !!ro.pub.cs.lcpl.Dispatch
+                arguments:
+                - !!ro.pub.cs.lcpl.Symbol {lineNumber: 46, name: s3, type: null}
+                lineNumber: 46
+                name: print
+                object: null
+                type: null
+              lineNumber: 40
+              type: null
+            type: Shape
+          type: Shape
+        type: Shape
+      lineNumber: 35
+      type: null
+    lineNumber: 34
+    name: main
+    parameters: []
+    returnType: void
+  lineNumber: 29
+  name: Main
+  parent: IO
+lineNumber: 1
+

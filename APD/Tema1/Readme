@@ -1,0 +1,34 @@
+Colonistii - Tema1
+
+Ciocan Mihai
+334CA
+
+Arhiva contine numai surse ce ofera solutii neoptimizate ale problemei, una
+seriala iar cealalta paralelizata. Implementarea seriala consta in determinarea
+minimului costului pentru fiecare Colij in parte si adaptarea bugetului, pretului si a 
+resursei in functie de constrangerile din enunt. Noile valori se retin in matrici
+suplimentare, facandu-se switch intre ele la fiecare an pentru calcularea minimului costij.
+Aceasta implementare are complexitate temporala de O((n^4)*t) unde t este numarul de ani.
+
+Varianta paralelizata este realizata pe baza solutiei secventiale, paralelizandu-se al doilea
+for. Complexitata devine (O(n^4)*t/p) unde p este numarul de procesoare.
+Mai jos se afla testele cu timpii pentru cele 2 teste, cu valori diferite pentru num_threads.
+serial n = 50 t = 500 real time = 0m49.227s in50_1.txt
+
+parallel dynamic threads = 8 n = 50 t = 500 real time = 0m7.865s in50_1.txt speedup = 6.38
+parallel dynamic threads = 4 n = 50 t = 500 real time = 0m13.681s in50_1.txt speedup = 3.61
+parallel dynamic threads = 2 n = 50 t = 500 real time = 0m25.939s in50_1.txt speedup = 1.89
+parallel dynamic threads = 1 n = 50 t = 500 real time = 0m49.237s in50_1.txt speedup = 0.99
+
+
+serial n = 100 t = 500 real time = 1m31.853s in100_1.txt
+parallel dynamic threads = 8 n = 100 t = 50 real time = 0m12.621s in100_1.txt speedup = 7.27
+parallel dynamic threads = 4 n = 100 t = 50 real time = 0m23.758s in100_1.txt speedup = 3.86
+parallel dynamic threads = 2 n = 100 t = 50 real time = 0m46.632s in100_1.txt speedup = 1.96
+parallel dynamic threads = 1 n = 100 t = 50 real time = 1m31.991s in100_1.txt speedup = 0.99
+
+Mentionez ca am testat si cu schedule si diferite chunksize-uri insa nu am inregistrat timpi
+foarte diferiti fata de cei afisati mai sus.
+Scriptul de rulare functioneaza in felul urmator:qsub -S /bin/bash -q ibm-quad-new.q script_rulare.sh executabil T fisin fisout num_thread
+unde executabil poate fi serial sau parallel iar num_thread este OMP_NUM_THREADS.
+

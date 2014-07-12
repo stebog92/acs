@@ -1,0 +1,17 @@
+class IntStr
+var String s;
+end;
+set String s : self.s = s; end;
+get -> Int : [s.toInt]; end;
+end;
+
+class Main inherits IO
+    mac Int a, Int b, String c -> String : a * b + c; end;
+    mac2 Int a, Int b, IntStr c -> Int : a * b + c; end;
+    main :
+        local IntStr x = new IntStr; end;
+        [out [mac 1, 2, 3]];
+        [x.set "3"];
+        [out [mac2 1, 2, x]];
+    end;
+end;

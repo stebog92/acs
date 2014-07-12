@@ -1,0 +1,13 @@
+Exception in thread "main" java.lang.NullPointerException
+	at ro.pub.cs.lcpl.Block.emitIR(Block.java:30)
+	at ro.pub.cs.lcpl.LocalDefinition.emitIR(LocalDefinition.java:98)
+	at ro.pub.cs.lcpl.LocalDefinition.emitIR(LocalDefinition.java:98)
+	at ro.pub.cs.lcpl.LocalDefinition.emitIR(LocalDefinition.java:98)
+	at ro.pub.cs.lcpl.Program.emitIR(Program.java:337)
+	at LCPLCodeGen.main(LCPLCodeGen.java:23)
+llc: math-expressions.lcpl.ir:267:1: error: expected instruction opcode
+L1:
+^
+clang: error: no such file or directory: 'math-expressions.lcpl.ir.s'
+./eval.sh: line 27: ./math-expressions: No such file or directory
+rm: cannot remove `math-expressions': No such file or directory

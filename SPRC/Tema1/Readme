@@ -1,0 +1,28 @@
+Tema 1 - SPRC
+RPC Remote Shell
+
+Ciocan Mihai
+342C3
+
+
+Implementare
+
+Client
+
+Clientul creeaza un handler pentru comunicarea cu serverul rpc si apoi asteapta comenzi de la user. Inainte de procesarea comenzii, programul cere serverului calea directorului de lucru (working director) pentru a o afisa la prompt. Apoi se proceseaza comanda care poate fi de 3 feluri:
+    - comanda simpla
+    - comanda compusa delimitata de ';'
+    - comanda de iesire 'exit'
+Clientul trimite comenzile catre server si asteapta raspuns de la acesta. Pentru comenzile multiple si raspunsurile acestora se foloseste lista inlantuita. Clientul primeste output-ul si valorile de return.
+In caz de eroare (se verifica valoarea de return) clientul va afisa: "'cmd': error", altfel se va afisa output-ul comenzii.
+In cazul in care userul tasteaza comanda 'exit', se elibereaza si se distruge handlerul asociat serverului rpc, iar programul client se opreste.
+
+Server
+
+Serverul trateaza comenzile simple separat de cele compuse prin 2 functii cunoscute clientului:
+    - execute_simple_cmd_1
+    - execute_multiple_cmd_1
+
+Cele 2 functii apeleaza functia execute_command (execute_multiple_cmd_1 apeleaza pentru fiecare comanda in parte), care ruleaza o comanda folosind popen si intoarce rezultatul ei si valoarea de return. Raspunsurile comenzilor compuse sunt impachetate intr-o lista inlantuita si trimise catre client. Serverul elibereaza memoria alocata dinamic pentru raspunsuri.
+
+In plus, serverul trimite 'pwd' cu ajutorul functiei get_remote_pwd_1 de asemenea cunoscuta clientului.

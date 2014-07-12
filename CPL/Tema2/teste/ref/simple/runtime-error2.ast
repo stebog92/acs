@@ -1,0 +1,32 @@
+!!ro.pub.cs.lcpl.Program
+classes:
+- features: []
+  lineNumber: 1
+  name: A
+  parent: null
+- features: []
+  lineNumber: 4
+  name: B
+  parent: null
+- features:
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.Cast
+        e1: !!ro.pub.cs.lcpl.Cast
+          e1: !!ro.pub.cs.lcpl.NewObject {lineNumber: 9, type: A}
+          lineNumber: 9
+          type: Object
+        lineNumber: 9
+        type: B
+      lineNumber: 9
+      type: null
+    lineNumber: 8
+    name: main
+    parameters: []
+    returnType: void
+  lineNumber: 7
+  name: Main
+  parent: null
+lineNumber: 1
+

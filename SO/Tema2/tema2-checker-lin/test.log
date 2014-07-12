@@ -1,0 +1,1371 @@
+-----------------------------
+start tests on Tue Apr 9 20:08:10 EEST 2013
+test 1 start
+running ./mpirun -np 5 _test/bin/test_mpirun
+created 5 procs, expected 5
+test 1 end
+test 2 start
+running ./mpirun -np 2 _test/bin/test_simple
+test 2 end
+test 3 start
+running ./mpirun -np 2 _test/bin/test_double_init
+test 3 end
+test 4 start
+running ./mpirun -np 2 _test/bin/test_double_finalize
+test 4 end
+success
+success
+test 5 start
+running ./mpirun -np 2 _test/bin/test_before_after
+test 5 end
+success
+success
+test 6 start
+running ./mpirun -np 2 _test/bin/test_send_recv
+4
+test 6 end
+success
+success
+test 7 start
+running ./mpirun -np 2 _test/bin/test_send_recv_array
+512
+test 7 end
+test 8 start
+running ./mpirun -np 8 _test/bin/test_ring
+test 8 end
+test 9 start
+running ./mpirun -np 6 _test/bin/test_matrix_multiply
+test 9 end
+end tests on Tue Apr 9 20:08:11 EEST 2013
+-----------------------------
+start tests on Tue Apr 9 20:12:16 EEST 2013
+test 1 start
+running ./mpirun -np 5 _test/bin/test_mpirun
+created 5 procs, expected 5
+test 1 end
+test 2 start
+running ./mpirun -np 2 _test/bin/test_simple
+test 2 end
+test 3 start
+running ./mpirun -np 2 _test/bin/test_double_init
+test 3 end
+test 4 start
+running ./mpirun -np 2 _test/bin/test_double_finalize
+test 4 end
+success
+success
+test 5 start
+running ./mpirun -np 2 _test/bin/test_before_after
+test 5 end
+success
+success
+test 6 start
+running ./mpirun -np 2 _test/bin/test_send_recv
+4
+test 6 end
+success
+success
+test 7 start
+running ./mpirun -np 2 _test/bin/test_send_recv_array
+512
+test 7 end
+test 8 start
+running ./mpirun -np 8 _test/bin/test_ring
+test 8 end
+test 9 start
+running ./mpirun -np 6 _test/bin/test_matrix_multiply
+test 9 end
+end tests on Tue Apr 9 20:12:16 EEST 2013
+-----------------------------
+start tests on Tue Apr 9 20:16:07 EEST 2013
+test 1 start
+running ./mpirun -np 5 _test/bin/test_mpirun
+created 5 procs, expected 5
+test 1 end
+test 2 start
+running ./mpirun -np 2 _test/bin/test_simple
+test 2 end
+test 3 start
+running ./mpirun -np 2 _test/bin/test_double_init
+test 3 end
+test 4 start
+running ./mpirun -np 2 _test/bin/test_double_finalize
+test 4 end
+success
+success
+test 5 start
+running ./mpirun -np 2 _test/bin/test_before_after
+test 5 end
+success
+success
+test 6 start
+running ./mpirun -np 2 _test/bin/test_send_recv
+4
+test 6 end
+success
+success
+test 7 start
+running ./mpirun -np 2 _test/bin/test_send_recv_array
+512
+test 7 end
+test 8 start
+running ./mpirun -np 8 _test/bin/test_ring
+test 8 end
+test 9 start
+running ./mpirun -np 6 _test/bin/test_matrix_multiply
+test 9 end
+end tests on Tue Apr 9 20:16:07 EEST 2013
+-----------------------------
+start tests on Tue Apr 9 21:04:59 EEST 2013
+test 1 start
+running ./mpirun -np 5 _test/bin/test_mpirun
+created 5 procs, expected 5
+test 1 end
+test 2 start
+running ./mpirun -np 2 _test/bin/test_simple
+test 2 end
+test 3 start
+running ./mpirun -np 2 _test/bin/test_double_init
+test 3 end
+test 4 start
+running ./mpirun -np 2 _test/bin/test_double_finalize
+test 4 end
+success
+success
+test 5 start
+running ./mpirun -np 2 _test/bin/test_before_after
+test 5 end
+success
+success
+test 6 start
+running ./mpirun -np 2 _test/bin/test_send_recv
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_send_recv.c:27
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_send_recv.c:27
+test 6 end
+test 7 start
+running ./mpirun -np 2 _test/bin/test_send_recv_array
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_send_recv_array.c:28
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_send_recv_array.c:28
+test 7 end
+test 8 start
+running ./mpirun -np 8 _test/bin/test_ring
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_ring.c:25
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_ring.c:25
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_ring.c:25
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_ring.c:25
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_ring.c:25
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_ring.c:25
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_ring.c:25
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_ring.c:25
+test 8 end
+test 9 start
+running ./mpirun -np 6 _test/bin/test_matrix_multiply
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_matrix_multiply.c:183
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_matrix_multiply.c:183
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_matrix_multiply.c:183
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_matrix_multiply.c:183
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_matrix_multiply.c:183
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_matrix_multiply.c:183
+test 9 end
+end tests on Tue Apr 9 21:04:59 EEST 2013
+-----------------------------
+start tests on Tue Apr 9 21:05:14 EEST 2013
+test 1 start
+running ./mpirun -np 5 _test/bin/test_mpirun
+created 5 procs, expected 5
+test 1 end
+test 2 start
+running ./mpirun -np 2 _test/bin/test_simple
+test 2 end
+test 3 start
+running ./mpirun -np 2 _test/bin/test_double_init
+test 3 end
+test 4 start
+running ./mpirun -np 2 _test/bin/test_double_finalize
+test 4 end
+success
+success
+test 5 start
+running ./mpirun -np 2 _test/bin/test_before_after
+test 5 end
+success
+success
+test 6 start
+running ./mpirun -np 2 _test/bin/test_send_recv
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_send_recv.c:27
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_send_recv.c:27
+test 6 end
+test 7 start
+running ./mpirun -np 2 _test/bin/test_send_recv_array
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_send_recv_array.c:28
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_send_recv_array.c:28
+test 7 end
+test 8 start
+running ./mpirun -np 8 _test/bin/test_ring
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_ring.c:25
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_ring.c:25
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_ring.c:25
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_ring.c:25
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_ring.c:25
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_ring.c:25
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_ring.c:25
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_ring.c:25
+test 8 end
+test 9 start
+running ./mpirun -np 6 _test/bin/test_matrix_multiply
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_matrix_multiply.c:183
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_matrix_multiply.c:183
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_matrix_multiply.c:183
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_matrix_multiply.c:183
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_matrix_multiply.c:183
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_matrix_multiply.c:183
+test 9 end
+end tests on Tue Apr 9 21:05:14 EEST 2013
+-----------------------------
+start tests on Tue Apr 9 21:10:58 EEST 2013
+test 1 start
+running ./mpirun -np 5 _test/bin/test_mpirun
+./_test/run_test.sh: line 125: ./mpirun: No such file or directory
+created 0 procs, expected 5
+test 1 end
+test 2 start
+running ./mpirun -np 2 _test/bin/test_simple
+./_test/run_test.sh: line 107: ./mpirun: No such file or directory
+test 2 end
+test 3 start
+running ./mpirun -np 2 _test/bin/test_double_init
+./_test/run_test.sh: line 107: ./mpirun: No such file or directory
+test 3 end
+test 4 start
+running ./mpirun -np 2 _test/bin/test_double_finalize
+./_test/run_test.sh: line 107: ./mpirun: No such file or directory
+test 4 end
+test 5 start
+running ./mpirun -np 2 _test/bin/test_before_after
+./_test/run_test.sh: line 107: ./mpirun: No such file or directory
+test 5 end
+test 6 start
+running ./mpirun -np 2 _test/bin/test_send_recv
+./_test/run_test.sh: line 107: ./mpirun: No such file or directory
+test 6 end
+test 7 start
+running ./mpirun -np 2 _test/bin/test_send_recv_array
+./_test/run_test.sh: line 107: ./mpirun: No such file or directory
+test 7 end
+test 8 start
+running ./mpirun -np 8 _test/bin/test_ring
+./_test/run_test.sh: line 107: ./mpirun: No such file or directory
+test 8 end
+test 9 start
+running ./mpirun -np 6 _test/bin/test_matrix_multiply
+./_test/run_test.sh: line 107: ./mpirun: No such file or directory
+test 9 end
+end tests on Tue Apr 9 21:10:58 EEST 2013
+-----------------------------
+start tests on Tue Apr 9 21:11:00 EEST 2013
+test 1 start
+running ./mpirun -np 5 _test/bin/test_mpirun
+./_test/run_test.sh: line 125: ./mpirun: No such file or directory
+created 0 procs, expected 5
+test 1 end
+test 2 start
+running ./mpirun -np 2 _test/bin/test_simple
+./_test/run_test.sh: line 107: ./mpirun: No such file or directory
+test 2 end
+test 3 start
+running ./mpirun -np 2 _test/bin/test_double_init
+./_test/run_test.sh: line 107: ./mpirun: No such file or directory
+test 3 end
+test 4 start
+running ./mpirun -np 2 _test/bin/test_double_finalize
+./_test/run_test.sh: line 107: ./mpirun: No such file or directory
+test 4 end
+test 5 start
+running ./mpirun -np 2 _test/bin/test_before_after
+./_test/run_test.sh: line 107: ./mpirun: No such file or directory
+test 5 end
+test 6 start
+running ./mpirun -np 2 _test/bin/test_send_recv
+./_test/run_test.sh: line 107: ./mpirun: No such file or directory
+test 6 end
+test 7 start
+running ./mpirun -np 2 _test/bin/test_send_recv_array
+./_test/run_test.sh: line 107: ./mpirun: No such file or directory
+test 7 end
+test 8 start
+running ./mpirun -np 8 _test/bin/test_ring
+./_test/run_test.sh: line 107: ./mpirun: No such file or directory
+test 8 end
+test 9 start
+running ./mpirun -np 6 _test/bin/test_matrix_multiply
+./_test/run_test.sh: line 107: ./mpirun: No such file or directory
+test 9 end
+end tests on Tue Apr 9 21:11:00 EEST 2013
+-----------------------------
+start tests on Tue Apr 9 21:12:25 EEST 2013
+test 1 start
+running ./mpirun -np 5 _test/bin/test_mpirun
+./_test/run_test.sh: line 125: ./mpirun: No such file or directory
+created 0 procs, expected 5
+test 1 end
+test 2 start
+running ./mpirun -np 2 _test/bin/test_simple
+./_test/run_test.sh: line 107: ./mpirun: No such file or directory
+test 2 end
+test 3 start
+running ./mpirun -np 2 _test/bin/test_double_init
+./_test/run_test.sh: line 107: ./mpirun: No such file or directory
+test 3 end
+test 4 start
+running ./mpirun -np 2 _test/bin/test_double_finalize
+./_test/run_test.sh: line 107: ./mpirun: No such file or directory
+test 4 end
+test 5 start
+running ./mpirun -np 2 _test/bin/test_before_after
+./_test/run_test.sh: line 107: ./mpirun: No such file or directory
+test 5 end
+test 6 start
+running ./mpirun -np 2 _test/bin/test_send_recv
+./_test/run_test.sh: line 107: ./mpirun: No such file or directory
+test 6 end
+test 7 start
+running ./mpirun -np 2 _test/bin/test_send_recv_array
+./_test/run_test.sh: line 107: ./mpirun: No such file or directory
+test 7 end
+test 8 start
+running ./mpirun -np 8 _test/bin/test_ring
+./_test/run_test.sh: line 107: ./mpirun: No such file or directory
+test 8 end
+test 9 start
+running ./mpirun -np 6 _test/bin/test_matrix_multiply
+./_test/run_test.sh: line 107: ./mpirun: No such file or directory
+test 9 end
+end tests on Tue Apr 9 21:12:26 EEST 2013
+-----------------------------
+start tests on Tue Apr 9 21:12:56 EEST 2013
+test 1 start
+running ./mpirun -np 5 _test/bin/test_mpirun
+created 5 procs, expected 5
+test 1 end
+test 2 start
+running ./mpirun -np 2 _test/bin/test_simple
+test 2 end
+test 3 start
+running ./mpirun -np 2 _test/bin/test_double_init
+test 3 end
+test 4 start
+running ./mpirun -np 2 _test/bin/test_double_finalize
+test 4 end
+success
+success
+test 5 start
+running ./mpirun -np 2 _test/bin/test_before_after
+test 5 end
+success
+success
+test 6 start
+running ./mpirun -np 2 _test/bin/test_send_recv
+test 6 end
+success
+success
+test 7 start
+running ./mpirun -np 2 _test/bin/test_send_recv_array
+test 7 end
+test 8 start
+running ./mpirun -np 8 _test/bin/test_ring
+test 8 end
+test 9 start
+running ./mpirun -np 6 _test/bin/test_matrix_multiply
+test 9 end
+end tests on Tue Apr 9 21:12:56 EEST 2013
+-----------------------------
+start tests on Tue Apr 9 21:15:49 EEST 2013
+test 1 start
+running ./mpirun -np 5 _test/bin/test_mpirun
+created 5 procs, expected 5
+test 1 end
+test 2 start
+running ./mpirun -np 2 _test/bin/test_simple
+test 2 end
+test 3 start
+running ./mpirun -np 2 _test/bin/test_double_init
+test 3 end
+test 4 start
+running ./mpirun -np 2 _test/bin/test_double_finalize
+test 4 end
+success
+success
+test 5 start
+running ./mpirun -np 2 _test/bin/test_before_after
+test 5 end
+success
+success
+test 6 start
+running ./mpirun -np 2 _test/bin/test_send_recv
+test 6 end
+success
+success
+test 7 start
+running ./mpirun -np 2 _test/bin/test_send_recv_array
+test 7 end
+test 8 start
+running ./mpirun -np 8 _test/bin/test_ring
+test 8 end
+test 9 start
+running ./mpirun -np 6 _test/bin/test_matrix_multiply
+test 9 end
+end tests on Tue Apr 9 21:15:49 EEST 2013
+-----------------------------
+start tests on Tue Apr 9 21:30:38 EEST 2013
+test 1 start
+running ./mpirun -np 5 _test/bin/test_mpirun
+created 5 procs, expected 5
+test 1 end
+test 2 start
+running ./mpirun -np 2 _test/bin/test_simple
+test 2 end
+test 3 start
+running ./mpirun -np 2 _test/bin/test_double_init
+test 3 end
+test 4 start
+running ./mpirun -np 2 _test/bin/test_double_finalize
+test 4 end
+success
+success
+test 5 start
+running ./mpirun -np 2 _test/bin/test_before_after
+test 5 end
+success
+success
+test 6 start
+running ./mpirun -np 2 _test/bin/test_send_recv
+test 6 end
+success
+success
+test 7 start
+running ./mpirun -np 2 _test/bin/test_send_recv_array
+test 7 end
+test 8 start
+running ./mpirun -np 8 _test/bin/test_ring
+test 8 end
+test 9 start
+running ./mpirun -np 6 _test/bin/test_matrix_multiply
+test 9 end
+end tests on Tue Apr 9 21:30:38 EEST 2013
+-----------------------------
+start tests on Tue Apr 9 21:48:49 EEST 2013
+test 1 start
+running ./mpirun -np 5 _test/bin/test_mpirun
+created 4 procs, expected 5
+test 1 end
+test 2 start
+running ./mpirun -np 2 _test/bin/test_simple
+test 2 end
+test 3 start
+running ./mpirun -np 2 _test/bin/test_double_init
+test 3 end
+test 4 start
+running ./mpirun -np 2 _test/bin/test_double_finalize
+test 4 end
+success
+success
+test 5 start
+running ./mpirun -np 2 _test/bin/test_before_after
+test 5 end
+success
+success
+test 6 start
+running ./mpirun -np 2 _test/bin/test_send_recv
+test 6 end
+success
+success
+test 7 start
+running ./mpirun -np 2 _test/bin/test_send_recv_array
+test 7 end
+test 8 start
+running ./mpirun -np 8 _test/bin/test_ring
+test 8 end
+test 9 start
+running ./mpirun -np 6 _test/bin/test_matrix_multiply
+test 9 end
+end tests on Tue Apr 9 21:48:49 EEST 2013
+-----------------------------
+start tests on Tue Apr 9 21:48:51 EEST 2013
+test 1 start
+running ./mpirun -np 5 _test/bin/test_mpirun
+created 5 procs, expected 5
+test 1 end
+test 2 start
+running ./mpirun -np 2 _test/bin/test_simple
+test 2 end
+test 3 start
+running ./mpirun -np 2 _test/bin/test_double_init
+test 3 end
+test 4 start
+running ./mpirun -np 2 _test/bin/test_double_finalize
+test 4 end
+success
+success
+test 5 start
+running ./mpirun -np 2 _test/bin/test_before_after
+test 5 end
+success
+success
+test 6 start
+running ./mpirun -np 2 _test/bin/test_send_recv
+test 6 end
+success
+success
+test 7 start
+running ./mpirun -np 2 _test/bin/test_send_recv_array
+test 7 end
+test 8 start
+running ./mpirun -np 8 _test/bin/test_ring
+test 8 end
+test 9 start
+running ./mpirun -np 6 _test/bin/test_matrix_multiply
+test 9 end
+end tests on Tue Apr 9 21:48:51 EEST 2013
+-----------------------------
+start tests on Tue Apr 9 21:48:53 EEST 2013
+test 1 start
+running ./mpirun -np 5 _test/bin/test_mpirun
+created 5 procs, expected 5
+test 1 end
+test 2 start
+running ./mpirun -np 2 _test/bin/test_simple
+test 2 end
+test 3 start
+running ./mpirun -np 2 _test/bin/test_double_init
+test 3 end
+test 4 start
+running ./mpirun -np 2 _test/bin/test_double_finalize
+test 4 end
+success
+success
+test 5 start
+running ./mpirun -np 2 _test/bin/test_before_after
+test 5 end
+success
+success
+test 6 start
+running ./mpirun -np 2 _test/bin/test_send_recv
+test 6 end
+success
+success
+test 7 start
+running ./mpirun -np 2 _test/bin/test_send_recv_array
+test 7 end
+test 8 start
+running ./mpirun -np 8 _test/bin/test_ring
+test 8 end
+test 9 start
+running ./mpirun -np 6 _test/bin/test_matrix_multiply
+test 9 end
+end tests on Tue Apr 9 21:48:53 EEST 2013
+-----------------------------
+start tests on Tue Apr 9 21:48:54 EEST 2013
+test 1 start
+running ./mpirun -np 5 _test/bin/test_mpirun
+created 5 procs, expected 5
+test 1 end
+test 2 start
+running ./mpirun -np 2 _test/bin/test_simple
+test 2 end
+test 3 start
+running ./mpirun -np 2 _test/bin/test_double_init
+test 3 end
+test 4 start
+running ./mpirun -np 2 _test/bin/test_double_finalize
+test 4 end
+success
+success
+test 5 start
+running ./mpirun -np 2 _test/bin/test_before_after
+test 5 end
+success
+success
+test 6 start
+running ./mpirun -np 2 _test/bin/test_send_recv
+test 6 end
+success
+success
+test 7 start
+running ./mpirun -np 2 _test/bin/test_send_recv_array
+test 7 end
+test 8 start
+running ./mpirun -np 8 _test/bin/test_ring
+test 8 end
+test 9 start
+running ./mpirun -np 6 _test/bin/test_matrix_multiply
+test 9 end
+end tests on Tue Apr 9 21:48:54 EEST 2013
+-----------------------------
+start tests on Tue Apr 9 21:49:13 EEST 2013
+test 1 start
+running ./mpirun -np 5 _test/bin/test_mpirun
+created 5 procs, expected 5
+test 1 end
+test 2 start
+running ./mpirun -np 2 _test/bin/test_simple
+test 2 end
+test 3 start
+running ./mpirun -np 2 _test/bin/test_double_init
+test 3 end
+test 4 start
+running ./mpirun -np 2 _test/bin/test_double_finalize
+test 4 end
+success
+success
+test 5 start
+running ./mpirun -np 2 _test/bin/test_before_after
+test 5 end
+success
+success
+test 6 start
+running ./mpirun -np 2 _test/bin/test_send_recv
+test 6 end
+success
+success
+test 7 start
+running ./mpirun -np 2 _test/bin/test_send_recv_array
+test 7 end
+test 8 start
+running ./mpirun -np 8 _test/bin/test_ring
+test 8 end
+test 9 start
+running ./mpirun -np 6 _test/bin/test_matrix_multiply
+test 9 end
+end tests on Tue Apr 9 21:49:13 EEST 2013
+-----------------------------
+start tests on Tue Apr 9 21:53:57 EEST 2013
+test 1 start
+running ./mpirun -np 5 _test/bin/test_mpirun
+created 5 procs, expected 5
+test 1 end
+test 2 start
+running ./mpirun -np 2 _test/bin/test_simple
+test 2 end
+test 3 start
+running ./mpirun -np 2 _test/bin/test_double_init
+test 3 end
+test 4 start
+running ./mpirun -np 2 _test/bin/test_double_finalize
+test 4 end
+success
+success
+test 5 start
+running ./mpirun -np 2 _test/bin/test_before_after
+test 5 end
+success
+success
+test 6 start
+running ./mpirun -np 2 _test/bin/test_send_recv
+test 6 end
+success
+success
+test 7 start
+running ./mpirun -np 2 _test/bin/test_send_recv_array
+test 7 end
+test 8 start
+running ./mpirun -np 8 _test/bin/test_ring
+test 8 end
+test 9 start
+running ./mpirun -np 6 _test/bin/test_matrix_multiply
+test 9 end
+end tests on Tue Apr 9 21:53:57 EEST 2013
+-----------------------------
+start tests on Tue Apr 9 22:01:27 EEST 2013
+test 1 start
+running ./mpirun -np 5 _test/bin/test_mpirun
+created 5 procs, expected 5
+test 1 end
+test 2 start
+running ./mpirun -np 2 _test/bin/test_simple
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_simple.c:11
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_simple.c:11
+test 2 end
+test 3 start
+running ./mpirun -np 2 _test/bin/test_double_init
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_double_init.c:11
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_double_init.c:11
+test 3 end
+test 4 start
+running ./mpirun -np 2 _test/bin/test_double_finalize
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_double_finalize.c:11
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_double_finalize.c:11
+test 4 end
+test 5 start
+running ./mpirun -np 2 _test/bin/test_before_after
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_before_after.c:48
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_before_after.c:48
+test 5 end
+test 6 start
+running ./mpirun -np 2 _test/bin/test_send_recv
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_send_recv.c:20
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_send_recv.c:20
+test 6 end
+test 7 start
+running ./mpirun -np 2 _test/bin/test_send_recv_array
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_send_recv_array.c:21
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_send_recv_array.c:21
+test 7 end
+test 8 start
+running ./mpirun -np 8 _test/bin/test_ring
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_ring.c:19
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_ring.c:19
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_ring.c:19
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_ring.c:19
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_ring.c:19
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_ring.c:19
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_ring.c:19
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_ring.c:19
+test 8 end
+test 9 start
+running ./mpirun -np 6 _test/bin/test_matrix_multiply
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_matrix_multiply.c:176
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_matrix_multiply.c:176
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_matrix_multiply.c:176
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_matrix_multiply.c:176
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_matrix_multiply.c:176
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_matrix_multiply.c:176
+test 9 end
+end tests on Tue Apr 9 22:01:27 EEST 2013
+-----------------------------
+start tests on Tue Apr 9 22:01:29 EEST 2013
+test 1 start
+running ./mpirun -np 5 _test/bin/test_mpirun
+created 4 procs, expected 5
+test 1 end
+test 2 start
+running ./mpirun -np 2 _test/bin/test_simple
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_simple.c:11
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_simple.c:11
+test 2 end
+test 3 start
+running ./mpirun -np 2 _test/bin/test_double_init
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_double_init.c:11
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_double_init.c:11
+test 3 end
+test 4 start
+running ./mpirun -np 2 _test/bin/test_double_finalize
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_double_finalize.c:11
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_double_finalize.c:11
+test 4 end
+test 5 start
+running ./mpirun -np 2 _test/bin/test_before_after
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_before_after.c:48
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_before_after.c:48
+test 5 end
+test 6 start
+running ./mpirun -np 2 _test/bin/test_send_recv
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_send_recv.c:20
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_send_recv.c:20
+test 6 end
+test 7 start
+running ./mpirun -np 2 _test/bin/test_send_recv_array
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_send_recv_array.c:21
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_send_recv_array.c:21
+test 7 end
+test 8 start
+running ./mpirun -np 8 _test/bin/test_ring
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_ring.c:19
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_ring.c:19
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_ring.c:19
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_ring.c:19
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_ring.c:19
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_ring.c:19
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_ring.c:19
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_ring.c:19
+test 8 end
+test 9 start
+running ./mpirun -np 6 _test/bin/test_matrix_multiply
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_matrix_multiply.c:176
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_matrix_multiply.c:176
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_matrix_multiply.c:176
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_matrix_multiply.c:176
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_matrix_multiply.c:176
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_matrix_multiply.c:176
+test 9 end
+end tests on Tue Apr 9 22:01:29 EEST 2013
+-----------------------------
+start tests on Tue Apr 9 22:01:30 EEST 2013
+test 1 start
+running ./mpirun -np 5 _test/bin/test_mpirun
+created 5 procs, expected 5
+test 1 end
+test 2 start
+running ./mpirun -np 2 _test/bin/test_simple
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_simple.c:11
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_simple.c:11
+test 2 end
+test 3 start
+running ./mpirun -np 2 _test/bin/test_double_init
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_double_init.c:11
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_double_init.c:11
+test 3 end
+test 4 start
+running ./mpirun -np 2 _test/bin/test_double_finalize
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_double_finalize.c:11
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_double_finalize.c:11
+test 4 end
+test 5 start
+running ./mpirun -np 2 _test/bin/test_before_after
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_before_after.c:48
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_before_after.c:48
+test 5 end
+test 6 start
+running ./mpirun -np 2 _test/bin/test_send_recv
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_send_recv.c:20
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_send_recv.c:20
+test 6 end
+test 7 start
+running ./mpirun -np 2 _test/bin/test_send_recv_array
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_send_recv_array.c:21
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_send_recv_array.c:21
+test 7 end
+test 8 start
+running ./mpirun -np 8 _test/bin/test_ring
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_ring.c:19
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_ring.c:19
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_ring.c:19
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_ring.c:19
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_ring.c:19
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_ring.c:19
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_ring.c:19
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_ring.c:19
+test 8 end
+test 9 start
+running ./mpirun -np 6 _test/bin/test_matrix_multiply
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_matrix_multiply.c:176
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_matrix_multiply.c:176
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_matrix_multiply.c:176
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_matrix_multiply.c:176
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_matrix_multiply.c:176
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_matrix_multiply.c:176
+test 9 end
+end tests on Tue Apr 9 22:01:31 EEST 2013
+-----------------------------
+start tests on Tue Apr 9 22:03:53 EEST 2013
+test 1 start
+running ./mpirun -np 5 _test/bin/test_mpirun
+created 5 procs, expected 5
+test 1 end
+test 2 start
+running ./mpirun -np 2 _test/bin/test_simple
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_simple.c:11
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_simple.c:11
+test 2 end
+test 3 start
+running ./mpirun -np 2 _test/bin/test_double_init
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_double_init.c:11
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_double_init.c:11
+test 3 end
+test 4 start
+running ./mpirun -np 2 _test/bin/test_double_finalize
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_double_finalize.c:11
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_double_finalize.c:11
+test 4 end
+test 5 start
+running ./mpirun -np 2 _test/bin/test_before_after
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_before_after.c:48
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_before_after.c:48
+test 5 end
+test 6 start
+running ./mpirun -np 2 _test/bin/test_send_recv
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_send_recv.c:20
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_send_recv.c:20
+test 6 end
+test 7 start
+running ./mpirun -np 2 _test/bin/test_send_recv_array
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_send_recv_array.c:21
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_send_recv_array.c:21
+test 7 end
+test 8 start
+running ./mpirun -np 8 _test/bin/test_ring
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_ring.c:19
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_ring.c:19
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_ring.c:19
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_ring.c:19
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_ring.c:19
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_ring.c:19
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_ring.c:19
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_ring.c:19
+test 8 end
+test 9 start
+running ./mpirun -np 6 _test/bin/test_matrix_multiply
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_matrix_multiply.c:176
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_matrix_multiply.c:176
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_matrix_multiply.c:176
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_matrix_multiply.c:176
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_matrix_multiply.c:176
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_matrix_multiply.c:176
+test 9 end
+end tests on Tue Apr 9 22:03:53 EEST 2013
+-----------------------------
+start tests on Tue Apr 9 22:03:54 EEST 2013
+test 1 start
+running ./mpirun -np 5 _test/bin/test_mpirun
+created 5 procs, expected 5
+test 1 end
+test 2 start
+running ./mpirun -np 2 _test/bin/test_simple
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_simple.c:11
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_simple.c:11
+test 2 end
+test 3 start
+running ./mpirun -np 2 _test/bin/test_double_init
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_double_init.c:11
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_double_init.c:11
+test 3 end
+test 4 start
+running ./mpirun -np 2 _test/bin/test_double_finalize
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_double_finalize.c:11
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_double_finalize.c:11
+test 4 end
+test 5 start
+running ./mpirun -np 2 _test/bin/test_before_after
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_before_after.c:48
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_before_after.c:48
+test 5 end
+test 6 start
+running ./mpirun -np 2 _test/bin/test_send_recv
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_send_recv.c:20
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_send_recv.c:20
+test 6 end
+test 7 start
+running ./mpirun -np 2 _test/bin/test_send_recv_array
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_send_recv_array.c:21
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_send_recv_array.c:21
+test 7 end
+test 8 start
+running ./mpirun -np 8 _test/bin/test_ring
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_ring.c:19
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_ring.c:19
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_ring.c:19
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_ring.c:19
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_ring.c:19
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_ring.c:19
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_ring.c:19
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_ring.c:19
+test 8 end
+test 9 start
+running ./mpirun -np 6 _test/bin/test_matrix_multiply
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_matrix_multiply.c:176
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_matrix_multiply.c:176
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_matrix_multiply.c:176
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_matrix_multiply.c:176
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_matrix_multiply.c:176
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_matrix_multiply.c:176
+test 9 end
+end tests on Tue Apr 9 22:03:55 EEST 2013
+-----------------------------
+start tests on Tue Apr 9 22:04:16 EEST 2013
+test 1 start
+running ./mpirun -np 5 _test/bin/test_mpirun
+created 4 procs, expected 5
+test 1 end
+test 2 start
+running ./mpirun -np 2 _test/bin/test_simple
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_simple.c:11
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_simple.c:11
+test 2 end
+test 3 start
+running ./mpirun -np 2 _test/bin/test_double_init
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_double_init.c:11
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_double_init.c:11
+test 3 end
+test 4 start
+running ./mpirun -np 2 _test/bin/test_double_finalize
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_double_finalize.c:11
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_double_finalize.c:11
+test 4 end
+test 5 start
+running ./mpirun -np 2 _test/bin/test_before_after
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_before_after.c:48
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_before_after.c:48
+test 5 end
+test 6 start
+running ./mpirun -np 2 _test/bin/test_send_recv
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_send_recv.c:20
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_send_recv.c:20
+test 6 end
+test 7 start
+running ./mpirun -np 2 _test/bin/test_send_recv_array
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_send_recv_array.c:21
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_send_recv_array.c:21
+test 7 end
+test 8 start
+running ./mpirun -np 8 _test/bin/test_ring
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_ring.c:19
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_ring.c:19
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_ring.c:19
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_ring.c:19
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_ring.c:19
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_ring.c:19
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_ring.c:19
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_ring.c:19
+test 8 end
+test 9 start
+running ./mpirun -np 6 _test/bin/test_matrix_multiply
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_matrix_multiply.c:176
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_matrix_multiply.c:176
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_matrix_multiply.c:176
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_matrix_multiply.c:176
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_matrix_multiply.c:176
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_matrix_multiply.c:176
+test 9 end
+end tests on Tue Apr 9 22:04:16 EEST 2013
+-----------------------------
+start tests on Tue Apr 9 22:04:18 EEST 2013
+test 1 start
+running ./mpirun -np 5 _test/bin/test_mpirun
+created 5 procs, expected 5
+test 1 end
+test 2 start
+running ./mpirun -np 2 _test/bin/test_simple
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_simple.c:11
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_simple.c:11
+test 2 end
+test 3 start
+running ./mpirun -np 2 _test/bin/test_double_init
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_double_init.c:11
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_double_init.c:11
+test 3 end
+test 4 start
+running ./mpirun -np 2 _test/bin/test_double_finalize
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_double_finalize.c:11
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_double_finalize.c:11
+test 4 end
+test 5 start
+running ./mpirun -np 2 _test/bin/test_before_after
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_before_after.c:48
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_before_after.c:48
+test 5 end
+test 6 start
+running ./mpirun -np 2 _test/bin/test_send_recv
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_send_recv.c:20
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_send_recv.c:20
+test 6 end
+test 7 start
+running ./mpirun -np 2 _test/bin/test_send_recv_array
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_send_recv_array.c:21
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_send_recv_array.c:21
+test 7 end
+test 8 start
+running ./mpirun -np 8 _test/bin/test_ring
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_ring.c:19
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_ring.c:19
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_ring.c:19
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_ring.c:19
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_ring.c:19
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_ring.c:19
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_ring.c:19
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_ring.c:19
+test 8 end
+test 9 start
+running ./mpirun -np 6 _test/bin/test_matrix_multiply
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_matrix_multiply.c:176
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_matrix_multiply.c:176
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_matrix_multiply.c:176
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_matrix_multiply.c:176
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_matrix_multiply.c:176
+Assertion fail_unless(ret == MPI_SUCCESS) failed at test_matrix_multiply.c:176
+test 9 end
+end tests on Tue Apr 9 22:04:18 EEST 2013
+-----------------------------
+start tests on Tue Apr 9 22:05:01 EEST 2013
+test 1 start
+running ./mpirun -np 5 _test/bin/test_mpirun
+created 5 procs, expected 5
+test 1 end
+test 2 start
+running ./mpirun -np 2 _test/bin/test_simple
+test 2 end
+test 3 start
+running ./mpirun -np 2 _test/bin/test_double_init
+test 3 end
+test 4 start
+running ./mpirun -np 2 _test/bin/test_double_finalize
+test 4 end
+success
+success
+test 5 start
+running ./mpirun -np 2 _test/bin/test_before_after
+test 5 end
+success
+success
+test 6 start
+running ./mpirun -np 2 _test/bin/test_send_recv
+test 6 end
+success
+success
+test 7 start
+running ./mpirun -np 2 _test/bin/test_send_recv_array
+test 7 end
+test 8 start
+running ./mpirun -np 8 _test/bin/test_ring
+test 8 end
+test 9 start
+running ./mpirun -np 6 _test/bin/test_matrix_multiply
+test 9 end
+end tests on Tue Apr 9 22:05:01 EEST 2013
+-----------------------------
+start tests on Tue Apr 9 22:06:01 EEST 2013
+test 1 start
+running ./mpirun -np 5 _test/bin/test_mpirun
+created 5 procs, expected 5
+test 1 end
+test 2 start
+running ./mpirun -np 2 _test/bin/test_simple
+test 2 end
+test 3 start
+running ./mpirun -np 2 _test/bin/test_double_init
+test 3 end
+test 4 start
+running ./mpirun -np 2 _test/bin/test_double_finalize
+test 4 end
+success
+success
+test 5 start
+running ./mpirun -np 2 _test/bin/test_before_after
+test 5 end
+success
+success
+test 6 start
+running ./mpirun -np 2 _test/bin/test_send_recv
+test 6 end
+success
+success
+test 7 start
+running ./mpirun -np 2 _test/bin/test_send_recv_array
+test 7 end
+test 8 start
+running ./mpirun -np 8 _test/bin/test_ring
+test 8 end
+test 9 start
+running ./mpirun -np 6 _test/bin/test_matrix_multiply
+test 9 end
+end tests on Tue Apr 9 22:06:01 EEST 2013
+-----------------------------
+start tests on Tue Apr 9 22:08:59 EEST 2013
+test 1 start
+running ./mpirun -np 5 _test/bin/test_mpirun
+created 4 procs, expected 5
+test 1 end
+test 2 start
+running ./mpirun -np 2 _test/bin/test_simple
+test 2 end
+test 3 start
+running ./mpirun -np 2 _test/bin/test_double_init
+test 3 end
+test 4 start
+running ./mpirun -np 2 _test/bin/test_double_finalize
+test 4 end
+success
+success
+test 5 start
+running ./mpirun -np 2 _test/bin/test_before_after
+test 5 end
+success
+success
+test 6 start
+running ./mpirun -np 2 _test/bin/test_send_recv
+test 6 end
+success
+success
+test 7 start
+running ./mpirun -np 2 _test/bin/test_send_recv_array
+test 7 end
+test 8 start
+running ./mpirun -np 8 _test/bin/test_ring
+test 8 end
+test 9 start
+running ./mpirun -np 6 _test/bin/test_matrix_multiply
+test 9 end
+end tests on Tue Apr 9 22:08:59 EEST 2013
+-----------------------------
+start tests on Tue Apr 9 22:09:01 EEST 2013
+test 1 start
+running ./mpirun -np 5 _test/bin/test_mpirun
+created 5 procs, expected 5
+test 1 end
+test 2 start
+running ./mpirun -np 2 _test/bin/test_simple
+test 2 end
+test 3 start
+running ./mpirun -np 2 _test/bin/test_double_init
+test 3 end
+test 4 start
+running ./mpirun -np 2 _test/bin/test_double_finalize
+test 4 end
+success
+success
+test 5 start
+running ./mpirun -np 2 _test/bin/test_before_after
+test 5 end
+success
+success
+test 6 start
+running ./mpirun -np 2 _test/bin/test_send_recv
+test 6 end
+success
+success
+test 7 start
+running ./mpirun -np 2 _test/bin/test_send_recv_array
+test 7 end
+test 8 start
+running ./mpirun -np 8 _test/bin/test_ring
+test 8 end
+test 9 start
+running ./mpirun -np 6 _test/bin/test_matrix_multiply
+test 9 end
+end tests on Tue Apr 9 22:09:01 EEST 2013
+-----------------------------
+start tests on Tue Apr 9 22:09:40 EEST 2013
+test 1 start
+running ./mpirun -np 5 _test/bin/test_mpirun
+created 5 procs, expected 5
+test 1 end
+test 2 start
+running ./mpirun -np 2 _test/bin/test_simple
+test 2 end
+test 3 start
+running ./mpirun -np 2 _test/bin/test_double_init
+test 3 end
+test 4 start
+running ./mpirun -np 2 _test/bin/test_double_finalize
+test 4 end
+success
+success
+test 5 start
+running ./mpirun -np 2 _test/bin/test_before_after
+test 5 end
+success
+success
+test 6 start
+running ./mpirun -np 2 _test/bin/test_send_recv
+test 6 end
+success
+success
+test 7 start
+running ./mpirun -np 2 _test/bin/test_send_recv_array
+test 7 end
+test 8 start
+running ./mpirun -np 8 _test/bin/test_ring
+test 8 end
+test 9 start
+running ./mpirun -np 6 _test/bin/test_matrix_multiply
+test 9 end
+end tests on Tue Apr 9 22:09:41 EEST 2013
+-----------------------------
+start tests on Tue Apr 9 22:09:42 EEST 2013
+test 1 start
+running ./mpirun -np 5 _test/bin/test_mpirun
+created 5 procs, expected 5
+test 1 end
+test 2 start
+running ./mpirun -np 2 _test/bin/test_simple
+test 2 end
+test 3 start
+running ./mpirun -np 2 _test/bin/test_double_init
+test 3 end
+test 4 start
+running ./mpirun -np 2 _test/bin/test_double_finalize
+test 4 end
+success
+success
+test 5 start
+running ./mpirun -np 2 _test/bin/test_before_after
+test 5 end
+success
+success
+test 6 start
+running ./mpirun -np 2 _test/bin/test_send_recv
+test 6 end
+success
+success
+test 7 start
+running ./mpirun -np 2 _test/bin/test_send_recv_array
+test 7 end
+test 8 start
+running ./mpirun -np 8 _test/bin/test_ring
+test 8 end
+test 9 start
+running ./mpirun -np 6 _test/bin/test_matrix_multiply
+test 9 end
+end tests on Tue Apr 9 22:09:42 EEST 2013
+-----------------------------
+start tests on Tue Apr 9 22:12:26 EEST 2013
+test 1 start
+running ./mpirun -np 5 _test/bin/test_mpirun
+created 5 procs, expected 5
+test 1 end
+test 2 start
+running ./mpirun -np 2 _test/bin/test_simple
+test 2 end
+test 3 start
+running ./mpirun -np 2 _test/bin/test_double_init
+test 3 end
+test 4 start
+running ./mpirun -np 2 _test/bin/test_double_finalize
+test 4 end
+success
+success
+test 5 start
+running ./mpirun -np 2 _test/bin/test_before_after
+test 5 end
+success
+success
+test 6 start
+running ./mpirun -np 2 _test/bin/test_send_recv
+test 6 end
+success
+success
+test 7 start
+running ./mpirun -np 2 _test/bin/test_send_recv_array
+test 7 end
+test 8 start
+running ./mpirun -np 8 _test/bin/test_ring
+test 8 end
+test 9 start
+running ./mpirun -np 6 _test/bin/test_matrix_multiply
+test 9 end
+end tests on Tue Apr 9 22:12:26 EEST 2013
+-----------------------------
+start tests on Tue Apr 9 22:52:06 EEST 2013
+test 1 start
+running ./mpirun -np 5 _test/bin/test_mpirun
+created 5 procs, expected 5
+test 1 end
+test 2 start
+running ./mpirun -np 2 _test/bin/test_simple
+test 2 end
+test 3 start
+running ./mpirun -np 2 _test/bin/test_double_init
+test 3 end
+test 4 start
+running ./mpirun -np 2 _test/bin/test_double_finalize
+test 4 end
+success
+success
+test 5 start
+running ./mpirun -np 2 _test/bin/test_before_after
+test 5 end
+success
+success
+test 6 start
+running ./mpirun -np 2 _test/bin/test_send_recv
+test 6 end
+success
+success
+test 7 start
+running ./mpirun -np 2 _test/bin/test_send_recv_array
+test 7 end
+test 8 start
+running ./mpirun -np 8 _test/bin/test_ring
+test 8 end
+test 9 start
+running ./mpirun -np 6 _test/bin/test_matrix_multiply
+test 9 end
+end tests on Tue Apr 9 22:52:06 EEST 2013

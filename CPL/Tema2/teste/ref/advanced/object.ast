@@ -1,0 +1,92 @@
+!!ro.pub.cs.lcpl.Program
+classes:
+- features:
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.IfStatement
+        condition: !!ro.pub.cs.lcpl.EqualComparison
+          e1: !!ro.pub.cs.lcpl.Dispatch
+            arguments: []
+            lineNumber: 5
+            name: typeName
+            object: !!ro.pub.cs.lcpl.Symbol {lineNumber: 5, name: self, type: null}
+            type: null
+          e2: !!ro.pub.cs.lcpl.StringConstant {lineNumber: 5, type: null, value: Main}
+          lineNumber: 5
+          type: null
+        ifExpr: !!ro.pub.cs.lcpl.Block
+          expressions:
+          - !!ro.pub.cs.lcpl.Dispatch
+            arguments:
+            - !!ro.pub.cs.lcpl.SubString
+              endPosition: !!ro.pub.cs.lcpl.IntConstant {lineNumber: 6, type: null,
+                value: 3}
+              lineNumber: 6
+              startPosition: !!ro.pub.cs.lcpl.IntConstant {lineNumber: 6, type: null,
+                value: 1}
+              stringExpr: !!ro.pub.cs.lcpl.SubString
+                endPosition: !!ro.pub.cs.lcpl.IntConstant {lineNumber: 6, type: null,
+                  value: 6}
+                lineNumber: 6
+                startPosition: !!ro.pub.cs.lcpl.IntConstant {lineNumber: 6, type: null,
+                  value: 1}
+                stringExpr: !!ro.pub.cs.lcpl.Cast
+                  e1: !!ro.pub.cs.lcpl.Dispatch
+                    arguments: []
+                    lineNumber: 6
+                    name: copy
+                    object: !!ro.pub.cs.lcpl.StringConstant {lineNumber: 6, type: null,
+                      value: Original}
+                    type: null
+                  lineNumber: 6
+                  type: String
+                type: null
+              type: null
+            lineNumber: 6
+            name: out
+            object: null
+            type: null
+          - !!ro.pub.cs.lcpl.Dispatch
+            arguments: []
+            lineNumber: 7
+            name: abort
+            object: !!ro.pub.cs.lcpl.Symbol {lineNumber: 7, name: self, type: null}
+            type: null
+          - !!ro.pub.cs.lcpl.Dispatch
+            arguments:
+            - !!ro.pub.cs.lcpl.StringConstant {lineNumber: 8, type: null, value: '...Unreachable'}
+            lineNumber: 8
+            name: out
+            object: null
+            type: null
+          lineNumber: 6
+          type: null
+        lineNumber: 5
+        thenExpr: !!ro.pub.cs.lcpl.Block
+          expressions:
+          - !!ro.pub.cs.lcpl.Dispatch
+            arguments:
+            - !!ro.pub.cs.lcpl.StringConstant {lineNumber: 10, type: null, value: '...Reachable'}
+            lineNumber: 10
+            name: out
+            object: null
+            type: null
+          lineNumber: 10
+          type: null
+        type: null
+      lineNumber: 5
+      type: null
+    lineNumber: 4
+    name: main
+    parameters: []
+    returnType: void
+  lineNumber: 3
+  name: K
+  parent: IO
+- features: []
+  lineNumber: 15
+  name: Main
+  parent: K
+lineNumber: 3
+

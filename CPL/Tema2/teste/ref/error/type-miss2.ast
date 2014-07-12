@@ -1,0 +1,83 @@
+!!ro.pub.cs.lcpl.Program
+classes:
+- features:
+  - !!ro.pub.cs.lcpl.Attribute {init: null, lineNumber: 5, name: number, type: Int}
+  - !!ro.pub.cs.lcpl.Attribute
+    init: !!ro.pub.cs.lcpl.IntConstant {lineNumber: 6, type: null, value: 1234}
+    lineNumber: 6
+    name: initialized
+    type: Int
+  - !!ro.pub.cs.lcpl.Attribute
+    init: !!ro.pub.cs.lcpl.StringConstant {lineNumber: 7, type: null, value: This is a string}
+    lineNumber: 7
+    name: a_String
+    type: String
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.LocalDefinition
+        init: !!ro.pub.cs.lcpl.StringConstant {lineNumber: 11, type: null, value: ' > '}
+        lineNumber: 11
+        name: hdr
+        scope: !!ro.pub.cs.lcpl.Block
+          expressions:
+          - !!ro.pub.cs.lcpl.Dispatch
+            arguments:
+            - !!ro.pub.cs.lcpl.Symbol {lineNumber: 12, name: a_String, type: null}
+            lineNumber: 12
+            name: out
+            object: !!ro.pub.cs.lcpl.Dispatch
+              arguments:
+              - !!ro.pub.cs.lcpl.Symbol {lineNumber: 12, name: hdr, type: null}
+              lineNumber: 12
+              name: out
+              object: null
+              type: null
+            type: null
+          - !!ro.pub.cs.lcpl.LocalDefinition
+            init: !!ro.pub.cs.lcpl.StringConstant {lineNumber: 13, type: null, value: ' >> '}
+            lineNumber: 13
+            name: hdr
+            scope: !!ro.pub.cs.lcpl.Block
+              expressions:
+              - !!ro.pub.cs.lcpl.Dispatch
+                arguments:
+                - !!ro.pub.cs.lcpl.Addition
+                  e1: !!ro.pub.cs.lcpl.Symbol {lineNumber: 15, name: number, type: null}
+                  e2: !!ro.pub.cs.lcpl.Symbol {lineNumber: 15, name: initialized,
+                    type: null}
+                  lineNumber: 15
+                  type: null
+                lineNumber: 14
+                name: out
+                object: !!ro.pub.cs.lcpl.Dispatch
+                  arguments:
+                  - !!ro.pub.cs.lcpl.Symbol {lineNumber: 14, name: number, type: null}
+                  lineNumber: 14
+                  name: out
+                  object: !!ro.pub.cs.lcpl.Dispatch
+                    arguments:
+                    - !!ro.pub.cs.lcpl.Symbol {lineNumber: 14, name: hdr, type: null}
+                    lineNumber: 14
+                    name: out
+                    object: null
+                    type: null
+                  type: null
+                type: null
+              lineNumber: 14
+              type: null
+            type: string
+          lineNumber: 12
+          type: null
+        type: String
+      lineNumber: 11
+      type: null
+    lineNumber: 10
+    name: main
+    parameters: []
+    returnType: void
+  lineNumber: 3
+  name: Main
+  parent: IO
+lineNumber: 3
+

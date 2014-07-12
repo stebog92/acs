@@ -1,0 +1,39 @@
+Proiectarea Algoritmilor - Tema2 
+
+Mihai Ciocan
+324CA
+
+Pentru rezolvarea temei si urarea operatiilor am definit urmatoarele functii si structuri :
+
+	-bkg_board :reprezinta tabla formata din 2 vectori pentru ambii jucatori si valorile celor 2 zaruri;
+	-color :cele 2 culori alb si negru;
+	-init board : initializeaza tabla inainte de inceperea jocului
+	-update_board :updateaza tabla pe baza mesajului transmis de server dar si pe baza mesajului pe care il construiesc
+		       ca jucatorul meu sa faca mutare;
+
+	-opponent :intoarce culoarea oponentului advers;
+	-nextMove :functia apeleaza functia expectiMax care va construi mesajul ce contine mutarile jucatorului meu;
+		  :seteaza piesele de pe bara pe pozitia 25 pentru alb si 0 pentru negru pentru usurarea operatiilor (le consider ca
+		   niste pozitii valide de joc, insa au prioritate mai mare)
+
+	-doMove :executa o mutare pentru o valoare de zar si o pozitie pe table; in caz ca este mutare legala se updateaza tabla
+		 si intoarce true, altfel, in caz de mutare ilegala intoarce false;
+		:daca exista piese pe bara iar mutarea nu le vizeaza se intoarce false;
+
+	-allCheckersInDaHouse :verifica daca toate piesele se afla in casa pentru un anumit jucator si intoarce true sau false;
+	-expectiMax :functie ce realizeaza expecti-minimax pentru o configuratie de tabla si o pereche de zaruri;
+		    :pentru fiecare combinatie de zar si pozitie se reapeleza functia pentru jucatorul oponent;
+		    :la pasul de final se intoarce evaluarea tablei pentru jucatorul respectiv
+		    :pentru fiecare zar se realizeaza in parte mutarea iar la final se alege mutarea maximala posibila (numarul maxim de
+		     fiind 2 sau 4 pentru duble)
+
+	-evaluateBoard: evalueaza o tabla pentru un jucator;
+		      : evaluarea pe care am ales-o tine cont de diferenta dintre piesele oponentului de pe bara si ale mele (sa fie maxim)
+			tine cont de porti (fiecare conteaza 2 puncte); daca acestea depasesc 4 scad 1 punct, iar daca se afla in casa adaug
+			1 punct;
+			tine cont de muarul de piese de pe tabla (folositoare in faza cand se iau piese de pe tabla)
+		      : fiecare criteriu are o pondere (cea mai mare o au diferenta pieselor de pe tabla 0.029, apoi numarul de piese 0.02 si
+			apoi portile 0.01)
+
+Mentionez ca in urma testelor pe care le-am realizat am obtinut performante mult mai bune daca in functia expectiMax parcurg doar un pas
+in adancime. 

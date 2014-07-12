@@ -1,0 +1,162 @@
+!!ro.pub.cs.lcpl.Program
+classes:
+- features:
+  - !!ro.pub.cs.lcpl.Attribute {init: null, lineNumber: 3, name: i, type: Int}
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.Assignment
+        e1: !!ro.pub.cs.lcpl.Symbol {lineNumber: 5, name: J, type: null}
+        lineNumber: 5
+        symbol: i
+        type: null
+      lineNumber: 5
+      type: null
+    lineNumber: 5
+    name: I
+    parameters: []
+    returnType: void
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.Assignment
+        e1: !!ro.pub.cs.lcpl.Symbol {lineNumber: 6, name: i, type: null}
+        lineNumber: 6
+        symbol: J
+        type: null
+      lineNumber: 6
+      type: null
+    lineNumber: 6
+    name: J
+    parameters: []
+    returnType: void
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.Assignment
+        e1: !!ro.pub.cs.lcpl.Addition
+          e1: !!ro.pub.cs.lcpl.Symbol {lineNumber: 8, name: i, type: null}
+          e2: !!ro.pub.cs.lcpl.IntConstant {lineNumber: 8, type: null, value: 1}
+          lineNumber: 8
+          type: null
+        lineNumber: 8
+        symbol: J
+        type: null
+      - !!ro.pub.cs.lcpl.Dispatch
+        arguments: []
+        lineNumber: 8
+        name: I
+        object: null
+        type: null
+      - !!ro.pub.cs.lcpl.Assignment
+        e1: !!ro.pub.cs.lcpl.Multiplication
+          e1: !!ro.pub.cs.lcpl.Symbol {lineNumber: 9, name: i, type: null}
+          e2: !!ro.pub.cs.lcpl.IntConstant {lineNumber: 9, type: null, value: 2}
+          lineNumber: 9
+          type: null
+        lineNumber: 9
+        symbol: J
+        type: null
+      - !!ro.pub.cs.lcpl.LocalDefinition
+        init: !!ro.pub.cs.lcpl.Addition
+          e1: !!ro.pub.cs.lcpl.Symbol {lineNumber: 10, name: i, type: null}
+          e2: !!ro.pub.cs.lcpl.IntConstant {lineNumber: 10, type: null, value: 2}
+          lineNumber: 10
+          type: null
+        lineNumber: 10
+        name: i
+        scope: !!ro.pub.cs.lcpl.Block
+          expressions:
+          - !!ro.pub.cs.lcpl.Assignment
+            e1: !!ro.pub.cs.lcpl.Subtraction
+              e1: !!ro.pub.cs.lcpl.Symbol {lineNumber: 11, name: i, type: null}
+              e2: !!ro.pub.cs.lcpl.Symbol {lineNumber: 11, name: J, type: null}
+              lineNumber: 11
+              type: null
+            lineNumber: 11
+            symbol: i
+            type: null
+          - !!ro.pub.cs.lcpl.Dispatch
+            arguments: []
+            lineNumber: 12
+            name: J
+            object: null
+            type: null
+          - !!ro.pub.cs.lcpl.Multiplication
+            e1: !!ro.pub.cs.lcpl.Symbol {lineNumber: 12, name: J, type: null}
+            e2: !!ro.pub.cs.lcpl.Symbol {lineNumber: 12, name: i, type: null}
+            lineNumber: 12
+            type: null
+          lineNumber: 11
+          type: null
+        type: Int
+      lineNumber: 8
+      type: null
+    lineNumber: 7
+    name: i
+    parameters:
+    - {name: i, type: Int}
+    returnType: Int
+  lineNumber: 1
+  name: i
+  parent: j
+- features:
+  - !!ro.pub.cs.lcpl.Attribute {init: null, lineNumber: 17, name: J, type: Int}
+  lineNumber: 16
+  name: j
+  parent: null
+- features:
+  - !!ro.pub.cs.lcpl.Attribute
+    init: !!ro.pub.cs.lcpl.NewObject {lineNumber: 21, type: i}
+    lineNumber: 21
+    name: i
+    type: j
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.LocalDefinition
+        init: !!ro.pub.cs.lcpl.Cast
+          e1: !!ro.pub.cs.lcpl.Symbol {lineNumber: 24, name: i, type: null}
+          lineNumber: 24
+          type: i
+        lineNumber: 24
+        name: i
+        scope: !!ro.pub.cs.lcpl.Block
+          expressions:
+          - !!ro.pub.cs.lcpl.Dispatch
+            arguments:
+            - !!ro.pub.cs.lcpl.StringConstant
+              lineNumber: 26
+              type: null
+              value: |2+
+
+            lineNumber: 26
+            name: out
+            object: !!ro.pub.cs.lcpl.Dispatch
+              arguments:
+              - !!ro.pub.cs.lcpl.Dispatch
+                arguments:
+                - !!ro.pub.cs.lcpl.IntConstant {lineNumber: 26, type: null, value: 4}
+                lineNumber: 26
+                name: i
+                object: !!ro.pub.cs.lcpl.Symbol {lineNumber: 26, name: i, type: null}
+                type: null
+              lineNumber: 26
+              name: out
+              object: !!ro.pub.cs.lcpl.NewObject {lineNumber: 26, type: IO}
+              type: null
+            type: null
+          lineNumber: 26
+          type: null
+        type: i
+      lineNumber: 23
+      type: null
+    lineNumber: 22
+    name: main
+    parameters: []
+    returnType: void
+  lineNumber: 20
+  name: Main
+  parent: null
+lineNumber: 1
+

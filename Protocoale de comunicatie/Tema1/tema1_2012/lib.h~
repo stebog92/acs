@@ -1,0 +1,76 @@
+#ifndef LIB
+#define LIB
+
+typedef struct {
+  int type;
+  int len;
+  char payload[1400];
+} msg;
+
+void init(char* remote,int remote_port);
+void set_local_port(int port);
+void set_remote(char* ip, int port);
+int send_message(const msg* m);
+msg* receive_message();
+msg* receive_message_timeout(int timeout);
+typedef struct {
+	int package;
+	char* msg;
+	int length;
+} elem;
+	
+typedef struct {
+	elem** elements;
+	int head;
+	int tail;
+	int max;
+} _buffer;
+
+_buffer make_buffer ()
+{
+	_buffer new;
+	new.head = 0;
+	new.tail = 0;
+	new.max = window_size;
+	new.elements = calloc (window_size, sizeof (elem*));
+	return new;
+}
+
+
+elem* top (_buffer buffer)
+{
+	return buffer.elements[buffer.head];
+}
+void remove_top (_buffer* buffer)
+{
+	elem* to_remove = buffer->elements[buffer->head];
+	free(to_remove->msg);
+	free(to_remove);
+
+	buffer->head++;
+	
+	if (buffer->head == buffer->max)
+	{
+		buffer->head = 0;
+		buffer->tail = 0;
+	}
+}
+
+void push (_buffer* b, int p, msg x)
+{
+	elem* new = malloc (sizeof (elem));
+	new->package = p;
+	new->msg = malloc (1400 * sizeof(char));
+	sscanf (x.payload, "%*d%s", new->msg);
+	new->length = strlen (new->msg);
+	b->elements[b->tail] = new;
+	b->tail ++;
+}
+int size (_buffer* b)
+{
+	return b->tail - b->head;
+}
+	
+
+#endif
+

@@ -1,0 +1,45 @@
+﻿Build started 10/28/12 16:55:42.
+     1>Project "E:\Elemente de Grafica\Tema1_MihaiCiocan334CA\lab.vcxproj" on node 2 (build target(s)).
+     1>InitializeBuildStatus:
+         Creating "Debug\tema1.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /Idependinte /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp Support2d.cpp Transform2d.cpp WorldDrawer2d_gl.cpp
+         WorldDrawer2d_gl.cpp
+         Transform2d.cpp
+         Support2d.cpp
+         main.cpp
+     1>e:\elemente de grafica\tema1_mihaiciocan334ca\main.cpp(70): warning C4018: '<' : signed/unsigned mismatch
+     1>e:\elemente de grafica\tema1_mihaiciocan334ca\main.cpp(129): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>e:\elemente de grafica\tema1_mihaiciocan334ca\main.cpp(150): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>e:\elemente de grafica\tema1_mihaiciocan334ca\main.cpp(160): warning C4101: 'dist_x' : unreferenced local variable
+     1>e:\elemente de grafica\tema1_mihaiciocan334ca\main.cpp(160): warning C4101: 'dist_y' : unreferenced local variable
+     1>e:\elemente de grafica\tema1_mihaiciocan334ca\main.cpp(182): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+     1>e:\elemente de grafica\tema1_mihaiciocan334ca\main.cpp(183): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+     1>e:\elemente de grafica\tema1_mihaiciocan334ca\main.cpp(194): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>e:\elemente de grafica\tema1_mihaiciocan334ca\main.cpp(196): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>e:\elemente de grafica\tema1_mihaiciocan334ca\main.cpp(198): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>e:\elemente de grafica\tema1_mihaiciocan334ca\main.cpp(426): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>e:\elemente de grafica\tema1_mihaiciocan334ca\main.cpp(441): warning C4305: '=' : truncation from 'double' to 'float'
+     1>e:\elemente de grafica\tema1_mihaiciocan334ca\main.cpp(446): warning C4018: '<' : signed/unsigned mismatch
+     1>e:\elemente de grafica\tema1_mihaiciocan334ca\main.cpp(452): warning C4018: '<' : signed/unsigned mismatch
+     1>e:\elemente de grafica\tema1_mihaiciocan334ca\main.cpp(559): warning C4305: 'initializing' : truncation from 'double' to 'float'
+     1>e:\elemente de grafica\tema1_mihaiciocan334ca\main.cpp(560): warning C4018: '<' : signed/unsigned mismatch
+     1>e:\elemente de grafica\tema1_mihaiciocan334ca\main.cpp(590): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>e:\elemente de grafica\tema1_mihaiciocan334ca\main.cpp(592): warning C4305: 'argument' : truncation from 'double' to 'float'
+         Generating Code...
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"Debug\tema1.exe" /NOLOGO /LIBPATH:dependinte opengl32.lib glu32.lib freeglut.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\tema1.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"E:\Elemente de Grafica\Tema1_MihaiCiocan334CA\Debug\tema1.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"Debug\tema1.lib" /MACHINE:X86 Debug\main.obj
+         Debug\Support2d.obj
+         Debug\Transform2d.obj
+         Debug\WorldDrawer2d_gl.obj
+         lab.vcxproj -> E:\Elemente de Grafica\Tema1_MihaiCiocan334CA\Debug\tema1.exe
+       Manifest:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:"Debug\tema1.exe;#1" /manifest Debug\tema1.exe.intermediate.manifest
+       FinalizeBuildStatus:
+         Deleting file "Debug\tema1.unsuccessfulbuild".
+         Touching "Debug\tema1.lastbuildstate".
+     1>Done Building Project "E:\Elemente de Grafica\Tema1_MihaiCiocan334CA\lab.vcxproj" (build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:02.64

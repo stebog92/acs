@@ -1,0 +1,1 @@
+cmd_/home/mihai/SO2/Ixia/e100-ix.ko := ld -r -m elf_i386 -T /home/mihai/linux-3.13/scripts/module-common.lds --build-id  -o /home/mihai/SO2/Ixia/e100-ix.ko /home/mihai/SO2/Ixia/e100-ix.o /home/mihai/SO2/Ixia/e100-ix.mod.o

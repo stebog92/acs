@@ -1,0 +1,10 @@
+Exception in thread "main" java.lang.NullPointerException
+	at ro.pub.cs.lcpl.IfStatement.emitIR(IfStatement.java:68)
+	at ro.pub.cs.lcpl.Program.emitIR(Program.java:349)
+	at LCPLCodeGen.main(LCPLCodeGen.java:23)
+llc: database.lcpl.ir:564:23: error: '%7' defined with type '{ { { \4, i32, i8* }*, i32, \2, [0 x i8*] }*, { { { \4, i32, i8* }*, i32, \2, [0 x i8*] }* }*, \2 }*'
+	store %struct.Tnull* %7, %struct.Tnull** %9
+	                     ^
+clang: error: no such file or directory: 'database.lcpl.ir.s'
+./eval.sh: line 27: ./database: No such file or directory
+rm: cannot remove `database': No such file or directory

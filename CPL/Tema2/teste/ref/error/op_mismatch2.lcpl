@@ -1,0 +1,9 @@
+class Main inherits IO
+    mc Int a: 
+       if a < "10" then [out "small"]; else [out "huge"]; end; 
+    end;
+    main :
+        [mc 2];
+        [mc 21];
+    end;
+end;

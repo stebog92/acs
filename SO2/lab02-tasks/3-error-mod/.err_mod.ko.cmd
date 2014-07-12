@@ -1,0 +1,1 @@
+cmd_/home/mihai/SO2/lab02-tasks/3-error-mod/err_mod.ko := ld -r -m elf_i386 -T /home/mihai/linux-3.13/scripts/module-common.lds --build-id  -o /home/mihai/SO2/lab02-tasks/3-error-mod/err_mod.ko /home/mihai/SO2/lab02-tasks/3-error-mod/err_mod.o /home/mihai/SO2/lab02-tasks/3-error-mod/err_mod.mod.o

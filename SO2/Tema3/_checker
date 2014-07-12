@@ -1,0 +1,6 @@
+#!/bin/sh
+
+/bin/dmesg -c > /dev/null 2>&1
+./test
+# Uncomment the line below to run the new test suite.
+#./_test-ng/run-test

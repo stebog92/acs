@@ -1,0 +1,53 @@
+Tema 2 - SPRC
+Decriptare folosind RMI
+
+Ciocan Mihai
+342C3
+
+
+Pentru implementarea temei am realizat classpath-uri diferite pentru server si client:
+
+Server
+    Main:
+        Server-ul cripteaza in main un text si are local un dictionar de 300 de cuvinte. Acesta creeaza stub-ul pentru server, si porneste un
+        thread separat care verifica starea clientilor periodic (3 sec).
+
+    getTask:
+        Trimite un obiect de tip Task (implementeaza Serializable) ce contine textul criptat, cifru monoalfabetic si o lista cu chei pentru
+        incercarea decriptarii. Primeste ca parametru un id al clientului, pe care il pastreaza impreuna cu lista de chei intr-un HashMap,
+        si care va fi util pentru verificarea periodica a acestuia (in threadul mai sus mentionat).
+        In caz ca un client cade, lista de chei asociata clientului, va reintra in lista initiala pentru reevaluare.
+
+    haveResult:
+        Primeste un obiect cu numele cifrului, setul de chei cu cele mai mari probabilitati si valorile lor. In caz ca o cheie depaseste
+        probabilitatea de 80% atunci serverul va opri toti clienti apelandule metoda remote stop, si afisand primele cele mai bune 3 rezultate.
+        Altfel, va sterge din lista clientilor verificati periodic clientul de la care a primit rezultatele.
+        In caz ca s-au epuizat toate cheile, serverul va afisa cele mai bune 3 rezultate.
+
+    getDictionary:
+        Va return un obiect de tip Dictionary (implementeaza Serializable) format din dictionarul stocat local.
+
+
+Client
+
+    Main
+        Va cere serverului dictionarul, si va creea un stub pentru client.
+
+    getCompletionStatus:
+        Intoarce 1 sau 0 in functie de terminarea taskului.
+
+    stop:
+        Poate fi apelata de server si va executa System.exit(0) pentru clientul curent.
+
+    processTask:
+        Proceseaza un Task provenit de la server. Va decripta textul cu fiecare key primit si va calcula probabilitatea. Toate rezultatele
+        vor fi sortate si vor fi selectate primele 3 care vor fi oferite catre server cu haveResult.
+
+Observatii
+    Clientul si serverul sunt in path-uri diferite, clientul neavand acces la Caesar (cifrul cu care s-a encriptat textul pe server), ci doar
+    la interfetele MonoCypher si Key din pachetul encryption. Astfel clientul va incarca dinamic clasa folosind un server http(python) pe care
+    fisierul build al serverului il va deschide printr-un exec inainte de rularea serverului.
+
+    Desi dictionarul are 300 de cuvinte (textul criptat fiind scurt), majoritatea cheilor folosite vor da probabilitate 0, iar clientii vor
+    intoarce rezultatul foarte repede. Am adaugat astfel un sleep la client pentru a simula intesive work si a permite serverului sa faca 
+    verificari la client periodic.

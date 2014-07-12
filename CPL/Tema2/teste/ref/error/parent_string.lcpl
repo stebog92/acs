@@ -1,0 +1,9 @@
+class s inherits String
+  length2 -> Int : [self.length] + 2; end;
+end;
+
+class Main inherits IO
+    main :
+        [out ["Hello world!".length2]];
+    end;
+end;

@@ -1,0 +1,21 @@
+class Cons 
+    var Int xcar; Cons xcdr; end;
+    
+    size -> Int:
+        1 + if xcdr == void then 0; else [xcdr.size]; end;
+    end;
+
+    init Int hd, Cons tl:
+        xcar = hd;
+        xcdr = tl;
+    end;
+end;
+
+class Main
+    main:
+        local Cons c; Int x; end;
+        c = new Cons;
+        x = 0;
+        [c.init x, c];
+    end;
+end;

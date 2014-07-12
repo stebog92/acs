@@ -1,0 +1,438 @@
+!!ro.pub.cs.lcpl.Program
+classes:
+- &id009
+  features:
+  - &id015 !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.Dispatch
+        arguments:
+        - !!ro.pub.cs.lcpl.Addition
+          e1: !!ro.pub.cs.lcpl.Addition
+            e1: !!ro.pub.cs.lcpl.Addition
+              e1: !!ro.pub.cs.lcpl.Addition
+                e1: !!ro.pub.cs.lcpl.StringConstant
+                  lineNumber: 3
+                  type: String
+                  typeData: &id001 !!ro.pub.cs.lcpl.LCPLClass
+                    features:
+                    - !!ro.pub.cs.lcpl.Method
+                      body: null
+                      lineNumber: 0
+                      name: length
+                      parameters: []
+                      parent: *id001
+                      returnType: Int
+                      returnTypeData: &id002 !!ro.pub.cs.lcpl.IntType {}
+                      self:
+                        lineNumber: 0
+                        name: self
+                        type: String
+                        variableType: *id001
+                    - !!ro.pub.cs.lcpl.Method
+                      body: null
+                      lineNumber: 0
+                      name: toInt
+                      parameters: []
+                      parent: *id001
+                      returnType: Int
+                      returnTypeData: *id002
+                      self:
+                        lineNumber: 0
+                        name: self
+                        type: String
+                        variableType: *id001
+                    lineNumber: 0
+                    name: String
+                    parent: Object
+                    parentData: &id003
+                      features:
+                      - !!ro.pub.cs.lcpl.Method
+                        body: null
+                        lineNumber: 0
+                        name: abort
+                        parameters: []
+                        parent: *id003
+                        returnType: void
+                        returnTypeData: &id018 !!ro.pub.cs.lcpl.NoType {}
+                        self:
+                          lineNumber: 0
+                          name: self
+                          type: Object
+                          variableType: *id003
+                      - !!ro.pub.cs.lcpl.Method
+                        body: null
+                        lineNumber: 0
+                        name: typeName
+                        parameters: []
+                        parent: *id003
+                        returnType: String
+                        returnTypeData: *id001
+                        self:
+                          lineNumber: 0
+                          name: self
+                          type: Object
+                          variableType: *id003
+                      - !!ro.pub.cs.lcpl.Method
+                        body: null
+                        lineNumber: 0
+                        name: copy
+                        parameters: []
+                        parent: *id003
+                        returnType: Object
+                        returnTypeData: *id003
+                        self:
+                          lineNumber: 0
+                          name: self
+                          type: Object
+                          variableType: *id003
+                      lineNumber: 0
+                      name: Object
+                      parent: null
+                      parentData: null
+                  value: This is a generic shape @(
+                e2: !!ro.pub.cs.lcpl.Cast
+                  e1: !!ro.pub.cs.lcpl.Symbol
+                    lineNumber: 3
+                    name: x
+                    type: Int
+                    typeData: *id002
+                    variable: &id007 !!ro.pub.cs.lcpl.FormalParam
+                      lineNumber: 2
+                      name: x
+                      type: Int
+                      variableType: *id002
+                  lineNumber: 3
+                  type: String
+                  typeData: *id001
+                lineNumber: 3
+                type: String
+                typeData: *id001
+              e2: !!ro.pub.cs.lcpl.StringConstant
+                lineNumber: 3
+                type: String
+                typeData: *id001
+                value: ','
+              lineNumber: 3
+              type: String
+              typeData: *id001
+            e2: !!ro.pub.cs.lcpl.Cast
+              e1: !!ro.pub.cs.lcpl.Symbol
+                lineNumber: 3
+                name: y
+                type: Int
+                typeData: *id002
+                variable: &id008 !!ro.pub.cs.lcpl.FormalParam
+                  lineNumber: 2
+                  name: y
+                  type: Int
+                  variableType: *id002
+              lineNumber: 3
+              type: String
+              typeData: *id001
+            lineNumber: 3
+            type: String
+            typeData: *id001
+          e2: !!ro.pub.cs.lcpl.StringConstant
+            lineNumber: 3
+            type: String
+            typeData: *id001
+            value: |
+              )
+          lineNumber: 3
+          type: String
+          typeData: *id001
+        lineNumber: 3
+        method: &id004
+          body: null
+          lineNumber: 0
+          name: out
+          parameters:
+          - lineNumber: 0
+            name: msg
+            type: String
+            variableType: *id001
+          parent: &id005
+            features:
+            - *id004
+            - !!ro.pub.cs.lcpl.Method
+              body: null
+              lineNumber: 0
+              name: in
+              parameters: []
+              parent: *id005
+              returnType: String
+              returnTypeData: *id001
+              self:
+                lineNumber: 0
+                name: self
+                type: IO
+                variableType: *id005
+            lineNumber: 0
+            name: IO
+            parent: Object
+            parentData: *id003
+          returnType: IO
+          returnTypeData: *id005
+          self:
+            lineNumber: 0
+            name: self
+            type: IO
+            variableType: *id005
+        name: out
+        object: !!ro.pub.cs.lcpl.Symbol
+          lineNumber: 3
+          name: stream
+          type: IO
+          typeData: *id005
+          variable: &id006 !!ro.pub.cs.lcpl.FormalParam
+            lineNumber: 2
+            name: stream
+            type: IO
+            variableType: *id005
+        type: IO
+        typeData: *id005
+      lineNumber: 3
+      type: IO
+      typeData: *id005
+    lineNumber: 2
+    name: print
+    parameters:
+    - *id006
+    - *id007
+    - *id008
+    parent: *id009
+    returnType: IO
+    returnTypeData: *id005
+    self:
+      lineNumber: 0
+      name: self
+      type: Shape
+      variableType: *id009
+  lineNumber: 1
+  name: Shape
+  parent: Object
+  parentData: *id003
+- &id013
+  features:
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.Dispatch
+        arguments:
+        - !!ro.pub.cs.lcpl.Addition
+          e1: !!ro.pub.cs.lcpl.Addition
+            e1: !!ro.pub.cs.lcpl.Addition
+              e1: !!ro.pub.cs.lcpl.Addition
+                e1: !!ro.pub.cs.lcpl.StringConstant
+                  lineNumber: 9
+                  type: String
+                  typeData: *id001
+                  value: This is a circle @(
+                e2: !!ro.pub.cs.lcpl.Cast
+                  e1: !!ro.pub.cs.lcpl.Symbol
+                    lineNumber: 9
+                    name: dx
+                    type: Int
+                    typeData: *id002
+                    variable: &id011 !!ro.pub.cs.lcpl.FormalParam
+                      lineNumber: 8
+                      name: dx
+                      type: Int
+                      variableType: *id002
+                  lineNumber: 9
+                  type: String
+                  typeData: *id001
+                lineNumber: 9
+                type: String
+                typeData: *id001
+              e2: !!ro.pub.cs.lcpl.StringConstant
+                lineNumber: 9
+                type: String
+                typeData: *id001
+                value: ','
+              lineNumber: 9
+              type: String
+              typeData: *id001
+            e2: !!ro.pub.cs.lcpl.Cast
+              e1: !!ro.pub.cs.lcpl.Symbol
+                lineNumber: 9
+                name: dy
+                type: Int
+                typeData: *id002
+                variable: &id012 !!ro.pub.cs.lcpl.FormalParam
+                  lineNumber: 8
+                  name: dy
+                  type: Int
+                  variableType: *id002
+              lineNumber: 9
+              type: String
+              typeData: *id001
+            lineNumber: 9
+            type: String
+            typeData: *id001
+          e2: !!ro.pub.cs.lcpl.StringConstant
+            lineNumber: 9
+            type: String
+            typeData: *id001
+            value: |
+              )
+          lineNumber: 9
+          type: String
+          typeData: *id001
+        lineNumber: 9
+        method: *id004
+        name: out
+        object: !!ro.pub.cs.lcpl.Symbol
+          lineNumber: 9
+          name: stream
+          type: IO
+          typeData: *id005
+          variable: &id010 !!ro.pub.cs.lcpl.FormalParam
+            lineNumber: 8
+            name: stream
+            type: IO
+            variableType: *id005
+        type: IO
+        typeData: *id005
+      lineNumber: 9
+      type: IO
+      typeData: *id005
+    lineNumber: 8
+    name: print
+    parameters:
+    - *id010
+    - *id011
+    - *id012
+    parent: *id013
+    returnType: IO
+    returnTypeData: *id005
+    self:
+      lineNumber: 0
+      name: self
+      type: Circle
+      variableType: *id013
+  lineNumber: 7
+  name: Circle
+  parent: Shape
+  parentData: *id009
+- &id014
+  features:
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - &id016 !!ro.pub.cs.lcpl.LocalDefinition
+        init: !!ro.pub.cs.lcpl.Cast
+          e1: !!ro.pub.cs.lcpl.NewObject
+            lineNumber: 15
+            type: Circle
+            typeData: *id013
+          lineNumber: 15
+          type: Shape
+          typeData: *id009
+        lineNumber: 15
+        name: s
+        scope: !!ro.pub.cs.lcpl.Block
+          expressions:
+          - !!ro.pub.cs.lcpl.Dispatch
+            arguments:
+            - !!ro.pub.cs.lcpl.Cast
+              e1: !!ro.pub.cs.lcpl.Symbol
+                lineNumber: 17
+                name: self
+                type: Main
+                typeData: *id014
+                variable: &id017 !!ro.pub.cs.lcpl.FormalParam
+                  lineNumber: 0
+                  name: self
+                  type: Main
+                  variableType: *id014
+              lineNumber: 17
+              type: IO
+              typeData: *id005
+            - !!ro.pub.cs.lcpl.IntConstant
+              lineNumber: 17
+              type: Int
+              typeData: *id002
+              value: 1
+            - !!ro.pub.cs.lcpl.IntConstant
+              lineNumber: 17
+              type: Int
+              typeData: *id002
+              value: 2
+            lineNumber: 17
+            method: *id015
+            name: print
+            object: !!ro.pub.cs.lcpl.Symbol
+              lineNumber: 17
+              name: s
+              type: Shape
+              typeData: *id009
+              variable: *id016
+            type: IO
+            typeData: *id005
+          - !!ro.pub.cs.lcpl.StaticDispatch
+            arguments:
+            - !!ro.pub.cs.lcpl.Cast
+              e1: !!ro.pub.cs.lcpl.Symbol
+                lineNumber: 18
+                name: self
+                type: Main
+                typeData: *id014
+                variable: *id017
+              lineNumber: 18
+              type: IO
+              typeData: *id005
+            - !!ro.pub.cs.lcpl.IntConstant
+              lineNumber: 18
+              type: Int
+              typeData: *id002
+              value: 3
+            - !!ro.pub.cs.lcpl.IntConstant
+              lineNumber: 18
+              type: Int
+              typeData: *id002
+              value: 4
+            lineNumber: 18
+            method: *id015
+            name: print
+            object: !!ro.pub.cs.lcpl.Symbol
+              lineNumber: 18
+              name: s
+              type: Shape
+              typeData: *id009
+              variable: *id016
+            selfType: *id009
+            type: Shape
+            typeData: *id005
+          lineNumber: 17
+          type: IO
+          typeData: *id005
+        type: Shape
+        typeData: *id005
+        variableType: *id009
+      lineNumber: 14
+      type: IO
+      typeData: *id005
+    lineNumber: 13
+    name: main
+    parameters: []
+    parent: *id014
+    returnType: void
+    returnTypeData: *id018
+    self: *id017
+  lineNumber: 12
+  name: Main
+  parent: IO
+  parentData: *id005
+- *id003
+- *id005
+- *id001
+intType: *id002
+ioType: *id005
+lineNumber: 1
+noType: *id018
+nullType: {}
+objectType: *id003
+stringType: *id001
+

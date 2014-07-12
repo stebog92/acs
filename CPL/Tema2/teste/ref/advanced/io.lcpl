@@ -1,0 +1,14 @@
+#(* I/O operations *)
+
+class Main inherits IO 
+	var
+		String name;
+		Int age;
+	end;
+	
+	main:
+		name = [[out ("Please enter your name: ")].in];
+		age = [[[out ("Please enter your age: ")].in].toInt];
+		[[[out "Your name is Bond, "].out name].out " Bond and you are 00"+age+" movies old"];
+	end;
+end;

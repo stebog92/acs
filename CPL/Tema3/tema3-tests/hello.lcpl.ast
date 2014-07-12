@@ -1,0 +1,24 @@
+!!ro.pub.cs.lcpl.Program
+classes:
+- features:
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.Dispatch
+        arguments:
+        - !!ro.pub.cs.lcpl.StringConstant {lineNumber: 3, type: null, value: Hello world!}
+        lineNumber: 3
+        name: out
+        object: null
+        type: null
+      lineNumber: 3
+      type: null
+    lineNumber: 2
+    name: main
+    parameters: []
+    returnType: void
+  lineNumber: 1
+  name: Main
+  parent: IO
+lineNumber: 1
+

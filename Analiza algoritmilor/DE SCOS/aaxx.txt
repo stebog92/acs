@@ -1,0 +1,49 @@
+>
+> Salut,
+>  
+> Examenul a durat 1 ora. Subiectele au fost cam asa:
+>  
+> Teorie:
+> 1. Sa se explice daca este adevarata relatia: n^2 + 2^n = o(2^n). [este "o" mic]
+>  
+> 2. Sa se explice, prin exemple, daca orice multime finita, cu elemente de tip T, este decidabila.
+>  
+> 3. Sa se spuna ce se intelege prin LOGSPACE. In ce relatie se afla cu P, PN?
+>  
+> 4. Fie M o multime finita de programe, si Prob urmatoarea problema: Prob = {P din M | P(n) = n^2}. Sa se spuna din ce clasa de complexitate face parte Prob.
+>  
+> 5. Fie o stiva abstracta cu urmatoarele operatii: new, top, push, pop. Sa se justifice de ce este corecta folosirea functiei de potential Fi(s) = 0 (pentru orice stiva) pentru analiza amortizata a operatiilor cu o astfel de stiva
+>  
+> Probleme:
+> 1. [nu mai tin minte exact formularea, dar sper ca am pastrat ideea de baza]
+>  
+> Fie o lista L, cu elemente de tip int, cu operatorii nil, sort, ins, cu urmatoarele axiome:
+>     1. nil: -> List //creeaza o lista vida
+>     2. sort(ins(k, L)) = ins(k, sort(L))
+Operatori: de baza nil, cons (cons adauga la inceput)
+Alti operatori:
+sort:
+1. sort(nil) = nil
+2. sort(cons(k, L))=ins(k, sort(L))
+sort sorteaza lista intr-o ordine "nedescrescatoare" (?!?) - mai pe romaneste, sorteaza cam crescator... vezi proprietatea 4
+
+ins(k,L) adauga pe k in lista ins astfel incat lista sa ramana sortata conform sort (adica asa cum e la 2)
+
+set(L) - creaza o multime cu elementele listei
+>  
+> Se stie ca exista proprietatea P, pentru care se stie:
+in plus, oricare L lista P(L) implica P(ins(k,L))
+>     3. P(nil) = 1
+>     4. [ceva care nu se folosea, nu mai stiu ce...]
+4. P(cons(k,L)) = P(L) /\ (si) k<=x oricare x din set(L)
+indicatie: Aceasta relatie nu se foloseste in demonstratie, dar ajuta la a determina ca P(L) = 1 daca L=sort(L)
+>  
+> Sa se arate ca P(sort(L)) = 1 (prin inductie structurala)
+Enuntul zicea "Sa se arate ca oricare L lista, P(sort(L))
+>  
+> 2. Sa se arate din ce clasa de complexitate face parte problema determinarii unui k-set pentru un graf G. Indicatie: problema k-set este reductibila polinomial la problema k-clicii.
+Nu chiar... Se da un graf G=(V,E) si se defineste un k-set-stabil care inseamna ca se aleg k varfuri din V si se alcatuieste V', astfel incat oricare u,v din V' avem (u,v) nu e in E (nu e muchie) - cu alte cuvinte, se construieste un graf complementar celor K noduri. Se cerea sa se arate ca problema generarii unui k-set-stabil este de tipul NP completa. (cu indicatia de mai sus)
+>  
+> Bafta,
+>  
+> Alex Carp

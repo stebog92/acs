@@ -1,0 +1,15 @@
+run: all
+all: test_all
+
+build-pre:
+	find . -print0 | xargs -r0 touch
+	mkdir -p bin/
+
+build-post:
+
+test_all:
+	@chmod +x ./eval.sh
+	@./eval.sh
+
+clean:
+

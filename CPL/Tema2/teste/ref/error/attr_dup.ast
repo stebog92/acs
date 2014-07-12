@@ -1,0 +1,53 @@
+!!ro.pub.cs.lcpl.Program
+classes:
+- features:
+  - !!ro.pub.cs.lcpl.Attribute
+    init: !!ro.pub.cs.lcpl.IntConstant {lineNumber: 3, type: null, value: 4}
+    lineNumber: 3
+    name: val
+    type: Int
+  - !!ro.pub.cs.lcpl.Attribute
+    init: !!ro.pub.cs.lcpl.IntConstant {lineNumber: 4, type: null, value: 5}
+    lineNumber: 4
+    name: val
+    type: Int
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.Symbol {lineNumber: 6, name: val, type: null}
+      lineNumber: 6
+      type: null
+    lineNumber: 6
+    name: val
+    parameters: []
+    returnType: Int
+  lineNumber: 1
+  name: p
+  parent: null
+- features:
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.Dispatch
+        arguments:
+        - !!ro.pub.cs.lcpl.Dispatch
+          arguments: []
+          lineNumber: 12
+          name: val
+          object: !!ro.pub.cs.lcpl.NewObject {lineNumber: 12, type: p}
+          type: null
+        lineNumber: 12
+        name: out
+        object: null
+        type: null
+      lineNumber: 12
+      type: null
+    lineNumber: 11
+    name: main
+    parameters: []
+    returnType: void
+  lineNumber: 10
+  name: Main
+  parent: IO
+lineNumber: 1
+

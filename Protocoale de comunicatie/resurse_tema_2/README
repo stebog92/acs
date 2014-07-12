@@ -1,0 +1,51 @@
+Tema 2 Simulator de protocol de dirijare cu starea legaturilor
+
+Ciocan Mihai
+324CA
+
+In implementarea temei am urmat regulile din enuntul temei pentru fiecare eveniment dupa cum urmeaza :
+	Pentru eveniment de tip 1:
+		- Trimit mesaje de tip Database Request pentru noii vecini ai nouului ruter;
+		- vecinii trimit Database Reply si in acelasi pas de timp LSA-uri catre vecini
+		- vecinii si noul ruter actualizeaza structurile de date
+	Pentru eveniment de tip 2:
+		- capetele linkului trimit Database Request unul celuilalt
+		- trimit Database Reply si LSA-uri vecinilor 
+		- capetele is actualizeaza structurile de date
+	Pentru eveniment de tip 3:
+		- capetele acualizeaza topologia
+		- capetele trimit LSA-uri
+	Pentru eveniment de tip 4:
+		- transmitatorul trimite receptorului prin nodul aflat din tabela de rutare pe calea ce mai scurta
+		- daca a ajuns la destinatie afisez mesaj, altfel il trimit receptorului tot prin nodul aflat din
+			tabela de rutare
+In cazul ca primesc mesaje de tip:
+	Tip 1:
+		
+		- actualizez topologia si baza de date daca mesajul e mai recent
+		- retrimit vecinilor in afara de cel de la care l-am primit
+	Tip 2:
+		- trimit toate mesajele din LSADatabase ca mesaje de tip 3
+		- modific doar senderul
+	Tip 3:
+		- la fel ca la 1 numai ca nu retrimit vecinilor
+	Tip 4:
+		- daca ruterul nu e destinatia trimit mesajul pe baza tabelei de rutare
+La Dijkstra :
+	- initializez distantele la inceput cu DRUMAX
+	- distanta nodului sursa catre el e 0
+	- introduc toate nodurile in coada (de fapt e un vector pe care il sortez de fiecare data cand fac o modificare)
+	- scot nodul cu distanta ce mai mica fata de sursa
+	- pentru totii vecinii nodului respectiv care se afla inca in coada calculez distanta pana la sursa :
+		distNew = dist[nod_scos] + dist[nod_scos, vecin]
+	- daca distNew e mai mica atunci distanta vecinului la sursa este distNew si retin nodul pana la sursa prin care sursa
+		poate ajunge la el
+	- resortez coada
+	- se executa pana nu mai sunt noduri in coada
+	- la final actualizez tabela de rutare
+La primirea unui mesaj il retin in coada New; coada o procesez la primirea mesajului 6; cele 2 cozi (new si old) de fapt sunt
+retinute intr-un vector de cozi (lungime 2) si de fiecare data fac switch intre ele cu o variabila ce la inceput e 0 apoi devine
+1 - switch samd.
+Dupa fiecare prelucrare de coada actualizez tabela de rutare prin algoritmul Dijkstra care calculeaza rutele minime catre
+toate nodurile din topologie, actualizand si nodurile adiacente ruterului curent pentru a comunica cu celelalte rutere;
+Mentionez ca am testat tema pentru toate evenimentele functionand de fiecare data pentru testele pe care le-am construit.

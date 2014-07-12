@@ -1,0 +1,21 @@
+Tema 3 : Phutball
+
+Ciocan Mihai
+324CA
+
+In rezolvare temei am introdus 2 noi template-uri visited si visited_in iar strategia este urmatoarea:
+
+	- r1 :modifica (world (men ?a ?b -)) in (world (men - ?a ?b -)) pentru a putea face pattern matching mai simplu 
+		(altfel nu pot face comparatii deaorece nu toate elementele sunt int sau float);
+	- r2 - r9 : reguli de mutare in cele 8 directii ; daca se gaseste om langa minge adaug un nou fact cu mingea deplasata 2
+			peste om si sterg omul din lista; pastrez toate faptele pe parcurs ce avansez;
+	- r13 : folosita atunci cand ma aflu pe pozitia unei persoane (deoarece nu am verificat niciodata daca dupa ce mut mingea
+		un pas exista o persoana in acea pozitie) mut mingea in directia pe care am ajuns cu o pozitie si sterg persoana
+		pe care eram initial; are prioritate mai mare decat restul regulilor de deplasare;
+	- r11 : regula care are cea mai mare prioritate verifica daca mingea a ajuns pe ultima linie; daca acest lucru s-a intamplat
+		atunci sterg toate faptele si inserez faptul cu win;folosesc pozitiile prin care am trecut de la faptul world cu mingea
+		care este pe ultim linie;
+	- r12 r14 r15 :au cea mai mica prioritate si se activeaza atunci cand nu mai exista mutari de efectuat; fiecare sterge visited_in, visited
+			si faptul cu world pe care l-am creat la inceput;
+Visited retine pozitiile pe care am trecut iar visited_in pozitia initiala si pozitia urmatoare cand mingea trebuie sa efectueze un salt peste
+mai multe persoane (utila deoarece nu retin si pozitiile in care se afla si persoane)

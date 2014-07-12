@@ -1,0 +1,4 @@
+r11: daca inflatia = mica
+atunci stock = up 0.7
+r12: daca inflatia = mai_mica
+atunci stock = up 0.6

@@ -1,0 +1,28 @@
+<project name="KeyFactory" default="build" basedir=".">
+
+	<target name="clean">
+		<delete dir="cap5"/>	
+	</target>
+
+	<target name="build">
+		<echo message="${line.separator}Sisteme de programe pentru retele de calculatoare 
+			${line.separator}
+			${line.separator}Copyright (C) 2008 Ciprian Dobre &amp; Florin Pop 
+			${line.separator}Univerity Politehnica of Bucharest, Romania 
+			${line.separator}
+			${line.separator}"/>
+		<echo message="Compiling"/>
+		<javac srcdir="." destdir="." nowarn="on" debug="true" optimize="true" verbose="false"/>
+	</target>
+	
+	<target name="export" depends="build">
+		<echo message="Exporting"/>
+		<java classname="cap5.example3.Export" fork="true"/>
+	</target>
+	
+	<target name="import" depends="build">
+		<echo message="Importing"/>
+		<java classname="cap5.example3.Import" fork="true"/>
+	</target>
+	
+</project>

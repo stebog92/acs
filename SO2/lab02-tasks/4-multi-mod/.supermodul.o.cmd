@@ -1,0 +1,1 @@
+cmd_/home/mihai/SO2/lab02-tasks/4-multi-mod/supermodul.o := ld -m elf_i386   -r -o /home/mihai/SO2/lab02-tasks/4-multi-mod/supermodul.o /home/mihai/SO2/lab02-tasks/4-multi-mod/mod1.o /home/mihai/SO2/lab02-tasks/4-multi-mod/mod2.o 

@@ -1,0 +1,78 @@
+!!ro.pub.cs.lcpl.Program
+classes:
+- features:
+  - !!ro.pub.cs.lcpl.Attribute
+    init: !!ro.pub.cs.lcpl.IntConstant {lineNumber: 2, type: null, value: 6}
+    lineNumber: 2
+    name: val
+    type: Int
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.LocalDefinition
+        init: !!ro.pub.cs.lcpl.IntConstant {lineNumber: 5, type: null, value: 1}
+        lineNumber: 5
+        name: fact
+        scope: !!ro.pub.cs.lcpl.LocalDefinition
+          init: null
+          lineNumber: 6
+          name: s
+          scope: !!ro.pub.cs.lcpl.Block
+            expressions:
+            - !!ro.pub.cs.lcpl.Assignment
+              e1: !!ro.pub.cs.lcpl.WhileStatement
+                condition: !!ro.pub.cs.lcpl.LessThan
+                  e1: !!ro.pub.cs.lcpl.IntConstant {lineNumber: 8, type: null, value: 0}
+                  e2: !!ro.pub.cs.lcpl.Symbol {lineNumber: 8, name: val, type: null}
+                  lineNumber: 8
+                  type: null
+                lineNumber: 8
+                loopBody: !!ro.pub.cs.lcpl.Block
+                  expressions:
+                  - !!ro.pub.cs.lcpl.Assignment
+                    e1: !!ro.pub.cs.lcpl.Multiplication
+                      e1: !!ro.pub.cs.lcpl.Symbol {lineNumber: 10, name: fact, type: null}
+                      e2: !!ro.pub.cs.lcpl.Symbol {lineNumber: 10, name: val, type: null}
+                      lineNumber: 10
+                      type: null
+                    lineNumber: 10
+                    symbol: fact
+                    type: null
+                  - !!ro.pub.cs.lcpl.Assignment
+                    e1: !!ro.pub.cs.lcpl.Subtraction
+                      e1: !!ro.pub.cs.lcpl.Symbol {lineNumber: 11, name: val, type: null}
+                      e2: !!ro.pub.cs.lcpl.IntConstant {lineNumber: 11, type: null,
+                        value: 1}
+                      lineNumber: 11
+                      type: null
+                    lineNumber: 11
+                    symbol: val
+                    type: null
+                  lineNumber: 10
+                  type: null
+                type: null
+              lineNumber: 8
+              symbol: s
+              type: null
+            - !!ro.pub.cs.lcpl.Dispatch
+              arguments:
+              - !!ro.pub.cs.lcpl.Symbol {lineNumber: 13, name: s, type: null}
+              lineNumber: 13
+              name: out
+              object: null
+              type: null
+            lineNumber: 8
+            type: null
+          type: String
+        type: Int
+      lineNumber: 4
+      type: null
+    lineNumber: 3
+    name: main
+    parameters: []
+    returnType: void
+  lineNumber: 1
+  name: Main
+  parent: IO
+lineNumber: 1
+

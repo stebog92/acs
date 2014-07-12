@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0056)http://ou800doc.caldera.com/SDK_netapi/rpcpN.rpcgen.html -->
+<HTML><HEAD><TITLE>Programming using the rpcgen command</TITLE>
+<META content=text/html;charset=iso-8859-1 http-equiv=Content-Type>
+<SCRIPT language=JavaScript>
+<!-- comment for old browsers
+var Contents = "/SDK_netapi/CTOC-rpcpN.intro.html"
+var PrintSequence = "/SDK_netapi/CTOC-rpcpN.intro.html"
+if ( parent.RightHistory != null ) parent.RightHistory(document.URL)
+// end of comment -->
+</SCRIPT>
+
+<META content="MSHTML 5.00.2920.0" name=GENERATOR></HEAD>
+<BODY>
+<DIV align=right><I><A 
+href="http://ou800doc.caldera.com/SDK_netapi/CTOC-rpcpN.intro.html" 
+onclick=parent.nodebar.contents() target=navlist>Programming with Remote 
+Procedure Calls (RPC)</A></I></DIV>
+<H1>Programming using the rpcgen command</H1>
+<P>The details of programming applications to use Remote Procedure Calls can be 
+overwhelming. Perhaps the most daunting task is writing the XDR routines that 
+are necessary to convert procedure arguments and results into XDR format and 
+back again. 
+<P>The <A 
+href="http://ou800doc.caldera.com/cgi-bin/man/man?rpcgen+1tcp"><B>rpcgen</B>(1tcp)</A> 
+compiler helps you write RPC applications simply and directly. It does most of 
+the dirty work, allowing you to debug the main features of your application, 
+instead of requiring you to spend most of your time developing transport 
+interface code. 
+<P><A name=0001></A><B>rpcgen</B> accepts as input a remote program interface 
+definition written in the RPC Language, which is similar to C. <B>rpcgen</B> 
+outputs <A name=0002></A>C language code that is suitable for RPC programs. This 
+output includes: 
+<UL>
+  <P>
+  <LI>stub versions of the client routines 
+  <P></P>
+  <LI>a server skeleton 
+  <P></P>
+  <LI>XDR filter routines for both parameters and results <A name=0003></A>
+  <P></P>
+  <LI>a header file that contains common definitions 
+  <P></P>
+  <LI>(optionally) dispatch tables that the server can use to check 
+  authorizations and then invoke service routines </LI></UL><B>rpcgen</B>'s <A 
+name=0004></A>output files can be compiled and linked in the usual way. 
+<P>The client stubs interface with the RPC library and effectively hide the 
+transport from their callers. The server skeleton similarly hides the transport 
+from the server procedures that are to be invoked by remote clients. 
+<P>The developer writes server procedures (in any language that observes system 
+calling conventions) and links them with the server skeleton produced by 
+<B>rpcgen</B> <A name=0005></A>to get an executable server program. To use a 
+remote program, the programmer writes an ordinary main program that makes local 
+procedure calls to the client stubs produced by <B>rpcgen</B>. <A 
+name=0006></A>Linking this program with stubs produced by <B>rpcgen</B> <A 
+name=0007></A>creates an executable program. (At present, the main program must 
+be written in C.) 
+<P><B>rpcgen</B> <A name=0008></A>options can be used to suppress stub 
+generation and to specify the transport to be used by the server skeleton. 
+<P><B>rpcgen</B> <A name=0009></A>reduces the development time that would 
+otherwise be spent coding and debugging low-level routines, at a small cost in 
+efficiency and flexibility. For speed-critical applications, though, 
+<B>rpcgen</B> <A name=0010></A>allows programmers to mix low-level code with 
+high-level code. Hand-written routines can be linked with the <B>rpcgen</B> <A 
+name=0011></A>output without any difficulty. Also, one may proceed by using 
+<B>rpcgen</B> <A name=0012></A>output as a starting point, and then rewriting it 
+as necessary. (For a discussion of RPC programming without <B>rpcgen</B>, <A 
+name=0013></A>see <A 
+href="http://ou800doc.caldera.com/SDK_netapi/rpcpC.programming.html">``Remote 
+Procedure Call programming''</A>). 
+<P><B>rpcgen</B> allows you to do such things as: 
+<UL>
+  <P>
+  <LI>convert an application to run over a network 
+  <P></P>
+  <LI><A name=0014></A>create XDR routines <A name=0015></A>
+  <P></P>
+  <LI>make use of <A name=0016></A>supported preprocessing directives. 
+</LI></UL><A 
+href="http://ou800doc.caldera.com/SDK_netapi/rpcpC.techniques.html">``Common RPC 
+programming techniques''</A> suggests some coding and <A name=0017></A>usage 
+techniques for <B>rpcgen</B>. 
+<P><A 
+href="http://ou800doc.caldera.com/SDK_netapi/rpcpD.language_ref.html">``RPC 
+language reference''</A> provides a complete description of the RPC programming 
+language recognized by <B>rpcgen</B>. <A name=0018></A><!-- NAVBEGIN -->
+<HR>
+<I><SMALL><A href="http://ou800doc.caldera.com/SDK_netapi/COPYRIGHT.html">© 2001 
+Caldera International, Inc. All rights reserved.</A> <BR>Open UNIX 8 Release 
+8.0.0 -- 22 June 2001 <BR></SMALL></I><!-- NAVEND --></BODY></HTML>

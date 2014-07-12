@@ -1,0 +1,451 @@
+!!ro.pub.cs.lcpl.Program
+classes:
+- &id014
+  features:
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - &id004 !!ro.pub.cs.lcpl.LocalDefinition
+        init: null
+        lineNumber: 6
+        name: v
+        scope: &id002 !!ro.pub.cs.lcpl.LocalDefinition
+          init: !!ro.pub.cs.lcpl.IntConstant
+            lineNumber: 7
+            type: Int
+            typeData: &id001 !!ro.pub.cs.lcpl.IntType {}
+            value: 10
+          lineNumber: 7
+          name: a
+          scope: &id003 !!ro.pub.cs.lcpl.LocalDefinition
+            init: !!ro.pub.cs.lcpl.IntConstant
+              lineNumber: 8
+              type: Int
+              typeData: *id001
+              value: 20
+            lineNumber: 8
+            name: b
+            scope: !!ro.pub.cs.lcpl.Block
+              expressions:
+              - !!ro.pub.cs.lcpl.Assignment
+                e1: !!ro.pub.cs.lcpl.Addition
+                  e1: !!ro.pub.cs.lcpl.Symbol
+                    lineNumber: 10
+                    name: a
+                    type: Int
+                    typeData: *id001
+                    variable: *id002
+                  e2: !!ro.pub.cs.lcpl.Multiplication
+                    e1: !!ro.pub.cs.lcpl.IntConstant
+                      lineNumber: 10
+                      type: Int
+                      typeData: *id001
+                      value: 2
+                    e2: !!ro.pub.cs.lcpl.Symbol
+                      lineNumber: 10
+                      name: b
+                      type: Int
+                      typeData: *id001
+                      variable: *id003
+                    lineNumber: 10
+                    type: Int
+                    typeData: *id001
+                  lineNumber: 10
+                  type: Int
+                  typeData: *id001
+                lineNumber: 10
+                symbol: v
+                symbolData: *id004
+                type: Int
+                typeData: *id001
+              - &id009 !!ro.pub.cs.lcpl.LocalDefinition
+                init: null
+                lineNumber: 12
+                name: v2
+                scope: &id005 !!ro.pub.cs.lcpl.LocalDefinition
+                  init: !!ro.pub.cs.lcpl.IntConstant
+                    lineNumber: 13
+                    type: Int
+                    typeData: *id001
+                    value: 50
+                  lineNumber: 13
+                  name: a
+                  scope: &id006 !!ro.pub.cs.lcpl.LocalDefinition
+                    init: !!ro.pub.cs.lcpl.IntConstant
+                      lineNumber: 14
+                      type: Int
+                      typeData: *id001
+                      value: 30
+                    lineNumber: 14
+                    name: c
+                    scope: !!ro.pub.cs.lcpl.Block
+                      expressions:
+                      - !!ro.pub.cs.lcpl.Assignment
+                        e1: !!ro.pub.cs.lcpl.Addition
+                          e1: !!ro.pub.cs.lcpl.Addition
+                            e1: !!ro.pub.cs.lcpl.Addition
+                              e1: !!ro.pub.cs.lcpl.Symbol
+                                lineNumber: 16
+                                name: v
+                                type: Int
+                                typeData: *id001
+                                variable: *id004
+                              e2: !!ro.pub.cs.lcpl.Symbol
+                                lineNumber: 16
+                                name: a
+                                type: Int
+                                typeData: *id001
+                                variable: *id005
+                              lineNumber: 16
+                              type: Int
+                              typeData: *id001
+                            e2: !!ro.pub.cs.lcpl.Symbol
+                              lineNumber: 16
+                              name: b
+                              type: Int
+                              typeData: *id001
+                              variable: *id003
+                            lineNumber: 16
+                            type: Int
+                            typeData: *id001
+                          e2: !!ro.pub.cs.lcpl.Symbol
+                            lineNumber: 16
+                            name: c
+                            type: Int
+                            typeData: *id001
+                            variable: *id006
+                          lineNumber: 16
+                          type: Int
+                          typeData: *id001
+                        lineNumber: 16
+                        symbol: v
+                        symbolData: *id004
+                        type: Int
+                        typeData: *id001
+                      - &id007 !!ro.pub.cs.lcpl.LocalDefinition
+                        init: !!ro.pub.cs.lcpl.IntConstant
+                          lineNumber: 18
+                          type: Int
+                          typeData: *id001
+                          value: 20
+                        lineNumber: 18
+                        name: x
+                        scope: !!ro.pub.cs.lcpl.Block
+                          expressions:
+                          - !!ro.pub.cs.lcpl.Assignment
+                            e1: !!ro.pub.cs.lcpl.Assignment
+                              e1: !!ro.pub.cs.lcpl.Subtraction
+                                e1: !!ro.pub.cs.lcpl.Symbol
+                                  lineNumber: 21
+                                  name: v
+                                  type: Int
+                                  typeData: *id001
+                                  variable: *id004
+                                e2: !!ro.pub.cs.lcpl.Multiplication
+                                  e1: !!ro.pub.cs.lcpl.Multiplication
+                                    e1: !!ro.pub.cs.lcpl.Multiplication
+                                      e1: !!ro.pub.cs.lcpl.IntConstant
+                                        lineNumber: 21
+                                        type: Int
+                                        typeData: *id001
+                                        value: 3
+                                      e2: !!ro.pub.cs.lcpl.Symbol
+                                        lineNumber: 21
+                                        name: b
+                                        type: Int
+                                        typeData: *id001
+                                        variable: *id003
+                                      lineNumber: 21
+                                      type: Int
+                                      typeData: *id001
+                                    e2: !!ro.pub.cs.lcpl.Multiplication
+                                      e1: !!ro.pub.cs.lcpl.Symbol
+                                        lineNumber: 21
+                                        name: x
+                                        type: Int
+                                        typeData: *id001
+                                        variable: *id007
+                                      e2: !!ro.pub.cs.lcpl.IfStatement
+                                        condition: !!ro.pub.cs.lcpl.LessThan
+                                          e1: !!ro.pub.cs.lcpl.Symbol
+                                            lineNumber: 21
+                                            name: b
+                                            type: Int
+                                            typeData: *id001
+                                            variable: *id003
+                                          e2: !!ro.pub.cs.lcpl.IntConstant
+                                            lineNumber: 21
+                                            type: Int
+                                            typeData: *id001
+                                            value: 30
+                                          lineNumber: 21
+                                          type: Int
+                                          typeData: *id001
+                                        ifExpr: !!ro.pub.cs.lcpl.Block
+                                          expressions:
+                                          - &id008 !!ro.pub.cs.lcpl.LocalDefinition
+                                            init: !!ro.pub.cs.lcpl.IntConstant
+                                              lineNumber: 22
+                                              type: Int
+                                              typeData: *id001
+                                              value: 100
+                                            lineNumber: 22
+                                            name: b
+                                            scope: !!ro.pub.cs.lcpl.Block
+                                              expressions:
+                                              - !!ro.pub.cs.lcpl.Multiplication
+                                                e1: !!ro.pub.cs.lcpl.Symbol
+                                                  lineNumber: 23
+                                                  name: a
+                                                  type: Int
+                                                  typeData: *id001
+                                                  variable: *id005
+                                                e2: !!ro.pub.cs.lcpl.Symbol
+                                                  lineNumber: 23
+                                                  name: b
+                                                  type: Int
+                                                  typeData: *id001
+                                                  variable: *id008
+                                                lineNumber: 23
+                                                type: Int
+                                                typeData: *id001
+                                              lineNumber: 23
+                                              type: Int
+                                              typeData: *id001
+                                            type: Int
+                                            typeData: *id001
+                                            variableType: *id001
+                                          lineNumber: 22
+                                          type: Int
+                                          typeData: *id001
+                                        lineNumber: 21
+                                        thenExpr: !!ro.pub.cs.lcpl.Block
+                                          expressions:
+                                          - !!ro.pub.cs.lcpl.IntConstant
+                                            lineNumber: 24
+                                            type: Int
+                                            typeData: *id001
+                                            value: 0
+                                          lineNumber: 24
+                                          type: Int
+                                          typeData: *id001
+                                        type: Int
+                                        typeData: *id001
+                                      lineNumber: 21
+                                      type: Int
+                                      typeData: *id001
+                                    lineNumber: 21
+                                    type: Int
+                                    typeData: *id001
+                                  e2: !!ro.pub.cs.lcpl.Symbol
+                                    lineNumber: 25
+                                    name: c
+                                    type: Int
+                                    typeData: *id001
+                                    variable: *id006
+                                  lineNumber: 25
+                                  type: Int
+                                  typeData: *id001
+                                lineNumber: 21
+                                type: Int
+                                typeData: *id001
+                              lineNumber: 21
+                              symbol: v
+                              symbolData: *id004
+                              type: Int
+                              typeData: *id001
+                            lineNumber: 20
+                            symbol: v2
+                            symbolData: *id009
+                            type: Int
+                            typeData: *id001
+                          - !!ro.pub.cs.lcpl.Dispatch
+                            arguments:
+                            - !!ro.pub.cs.lcpl.Cast
+                              e1: !!ro.pub.cs.lcpl.Symbol
+                                lineNumber: 26
+                                name: v
+                                type: Int
+                                typeData: *id001
+                                variable: *id004
+                              lineNumber: 26
+                              type: String
+                              typeData: &id010 !!ro.pub.cs.lcpl.LCPLClass
+                                features:
+                                - !!ro.pub.cs.lcpl.Method
+                                  body: null
+                                  lineNumber: 0
+                                  name: length
+                                  parameters: []
+                                  parent: *id010
+                                  returnType: Int
+                                  returnTypeData: *id001
+                                  self:
+                                    lineNumber: 0
+                                    name: self
+                                    type: String
+                                    variableType: *id010
+                                - !!ro.pub.cs.lcpl.Method
+                                  body: null
+                                  lineNumber: 0
+                                  name: toInt
+                                  parameters: []
+                                  parent: *id010
+                                  returnType: Int
+                                  returnTypeData: *id001
+                                  self:
+                                    lineNumber: 0
+                                    name: self
+                                    type: String
+                                    variableType: *id010
+                                lineNumber: 0
+                                name: String
+                                parent: Object
+                                parentData: &id011
+                                  features:
+                                  - !!ro.pub.cs.lcpl.Method
+                                    body: null
+                                    lineNumber: 0
+                                    name: abort
+                                    parameters: []
+                                    parent: *id011
+                                    returnType: void
+                                    returnTypeData: &id015 !!ro.pub.cs.lcpl.NoType {}
+                                    self:
+                                      lineNumber: 0
+                                      name: self
+                                      type: Object
+                                      variableType: *id011
+                                  - !!ro.pub.cs.lcpl.Method
+                                    body: null
+                                    lineNumber: 0
+                                    name: typeName
+                                    parameters: []
+                                    parent: *id011
+                                    returnType: String
+                                    returnTypeData: *id010
+                                    self:
+                                      lineNumber: 0
+                                      name: self
+                                      type: Object
+                                      variableType: *id011
+                                  - !!ro.pub.cs.lcpl.Method
+                                    body: null
+                                    lineNumber: 0
+                                    name: copy
+                                    parameters: []
+                                    parent: *id011
+                                    returnType: Object
+                                    returnTypeData: *id011
+                                    self:
+                                      lineNumber: 0
+                                      name: self
+                                      type: Object
+                                      variableType: *id011
+                                  lineNumber: 0
+                                  name: Object
+                                  parent: null
+                                  parentData: null
+                            lineNumber: 26
+                            method: &id012
+                              body: null
+                              lineNumber: 0
+                              name: out
+                              parameters:
+                              - lineNumber: 0
+                                name: msg
+                                type: String
+                                variableType: *id010
+                              parent: &id013
+                                features:
+                                - *id012
+                                - !!ro.pub.cs.lcpl.Method
+                                  body: null
+                                  lineNumber: 0
+                                  name: in
+                                  parameters: []
+                                  parent: *id013
+                                  returnType: String
+                                  returnTypeData: *id010
+                                  self:
+                                    lineNumber: 0
+                                    name: self
+                                    type: IO
+                                    variableType: *id013
+                                lineNumber: 0
+                                name: IO
+                                parent: Object
+                                parentData: *id011
+                              returnType: IO
+                              returnTypeData: *id013
+                              self:
+                                lineNumber: 0
+                                name: self
+                                type: IO
+                                variableType: *id013
+                            name: out
+                            object: !!ro.pub.cs.lcpl.NewObject
+                              lineNumber: 26
+                              type: IO
+                              typeData: *id013
+                            type: IO
+                            typeData: *id013
+                          lineNumber: 20
+                          type: IO
+                          typeData: *id013
+                        type: Int
+                        typeData: *id013
+                        variableType: *id001
+                      lineNumber: 16
+                      type: IO
+                      typeData: *id013
+                    type: Int
+                    typeData: *id013
+                    variableType: *id001
+                  type: Int
+                  typeData: *id013
+                  variableType: *id001
+                type: Int
+                typeData: *id013
+                variableType: *id001
+              lineNumber: 10
+              type: IO
+              typeData: *id013
+            type: Int
+            typeData: *id013
+            variableType: *id001
+          type: Int
+          typeData: *id013
+          variableType: *id001
+        type: Int
+        typeData: *id013
+        variableType: *id001
+      lineNumber: 5
+      type: IO
+      typeData: *id013
+    lineNumber: 4
+    name: main
+    parameters: []
+    parent: *id014
+    returnType: void
+    returnTypeData: *id015
+    self:
+      lineNumber: 0
+      name: self
+      type: Main
+      variableType: *id014
+  lineNumber: 3
+  name: Main
+  parent: Object
+  parentData: *id011
+- *id011
+- *id013
+- *id010
+intType: *id001
+ioType: *id013
+lineNumber: 3
+noType: *id015
+nullType: {}
+objectType: *id011
+stringType: *id010
+

@@ -1,0 +1,23 @@
+# (* Usage of String class methods *)
+
+class Main 
+	paranthese String a, String b, String c -> String :  
+		a+("(")+(b)+(")")+(c);
+	end;
+	
+	main : 
+		local
+			String result =
+			[paranthese
+				[paranthese "a", "", "c"],
+				[paranthese
+					[paranthese "d", "e", "f"],
+					[paranthese "g", "", "i"],
+					[paranthese "j", "k", "l"]
+				],
+				[paranthese "m", "n", "o"]
+			];
+		end;
+			[(new IO).out result+"\n"+result[0, [result.length] / 2]];
+	end;
+end;

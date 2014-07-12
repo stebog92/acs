@@ -1,0 +1,147 @@
+!!ro.pub.cs.lcpl.Program
+classes:
+- features:
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.Addition
+        e1: !!ro.pub.cs.lcpl.Addition
+          e1: !!ro.pub.cs.lcpl.Addition
+            e1: !!ro.pub.cs.lcpl.Addition
+              e1: !!ro.pub.cs.lcpl.Symbol {lineNumber: 5, name: a, type: null}
+              e2: !!ro.pub.cs.lcpl.StringConstant {lineNumber: 5, type: null, value: (}
+              lineNumber: 5
+              type: null
+            e2: !!ro.pub.cs.lcpl.Symbol {lineNumber: 5, name: b, type: null}
+            lineNumber: 5
+            type: null
+          e2: !!ro.pub.cs.lcpl.StringConstant {lineNumber: 5, type: null, value: )}
+          lineNumber: 5
+          type: null
+        e2: !!ro.pub.cs.lcpl.Symbol {lineNumber: 5, name: c, type: null}
+        lineNumber: 5
+        type: null
+      lineNumber: 5
+      type: null
+    lineNumber: 4
+    name: paranthese
+    parameters:
+    - {lineNumber: 4, name: a, type: String}
+    - {lineNumber: 4, name: b, type: String}
+    - {lineNumber: 4, name: c, type: String}
+    returnType: String
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.LocalDefinition
+        init: !!ro.pub.cs.lcpl.Dispatch
+          arguments:
+          - !!ro.pub.cs.lcpl.Dispatch
+            arguments:
+            - !!ro.pub.cs.lcpl.StringConstant {lineNumber: 12, type: null, value: a}
+            - !!ro.pub.cs.lcpl.StringConstant {lineNumber: 12, type: null, value: ''}
+            - !!ro.pub.cs.lcpl.StringConstant {lineNumber: 12, type: null, value: c}
+            lineNumber: 12
+            name: paranthese
+            object: null
+            type: null
+          - !!ro.pub.cs.lcpl.Dispatch
+            arguments:
+            - !!ro.pub.cs.lcpl.Dispatch
+              arguments:
+              - !!ro.pub.cs.lcpl.StringConstant {lineNumber: 14, type: null, value: d}
+              - !!ro.pub.cs.lcpl.StringConstant {lineNumber: 14, type: null, value: e}
+              - !!ro.pub.cs.lcpl.StringConstant {lineNumber: 14, type: null, value: f}
+              lineNumber: 14
+              name: paranthese
+              object: null
+              type: null
+            - !!ro.pub.cs.lcpl.Dispatch
+              arguments:
+              - !!ro.pub.cs.lcpl.StringConstant {lineNumber: 15, type: null, value: g}
+              - !!ro.pub.cs.lcpl.StringConstant {lineNumber: 15, type: null, value: ''}
+              - !!ro.pub.cs.lcpl.StringConstant {lineNumber: 15, type: null, value: i}
+              lineNumber: 15
+              name: paranthese
+              object: null
+              type: null
+            - !!ro.pub.cs.lcpl.Dispatch
+              arguments:
+              - !!ro.pub.cs.lcpl.StringConstant {lineNumber: 16, type: null, value: j}
+              - !!ro.pub.cs.lcpl.StringConstant {lineNumber: 16, type: null, value: k}
+              - !!ro.pub.cs.lcpl.StringConstant {lineNumber: 16, type: null, value: l}
+              lineNumber: 16
+              name: paranthese
+              object: null
+              type: null
+            lineNumber: 13
+            name: paranthese
+            object: null
+            type: null
+          - !!ro.pub.cs.lcpl.Dispatch
+            arguments:
+            - !!ro.pub.cs.lcpl.StringConstant {lineNumber: 18, type: null, value: m}
+            - !!ro.pub.cs.lcpl.StringConstant {lineNumber: 18, type: null, value: n}
+            - !!ro.pub.cs.lcpl.StringConstant {lineNumber: 18, type: null, value: o}
+            lineNumber: 18
+            name: paranthese
+            object: null
+            type: null
+          lineNumber: 11
+          name: paranthese
+          object: null
+          type: null
+        lineNumber: 10
+        name: result
+        scope: !!ro.pub.cs.lcpl.Block
+          expressions:
+          - !!ro.pub.cs.lcpl.Dispatch
+            arguments:
+            - !!ro.pub.cs.lcpl.Addition
+              e1: !!ro.pub.cs.lcpl.Addition
+                e1: !!ro.pub.cs.lcpl.Symbol {lineNumber: 21, name: result, type: null}
+                e2: !!ro.pub.cs.lcpl.StringConstant
+                  lineNumber: 21
+                  type: null
+                  value: |2+
+
+                lineNumber: 21
+                type: null
+              e2: !!ro.pub.cs.lcpl.SubString
+                endPosition: !!ro.pub.cs.lcpl.Division
+                  e1: !!ro.pub.cs.lcpl.Dispatch
+                    arguments: []
+                    lineNumber: 21
+                    name: length
+                    object: !!ro.pub.cs.lcpl.Symbol {lineNumber: 21, name: result,
+                      type: null}
+                    type: null
+                  e2: !!ro.pub.cs.lcpl.IntConstant {lineNumber: 21, type: null, value: 2}
+                  lineNumber: 21
+                  type: null
+                lineNumber: 21
+                startPosition: !!ro.pub.cs.lcpl.IntConstant {lineNumber: 21, type: null,
+                  value: 0}
+                stringExpr: !!ro.pub.cs.lcpl.Symbol {lineNumber: 21, name: result,
+                  type: null}
+                type: null
+              lineNumber: 21
+              type: null
+            lineNumber: 21
+            name: out
+            object: !!ro.pub.cs.lcpl.NewObject {lineNumber: 21, type: IO}
+            type: null
+          lineNumber: 21
+          type: null
+        type: String
+      lineNumber: 9
+      type: null
+    lineNumber: 8
+    name: main
+    parameters: []
+    returnType: void
+  lineNumber: 3
+  name: Main
+  parent: null
+lineNumber: 3
+

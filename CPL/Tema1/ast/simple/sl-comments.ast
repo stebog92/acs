@@ -1,0 +1,27 @@
+!!ro.pub.cs.lcpl.Program
+classes:
+- features:
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.Dispatch
+        arguments:
+        - !!ro.pub.cs.lcpl.StringConstant
+          lineNumber: 7
+          type: null
+          value: "This is # not a comment\r\n\t  _\n\t\"/ \\\"\n\t\"\\_/\"\n"
+        lineNumber: 7
+        name: out
+        object: null
+        type: null
+      lineNumber: 7
+      type: null
+    lineNumber: 6
+    name: main
+    parameters: []
+    returnType: void
+  lineNumber: 5
+  name: Main
+  parent: IO
+lineNumber: 5
+

@@ -1,0 +1,18 @@
+#!/bin/bash
+case "$#" in
+"2")
+	lcpl=$1
+	run=$2
+	yaml="$(basename $1).$$.tmp.yaml"
+	;;
+*)
+	echo "Usage: $(basename $0) <file.lcpl> <file.run>"
+	exit 1
+	;;
+esac
+
+java -jar LCPLParser.jar $lcpl $yaml
+java -jar LCPLSemant.jar $yaml $run
+
+rm -rf $yaml
+

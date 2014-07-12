@@ -1,0 +1,12 @@
+# Comments and some ASCII art
+#   _
+# "/ \"
+# "\_/"
+class Main inherits IO  # { Comments # Comments # Comments
+	main: # { Comments # Comments 
+		[out "This is # not a comment\
+\t  _\n\t\"/ \\\"\n\t\"\\_/\"\n"]; # Comments (* A valid comment
+	end; # Comments (* Still a comment *)
+end;
+
+# Comments# Comments

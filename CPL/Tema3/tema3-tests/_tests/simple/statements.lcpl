@@ -1,0 +1,19 @@
+# (* Simple conditional and repetitive statements *)
+
+class Main inherits IO
+	var
+	 Int max_val = 100;
+	 Int even_count = 0;
+	end;
+	
+	main:
+	 	local Int i = 0; end;
+	 		while i < max_val loop
+	 			if i - (i/2)*2 == 0 then
+	 				even_count = even_count + 1;
+	 			end;
+	 			i = i + 1;
+	 		end;
+			[{IO self}.out even_count];
+	end;
+end;

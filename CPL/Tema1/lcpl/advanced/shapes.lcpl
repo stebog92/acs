@@ -1,0 +1,42 @@
+class Shape
+  var Int x; Int y; Int x2; Int y2; end;
+  init Int x, Int y, Int dx, Int dy :
+    self.x = x; self.y = y;
+    x2 = x + dx; y2 = y + dy;
+  end;
+  print IO stream:
+     [stream.out "("+x + "," + y+")("+x2 + "," + y2+")"];
+  end;
+end;
+
+class Ellipse inherits Shape
+  var Int rx; Int ry; end;
+  init Int x, Int y, Int dx, Int dy :
+    [self.Shape.init x, y, dx, dy];
+    rx = dx / 2; ry = dy / 2;
+  end;
+  setR Int rx, Int ry:
+    self.rx = rx; self.ry = ry;
+  end;
+  print IO stream:
+    [self.Shape.print stream];
+	[stream.out "["+(rx+ry)/2+"]"];
+  end;
+end;
+
+class Main inherits IO
+	main:
+		local
+			Shape s1 = new Ellipse; 
+			Shape s2 = new Shape; 
+			Shape s3; 
+		end;
+		[s1.init 1,2,10,20];
+		[s2.init 0,0,100,100];
+		s3 = {Shape [s1.copy]};
+		[{Ellipse s3}.setR 8,10];
+		[s1.print self]; [out [s1.typeName] + "\n"];
+		[s2.print self]; [out [s2.typeName] + "\n"];
+		[s3.print self]; [out [s3.typeName] + "\n"];
+	end;
+end;

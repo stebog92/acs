@@ -1,0 +1,16 @@
+Exception in thread "main" java.lang.NumberFormatException: For input string: ""
+	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
+	at java.lang.Integer.parseInt(Integer.java:504)
+	at java.lang.Integer.parseInt(Integer.java:527)
+	at ro.pub.cs.lcpl.IfStatement.emitIR(IfStatement.java:47)
+	at ro.pub.cs.lcpl.IfStatement.emitIR(IfStatement.java:46)
+	at ro.pub.cs.lcpl.BaseDispatch.emitIR(BaseDispatch.java:162)
+	at ro.pub.cs.lcpl.Dispatch.emitIR(Dispatch.java:19)
+	at ro.pub.cs.lcpl.Program.emitIR(Program.java:335)
+	at LCPLCodeGen.main(LCPLCodeGen.java:23)
+llc: random-expressions.lcpl.ir:89:1: error: found end of file when expecting more instructions
+
+^
+clang: error: no such file or directory: 'random-expressions.lcpl.ir.s'
+./eval.sh: line 27: ./random-expressions: No such file or directory
+rm: cannot remove `random-expressions': No such file or directory

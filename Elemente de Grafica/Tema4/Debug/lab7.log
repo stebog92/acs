@@ -1,0 +1,102 @@
+﻿Build started 01/13/13 21:22:04.
+     1>Project "E:\Elemente de Grafica\Tema4\lab7.vcxproj" on node 2 (build target(s)).
+     1>InitializeBuildStatus:
+         Creating "Debug\lab7.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /Idependente /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt Camera.cpp Cube.cpp lab7.cpp Light.cpp Meteorite.cpp Object3D.cpp Plane.cpp SpaceShip.cpp
+         SpaceShip.cpp
+     1>e:\elemente de grafica\tema4\spaceship.cpp(15): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(234) : see declaration of 'fopen'
+     1>e:\elemente de grafica\tema4\spaceship.cpp(51): warning C4996: 'sscanf': This function or variable may be unsafe. Consider using sscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(325) : see declaration of 'sscanf'
+     1>e:\elemente de grafica\tema4\spaceship.cpp(67): warning C4996: 'sscanf': This function or variable may be unsafe. Consider using sscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(325) : see declaration of 'sscanf'
+     1>e:\elemente de grafica\tema4\spaceship.cpp(78): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(197) : see declaration of 'strtok'
+     1>e:\elemente de grafica\tema4\spaceship.cpp(92): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(197) : see declaration of 'strtok'
+     1>e:\elemente de grafica\tema4\spaceship.cpp(247): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>e:\elemente de grafica\tema4\spaceship.cpp(247): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>e:\elemente de grafica\tema4\spaceship.cpp(247): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>e:\elemente de grafica\tema4\spaceship.cpp(262): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
+     1>e:\elemente de grafica\tema4\spaceship.cpp(262): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>e:\elemente de grafica\tema4\spaceship.cpp(262): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>e:\elemente de grafica\tema4\spaceship.cpp(263): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>e:\elemente de grafica\tema4\spaceship.cpp(263): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>e:\elemente de grafica\tema4\spaceship.cpp(263): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+         Plane.cpp
+         Object3D.cpp
+     1>e:\elemente de grafica\tema4\object3d.cpp(16): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>e:\elemente de grafica\tema4\object3d.cpp(16): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>e:\elemente de grafica\tema4\object3d.cpp(16): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>e:\elemente de grafica\tema4\object3d.cpp(103): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>e:\elemente de grafica\tema4\object3d.cpp(103): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>e:\elemente de grafica\tema4\object3d.cpp(103): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>e:\elemente de grafica\tema4\object3d.cpp(112): warning C4244: 'argument' : conversion from 'float' to 'GLint', possible loss of data
+     1>e:\elemente de grafica\tema4\object3d.cpp(112): warning C4244: 'argument' : conversion from 'float' to 'GLint', possible loss of data
+     1>e:\elemente de grafica\tema4\object3d.cpp(123): warning C4244: 'argument' : conversion from 'float' to 'GLint', possible loss of data
+     1>e:\elemente de grafica\tema4\object3d.cpp(123): warning C4244: 'argument' : conversion from 'float' to 'GLint', possible loss of data
+         Meteorite.cpp
+     1>e:\elemente de grafica\tema4\meteorite.cpp(78): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>e:\elemente de grafica\tema4\meteorite.cpp(78): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>e:\elemente de grafica\tema4\meteorite.cpp(78): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+         Light.cpp
+     1>e:\elemente de grafica\tema4\light.cpp(19): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>e:\elemente de grafica\tema4\light.cpp(19): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>e:\elemente de grafica\tema4\light.cpp(19): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>e:\elemente de grafica\tema4\light.cpp(28): warning C4482: nonstandard extension used: enum 'IlluminationType' used in qualified name
+     1>e:\elemente de grafica\tema4\light.cpp(54): warning C4482: nonstandard extension used: enum 'IlluminationType' used in qualified name
+         lab7.cpp
+     1>e:\elemente de grafica\tema4\lab7.cpp(91): warning C4018: '<' : signed/unsigned mismatch
+     1>e:\elemente de grafica\tema4\lab7.cpp(131): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>e:\elemente de grafica\tema4\lab7.cpp(165): warning C4482: nonstandard extension used: enum 'IlluminationType' used in qualified name
+     1>e:\elemente de grafica\tema4\lab7.cpp(169): warning C4482: nonstandard extension used: enum 'IlluminationType' used in qualified name
+     1>e:\elemente de grafica\tema4\lab7.cpp(178): warning C4244: 'argument' : conversion from 'int' to 'GLfloat', possible loss of data
+     1>e:\elemente de grafica\tema4\lab7.cpp(178): warning C4244: 'argument' : conversion from 'int' to 'GLfloat', possible loss of data
+     1>e:\elemente de grafica\tema4\lab7.cpp(195): warning C4996: 'vsprintf': This function or variable may be unsafe. Consider using vsprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(371) : see declaration of 'vsprintf'
+     1>e:\elemente de grafica\tema4\lab7.cpp(205): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>e:\elemente de grafica\tema4\lab7.cpp(205): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>e:\elemente de grafica\tema4\lab7.cpp(221): warning C4996: 'vsprintf': This function or variable may be unsafe. Consider using vsprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(371) : see declaration of 'vsprintf'
+     1>e:\elemente de grafica\tema4\lab7.cpp(231): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>e:\elemente de grafica\tema4\lab7.cpp(231): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>e:\elemente de grafica\tema4\lab7.cpp(281): warning C4018: '<' : signed/unsigned mismatch
+     1>e:\elemente de grafica\tema4\lab7.cpp(310): warning C4018: '<' : signed/unsigned mismatch
+     1>e:\elemente de grafica\tema4\lab7.cpp(314): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>e:\elemente de grafica\tema4\lab7.cpp(524): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>e:\elemente de grafica\tema4\lab7.cpp(531): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>e:\elemente de grafica\tema4\lab7.cpp(538): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>e:\elemente de grafica\tema4\lab7.cpp(545): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>e:\elemente de grafica\tema4\lab7.cpp(583): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>e:\elemente de grafica\tema4\lab7.cpp(585): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>e:\elemente de grafica\tema4\lab7.cpp(587): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>e:\elemente de grafica\tema4\lab7.cpp(589): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>e:\elemente de grafica\tema4\lab7.cpp(598): warning C4244: '=' : conversion from 'double' to 'GLfloat', possible loss of data
+     1>e:\elemente de grafica\tema4\lab7.cpp(603): warning C4305: '+=' : truncation from 'double' to 'float'
+         Cube.cpp
+     1>e:\elemente de grafica\tema4\cube.cpp(75): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>e:\elemente de grafica\tema4\cube.cpp(75): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>e:\elemente de grafica\tema4\cube.cpp(75): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+         Camera.cpp
+         Generating Code...
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"E:\Elemente de Grafica\Tema4\Debug\lab7.exe" /NOLOGO /LIBPATH:dependente opengl32.lib glu32.lib freeglut.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\lab7.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"E:\Elemente de Grafica\Tema4\Debug\lab7.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:\Elemente de Grafica\Tema4\Debug\lab7.lib" /MACHINE:X86 Debug\Camera.obj
+         Debug\Cube.obj
+         Debug\lab7.obj
+         Debug\Light.obj
+         Debug\Meteorite.obj
+         Debug\Object3D.obj
+         Debug\Plane.obj
+         Debug\SpaceShip.obj
+         lab7.vcxproj -> E:\Elemente de Grafica\Tema4\Debug\lab7.exe
+       Manifest:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:"E:\Elemente de Grafica\Tema4\Debug\lab7.exe;#1" /manifest Debug\lab7.exe.intermediate.manifest
+       FinalizeBuildStatus:
+         Deleting file "Debug\lab7.unsuccessfulbuild".
+         Touching "Debug\lab7.lastbuildstate".
+     1>Done Building Project "E:\Elemente de Grafica\Tema4\lab7.vcxproj" (build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:02.51

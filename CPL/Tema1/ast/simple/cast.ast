@@ -1,0 +1,87 @@
+!!ro.pub.cs.lcpl.Program
+classes:
+- features:
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.Cast
+        e1: !!ro.pub.cs.lcpl.Dispatch
+          arguments:
+          - !!ro.pub.cs.lcpl.StringConstant {lineNumber: 5, type: null, value: Hello from class A!}
+          lineNumber: 5
+          name: out
+          object: null
+          type: null
+        lineNumber: 5
+        type: A
+      lineNumber: 5
+      type: null
+    lineNumber: 4
+    name: greet
+    parameters: []
+    returnType: A
+  lineNumber: 3
+  name: A
+  parent: IO
+- features:
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.Cast
+        e1: !!ro.pub.cs.lcpl.Dispatch
+          arguments:
+          - !!ro.pub.cs.lcpl.StringConstant {lineNumber: 11, type: null, value: 'Bye
+              says B, then!'}
+          lineNumber: 11
+          name: out
+          object: null
+          type: null
+        lineNumber: 11
+        type: B
+      lineNumber: 11
+      type: null
+    lineNumber: 10
+    name: goodbye
+    parameters: []
+    returnType: B
+  lineNumber: 9
+  name: B
+  parent: A
+- features:
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.LocalDefinition
+        init: !!ro.pub.cs.lcpl.NewObject {lineNumber: 18, type: B}
+        lineNumber: 18
+        name: speaker
+        scope: !!ro.pub.cs.lcpl.Block
+          expressions:
+          - !!ro.pub.cs.lcpl.Dispatch
+            arguments: []
+            lineNumber: 20
+            name: goodbye
+            object: !!ro.pub.cs.lcpl.Cast
+              e1: !!ro.pub.cs.lcpl.Dispatch
+                arguments: []
+                lineNumber: 20
+                name: greet
+                object: !!ro.pub.cs.lcpl.Symbol {lineNumber: 20, name: speaker, type: null}
+                type: null
+              lineNumber: 20
+              type: B
+            type: null
+          lineNumber: 20
+          type: null
+        type: A
+      lineNumber: 17
+      type: null
+    lineNumber: 16
+    name: main
+    parameters: []
+    returnType: void
+  lineNumber: 15
+  name: Main
+  parent: null
+lineNumber: 3
+

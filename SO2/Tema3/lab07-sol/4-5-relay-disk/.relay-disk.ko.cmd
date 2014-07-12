@@ -1,0 +1,1 @@
+cmd_/home/mihai/SO2/Tema3/lab07-sol/4-5-relay-disk/relay-disk.ko := ld -r -m elf_i386 -T /home/mihai/linux-3.13/scripts/module-common.lds --build-id  -o /home/mihai/SO2/Tema3/lab07-sol/4-5-relay-disk/relay-disk.ko /home/mihai/SO2/Tema3/lab07-sol/4-5-relay-disk/relay-disk.o /home/mihai/SO2/Tema3/lab07-sol/4-5-relay-disk/relay-disk.mod.o

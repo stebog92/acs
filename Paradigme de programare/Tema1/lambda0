@@ -1,0 +1,159 @@
+(define lambdaAbs?
+  (lambda (x)
+    (and (list? x) (eq? (length x) 3) (eq? (car x) 'lambda0))
+  )
+)
+
+(define varOf
+  (lambda (x)
+    (cadr x)
+  )
+)
+(define bodyOf
+  (lambda (x)
+    (caddr x)
+  )
+)
+(define lambdaApl?
+  (lambda (x)
+    (and (list? x) (eq? (length x) 2) (lambdaTerm? (car x)) (lambdaTerm? (cadr x)))
+  )
+)
+    
+    
+(define freeVar
+  (lambda (x)
+    (if (lambdaAbs? x)
+        (filter (lambda (z) (not (eq? (varOf x) z))) (freeVar (bodyOf x)))
+        (if (lambdaApl? x)
+            (append (freeVar (car x)) (freeVar (cadr x)))
+            (list x)
+        )
+    )
+  )
+)
+(define lambdaTerm?
+  (lambda (x)
+    (or (symbol? x)
+        (and (list? x) (not (null? x)) (eq? (car x) 'lambda0)) 
+        (and (list? x) (eq? (length x) 2) (lambdaTerm? (car x)) (lambdaTerm? (cadr x)))
+    )
+  )
+)
+
+      
+
+(define betaReduce
+  (lambda (x y)
+    (substitute (varOf x) y (bodyOf x))
+        
+  )
+)
+
+(define substitute
+  (lambda (x y z)
+    (if (lambdaAbs? z)
+        (if (member (varOf z) (freeVar y))
+            (substitute x y (changeVar z (gensym (varOf z))))
+            (if (eq? (varOf z) x)
+                z
+                (list (car z) (cadr z) (substitute x y (bodyOf z)))
+            )
+        )
+        (if (lambdaVar? z)
+            (if (eq? z x)
+                y
+                z
+            )
+            (if (lambdaApl? z)
+                (list (substitute x y (car z)) (substitute x y (cadr z)))
+                z
+            )
+        )
+    )
+  )
+)
+
+(define lambdaVar?
+  (lambda (x)
+    (symbol? x)
+  )
+)
+(define changeVar
+  (lambda (x y)
+    (list (car x) y (replace (varOf x) y (bodyOf x)))
+  )
+)
+
+(define replace
+  (lambda (x y z)
+    (if (null? z)
+        '()
+        (if (list? z)
+            (cons (replace x y (car z)) (replace x y (cdr z)))
+            (if (eq? z x)
+                y
+                z
+            )
+        )
+    )
+  )
+)
+(define (eval0 expr)
+  (if (lambdaVar? expr)
+      expr
+      (if (lambdaAbs? expr)
+          (list (car expr) (cadr expr) (eval0 (bodyOf expr)))
+          (if (lambdaApl? expr)
+              (let* ((x (eval0 (car expr))) (y (eval0 (cadr expr))))
+                (if (lambdaAbs? x)
+                    (eval0 (betaReduce x y))
+                    (list x y)
+                )
+              )
+          )
+      )
+   )
+  )
+    
+         
+
+;(define true0 '(lambda0 x (lambda0 y x)))
+;(define false0 '(lambda0 x (lambda0 y y)))
+;(define and0 '(lambda0 p (lambda0 q ((p q) p))))
+;(define or0 '(lambda0 p (lambda0 q ((p p) q))))
+;(define not0 `(lambda0 p ((p ,false0) ,true0)))
+
+;(define nil0 `(lambda0 z ,true0))
+;(define cons0 '(lambda0 x (lambda0 y (lambda0 z ((z x) y)))))
+;(define car0 `(lambda0 p (p ,true0)))
+;(define cdr0 `(lambda0 p (p ,false0)))
+
+;; Numere naturale
+;(define null0? `(lambda0 l (l (lambda0 x (lambda0 y ,false0)))))
+;(define _0 '(lambda0 y (lambda0 x x)))
+;(define _1 '(lambda0 y (lambda0 x (y x))))
+;(define _2 '(lambda0 y (lambda0 x (y (y x)))))
+;(define _3 '(lambda0 y (lambda0 x (y (y (y x))))))
+;(define succ0 '(lambda0 u (lambda0 y (lambda0 x (y ((u y) x))))))
+;(define pred0 '(lambda0 u (lambda0 y (lambda0 x (((u (lambda0 g (lambda0 h (h (g y))))) (lambda0 q x)) (lambda0 q q))))))
+;(define id0 `(lambda0 x x))
+;(define empty?0 `(lambda0 l (l (lambda0 x (lambda0 y ,false0)))))
+;(define if0 '(lambda0 p (lambda0 a (lambda0 b ((p a) b)))))
+;(define eq0 `(lambda0 x (lambda0 y (((,if0 (,null0? x)) (((,if0 (,null0? y)) ,true0) ,false0)) (((,if0 (,null0? y)) ,false0) ((,eq0 (,cdr0 x)) (,cdr0 y)))))))
+;(eval0 `(,not0 ,false0))                                                             ; -> (lambda0 x (lambda0 y x))
+;(eval0 `((,and0 ,true0) ,false0))                                                    ; -> (lambda0 x (lambda0 y y))
+;(eval0 `((,or0 ,true0) ,false0))                                                     ; -> (lambda0 x (lambda0 y x))
+;(eval0 `((,or0 ,false0) ,false0))                                                    ; -> (lambda0 x (lambda0 y y))
+;(eval0 `((,and0 ((,or0 ((,and0 ,true0) ,true0)) ((,and0 ,false0) ,true0))) ,false0)) ; -> (lambda0 x (lambda0 y y))
+
+;(eval0 `(,succ0 ,_1))                                                                ; -> (lambda0 y (lambda0 x (y (y x))))
+;(eval0 `(,succ0 (,succ0 ,_1)))                                                       ; -> (lambda0 y (lambda0 x (y (y (y x)))))
+;(eval0 `(,pred0 ,_3))                                                                ; -> (lambda0 y (lambda0 x (y (y x))))
+;(eval0 `(,pred0 (,succ0 ,_3)))                                                       ; -> (lambda0 y (lambda0 x (y (y (y x)))))
+
+;(eval0 `((,cons0 ,_1) ,nil0))                                                        ; -> (lambda0 z ((z (lambda0 g21298 (lambda;0 x (g21298 x)))) (lambda0 z (lambda0 x (lambda0 y x)))))
+;(eval0 `(,car0 ((,cons0 ,_1) ,nil0)))                                                ; -> (lambda0 g24563 (lambda0 x (g24563 x)))
+;(eval0 `(,car0 (,cdr0 ((,cons0 ,_0) ((,cons0 ,true0) ((,cons0 ,_1) ,nil0))))))       ; -> (lambda0 x (lambda0 g26911 x))
+
+;(define x '(lambda0 x (lambda0 x x)))

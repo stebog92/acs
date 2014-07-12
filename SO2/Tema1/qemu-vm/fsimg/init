@@ -1,0 +1,20 @@
+#!/bin/sh
+/bin/busybox mkdir tmpfs
+/bin/busybox mount -t tmpfs tmpfs tmpfs
+/bin/busybox cp -a bin tmpfs
+/bin/busybox cp -a dev tmpfs
+/bin/busybox cp -a etc tmpfs
+/bin/busybox cp -a lib tmpfs
+/bin/busybox cp -a log tmpfs
+/bin/busybox cp -a opt tmpfs
+/bin/busybox cp -a pipe tmpfs
+/bin/busybox cp -a sbin tmpfs
+/bin/busybox cp -a tmp tmpfs
+/bin/busybox cp -a usr tmpfs
+/bin/busybox cp -a var tmpfs
+/bin/busybox cp -a root tmpfs
+#/bin/busybox cp -a * tmpfs
+
+/bin/busybox ln -s /bin/busybox /bin/switch_root
+exec /bin/switch_root -c /dev/console /tmpfs /bin/busybox init
+

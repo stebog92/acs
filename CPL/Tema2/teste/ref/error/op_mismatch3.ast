@@ -1,0 +1,112 @@
+!!ro.pub.cs.lcpl.Program
+classes:
+- features:
+  - !!ro.pub.cs.lcpl.Attribute {init: null, lineNumber: 2, name: xcar, type: Int}
+  - !!ro.pub.cs.lcpl.Attribute {init: null, lineNumber: 2, name: xcdr, type: Cons}
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.Addition
+        e1: !!ro.pub.cs.lcpl.IntConstant {lineNumber: 5, type: null, value: 1}
+        e2: !!ro.pub.cs.lcpl.IfStatement
+          condition: !!ro.pub.cs.lcpl.EqualComparison
+            e1: !!ro.pub.cs.lcpl.Symbol {lineNumber: 5, name: xcdr, type: null}
+            e2: !!ro.pub.cs.lcpl.IntConstant {lineNumber: 5, type: null, value: 0}
+            lineNumber: 5
+            type: null
+          ifExpr: !!ro.pub.cs.lcpl.Block
+            expressions:
+            - !!ro.pub.cs.lcpl.IntConstant {lineNumber: 5, type: null, value: 0}
+            lineNumber: 5
+            type: null
+          lineNumber: 5
+          thenExpr: !!ro.pub.cs.lcpl.Block
+            expressions:
+            - !!ro.pub.cs.lcpl.Dispatch
+              arguments: []
+              lineNumber: 5
+              name: size
+              object: !!ro.pub.cs.lcpl.Symbol {lineNumber: 5, name: xcdr, type: null}
+              type: null
+            lineNumber: 5
+            type: null
+          type: null
+        lineNumber: 5
+        type: null
+      lineNumber: 5
+      type: null
+    lineNumber: 4
+    name: size
+    parameters: []
+    returnType: Int
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.Assignment
+        e1: !!ro.pub.cs.lcpl.Symbol {lineNumber: 9, name: hd, type: null}
+        lineNumber: 9
+        symbol: xcar
+        type: null
+      - !!ro.pub.cs.lcpl.Assignment
+        e1: !!ro.pub.cs.lcpl.Symbol {lineNumber: 10, name: tl, type: null}
+        lineNumber: 10
+        symbol: xcdr
+        type: null
+      lineNumber: 9
+      type: null
+    lineNumber: 8
+    name: init
+    parameters:
+    - {lineNumber: 8, name: hd, type: Int}
+    - {lineNumber: 8, name: tl, type: Cons}
+    returnType: void
+  lineNumber: 1
+  name: Cons
+  parent: null
+- features:
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.LocalDefinition
+        init: null
+        lineNumber: 16
+        name: c
+        scope: !!ro.pub.cs.lcpl.LocalDefinition
+          init: null
+          lineNumber: 16
+          name: x
+          scope: !!ro.pub.cs.lcpl.Block
+            expressions:
+            - !!ro.pub.cs.lcpl.Assignment
+              e1: !!ro.pub.cs.lcpl.NewObject {lineNumber: 17, type: Cons}
+              lineNumber: 17
+              symbol: c
+              type: null
+            - !!ro.pub.cs.lcpl.Assignment
+              e1: !!ro.pub.cs.lcpl.IntConstant {lineNumber: 18, type: null, value: 0}
+              lineNumber: 18
+              symbol: x
+              type: null
+            - !!ro.pub.cs.lcpl.Dispatch
+              arguments:
+              - !!ro.pub.cs.lcpl.Symbol {lineNumber: 19, name: x, type: null}
+              - !!ro.pub.cs.lcpl.Symbol {lineNumber: 19, name: c, type: null}
+              lineNumber: 19
+              name: init
+              object: !!ro.pub.cs.lcpl.Symbol {lineNumber: 19, name: c, type: null}
+              type: null
+            lineNumber: 17
+            type: null
+          type: Int
+        type: Cons
+      lineNumber: 16
+      type: null
+    lineNumber: 15
+    name: main
+    parameters: []
+    returnType: void
+  lineNumber: 14
+  name: Main
+  parent: null
+lineNumber: 1
+

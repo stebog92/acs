@@ -1,0 +1,39 @@
+#
+# Simple Software RAID - test Makefile
+#
+
+CPPFLAGS = -DDEBUG=0 -DINTERNAL_TESTING=0
+CFLAGS = -Wall -Wextra -g -m32
+LDFLAGS = -static -m32
+
+.PHONY: all run build-pre build-post clean deploy pack run-test
+
+all: build-pre build-post
+
+build-pre: test run-test test2
+
+test: _test/test.o
+	$(CC) $(LDFLAGS) $^ -o test
+
+run-test:
+	make -C _test-ng/
+test2: _test/test2.o
+	$(CC) $(LDFLAGS) $^ -o test2
+
+build-post:
+
+run: all
+	./test
+
+clean:
+	-rm -f test _test/*.o _test/*~
+	-make -C _test-ng/ clean
+
+deploy: pack
+	scp ssr-checker.zip so2@elf.cs.pub.ro:vmchecker-storer/tests/3-ssr.zip
+	scp ssr-checker.zip so2@elf.cs.pub.ro:res/current/teme/
+	scp _test/ssr.h so2@elf.cs.pub.ro:res/current/teme/
+
+pack: clean
+	-rm -f ssr-checker.zip
+	zip -r ssr-checker.zip _test/ _test-ng/ Makefile.checker _checker

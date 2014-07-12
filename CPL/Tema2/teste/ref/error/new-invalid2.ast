@@ -1,0 +1,38 @@
+!!ro.pub.cs.lcpl.Program
+classes:
+- features:
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.LocalDefinition
+        init: !!ro.pub.cs.lcpl.NewObject {lineNumber: 4, type: Int}
+        lineNumber: 4
+        name: i
+        scope: !!ro.pub.cs.lcpl.Block
+          expressions:
+          - !!ro.pub.cs.lcpl.Assignment
+            e1: !!ro.pub.cs.lcpl.IntConstant {lineNumber: 6, type: null, value: 422}
+            lineNumber: 6
+            symbol: i
+            type: null
+          - !!ro.pub.cs.lcpl.Dispatch
+            arguments:
+            - !!ro.pub.cs.lcpl.Symbol {lineNumber: 7, name: i, type: null}
+            lineNumber: 7
+            name: out
+            object: null
+            type: null
+          lineNumber: 6
+          type: null
+        type: Int
+      lineNumber: 3
+      type: null
+    lineNumber: 2
+    name: main
+    parameters: []
+    returnType: void
+  lineNumber: 1
+  name: Main
+  parent: IO
+lineNumber: 1
+

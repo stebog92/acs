@@ -1,0 +1,34 @@
+﻿Build started 01/13/13 21:24:17.
+     1>Project "E:\Elemente de Grafica\New Folder\CiocanMihai334CA\lab6.vcxproj" on node 2 (build target(s)).
+     1>InitializeBuildStatus:
+         Creating ".\Debug\tema3.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /Iglut /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _CRT_SECURE_NO_DEPRECATE /D _VC80_UPGRADE=0x0600 /D _MBCS /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo".\Debug/" /Fd".\Debug/vc100.pdb" /FR".\Debug\\" /Gd /TP /analyze- /errorReport:prompt camera.cpp tema3.cpp
+         tema3.cpp
+     1>e:\elemente de grafica\new folder\ciocanmihai334ca\tema3.cpp(48): warning C4018: '<' : signed/unsigned mismatch
+         camera.cpp
+         Generating Code...
+       ManifestResourceCompile:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\rc.exe /nologo /fo".\Debug\tema3.exe.embed.manifest.res" .\Debug\tema3_manifest.rc 
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:".\Debug/tema3.exe" /INCREMENTAL /NOLOGO /LIBPATH:glut kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:".\Debug\tema3.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:".\Debug/lab6.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE:NO /IMPLIB:".\Debug\tema3.lib" /MACHINE:X86 .\Debug\tema3.exe.embed.manifest.res
+         .\Debug/camera.obj
+         .\Debug/tema3.obj
+       Manifest:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /out:".\Debug\tema3.exe.embed.manifest" /manifest .\Debug\tema3.exe.intermediate.manifest
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\rc.exe /nologo /fo".\Debug\tema3.exe.embed.manifest.res" .\Debug\tema3_manifest.rc 
+       LinkEmbedManifest:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:".\Debug/tema3.exe" /INCREMENTAL /NOLOGO /LIBPATH:glut kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:".\Debug\tema3.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:".\Debug/lab6.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE:NO /IMPLIB:".\Debug\tema3.lib" /MACHINE:X86 .\Debug\tema3.exe.embed.manifest.res
+         .\Debug/camera.obj
+         .\Debug/tema3.obj
+         lab6.vcxproj -> E:\Elemente de Grafica\New Folder\CiocanMihai334CA\.\Debug\tema3.exe
+       BscMake:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\bscmake.exe /nologo /o".\Debug/lab6.bsc" .\Debug\camera.sbr .\Debug\tema3.sbr
+       FinalizeBuildStatus:
+         Deleting file ".\Debug\tema3.unsuccessfulbuild".
+         Touching ".\Debug\tema3.lastbuildstate".
+     1>Done Building Project "E:\Elemente de Grafica\New Folder\CiocanMihai334CA\lab6.vcxproj" (build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:03.52

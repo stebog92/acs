@@ -1,0 +1,409 @@
+!!ro.pub.cs.lcpl.Program
+classes:
+- features:
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.Dispatch
+        arguments:
+        - !!ro.pub.cs.lcpl.Addition
+          e1: !!ro.pub.cs.lcpl.Addition
+            e1: !!ro.pub.cs.lcpl.Addition
+              e1: !!ro.pub.cs.lcpl.Addition
+                e1: !!ro.pub.cs.lcpl.StringConstant {lineNumber: 2, type: null, value: (}
+                e2: !!ro.pub.cs.lcpl.Symbol {lineNumber: 2, name: x, type: null}
+                lineNumber: 2
+                type: null
+              e2: !!ro.pub.cs.lcpl.StringConstant {lineNumber: 2, type: null, value: ','}
+              lineNumber: 2
+              type: null
+            e2: !!ro.pub.cs.lcpl.Symbol {lineNumber: 2, name: y, type: null}
+            lineNumber: 2
+            type: null
+          e2: !!ro.pub.cs.lcpl.StringConstant {lineNumber: 2, type: null, value: )}
+          lineNumber: 2
+          type: null
+        lineNumber: 2
+        name: out
+        object: !!ro.pub.cs.lcpl.Symbol {lineNumber: 2, name: stream, type: null}
+        type: null
+      lineNumber: 2
+      type: null
+    lineNumber: 2
+    name: print
+    parameters:
+    - {name: stream, type: IO}
+    returnType: void
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.Assignment
+        e1: !!ro.pub.cs.lcpl.Symbol {lineNumber: 4, name: x, type: null}
+        lineNumber: 4
+        symbol: self.x
+        type: null
+      - !!ro.pub.cs.lcpl.Assignment
+        e1: !!ro.pub.cs.lcpl.Symbol {lineNumber: 5, name: y, type: null}
+        lineNumber: 5
+        symbol: self.y
+        type: null
+      - !!ro.pub.cs.lcpl.Assignment
+        e1: !!ro.pub.cs.lcpl.Symbol {lineNumber: 6, name: next, type: null}
+        lineNumber: 6
+        symbol: self.next
+        type: null
+      lineNumber: 4
+      type: null
+    lineNumber: 3
+    name: init
+    parameters:
+    - {name: x, type: Int}
+    - {name: y, type: Int}
+    - {name: next, type: Vertex}
+    returnType: void
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.Dispatch
+        arguments:
+        - !!ro.pub.cs.lcpl.Symbol {lineNumber: 9, name: stream, type: null}
+        lineNumber: 9
+        name: print
+        object: null
+        type: null
+      - !!ro.pub.cs.lcpl.IfStatement
+        condition: !!ro.pub.cs.lcpl.LogicalNegation
+          e1: !!ro.pub.cs.lcpl.EqualComparison
+            e1: !!ro.pub.cs.lcpl.VoidConstant {lineNumber: 10, type: null}
+            e2: !!ro.pub.cs.lcpl.Symbol {lineNumber: 10, name: next, type: null}
+            lineNumber: 10
+            type: null
+          lineNumber: 10
+          type: null
+        ifExpr: !!ro.pub.cs.lcpl.Block
+          expressions:
+          - !!ro.pub.cs.lcpl.Dispatch
+            arguments:
+            - !!ro.pub.cs.lcpl.StringConstant {lineNumber: 10, type: null, value: '-'}
+            lineNumber: 10
+            name: out
+            object: !!ro.pub.cs.lcpl.Symbol {lineNumber: 10, name: stream, type: null}
+            type: null
+          - !!ro.pub.cs.lcpl.Dispatch
+            arguments:
+            - !!ro.pub.cs.lcpl.Symbol {lineNumber: 10, name: stream, type: null}
+            lineNumber: 10
+            name: print_all
+            object: !!ro.pub.cs.lcpl.Symbol {lineNumber: 10, name: next, type: null}
+            type: null
+          lineNumber: 10
+          type: null
+        lineNumber: 10
+        thenExpr: null
+        type: null
+      lineNumber: 9
+      type: null
+    lineNumber: 8
+    name: print_all
+    parameters:
+    - {name: stream, type: IO}
+    returnType: void
+  - !!ro.pub.cs.lcpl.Attribute {init: null, lineNumber: 12, name: x, type: Int}
+  - !!ro.pub.cs.lcpl.Attribute {init: null, lineNumber: 12, name: y, type: Int}
+  - !!ro.pub.cs.lcpl.Attribute {init: null, lineNumber: 12, name: next, type: Vertex}
+  lineNumber: 1
+  name: Vertex
+  parent: null
+- features:
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.IntConstant {lineNumber: 16, type: null, value: 0}
+      lineNumber: 16
+      type: null
+    lineNumber: 16
+    name: sides
+    parameters: []
+    returnType: Int
+  lineNumber: 15
+  name: Shape
+  parent: null
+- features:
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.IntConstant {lineNumber: 20, type: null, value: 3}
+      lineNumber: 20
+      type: null
+    lineNumber: 20
+    name: sides
+    parameters: []
+    returnType: Int
+  lineNumber: 19
+  name: Triangle
+  parent: Shape
+- features:
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.IntConstant {lineNumber: 24, type: null, value: 1}
+      lineNumber: 24
+      type: null
+    lineNumber: 24
+    name: sides
+    parameters: []
+    returnType: Int
+  lineNumber: 23
+  name: Line
+  parent: Shape
+- features:
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.Dispatch
+        arguments:
+        - !!ro.pub.cs.lcpl.Symbol {lineNumber: 28, name: stream, type: null}
+        lineNumber: 28
+        name: print_all
+        object: !!ro.pub.cs.lcpl.Symbol {lineNumber: 28, name: vx, type: null}
+        type: null
+      - !!ro.pub.cs.lcpl.Dispatch
+        arguments:
+        - !!ro.pub.cs.lcpl.StringConstant
+          lineNumber: 28
+          type: null
+          value: |2+
+
+        lineNumber: 28
+        name: out
+        object: !!ro.pub.cs.lcpl.Symbol {lineNumber: 28, name: stream, type: null}
+        type: null
+      lineNumber: 28
+      type: null
+    lineNumber: 28
+    name: print
+    parameters:
+    - {name: stream, type: IO}
+    returnType: void
+  - !!ro.pub.cs.lcpl.Attribute
+    init: !!ro.pub.cs.lcpl.Dispatch
+      arguments: []
+      lineNumber: 30
+      name: baseShape
+      object: null
+      type: null
+    lineNumber: 30
+    name: s
+    type: Shape
+  - !!ro.pub.cs.lcpl.Attribute
+    init: !!ro.pub.cs.lcpl.IfStatement
+      condition: !!ro.pub.cs.lcpl.EqualComparison
+        e1: !!ro.pub.cs.lcpl.Dispatch
+          arguments: []
+          lineNumber: 32
+          name: sides
+          object: !!ro.pub.cs.lcpl.Symbol {lineNumber: 32, name: s, type: null}
+          type: null
+        e2: !!ro.pub.cs.lcpl.IntConstant {lineNumber: 32, type: null, value: 3}
+        lineNumber: 32
+        type: null
+      ifExpr: !!ro.pub.cs.lcpl.Block
+        expressions:
+        - !!ro.pub.cs.lcpl.LocalDefinition
+          init: !!ro.pub.cs.lcpl.NewObject {lineNumber: 34, type: Vertex}
+          lineNumber: 34
+          name: vx
+          scope: !!ro.pub.cs.lcpl.LocalDefinition
+            init: null
+            lineNumber: 35
+            name: vy
+            scope: !!ro.pub.cs.lcpl.Block
+              expressions:
+              - !!ro.pub.cs.lcpl.Dispatch
+                arguments:
+                - !!ro.pub.cs.lcpl.IntConstant {lineNumber: 37, type: null, value: 0}
+                - !!ro.pub.cs.lcpl.IntConstant {lineNumber: 37, type: null, value: 0}
+                - !!ro.pub.cs.lcpl.VoidConstant {lineNumber: 37, type: null}
+                lineNumber: 37
+                name: init
+                object: !!ro.pub.cs.lcpl.Symbol {lineNumber: 37, name: vx, type: null}
+                type: null
+              - !!ro.pub.cs.lcpl.Assignment
+                e1: !!ro.pub.cs.lcpl.NewObject {lineNumber: 38, type: Vertex}
+                lineNumber: 38
+                symbol: vy
+                type: null
+              - !!ro.pub.cs.lcpl.Dispatch
+                arguments:
+                - !!ro.pub.cs.lcpl.IntConstant {lineNumber: 39, type: null, value: 0}
+                - !!ro.pub.cs.lcpl.IntConstant {lineNumber: 39, type: null, value: 2}
+                - !!ro.pub.cs.lcpl.Symbol {lineNumber: 39, name: vx, type: null}
+                lineNumber: 39
+                name: init
+                object: !!ro.pub.cs.lcpl.Symbol {lineNumber: 39, name: vy, type: null}
+                type: null
+              - !!ro.pub.cs.lcpl.Assignment
+                e1: !!ro.pub.cs.lcpl.NewObject {lineNumber: 40, type: Vertex}
+                lineNumber: 40
+                symbol: vx
+                type: null
+              - !!ro.pub.cs.lcpl.Dispatch
+                arguments:
+                - !!ro.pub.cs.lcpl.IntConstant {lineNumber: 41, type: null, value: 1}
+                - !!ro.pub.cs.lcpl.IntConstant {lineNumber: 41, type: null, value: 1}
+                - !!ro.pub.cs.lcpl.Symbol {lineNumber: 41, name: vy, type: null}
+                lineNumber: 41
+                name: init
+                object: !!ro.pub.cs.lcpl.Symbol {lineNumber: 41, name: vx, type: null}
+                type: null
+              - !!ro.pub.cs.lcpl.Symbol {lineNumber: 42, name: vx, type: null}
+              lineNumber: 37
+              type: null
+            type: Vertex
+          type: Vertex
+        lineNumber: 33
+        type: null
+      lineNumber: 32
+      thenExpr: !!ro.pub.cs.lcpl.Block
+        expressions:
+        - !!ro.pub.cs.lcpl.IfStatement
+          condition: !!ro.pub.cs.lcpl.EqualComparison
+            e1: !!ro.pub.cs.lcpl.IntConstant {lineNumber: 44, type: null, value: 1}
+            e2: !!ro.pub.cs.lcpl.Dispatch
+              arguments: []
+              lineNumber: 44
+              name: sides
+              object: !!ro.pub.cs.lcpl.Symbol {lineNumber: 44, name: s, type: null}
+              type: null
+            lineNumber: 44
+            type: null
+          ifExpr: !!ro.pub.cs.lcpl.Block
+            expressions:
+            - !!ro.pub.cs.lcpl.LocalDefinition
+              init: !!ro.pub.cs.lcpl.NewObject {lineNumber: 46, type: Vertex}
+              lineNumber: 46
+              name: vx
+              scope: !!ro.pub.cs.lcpl.LocalDefinition
+                init: !!ro.pub.cs.lcpl.NewObject {lineNumber: 47, type: Vertex}
+                lineNumber: 47
+                name: vy
+                scope: !!ro.pub.cs.lcpl.Block
+                  expressions:
+                  - !!ro.pub.cs.lcpl.Dispatch
+                    arguments:
+                    - !!ro.pub.cs.lcpl.IntConstant {lineNumber: 49, type: null, value: 1}
+                    - !!ro.pub.cs.lcpl.IntConstant {lineNumber: 49, type: null, value: 1}
+                    - !!ro.pub.cs.lcpl.VoidConstant {lineNumber: 49, type: null}
+                    lineNumber: 49
+                    name: init
+                    object: !!ro.pub.cs.lcpl.Symbol {lineNumber: 49, name: vx, type: null}
+                    type: null
+                  - !!ro.pub.cs.lcpl.Dispatch
+                    arguments:
+                    - !!ro.pub.cs.lcpl.IntConstant {lineNumber: 50, type: null, value: 0}
+                    - !!ro.pub.cs.lcpl.IntConstant {lineNumber: 50, type: null, value: 0}
+                    - !!ro.pub.cs.lcpl.Symbol {lineNumber: 50, name: vx, type: null}
+                    lineNumber: 50
+                    name: init
+                    object: !!ro.pub.cs.lcpl.Symbol {lineNumber: 50, name: vy, type: null}
+                    type: null
+                  - !!ro.pub.cs.lcpl.Symbol {lineNumber: 51, name: vy, type: null}
+                  lineNumber: 49
+                  type: null
+                type: Vertex
+              type: Vertex
+            lineNumber: 45
+            type: null
+          lineNumber: 44
+          thenExpr: !!ro.pub.cs.lcpl.Block
+            expressions:
+            - !!ro.pub.cs.lcpl.VoidConstant {lineNumber: 53, type: null}
+            lineNumber: 53
+            type: null
+          type: null
+        lineNumber: 44
+        type: null
+      type: null
+    lineNumber: 31
+    name: vx
+    type: Vertex
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.VoidConstant {lineNumber: 57, type: null}
+      lineNumber: 57
+      type: null
+    lineNumber: 57
+    name: baseShape
+    parameters: []
+    returnType: Shape
+  lineNumber: 27
+  name: Poly
+  parent: null
+- features:
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.NewObject {lineNumber: 61, type: Triangle}
+      lineNumber: 61
+      type: null
+    lineNumber: 61
+    name: baseShape
+    parameters: []
+    returnType: Shape
+  lineNumber: 60
+  name: Poly3
+  parent: Poly
+- features:
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.NewObject {lineNumber: 64, type: Line}
+      lineNumber: 64
+      type: null
+    lineNumber: 64
+    name: baseShape
+    parameters: []
+    returnType: Shape
+  lineNumber: 63
+  name: Poly1
+  parent: Poly
+- features:
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.Dispatch
+        arguments:
+        - !!ro.pub.cs.lcpl.Symbol {lineNumber: 69, name: self, type: null}
+        lineNumber: 69
+        name: print
+        object: !!ro.pub.cs.lcpl.Symbol {lineNumber: 69, name: p, type: null}
+        type: null
+      - !!ro.pub.cs.lcpl.Dispatch
+        arguments:
+        - !!ro.pub.cs.lcpl.Symbol {lineNumber: 70, name: self, type: null}
+        lineNumber: 70
+        name: print
+        object: !!ro.pub.cs.lcpl.Symbol {lineNumber: 70, name: p3, type: null}
+        type: null
+      lineNumber: 69
+      type: null
+    lineNumber: 68
+    name: main
+    parameters: []
+    returnType: void
+  - !!ro.pub.cs.lcpl.Attribute
+    init: !!ro.pub.cs.lcpl.NewObject {lineNumber: 73, type: Poly1}
+    lineNumber: 73
+    name: p
+    type: Poly
+  - !!ro.pub.cs.lcpl.Attribute
+    init: !!ro.pub.cs.lcpl.NewObject {lineNumber: 74, type: Poly3}
+    lineNumber: 74
+    name: p3
+    type: Poly
+  lineNumber: 67
+  name: Main
+  parent: IO
+lineNumber: 1
+

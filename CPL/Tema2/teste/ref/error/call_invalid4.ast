@@ -1,0 +1,138 @@
+!!ro.pub.cs.lcpl.Program
+classes:
+- features:
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.Addition
+        e1: !!ro.pub.cs.lcpl.Symbol {lineNumber: 3, name: a, type: null}
+        e2: !!ro.pub.cs.lcpl.Symbol {lineNumber: 3, name: b, type: null}
+        lineNumber: 3
+        type: null
+      lineNumber: 3
+      type: null
+    lineNumber: 2
+    name: method
+    parameters:
+    - {lineNumber: 2, name: a, type: Int}
+    - {lineNumber: 2, name: b, type: Int}
+    returnType: Int
+  lineNumber: 1
+  name: A
+  parent: null
+- features:
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.Multiplication
+        e1: !!ro.pub.cs.lcpl.Symbol {lineNumber: 9, name: a, type: null}
+        e2: !!ro.pub.cs.lcpl.Symbol {lineNumber: 9, name: b, type: null}
+        lineNumber: 9
+        type: null
+      lineNumber: 9
+      type: null
+    lineNumber: 8
+    name: method
+    parameters:
+    - {lineNumber: 8, name: a, type: Int}
+    - {lineNumber: 8, name: b, type: Int}
+    returnType: Int
+  lineNumber: 7
+  name: B
+  parent: A
+- features:
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.Subtraction
+        e1: !!ro.pub.cs.lcpl.Symbol {lineNumber: 15, name: a, type: null}
+        e2: !!ro.pub.cs.lcpl.Symbol {lineNumber: 15, name: b, type: null}
+        lineNumber: 15
+        type: null
+      lineNumber: 15
+      type: null
+    lineNumber: 14
+    name: method
+    parameters:
+    - {lineNumber: 14, name: a, type: Int}
+    - {lineNumber: 14, name: b, type: Int}
+    returnType: Int
+  lineNumber: 13
+  name: C
+  parent: null
+- features:
+  - !!ro.pub.cs.lcpl.Attribute
+    init: !!ro.pub.cs.lcpl.NewObject {lineNumber: 21, type: B}
+    lineNumber: 21
+    name: obj
+    type: B
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.Dispatch
+        arguments:
+        - !!ro.pub.cs.lcpl.Dispatch
+          arguments:
+          - !!ro.pub.cs.lcpl.IntConstant {lineNumber: 25, type: null, value: 1}
+          - !!ro.pub.cs.lcpl.IntConstant {lineNumber: 25, type: null, value: 2}
+          lineNumber: 25
+          name: method
+          object: !!ro.pub.cs.lcpl.Symbol {lineNumber: 25, name: obj, type: null}
+          type: null
+        lineNumber: 25
+        name: out
+        object: null
+        type: null
+      - !!ro.pub.cs.lcpl.Dispatch
+        arguments:
+        - !!ro.pub.cs.lcpl.StaticDispatch
+          arguments:
+          - !!ro.pub.cs.lcpl.IntConstant {lineNumber: 26, type: null, value: 3}
+          - !!ro.pub.cs.lcpl.IntConstant {lineNumber: 26, type: null, value: 4}
+          lineNumber: 26
+          name: method
+          object: !!ro.pub.cs.lcpl.Symbol {lineNumber: 26, name: obj, type: null}
+          type: A
+        lineNumber: 26
+        name: out
+        object: null
+        type: null
+      - !!ro.pub.cs.lcpl.Dispatch
+        arguments:
+        - !!ro.pub.cs.lcpl.StaticDispatch
+          arguments:
+          - !!ro.pub.cs.lcpl.IntConstant {lineNumber: 27, type: null, value: 5}
+          - !!ro.pub.cs.lcpl.IntConstant {lineNumber: 27, type: null, value: 6}
+          lineNumber: 27
+          name: method
+          object: !!ro.pub.cs.lcpl.Symbol {lineNumber: 27, name: obj, type: null}
+          type: B
+        lineNumber: 27
+        name: out
+        object: null
+        type: null
+      - !!ro.pub.cs.lcpl.Dispatch
+        arguments:
+        - !!ro.pub.cs.lcpl.StaticDispatch
+          arguments:
+          - !!ro.pub.cs.lcpl.IntConstant {lineNumber: 28, type: null, value: 7}
+          - !!ro.pub.cs.lcpl.IntConstant {lineNumber: 28, type: null, value: 8}
+          lineNumber: 28
+          name: method
+          object: !!ro.pub.cs.lcpl.Symbol {lineNumber: 28, name: obj, type: null}
+          type: C
+        lineNumber: 28
+        name: out
+        object: null
+        type: null
+      lineNumber: 25
+      type: null
+    lineNumber: 24
+    name: main
+    parameters: []
+    returnType: void
+  lineNumber: 19
+  name: Main
+  parent: IO
+lineNumber: 1
+

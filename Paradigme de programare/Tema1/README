@@ -1,0 +1,20 @@
+Tema1 - Evaluator de \0 in Scheme
+
+Ciocan Mihai
+324CA
+
+Pentru implementarea acestui evaluator am creat o serie de functii cele mai cele mai importante fiind eval0, betaReduce, betaReduceLO, si substitute, pe care le voi detalia in cele ce urmeaza :
+
+betaReduce :
+	- aplica beta-reducerea asupra unei expresii dintre care prima e lambda-abstracta; functia inlocuieste toate aparitiile parametrului expresiei in corpul acesteia; daca parametrul apare in variabilele libere ale expresiei de inlocuit se aplica o alfa-conversie (inlocuiesc variabila legata in expresia lambda-abstracta cu ajutorul functiei gensym ); astfel evit legarea variabilelor libere;
+betaReduce foloseste substitute;
+
+betaReduceLO : 
+	- betaReduceLO gaseste intr-o aplicatie prima beta-reducere (left-most outer-most), o rezolva si intoarce expresia respectiva
+
+eval0 :
+	- eval0 evalueaza in ordine normala o expresie; exista 3 cazuri :
+	-daca termenul e o variabila o intoarce nemodificata;
+	-daca termenul e o expresie lambda-abstracta, se intra in corp si se evalueaza recursiv pana ce expresia ajunge in forma normala
+	-daca termenul e o aplicatie se rezolva primul beta-redex si se evalueaza din nou in caz ca expresia nu e in forma normala
+

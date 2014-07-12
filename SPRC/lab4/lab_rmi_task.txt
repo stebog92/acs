@@ -1,0 +1,96 @@
+Pentru laboratorul RMI se vor rezolva urmatoarele 2 task-uri.
+
+1. Se cere sa se implementeze un modul distribuit care sa permita rezolvarea 
+problemelor de tip divide et impera. 
+
+Pentru rezolvare trebuie implementat un pool de joburi. Acest model presupune 
+existenta unui pool in care se pun joburi de rezolvat, si a unor workeri care 
+iau joburi din pool, le executa si eventual genereaza noi joburi pe care le 
+pun inapoi pool. Nici un task nu se executa pe masina virtuala a pool-ului, 
+toate joburile fiind executate de catre workeri. 
+
+Pentru ca un worker sa stie cand un job generat de el este complet, 
+inregistreaza jobul in pool impreuna cu un observer prin care este notificat 
+de catre pool ca jobul generat este gata. Acest observer este folosit de catre 
+worker pentru a sti cand toate subjoburile pentru un anumit job J sunt gata, 
+adica poate sa execute metoda conquer a jobului J.
+
+Ceea ce executa workeri este o bucla in care:
+ - asteapta un job
+ - incearca sa sparga jobul in bucati mai mici
+ - daca jobul a fost spart, pune in pool fiecare nou job. Impreuna cu noile 
+   joburi adauga si un Observer. Acest observer va rula in masina virtuala a 
+   workerului si are rolul de a informa workerul ca un subjob al unui 
+   job a fost rezolvat.
+ - daca jobul nu a fost spart este marcat ca rezolvat si pus inapoi in pool.
+
+Daca serverul primeste un job rezolvat, trebuie sa vada ce observer a fost 
+inregistrat pentru acel job si sa notifuce acest observer, prin apelul metodei 
+remote jobDone, ca jobul s-a incheiat cu success. Cand un worker constata ca 
+toate subjoburile unui anumit job s-au incheiat, el va executa metoda conquer, 
+va marca jobul ca si terminat si il va pune inapoi in pool. 
+
+Pool-ul, ale carui metode vor fi apelate remote, are urmatoarea interfata: 
+
+interface Pool extends Remote {
+	  /**
+	   * Obtine un job neterminat. 
+           */ 
+	  public Job getJob();
+	  /**
+           * Pune un job spre a fi rezolvat 
+           * @param j noul job 
+           * @param o obiect remote (ruleaza la worker) care este notificat 
+           * cand j este terminat.
+           */
+	  public void putJob(Job j, Observer o);
+
+	  /**
+          * Pune un job terminat 
+          */
+        public void jobDone(Job j);
+}
+
+Interfata unui job este data mai jos. 
+
+interface Job {
+          /** 
+           * metoda care eventual imparte jobul in mai multe subjoburi 
+           */
+	  public Job[] divide();
+          /**
+           * metoda care este apelata cand toate subjoburile s-au terminat si 
+           * se poate trece la asamblarea rezultatelor.
+           */
+	  public void conquer(Job[] jobs);
+	  public boolean isSolved();
+}
+
+interface Observer extends Remote {
+	  /**
+           * metoda apelata remote de catre pool cand jobul la care este 
+	   * asociat acest observer s-a terminat 
+	   * @param j jobul terminat 
+           */
+	  public void jobDone(Job j);
+}
+
+2. Ca aplicatie la acest modul se propune implementarea algoritmului merge sort.
+Pentru citirea datelor se va folosi un fisier de intrare cu cate un vector pe 
+linie. Numele acestiu fisier va fi dat ca proprietate la pornire aplicatiei (nu 
+ca argument la linia de comanda).
+
+
+Obs. Numarul de workeri nu are nici o legatura cu dimensiunea problemei de 
+rezolvat. Sistemul trebuie sa poata functiona chiar cu un singur worker. 
+Obs. La implementare puteti alege intre: 
+ - pool-ul sterge jobul in momentul in care notifica observerul asociat
+si 
+ - adaugati o metoda remove(Job j) prin care clientul sterge jobul de pe server.
+ 
+Obs. Daca este nevoie puteti sa adaugati metode pool-ului. 
+Obs. Transferul de comportament se va realiza prin folosirea adnotarii (prop 
+codebase)
+Obs. Afisati mesaje la console. Ca sa va asigurati ca joburile se executa la 
+workeri si nu la pool.
+Obs. Nu este nevoie ca workeri sa fie inregistrati in registry. 

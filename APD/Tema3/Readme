@@ -1,0 +1,23 @@
+Tema3 - Calcul paralel folosind MPI
+
+Ciocan Mihai 334CA
+
+Tema a fost implementata dupa cerintele din enunt: procesul 0 citeste datele din fisier si le prelucreaza astfel incat toate procesele sa aiba aproximativ aceeasi cantitate de date de calculat. Practic din impartirea (ymax - ymin)/rezolutie reiese numarul de linii ce revine fiecarui proces. Fiecare proces primeste y_min al intervalului si lungimea fasiei de calculat (un numar integer), x_min si x_max, rezolutia, numar_max_pasi si cele 2 numere reale ale numarului complex in cazul multimii julia. Trimiterea se realizeaza cu MPI_Scatter.
+
+Dupa ce fiecare proces termina de calculat intervalul sau, se face MPI_Gather, toate datele ajungand la procesul 0 care face si scrierea in fisier. 
+Dupa MPI_Gather procesul 0 are un vector cu toate culorile in ordinea (liniile din imagine sunt in ordine) in care au fost trimise, iar scrierea in fisier se realizeaza de la finalul vectorului catre inceput, la un pas afisandu-se o linie.
+
+Mai jos sunt testele rulate pe cluster. Dupa cum se poate observa eficienta si scalabilitate la fisierele cu rezolutie mare (mandelbrot1, mandelbrot3, julia5). Mentionez ca fisierele de output au fost comparate cu imgdiff si nu au existat diferente fata de cele primite.
+
+                    1           2           4           8
+mandelbrot2         0.52s       1.462s      1.372s      1.258s
+mandelbrot1         9.342s      9.823s      7.520s      7.099s
+mandelbrot3         2.392s      2.574s      1.889s      1.623s
+mandelbrot4         2.310s      2.437s      2.333s      2.088s
+
+julia1              0.108s      1.089s      1.090s      1.100s
+julia2              0.237s      1.150s      1.151s      1.148s
+julia3              0.259s      1.151s      1.152s      1.137s
+julia4              0.086s      1.077s      1.081s      1.096s
+julia5              2.983s      2.579s      2.550s      2.341s
+julia6              0.876s      1.551s      1.429s      1.338s

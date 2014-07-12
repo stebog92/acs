@@ -1,0 +1,259 @@
+   1               		.file	"test_lcd.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__ = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  15               	.Ltext0:
+  16               	.global	wait_until_key_pressed
+  18               	wait_until_key_pressed:
+  19               	.LFB0:
+  20               	.LM1:
+  21               	/* prologue: function */
+  22               	/* frame size = 0 */
+  23               	/* stack size = 0 */
+  24               	.L__stack_usage = 0
+  25               	.L2:
+  26               	.LM2:
+  27 0000 99B1      		in r25,41-32
+  28               	.LVL0:
+  29               	.LM3:
+  30 0002 89B1      		in r24,41-32
+  31               	.LVL1:
+  32               	.LM4:
+  33 0004 8923      		and r24,r25
+  34               	.LVL2:
+  35               	.LM5:
+  36 0006 82FD      		sbrc r24,2
+  37 0008 00C0      		rjmp .L2
+  38               	.L4:
+  39               	.LM6:
+  40 000a 4A9B      		sbis 41-32,2
+  41 000c 00C0      		rjmp .L4
+  42               	/* epilogue start */
+  43               	.LM7:
+  44 000e 0895      		ret
+  45               	.LFE0:
+  47               		.data
+  48               	.LC0:
+  49 0000 4C43 4420 		.string	"LCD Test Line 1\n"
+  49      5465 7374 
+  49      204C 696E 
+  49      6520 310A 
+  49      00
+  50               	.LC1:
+  51 0011 4C69 6E65 		.string	"Line 2"
+  51      2032 00
+  52               	.LC2:
+  53 0018 4375 724F 		.string	"CurOn"
+  53      6E00 
+  54               	.LC3:
+  55 001e 436F 7079 		.string	"Copyright: "
+  55      7269 6768 
+  55      743A 2000 
+  56               		.text
+  57               	.global	main
+  59               	main:
+  60               	.LFB1:
+  61               	.LM8:
+  62 0010 EF92      		push r14
+  63 0012 FF92      		push r15
+  64 0014 0F93      		push r16
+  65 0016 1F93      		push r17
+  66 0018 DF93      		push r29
+  67 001a CF93      		push r28
+  68 001c CDB7      		in r28,__SP_L__
+  69 001e DEB7      		in r29,__SP_H__
+  70 0020 2797      		sbiw r28,7
+  71 0022 0FB6      		in __tmp_reg__,__SREG__
+  72 0024 F894      		cli
+  73 0026 DEBF      		out __SP_H__,r29
+  74 0028 0FBE      		out __SREG__,__tmp_reg__
+  75 002a CDBF      		out __SP_L__,r28
+  76               	/* prologue: function */
+  77               	/* frame size = 7 */
+  78               	/* stack size = 13 */
+  79               	.L__stack_usage = 13
+  80               	.LVL3:
+  81               	.LM9:
+  82 002c 5298      		cbi 42-32,2
+  83               	.LM10:
+  84 002e 5A9A      		sbi 43-32,2
+  85               	.LM11:
+  86 0030 8CE0      		ldi r24,lo8(12)
+  87 0032 0E94 0000 		call lcd_init
+  88               	.LM12:
+  89 0036 8E01      		movw r16,r28
+  90 0038 0F5F      		subi r16,lo8(-(1))
+  91 003a 1F4F      		sbci r17,hi8(-(1))
+  92               	.L9:
+  93               	.LM13:
+  94 003c 0E94 0000 		call lcd_clrscr
+  95               	.LM14:
+  96 0040 80E0      		ldi r24,lo8(.LC0)
+  97 0042 90E0      		ldi r25,hi8(.LC0)
+  98 0044 0E94 0000 		call lcd_puts
+  99               	.LM15:
+ 100 0048 80E0      		ldi r24,lo8(.LC1)
+ 101 004a 90E0      		ldi r25,hi8(.LC1)
+ 102 004c 0E94 0000 		call lcd_puts
+ 103               	.LM16:
+ 104 0050 87E0      		ldi r24,lo8(7)
+ 105 0052 61E0      		ldi r22,lo8(1)
+ 106 0054 0E94 0000 		call lcd_gotoxy
+ 107               	.LM17:
+ 108 0058 8AE3      		ldi r24,lo8(58)
+ 109 005a 0E94 0000 		call lcd_putc
+ 110               	.LM18:
+ 111 005e 0E94 0000 		call wait_until_key_pressed
+ 112               	.LM19:
+ 113 0062 8EE0      		ldi r24,lo8(14)
+ 114 0064 0E94 0000 		call lcd_command
+ 115               	.LM20:
+ 116 0068 80E0      		ldi r24,lo8(.LC2)
+ 117 006a 90E0      		ldi r25,hi8(.LC2)
+ 118 006c 0E94 0000 		call lcd_puts
+ 119               	.LM21:
+ 120 0070 0E94 0000 		call wait_until_key_pressed
+ 121               	.LM22:
+ 122 0074 0E94 0000 		call lcd_clrscr
+ 123               	.LM23:
+ 124 0078 80E0      		ldi r24,lo8(__c.1550)
+ 125 007a 90E0      		ldi r25,hi8(__c.1550)
+ 126 007c 0E94 0000 		call lcd_puts_p
+ 127               	.LM24:
+ 128 0080 80E0      		ldi r24,lo8(__c.1552)
+ 129 0082 90E0      		ldi r25,hi8(__c.1552)
+ 130 0084 0E94 0000 		call lcd_puts_p
+ 131               	.LM25:
+ 132 0088 88E1      		ldi r24,lo8(24)
+ 133 008a 0E94 0000 		call lcd_command
+ 134               	.LM26:
+ 135 008e 0E94 0000 		call wait_until_key_pressed
+ 136               	.LM27:
+ 137 0092 8CE0      		ldi r24,lo8(12)
+ 138 0094 0E94 0000 		call lcd_command
+ 139               	.LM28:
+ 140 0098 0E94 0000 		call lcd_clrscr
+ 141               	.LM29:
+ 142 009c 86E8      		ldi r24,lo8(134)
+ 143 009e 90E0      		ldi r25,hi8(134)
+ 144 00a0 B801      		movw r22,r16
+ 145 00a2 4AE0      		ldi r20,lo8(10)
+ 146 00a4 50E0      		ldi r21,hi8(10)
+ 147 00a6 0E94 0000 		call itoa
+ 148               	.LM30:
+ 149 00aa C801      		movw r24,r16
+ 150 00ac 0E94 0000 		call lcd_puts
+ 151               	.LM31:
+ 152 00b0 0E94 0000 		call wait_until_key_pressed
+ 153               	.LM32:
+ 154 00b4 0E94 0000 		call lcd_clrscr
+ 155               	.LM33:
+ 156 00b8 80E0      		ldi r24,lo8(.LC3)
+ 157 00ba 90E0      		ldi r25,hi8(.LC3)
+ 158 00bc 0E94 0000 		call lcd_puts
+ 159               	.LM34:
+ 160 00c0 80E4      		ldi r24,lo8(64)
+ 161 00c2 0E94 0000 		call lcd_command
+ 162               	.LVL4:
+ 163 00c6 EE24      		clr r14
+ 164 00c8 FF24      		clr r15
+ 165               	.LVL5:
+ 166               	.L8:
+ 167               	.LBB2:
+ 168               	.LM35:
+ 169 00ca F701      		movw r30,r14
+ 170 00cc E050      		subi r30,lo8(-(copyRightChar))
+ 171 00ce F040      		sbci r31,hi8(-(copyRightChar))
+ 172               	/* #APP */
+ 173               	 ;  151 "test_lcd.c" 1
+ 174 00d0 8491      		lpm r24, Z
+ 175               		
+ 176               	 ;  0 "" 2
+ 177               	.LVL6:
+ 178               	/* #NOAPP */
+ 179               	.LBE2:
+ 180 00d2 0E94 0000 		call lcd_data
+ 181               	.LVL7:
+ 182 00d6 0894      		sec
+ 183 00d8 E11C      		adc r14,__zero_reg__
+ 184 00da F11C      		adc r15,__zero_reg__
+ 185               	.LVL8:
+ 186               	.LM36:
+ 187 00dc 80E1      		ldi r24,lo8(16)
+ 188 00de E816      		cp r14,r24
+ 189 00e0 F104      		cpc r15,__zero_reg__
+ 190 00e2 01F4      		brne .L8
+ 191               	.LM37:
+ 192 00e4 80E0      		ldi r24,lo8(0)
+ 193 00e6 61E0      		ldi r22,lo8(1)
+ 194 00e8 0E94 0000 		call lcd_gotoxy
+ 195               	.LM38:
+ 196 00ec 80E0      		ldi r24,lo8(0)
+ 197 00ee 0E94 0000 		call lcd_putc
+ 198               	.LM39:
+ 199 00f2 81E0      		ldi r24,lo8(1)
+ 200 00f4 0E94 0000 		call lcd_putc
+ 201               	.LM40:
+ 202 00f8 0E94 0000 		call wait_until_key_pressed
+ 203               	.LM41:
+ 204 00fc 00C0      		rjmp .L9
+ 205               	.LFE1:
+ 207               		.section	.progmem.data,"a",@progbits
+ 210               	copyRightChar:
+ 211 0000 07        		.byte	7
+ 212 0001 08        		.byte	8
+ 213 0002 13        		.byte	19
+ 214 0003 14        		.byte	20
+ 215 0004 14        		.byte	20
+ 216 0005 13        		.byte	19
+ 217 0006 08        		.byte	8
+ 218 0007 07        		.byte	7
+ 219 0008 00        		.byte	0
+ 220 0009 10        		.byte	16
+ 221 000a 08        		.byte	8
+ 222 000b 08        		.byte	8
+ 223 000c 08        		.byte	8
+ 224 000d 08        		.byte	8
+ 225 000e 10        		.byte	16
+ 226 000f 00        		.byte	0
+ 229               	__c.1552:
+ 230 0010 4C69 6E65 		.string	"Line 2 longer than 14 characters"
+ 230      2032 206C 
+ 230      6F6E 6765 
+ 230      7220 7468 
+ 230      616E 2031 
+ 233               	__c.1550:
+ 234 0031 4C69 6E65 		.string	"Line 1 longer than 14 characters\n"
+ 234      2031 206C 
+ 234      6F6E 6765 
+ 234      7220 7468 
+ 234      616E 2031 
+ 267               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 test_lcd.c
+     /tmp/ccCwFibE.s:2      *ABS*:0000003f __SREG__
+     /tmp/ccCwFibE.s:3      *ABS*:0000003e __SP_H__
+     /tmp/ccCwFibE.s:4      *ABS*:0000003d __SP_L__
+     /tmp/ccCwFibE.s:5      *ABS*:00000034 __CCP__
+     /tmp/ccCwFibE.s:6      *ABS*:00000000 __tmp_reg__
+     /tmp/ccCwFibE.s:7      *ABS*:00000001 __zero_reg__
+     /tmp/ccCwFibE.s:18     .text:00000000 wait_until_key_pressed
+     /tmp/ccCwFibE.s:59     .text:00000010 main
+     /tmp/ccCwFibE.s:233    .progmem.data:00000031 __c.1550
+     /tmp/ccCwFibE.s:229    .progmem.data:00000010 __c.1552
+     /tmp/ccCwFibE.s:210    .progmem.data:00000000 copyRightChar
+
+UNDEFINED SYMBOLS
+lcd_init
+lcd_clrscr
+lcd_puts
+lcd_gotoxy
+lcd_putc
+lcd_command
+lcd_puts_p
+itoa
+lcd_data
+__do_copy_data

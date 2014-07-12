@@ -1,0 +1,50 @@
+class List
+end;
+
+class Cons
+end;
+
+class test
+var Int xcar; List xcdr; end;
+end;
+
+class test2
+var Int xcar = 2 + 3; end;
+
+end;
+
+
+class Main inherits IO
+	hello Int a, String b -> String : 
+	  "Hello " + b + a; 
+	end;
+
+	printHello Int a, String b :
+	   [out [hello a,b]];
+	end;
+
+	piTimes100 -> Int :
+	   314;
+	end;
+
+	main:
+		[printHello [piTimes100], "world "];
+		[empty];
+	end;
+	
+	empty: end;
+end;
+
+class Main2
+    main:
+        local Cons c; Int x; end;
+        c = new Cons;
+        x = 0;
+    end;
+	
+	main2:
+		local Cons c = new Cons; Int x = 0; end;
+	end;
+	
+	m Int n: n; end;
+end;

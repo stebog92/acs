@@ -1,0 +1,42 @@
+Tema 2 MPI
+
+Ciocan Mihai
+334CA
+
+Procesul parinte construieste o zona de memorie partajata pentru mpi_comm_world, si creeaza procesele copii. In plus construieste vectorul
+de pid-uri, necesar functiei MPI_Comm_rank, ce se afla in memoria partajata. Fiecare proces va avea o structura mpi_utils locala in care 
+retine diverse informatii(semafoarele, numele cozii de mesaje etc.)
+
+Pentru rezolvarea temei am implementat functiile din header mpi.h astfel :
+
+    MPI_Init :
+        Procesul verifica in structura locala mpi_utils daca in sesiunea curenta s-a realizat "init"; daca acest lucru s-a realizat deja
+        functia intoarce eroare intrucat s-a apelat de multiple ori; altfel procesul incrementeaza un contor pe memoria partajata si apoi
+        realizeaza wait pe SEM_INIT(care este initial 0 si este trezit cand toti ceilalti au apelat MPI_Init). Cand contorul este egal cu
+        MPI_SIZE (numarul de procese) inseamna ca toate procesele au apelat MPI_Init, iar ultimul incrementeaza semaforul SEM_INIT si
+        elibereaza celelalte procese. In acest moment MPI_Initialized intoarce 1;
+
+    MPI_Finalize:
+        Sistemul este asemanator cu MPI_Init in sensul ca exista semaforul SEM_FIN (la fel initializat cu 0 pentru inceput); de aceasta data
+        se decrementeaza contorul pana la 0 (astfel toate procesele au apelat MPI_Finalize) si se incrementeaza semaforul pentru a elibera
+        procesele aflate in wait. La final se elibereaza toate semafoarele si memoria partajata intrucat numai sunt necesare. In acest moment
+        MPI_Finalized intoarce 1;
+
+    MPI_Comm_size:
+        Intorce dimensiunea (# de procese) ; acest lucru este realizat fara lock pe memoria shareuita deoarece functia nu se poate apela decat
+        dupa init, iar mpi_comm_world nu va mai fi rescris ci doar citit.
+
+    MPI_Comm_rank:
+        Functia cauta pidul procesului in vectorul de procese si intoarce pozitia care are rol si de rank; la fel nu se realizeaza sincronizare
+        intrucat dupa init nu se mai modifica mpi_comm_world
+
+    MPI_Send:
+        Functia incapsuleaza mesajul de trimis intr-o structura ce mai contine in plus tagul, sursa si destinatia; deschide coada de mesaje a 
+        procesului respectiv si trimite mesajul, dupa care face close
+
+    MPI_Recv:
+        Procesul isi deschide propria coada de mesaje si face receive la structura de mai sus, din care preia mesajul, sursa si tagul si 
+        construieste structura stat daca e necesar. Apoi inchide coada de mesaje;
+
+    MPI_Get_count:
+        Caluculeaza numarul de elemente primite de tipul datatype (prin impartirea stat->size la sizeof datatype).

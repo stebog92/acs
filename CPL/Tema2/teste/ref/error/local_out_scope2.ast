@@ -1,0 +1,109 @@
+!!ro.pub.cs.lcpl.Program
+classes:
+- features:
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.LocalDefinition
+        init: null
+        lineNumber: 3
+        name: s
+        scope: !!ro.pub.cs.lcpl.Block
+          expressions:
+          - !!ro.pub.cs.lcpl.Assignment
+            e1: !!ro.pub.cs.lcpl.IfStatement
+              condition: !!ro.pub.cs.lcpl.LessThan
+                e1: !!ro.pub.cs.lcpl.Symbol {lineNumber: 4, name: x, type: null}
+                e2: !!ro.pub.cs.lcpl.IntConstant {lineNumber: 4, type: null, value: 0}
+                lineNumber: 4
+                type: null
+              ifExpr: !!ro.pub.cs.lcpl.Block
+                expressions:
+                - !!ro.pub.cs.lcpl.LocalDefinition
+                  init: !!ro.pub.cs.lcpl.StringConstant {lineNumber: 5, type: null,
+                    value: Minus}
+                  lineNumber: 5
+                  name: m
+                  scope: !!ro.pub.cs.lcpl.Block
+                    expressions:
+                    - !!ro.pub.cs.lcpl.Addition
+                      e1: !!ro.pub.cs.lcpl.Symbol {lineNumber: 6, name: m, type: null}
+                      e2: !!ro.pub.cs.lcpl.UnaryMinus
+                        e1: !!ro.pub.cs.lcpl.Symbol {lineNumber: 6, name: x, type: null}
+                        lineNumber: 6
+                        type: null
+                      lineNumber: 6
+                      type: null
+                    lineNumber: 6
+                    type: null
+                  type: String
+                lineNumber: 5
+                type: null
+              lineNumber: 4
+              thenExpr: !!ro.pub.cs.lcpl.Block
+                expressions:
+                - !!ro.pub.cs.lcpl.Assignment
+                  e1: !!ro.pub.cs.lcpl.StringConstant {lineNumber: 8, type: null,
+                    value: ''}
+                  lineNumber: 8
+                  symbol: m
+                  type: null
+                - !!ro.pub.cs.lcpl.Addition
+                  e1: !!ro.pub.cs.lcpl.Symbol {lineNumber: 9, name: m, type: null}
+                  e2: !!ro.pub.cs.lcpl.Symbol {lineNumber: 9, name: x, type: null}
+                  lineNumber: 9
+                  type: null
+                lineNumber: 8
+                type: null
+              type: null
+            lineNumber: 4
+            symbol: s
+            type: null
+          - !!ro.pub.cs.lcpl.Dispatch
+            arguments:
+            - !!ro.pub.cs.lcpl.Symbol {lineNumber: 12, name: s, type: null}
+            lineNumber: 12
+            name: out
+            object: null
+            type: null
+          lineNumber: 4
+          type: null
+        type: String
+      lineNumber: 3
+      type: null
+    lineNumber: 2
+    name: print
+    parameters:
+    - {lineNumber: 2, name: x, type: Int}
+    returnType: void
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.Dispatch
+        arguments:
+        - !!ro.pub.cs.lcpl.UnaryMinus
+          e1: !!ro.pub.cs.lcpl.IntConstant {lineNumber: 16, type: null, value: 4}
+          lineNumber: 16
+          type: null
+        lineNumber: 16
+        name: print
+        object: null
+        type: null
+      - !!ro.pub.cs.lcpl.Dispatch
+        arguments:
+        - !!ro.pub.cs.lcpl.IntConstant {lineNumber: 17, type: null, value: 25}
+        lineNumber: 17
+        name: print
+        object: null
+        type: null
+      lineNumber: 16
+      type: null
+    lineNumber: 15
+    name: main
+    parameters: []
+    returnType: void
+  lineNumber: 1
+  name: Main
+  parent: IO
+lineNumber: 1
+

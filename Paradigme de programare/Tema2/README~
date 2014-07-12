@@ -1,0 +1,33 @@
+Tema 2 Simulator in Haskell
+
+Ciocan Mihai
+324CA
+
+Tipul de data al memoriei necesara pe care l-am definit arata in felul urmator :
+
+data Array2D = Array2D { mapValues :: [[Int]] -- retin valorile detectate de senzor
+                       , exploreMap :: [[Int]] -- retin timpul de cand o casuta nu a mai fost explorata 
+                       , mapSize :: Size -- marimile minei (matricei)
+                       , currPos :: Point -- pozitia curenta a robotului
+                       , lastPos :: Point -- ultima pozitie a robotului
+                       , lastDetected :: Int -- ultima valoare detectata
+                       , lastMove :: Cardinal -- ultima miscare facuta de robotul meu
+                       } deriving (Show, Eq)
+
+Pentru usurarea desfasurarii operatiilor mi-am definit urmatoarele functii si am reprezentat mina ca o matrice:
+	-matrixInit : intoarce o [[Int]] de o anumita dimensiune de tip Size ; initializeaza o "matrice" cu o anumita valoare
+	-setValue' : seteaza o valoare in "matrice" la un anumit punct de coordonate (x,y)
+	-getValue' : intoarce o valoare de la un anumit punct de coordonate (x,y)
+	-opposite : intoarce opusul unei variabile de tip Cardinal
+	-aimPos : intoarce noul punct de tip Position pe baza unei variabile de tip Position si uneia de tip Cardinal
+	-itSafe : intoarce True sau False in functie daca o variabila de tip Point se afla in cadrul "minei" (nu iese din granite)
+	-increaseTime : incrementeaza timpul pentru toate casutele din "mina"
+	-exploreValues : exploreaza zonele din imediata vecinatate (cele 4 casute vecine) si intoarce o lista formata din (Int, Cardinal)
+	-toUnexplored : intoarce directia catre casuta vecina cu valoarea ce mai mare (se foloseste de lista formata de exploreValues)
+	-goToUnexplored : alege directia nevizitata de cel mai mult timp si intoarce (Action, Array2D)
+	-nextMove : intoarce ce intoarce si goToUnexplored doar ca trateaza cazurile cand valoarea detectata e nenula
+
+
+Strategie :
+
+Strategia nu este una tocmai optima dar parerea mea este ca merge in majoritatea cazurilor. Robotul actioneaza in felul urmator : daca valoarea detectata este 0 si ultima valoare detectata este tot 0 la un anumit timp, atunci mut Robotul catre cea mai neexplorata zona (initial zonele au ca timp de neexplorare valoare mare) si setez casuta timpul la casuta curenta 0 precum si celelalte campuri (currPos devine urmatoarea pozitie, lastPos devine pozitia actuala etc.); daca valoarea detectata e diferita de 0 sau ultima valoare e diferita de 0 atunci inseamna ca am trecut printr-o linie sau coloana cu minerale ; daca valoarea curenta e mai mare ca ultima repet ultima miscare altfel ma intorc. Robotul nu cicleaza (inainte inapoi) deoarece am pus conditie ca sa mearga in zone neexplorate cu timp mai mare ca 1. Astfel daca Robotul se intoarce a 2 oara intr-o casuta care are pe aceeasi linie sau coloana minerale atunci se va duce catre minerale (se poate indeparta in prima faza).

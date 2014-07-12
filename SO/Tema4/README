@@ -1,0 +1,30 @@
+Tema 4 Planificator de threaduri
+
+Ciocan Mihai
+334CA
+
+
+Tema consta in implementarea urmatoarelor functii :
+
+so_init: initalizeaza structurile planificatorului, mecanismele de sincronizare
+
+so_end: executa join pe threaduri si sterge mecanismele de sincronizare ale fiecaruia
+
+so_exec: apeleaza check_scheduler
+
+so_wait: semnalizeaza urmatorul thread din coada (wake) si astepta semnal de la so_signal pentru deviceul respectiv. Dupa semnalul primit
+        ele astepta sa fie planificate
+
+so_signal: numara threadurile ce executa wait pe deviceul respectiv si le semnalizeaza pe toate (wake)
+
+so_fork : creeaza un nou thread cu functia start_thread
+
+start_thread: astepta pana ce noul thread este planificat, ruleaza handlerul iar la final planifica urmatorul thread daca mai exista
+
+check_scheduler: functia este practic apelata de toate celelalte instructiuni (so_*) si pentru un thread verifica daca a expirat cuanta
+                de timp. In caz afirmativ se planifica (se trezeste) urmatorul thread din coada, se insereaza in coada de procese ready
+                si asteapta pana este planificat din nou
+
+In fiecare caz cand un thread asteapta, se utilizeaza variabile de conditie proprii, care sunt semnalizate de celelalte threaduri pe baza
+cozii (aflate in starea ready).
+Coada este circulara, insertia realizandu-se in functie de prioritate.

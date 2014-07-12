@@ -1,0 +1,17 @@
+Tema3 - Calcul paralel folosind MPI
+
+Ciocan Mihai 334CA
+
+
+                    1           2           4           8
+mandelbrot2         0.52s       1.462s      1.372s      1.258s
+mandelbrot1         9.342s      9.823s      7.520s      7.099s
+mandelbrot3         2.392s      2.574s      1.889s      1.623s
+mandelbrot4         2.310s      2.437s      2.333s      2.088s
+
+julia1              0.108s      1.089s      1.090s      1.100s
+julia2              0.237s      1.150s      1.151s      1.148s
+julia3              0.259s      1.151s      1.152s      1.137s
+julia4              0.086s      1.077s      1.081s      1.096s
+julia5              2.983s      2.579s      2.550s      2.341s
+julia6              0.876s      1.551s      1.429s      1.338s

@@ -1,0 +1,216 @@
+1.de demonstrat ca o(p(n))+teta(q(n))=teta(n^k) unde p si q sunt
+polinoame de ordinul k in n
+
+2.daca o problema are starile finite si tranzitiile inttre stari
+decidabile sa se arate ca e decidabila
+
+3.daca pentru o problema de aproximare dura se gaseste ca delta(n<f
+(n) ce consecinte are acest lucru?
+
+4.se da un algoritm de genul
+Alg(){
+y=choice(M);
+if test(y,M) succes; //complexitate teta(n)
+operatie(y,m); //complexitate teta(n^2)
+fail;
+}
+care e camplexitatea in cazul cel mai defavorabil?
+
+5.daca b e o problema npdura si vrem sa aratam ca a e npd ce trebuie
+sa aratam,ca a<p b sau b<p a?
+
+problema 1:
+o inductie structurala ...pe o lista ...cu multe
+proprietati...cons,reverse si @....ceva care a spus el ca a spus la
+curs ca va da si la examen...
+
+problema 2:
+q="sa se decida daca g are o k clica" care e duritatea lui q daca g
+e un graf bipartil.
+
+
+
+---------------------------
+
+
+Teorie:
+1.Sa se reduca relatzia F(n)=o(h(n))/teta(h(n))
+2.Sa se specifice care este relatia dintre decidabilitate si
+controlabilitate.
+3.Se dadea un algoritm cu vreo 3 functzii de complexitati
+diferite.Sa se spuna care este complexitatea(temporala).
+4.Daca o functie de potentzial este constanta care este costul
+amortizat al unui sir de operatzii.
+5.Si sa se dadeau doua probleme Q1,Q2(nu mai stiu exact cum).Sa se
+precizeze duritatea lor.
+
+Probleme:
+1.Aveam un arbore Arb si un tip de date T.
+Aveam constructorii
+frunza:->Arb// crea arborele cu un singur nod
+nod:Arb^p->Arb// crea un arbore prin concatenarea a p arbori intr-un
+singur nod radacina.
+
+Operatorii:
+n:Arb->int
+si cu proprietatile
+n(frunza)=1
+n(nod(d1,d2,...dp))=1+suma(n(dk))//numarul nodurilor din graf
+
+a:Arb->int
+a(frunza)=0
+a(nod(d1,..dp))=p+suma(a(dk))//numarul arcelor din graf
+
+sa se arate ca a(arb)=n(arb)-1;
+
+
+2.Aveam o lista cu contructorii cons si void si nishte operatori
+cut si add. Sa se calculeze costul amortizat al unei secvente de
+operatii add(cam ciudata problema)
+
+
+---------------------------
+
+
+1.sa se spune daca relatia o(n^k)+teta(n^k)=o(n^k) este valida pt
+k<=0.
+R:atentie este o mic!relatia nu etsi valida
+
+2.sa se defineasca corectitudinea totala a unui algoritm si sa se
+spuna daca problema corectitudinii totale este sau nu decidabila.
+R:definitia e din curs si "cica" ar fi semidecidabila din cauza
+lui"se_terminaAlg()"
+
+3.sa se defineasca NLOGSPACE si sa se specifice relatia dintre
+NLOGSPACE,P si NP
+R:definitia de la NLOGSPACE e in curs si relatia este NLOGSPACE<P<NP
+
+4.sa se justifice duritatea lui SAT-DNF(forma disjunctiva)-nu sunt
+sigura daca asa era.:D
+
+5.se dadea un algoritm determinist cu un for de la 1 la n si ce cerea
+complexitatea SPATIALA a acestuia
+R:O(lg(n)) sau ln...nu mai stiu sigur
+
+probleme:(3+2)
+1:era o inductie structurala cu o lista.nu am exact datele.ideea e ca
+trebuie stiuta rezolvarea unei pb prin inductie structurala.
+
+2:o pb mai simpla.sa se justifice costul amortizat al unor op pt o
+lista. se facea cu metoda potentialui.
+bonus:1 punct
+
+------------------------
+
+
+1) De demonstrat ca o nu este reflexiva
+2) Avem o problema Q : " se da un program P : I -> O si o specificatie Spec : IxO -> { 0, 1 }; Se verifica daca P satisface specificatia Spec".
+Sa se spuna in ce clasa de complexitate face parte Q
+ATENTIE : Q nu este decidabil;
+3) Se da o problema Hmin = "Se cauta intr-un graf complet G cu muchii de cost diferite un ciclu hamilton de cost minim!". Se stie ca exista o solutie de aproximare cu factorul delta(n) cu delta in NLOGSPACE. Pornind de la aceasta ipoteza, ce se poate spune despre complexitatea temporala a problemei k-clicii.
+4) Care sunt propietatile necesare unei functii fi pentru a putea fi folosita ca metoda de potentialului.
+5) Se da un algoritm nedeterminist A. Complexitatea angelica a acestuia este f(n). Complexitatea cailor pentru care iesirea este 0 este sigma_mare(f( n)). Care este complexitatea pentru cazul defavorabil al algoritmului A.
+
+Problema 1) Se da TDA-ul Ring. cu elemente int
+Ring ::= void | ins( int, Ring );
+min : int x Ring -> bool
+
+min( e, void ) = 1;
+min( e, ins( e', X ) ) = e <= e' ^ min( e, X );
+
+Sa se demonstreze ca pentru orice X apartinand lui Ring si orice e si e' din int avem : P( e, e', X ) = ( e <= e' ) ^ min( e', X ) => min( e, X );
+
+Problema 2) Exista doua probleme: Ham1 = "Exista un ciclu hamiltonian intr-un graf neorientat" si Ham2 = "Exista un ciclu hamiltonian intr-un graf bipartit". Se da un algoritm de reducere F din Ham1 in Ham2 si se cere sa se spuna daca este corect ( +justificare ).
+
+F( G1 )
+{
+V1 = noduri din G1; E1 = muchii din G1;
+V2 = V1; E2 = multimea vida;
+
+foreach( (u,v) apartinand E1 )
+{
+Se adauga in V2 un nod alfa care nu exista in V2;
+Se adauga muchiile (u, alfa) si (alfa, v);
+}
+G2 = (V2, E2 );
+return G2;
+}
+
+
+--------------------------------------------------------
+
+Salut,
+
+Examenul a durat 1 ora. Subiectele au fost cam asa:
+
+Teorie:
+1. Sa se explice daca este adevarata relatia: n^2 + 2^n = o(2^n). [este "o" mic]
+
+2. Sa se explice, prin exemple, daca orice multime finita, cu elemente de tip T, este decidabila.
+
+3. Sa se spuna ce se intelege prin LOGSPACE. In ce relatie se afla cu P, PN?
+
+4. Fie M o multime finita de programe, si Prob urmatoarea problema: Prob = {P din M | P(n) = n^2}. Sa se spuna din ce clasa de complexitate face parte Prob.
+
+5. Fie o stiva abstracta cu urmatoarele operatii: new, top, push, pop. Sa se justifice de ce este corecta folosirea functiei de potential Fi(s) = 0 (pentru orice stiva) pentru analiza amortizata a operatiilor cu o astfel de stiva
+
+Probleme:
+1. [nu mai tin minte exact formularea, dar sper ca am pastrat ideea de baza]
+
+Fie o lista L, cu elemente de tip int, cu operatorii nil, sort, ins, cu urmatoarele axiome:
+1. nil: -> List //creeaza o lista vida
+2. sort(ins(k, L)) = ins(k, sort(L))
+Operatori: de baza nil, cons (cons adauga la inceput)
+Alti operatori:
+sort:
+1. sort(nil) = nil
+2. sort(cons(k,L))=ins(k,sort(L))
+sort sorteaza lista intr-o ordine "nedescrescatoare" (?!?) - mai pe romaneste, sorteaza cam crescator... vezi proprietatea 4
+
+ins(k,L) adauga pe k in lista ins astfel incat lista sa ramana sortata conform sort (adica asa cum e la 2)
+
+set(L) - creaza o multime cu elementele listei
+
+
+Se stie ca exista proprietatea P, pentru care se stie:
+in plus, oricare L lista P(L) implica P(ins(k,L))
+
+3. P(nil) = 1
+4. [ceva care nu se folosea, nu mai stiu ce...]
+4. P(cons(k,L)) = P(L) /\ (si) k<=x oricare x din set(L)
+indicatie: Aceasta relatie nu se foloseste in demonstratie, dar ajuta la a determina ca P(L) = 1 daca L=sort(L)
+
+
+Sa se arate ca P(sort(L)) = 1 (prin inductie structurala)
+Enuntul zicea "Sa se arate ca oricare L lista, P(sort(L))
+
+
+2. Sa se arate din ce clasa de complexitate face parte problema determinarii unui k-set pentru un graf G. Indicatie: problema k-set este reductibila polinomial la problema k-clicii.
+Nu chiar... Se da un graf G=(V,E) si se defineste un k-set-stabil care inseamna ca se aleg k varfuri din V si se alcatuieste V', astfel incat oricare u,v din V' avem (u,v) nu e in E (nu e muchie) - cu alte cuvinte, se construieste un graf complementar celor K noduri. Se cerea sa se arate ca problema generarii unui k-set-stabil este de tipul NP completa. (cu indicatia de mai sus)
+
+
+------------------ sfaturi Mihaela ----------------------------
+
+mai am cateva sfaturi generale intr'o ordine aleatoare:
+
+1. la inductie baremul e in felul urmator: 5p cazul de baza, 10p sa
+scrieti in clar ipoteza
+inductiva, 10p sa rezolvati corect pasul de inductie, 5p pt "stil"
+(adica la fiecare inferenta,
+oricat de imediata, evidenta etc, sa scrieti pe sageata (=>) numarul
+axiomei din care rezulta, sau
+numele proprietatii, sau ip. ind. daca rezulta din ipoteza inductiva
+etc). faceti tot posibilul sa
+scrieti clar: caz de baza, pas de inductie in cadrul caruia precizati
+ipoteza inductiva, fara
+explicatii mai mult sau mai putin interminabile in cuvinte, doar
+inferente si cu notatiile de care
+v'am zis mai sus. nu pierdeti pcte aiurea ca e pacat.
+
+2. fiti atenti sa faceti inductia numai pe constructorii de baza, in
+cazul in care vi se dau mai
+multi operatori. asa se face inductia, pe constructori de baza, nu pe
+toti operatorii! daca vi se
+cere sa demonstrati o implicatie, de ex P(x)=>P(add(x,1)), atunci
+trebuie sa demonstrati
+implicatia, nu proprietatea P. va dau doar un exempl

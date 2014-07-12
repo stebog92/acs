@@ -1,0 +1,15 @@
+class Circle 
+   name->String : "round"; end; 
+end;
+
+class Line
+   name->String : "straight"; end;
+end;
+
+class Main inherits IO
+    var Line shape; end;
+    main :
+        shape = new Circle;
+        [out [shape.name]];
+    end;
+end;

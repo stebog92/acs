@@ -1,0 +1,1 @@
+(call-with-input-file "reguli" (lambda (p)))

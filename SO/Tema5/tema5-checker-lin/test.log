@@ -1,0 +1,97 @@
+1+0 records in
+1+0 records out
+1048576 bytes (1.0 MB) copied, 0.112189 s, 9.3 MB/s
+ [main(), aws.c:297] Server waiting for connections on port 8888
+./_test/run_test.sh: line 96: 26097 Killed                  $exec_name &>>$LOG_FILE
+ [main(), aws.c:297] Server waiting for connections on port 8888
+./_test/run_test.sh: line 96: 26101 Killed                  $exec_name &>>$LOG_FILE
+ [main(), aws.c:297] Server waiting for connections on port 8888
+./_test/run_test.sh: line 96: 26106 Killed                  $exec_name &>>$LOG_FILE
+ [main(), aws.c:297] Server waiting for connections on port 8888
+./_test/run_test.sh: line 96: 26115 Killed                  $exec_name &>>$LOG_FILE
+ [main(), aws.c:297] Server waiting for connections on port 8888
+ [main(), aws.c:314] New connection
+ [handle_new_connection(), aws.c:140] Accepted connection from: 127.0.0.1:40151
+./_test/run_test.sh: line 96: 26123 Killed                  $exec_name &>>$LOG_FILE
+./_test/run_test.sh: line 96: 26125 Killed                  nc -d localhost "$aws_listen_port"
+ [main(), aws.c:297] Server waiting for connections on port 8888
+ [main(), aws.c:314] New connection
+ [handle_new_connection(), aws.c:140] Accepted connection from: 127.0.0.1:40152
+ [main(), aws.c:314] New connection
+ [handle_new_connection(), aws.c:140] Accepted connection from: 127.0.0.1:40153
+n_conns: 2
+./_test/run_test.sh: line 96: 26134 Killed                  $exec_name &>>$LOG_FILE
+./_test/run_test.sh: line 96: 26136 Killed                  nc -d localhost "$aws_listen_port"
+./_test/run_test.sh: line 96: 26137 Killed                  nc -d localhost "$aws_listen_port"
+ [main(), aws.c:297] Server waiting for connections on port 8888
+./_test/run_test.sh: line 96: 26148 Killed                  $exec_name &>>$LOG_FILE
+ [main(), aws.c:297] Server waiting for connections on port 8888
+./_test/run_test.sh: line 228: 26156 Killed                  nc -d localhost "$aws_listen_port"
+./_test/run_test.sh: line 96: 26154 Killed                  $exec_name &>>$LOG_FILE
+ [main(), aws.c:297] Server waiting for connections on port 8888
+./_test/run_test.sh: line 242: 26166 Killed                  nc -d localhost "$aws_listen_port"
+./_test/run_test.sh: line 242: 26167 Killed                  nc -d localhost "$aws_listen_port"
+./_test/run_test.sh: line 96: 26164 Killed                  $exec_name &>>$LOG_FILE
+ [main(), aws.c:297] Server waiting for connections on port 8888
+ [main(), aws.c:314] New connection
+ [handle_new_connection(), aws.c:140] Accepted connection from: 127.0.0.1:40154
+./_test/run_test.sh: line 259: 26177 Killed                  nc -d localhost "$aws_listen_port"
+./_test/run_test.sh: line 96: 26175 Killed                  $exec_name &>>$LOG_FILE
+./_test/run_test.sh: line 96: 26178 Killed                  nc -d localhost "$aws_listen_port"
+ [main(), aws.c:297] Server waiting for connections on port 8888
+./_test/run_test.sh: line 293: 26188 Killed                  nc -d localhost "$aws_listen_port"
+./_test/run_test.sh: line 293: 26190 Killed                  nc -d localhost "$aws_listen_port"
+ [main(), aws.c:314] New connection
+ [handle_new_connection(), aws.c:140] Accepted connection from: 127.0.0.1:40155
+ [main(), aws.c:314] New connection
+ [handle_new_connection(), aws.c:140] Accepted connection from: 127.0.0.1:40156
+./_test/run_test.sh: line 96: 26186 Killed                  $exec_name &>>$LOG_FILE
+./_test/run_test.sh: line 96: 26189 Killed                  nc -d localhost "$aws_listen_port"
+./_test/run_test.sh: line 96: 26191 Killed                  nc -d localhost "$aws_listen_port"
+ [main(), aws.c:297] Server waiting for connections on port 8888
+./_test/run_test.sh: line 314: 26203 Killed                  nc -d localhost "$aws_listen_port"
+./_test/run_test.sh: line 314: 26204 Killed                  nc -d localhost "$aws_listen_port"
+ [main(), aws.c:314] New connection
+ [handle_new_connection(), aws.c:140] Accepted connection from: 127.0.0.1:40157
+ [main(), aws.c:314] New connection
+ [handle_new_connection(), aws.c:140] Accepted connection from: 127.0.0.1:40158
+./_test/run_test.sh: line 96: 26201 Killed                  $exec_name &>>$LOG_FILE
+./_test/run_test.sh: line 96: 26205 Killed                  nc -d localhost "$aws_listen_port"
+./_test/run_test.sh: line 96: 26206 Killed                  nc -d localhost "$aws_listen_port"
+ [main(), aws.c:297] Server waiting for connections on port 8888
+ [main(), aws.c:314] New connection
+ [handle_new_connection(), aws.c:140] Accepted connection from: 127.0.0.1:40159
+ [main(), aws.c:320] New message
+ [handle_client_request(), aws.c:256] here
+ [receive_message(), aws.c:177] Received message from: 127.0.0.1:40159
+ [handle_client_request(), aws.c:269] file opened [main(), aws.c:324] Ready to send message
+ [send_message(), aws.c:224] Sending message to 127.0.0.1:40159
+ [main(), aws.c:320] New message
+ [handle_client_request(), aws.c:256] here
+ [receive_message(), aws.c:173] Connection closed from: 127.0.0.1:40159
+./_test/run_test.sh: line 96: 26219 Killed                  $exec_name &>>$LOG_FILE
+ [main(), aws.c:297] Server waiting for connections on port 8888
+ [main(), aws.c:314] New connection
+ [handle_new_connection(), aws.c:140] Accepted connection from: 127.0.0.1:40160
+ [main(), aws.c:320] New message
+ [handle_client_request(), aws.c:256] here
+ [receive_message(), aws.c:177] Received message from: 127.0.0.1:40160
+ [handle_client_request(), aws.c:269] file opened [main(), aws.c:324] Ready to send message
+ [send_message(), aws.c:224] Sending message to 127.0.0.1:40160
+ [main(), aws.c:320] New message
+ [handle_client_request(), aws.c:256] here
+ [receive_message(), aws.c:173] Connection closed from: 127.0.0.1:40160
+./_test/run_test.sh: line 96: 26240 Killed                  $exec_name &>>$LOG_FILE
+ [main(), aws.c:297] Server waiting for connections on port 8888
+./_test/run_test.sh: line 96: 26251 Killed                  $exec_name &>>$LOG_FILE
+ [main(), aws.c:297] Server waiting for connections on port 8888
+ [main(), aws.c:314] New connection
+ [handle_new_connection(), aws.c:140] Accepted connection from: 127.0.0.1:40161
+ [main(), aws.c:320] New message
+ [handle_client_request(), aws.c:256] here
+ [receive_message(), aws.c:177] Received message from: 127.0.0.1:40161
+ [handle_client_request(), aws.c:269] file opened [main(), aws.c:324] Ready to send message
+ [send_message(), aws.c:224] Sending message to 127.0.0.1:40161
+ [main(), aws.c:320] New message
+ [handle_client_request(), aws.c:256] here
+ [receive_message(), aws.c:173] Connection closed from: 127.0.0.1:40161

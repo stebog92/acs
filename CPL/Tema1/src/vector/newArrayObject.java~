@@ -1,0 +1,10 @@
+package vector;
+
+
+public class NewArrayObject extends UnaryBracket {
+
+	public NewArrayObject(int lineNumber, Expression type, Expression size) {
+		super(lineNumber,type, size);
+	}
+
+}

@@ -1,0 +1,31 @@
+class t inherits p
+    value -> Int : 7; end;
+end;
+
+class Main inherits ph
+    main :
+        [out [x.val] * [x.value]];
+    end;
+end;
+
+class p inherits q
+    val -> Int : 6; end;
+end;
+
+class ph inherits IO
+    var
+        x x = new x;
+    end;
+end;
+
+class q inherits r
+    val -> Int : 5; end;
+end;
+
+class r
+    val -> Int : 4; end;
+end;
+
+class x inherits t
+    value -> Int : 8; end;
+end;

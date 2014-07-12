@@ -1,0 +1,52 @@
+!!ro.pub.cs.lcpl.Program
+classes:
+- features:
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.Addition
+        e1: !!ro.pub.cs.lcpl.Multiplication
+          e1: !!ro.pub.cs.lcpl.Symbol {lineNumber: 2, name: a, type: null}
+          e2: !!ro.pub.cs.lcpl.Symbol {lineNumber: 2, name: b, type: null}
+          lineNumber: 2
+          type: null
+        e2: !!ro.pub.cs.lcpl.Symbol {lineNumber: 2, name: c, type: null}
+        lineNumber: 2
+        type: null
+      lineNumber: 2
+      type: null
+    lineNumber: 2
+    name: mac
+    parameters:
+    - {lineNumber: 2, name: a, type: Int}
+    - {lineNumber: 2, name: b, type: Int}
+    - {lineNumber: 2, name: c, type: Int}
+    returnType: Int
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.Dispatch
+        arguments:
+        - !!ro.pub.cs.lcpl.Dispatch
+          arguments:
+          - !!ro.pub.cs.lcpl.IntConstant {lineNumber: 4, type: null, value: 1}
+          - !!ro.pub.cs.lcpl.IntConstant {lineNumber: 4, type: null, value: 2}
+          lineNumber: 4
+          name: mac
+          object: null
+          type: null
+        lineNumber: 4
+        name: out
+        object: null
+        type: null
+      lineNumber: 4
+      type: null
+    lineNumber: 3
+    name: main
+    parameters: []
+    returnType: void
+  lineNumber: 1
+  name: Main
+  parent: IO
+lineNumber: 1
+

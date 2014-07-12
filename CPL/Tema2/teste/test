@@ -1,0 +1,3 @@
+#!/bin/sh
+
+cp ref/simple/$1 ./ && ./mylcplrun.sh ~/CPL/Tema2 $1

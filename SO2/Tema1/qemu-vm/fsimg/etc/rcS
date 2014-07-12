@@ -1,0 +1,20 @@
+/bin/busybox mkdir /proc
+/bin/busybox mount -t proc proc /proc
+
+# install busybox builtin applets
+/bin/busybox --install
+
+mkdir /sys && mount -t sysfs sysfs /sys
+mkdir /debug && mount -t debugfs debugfs /debug
+
+# pseudo terminal for telnet
+mount -t devpts devpts /dev/pts
+
+# Initialize 127.0.0.1 loopback
+ifconfig lo 127.0.0.1
+
+ip a a dev eth0 172.20.0.2/24
+ip l set dev eth0 up
+sleep 1
+
+insmod /root/modules/netconsole.ko netconsole=@/,@172.20.0.1/

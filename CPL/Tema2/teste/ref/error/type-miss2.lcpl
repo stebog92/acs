@@ -1,0 +1,18 @@
+# Class attributes definition and usage 
+
+class Main inherits IO
+	var
+	Int number;
+	Int initialized = 1234;
+	String a_String = "This is a string";
+	end;
+	
+	main :
+		local String hdr = " > "; end;
+		[[out hdr].out a_String];
+		local string hdr = " >> "; end;
+		[[[out hdr].out number].out
+		number + initialized
+		];
+	end;
+end;

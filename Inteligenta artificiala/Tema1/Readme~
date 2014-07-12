@@ -1,0 +1,36 @@
+Inteligenta artificiala
+
+Tema1 : Portale
+
+Ciocan Mihai
+342C3
+
+
+
+Implementare
+
+In rezolvarea problemei am creat mai multe predicate, dupa cum urmeaza:
+
+    move: calculeaza semnalele primite in locatia curenta si le afiseaza, genereaza portale daca aceasta locatie nu a mai fost vizitata,
+          afiseaza portalele si semnalele pe care acestea le primesc, selecteaza cel mai bun portal (select_best_portal), actualizeaza 
+          energia daca locatia contine pachet de energie si se muta pe noua locatie (definita de cel mai bun portal). Daca noua pozitie
+          este poarta si energia este suficienta se construieste solutia. Daca au fost vizitate toate locatiile (pe care playerul le poate
+          retine) inseamna ca nu mai sunt portale de generat si astfel programul se termina intrucat nu exista ruta catre Poarta sau nu 
+          exista suficienta energie pentru a intra in Poarta).
+
+    select_best_portal: alege 'cel mai bun portal' dintr-o lista in care se gasesc si informatiile despre semnalele primite de la pachete si
+                        poarta. Daca energia stransa e suficienta si exista portal catre poarta, acela va fi selectat, altfel va fi ales 
+                        oricare are valoarea (semnal - nr_de_vizite_pt_acel_loc) mai mare. Programul tine cont de locurile vizitate alegand
+                        locurile nevizitate chiar daca au semnal mai slab decat celelalte (poate ca nu exista ruta catre pachetele respective
+                        si astfel se evita ciclarea).
+
+    generate_portal: genereaza aleator portale pentru o locatie, updatand (cu update_portal_list) astfel si celelalte locuri catre care duc
+                     portalele noi, pentru ca ele sa fie bidirectionale. Daca exista, acestea nu mai sunt generate.
+
+    get_signals: calculeaza semnalele pentru o anumita locatie folosind distanta Manhattan
+
+    compute_signals_for_portals: calculeaza semnalele pentru o lista de portale (sau locuri) si intoarce o lista cu portalele si semnalele
+                                 asociate
+    print_portal_info: afiseaza informatiile pentru portal: [X, Y | G, S]
+
+    print_current_loc_info: afiseaza informatiile pentru locatia curenta [X, Y, |E| G, S] 

@@ -1,0 +1,28 @@
+Tema1 - Corectorul ortografic
+
+Ciocan Mihai
+324CA
+
+Distanta de editare a 2 siruri de caractere :
+
+	* Distanta de editare am rezolvat-o cu programare dinamica;
+	* Pentru inceput distanta de editare dintre un sir s1 cu cel putin un caracter si unul vid era lungimea lui s1;
+	* Pentru 2 siruri nevide (au cel putin un caracter) la pozitia i in s1 si j in s2, daca s1[i] == s2[j] atunci 
+		distanta de editare dintre ele e sol[i-1][j-1] (cea de inainte); altfel ea creste cu 1 : sol[i-1][j-1] + 1;
+	* Trebuie insa sa luam distanta minima de editare asa ca verificam si daca, pentru s1 de exemplu, taiem s1[i] (ultimul 
+		caracter in momentul de fata) distanta de editare pentru a transforma s1 in s2 este sol [i - 1][j] + 1; idem 
+		pentru s2
+	* Complexitatea acestui algoritm este O (strlen (s1) * strlen (s2));
+
+Corectarea unui sir ce poate contine mai multe cuvinte :
+
+	* Se sterg toate spatiile albe si se plaseaza spatii la anumite pozitii pana ce distanta totala de editare e minima;
+	* Pentru un sir s, iau in considerare toate subsirurile de lungime cuprinsa intre 1 si strlen (s);
+	* Initial pentru subsirul cu lungime l ce incepe de la begin si se termina la end = begin + l - 1, verific daca exista
+		in dictionar in forma nemodificata sau o variatie a acestuia cu distanta de editare mai mica decat l;
+	* Apoi incerc sa gasesc un sir cu distanta de editare totala mai mica decat cea gasita initial, concatenand sirurile intre
+		begin si k si k si end (calculate anterior).
+	* Solutia se alege in functie de distanta de editare, numar de cuvinte, frecventa totala de aparitie, si ordine lexicografica
+	* Complexitatea pentru acest algoritm este O (l ^ 3)
+
+Stergerea spatiilor din sir o realizez trivial in O(n);

@@ -1,0 +1,302 @@
+#
+# In memory object database, allowing inserting, selecting and deleting records 
+# using custom queries and sort orders.
+#
+# API:
+#
+# Database.insert Object
+# Database.delete Object, Where 
+# Database.select Object, Where, Order -> ResultSet
+#
+# Where.matches Object -> Int
+# Order.compare Object, Object -> Int
+#
+# ResultSet.first -> Iterator
+# Iterator.object -> Object
+# Iterator.next
+# Iterator.last -> Int
+#
+
+#### Implementation of the database ####
+
+## Linked list data storage
+class Item
+    var
+        Object o;
+        Item next;
+    end;
+    
+    init Object o, Item next -> Item :
+        self.o=o;
+        self.next=next;
+        self;
+    end;
+    
+    delete Where filter -> Item :
+        if next == void then
+        else
+            next = [next.delete filter];
+        end;
+        if [filter.matches o] then next; else self; end;
+    end;
+    
+    select Where filter, ResultSet results:
+        if next == void then
+        else
+            [next.select filter,results];
+        end;
+        if [filter.matches o] then
+            [results.add o];
+        end;
+    end;
+end;
+
+class Database
+    var
+        Item i;
+    end;
+
+    insert Object o :
+        i = [(new Item).init o, i];
+    end;
+    
+    delete Where filter:
+        if !(i == void) then
+            i = [i.delete filter];
+        end;
+    end;
+    
+    select Where filter, Order order -> ResultSet:
+    local
+        ResultSet rs = [(new ResultSet).orderBy order];
+    end;
+        if !(i == void) then
+            [i.select filter, rs];
+        end;
+        rs;
+    end;
+end;
+
+class Where
+    matches Object o -> Int : 1 ; end;
+end;
+
+class Order
+    # returns -1 for < , 1 for > , 0 for ==
+    compare Object o1, Object o2 -> Int : 0 ; end;
+end;
+
+## Binary tree result set for sorting
+class Node
+    var
+        Object o;
+        Int isLeftNode;
+        Node parent;
+        Node left;
+        Node right;
+    end;
+    
+    init Object o, Int isLeftNode, Node parent -> Node : 
+        self.o=o; 
+        self.isLeftNode=isLeftNode;
+        self.parent=parent; 
+        self; 
+    end;
+    
+    insert Object newObj, Order order :
+        if [order.compare newObj, o] < 0 then
+            if left == void then
+                left = [(new Node).init newObj, 1, self];
+            else
+                [left.insert newObj, order];
+            end;
+        else
+            if right == void then
+                right = [(new Node).init newObj, 0, self];
+            else
+                [right.insert newObj, order];
+            end;
+        end;
+    end;
+    
+    first -> Node :
+        if left == void then self; else [left.first]; end;
+    end;
+    
+    nextParent -> Node : 
+        if isLeftNode then parent; else [parent.nextParent]; end;
+    end;
+            
+    
+    object -> Object : o ; end;
+    isLeftNode -> Int : isLeftNode ; end;
+    right -> Node : right; end;
+end;
+
+class ResultSet
+    var
+        Order order;
+        Node root;
+    end;
+    
+    orderBy Order order -> ResultSet : self.order = order; self; end;
+
+    add Object o:
+        if root == void then
+            root = [(new Node).init o, 1, void];
+        else
+            [root.insert o, order];
+        end;
+    end;
+    
+    first -> Iterator:       
+        [(new Iterator).init if root == void then void; else [root.first]; end];
+    end;
+end;
+
+class Iterator
+    var
+        Node node;
+    end;
+    
+    init Node node -> Iterator : self.node = node; self; end;
+
+    # Current value
+    object -> Object :
+        if node == void then void; else [node.object]; end;
+    end;
+    
+    # Is it past the last value?
+    last -> Int :
+        node == void;
+    end;
+    
+    # Move to the next value
+    next :
+        if [node.right] == void then
+            node = [node.nextParent];
+        else
+            node = [[node.right].first];
+        end;
+    end;
+end;
+
+##### The application data model #####
+
+class Battle
+    var
+        String where;
+        Int when;
+        String winner;
+        Int winnerStrength;
+        String loser;
+        Int loserStrength;
+        Int defenceWon;
+    end;
+    
+    init String where, Int when, 
+        String winner, Int winnerStrength, 
+        String loser, Int loserStrength,
+        Int defenceWon
+    -> Battle :
+        self.where=where;
+        self.when=when;
+        self.winner=winner;
+        self.winnerStrength=winnerStrength;
+        self.loser=loser;
+        self.loserStrength=loserStrength;
+        self.defenceWon=defenceWon;
+        self;
+    end;
+    
+    year -> Int : when; end;
+    defenceWon -> Int : defenceWon; end;
+    forcesRatio -> Int : winnerStrength * 1000 / loserStrength; end;
+    
+    print IO stream:
+        [stream.out where + "," + when + ": " + winner + " (" + winnerStrength + ") "
+            + if defenceWon then "defended against "; else "defeated "; end
+            + loser + " (" + loserStrength + ")\n"];
+    end;
+end;
+
+class Year inherits Where
+    var Int min = -10000; Int max=10000; end;
+    lessThan Int year -> Year : max = year - 1; self; end;
+    between Int min, Int max -> Year : self.min=min; self.max=max; self; end;
+    matches Object o -> Int : 
+        ([{Battle o}.year] <= max) * (min <= [{Battle o}.year]) ; 
+    end;
+end;
+
+class WhereDefenderWon inherits Where
+    matches Object o -> Int : 
+        [{Battle o}.defenceWon]; 
+    end;
+end;
+
+class ByYear inherits Order
+    compare Object o1, Object o2 -> Int : 
+        [{Battle o1}.year] - [{Battle o2}.year];
+    end;
+end;
+
+class ByForcesRatio inherits Order
+    compare Object o1, Object o2 -> Int : 
+        [{Battle o1}.forcesRatio] - [{Battle o2}.forcesRatio];
+    end;
+end; 
+
+##### The application logic #####
+
+class Main inherits IO
+    print ResultSet rs:
+        local Iterator it = [rs.first]; end;
+        while ![it.last]
+        loop
+            [{Battle [it.object]}.print self];
+            [it.next];
+        end;
+    end;
+    
+    main :
+        local Database db = new Database; end;
+        
+        # Insert data
+        [db.insert [(new Battle).init "Vienna", 1529, "The Habsburgs", 16000, "Suleiman the Magnificent", 120000, 1]];
+        [db.insert [(new Battle).init "Stalingrad", 1942, "The Red Army", 300000, "The Wehrmacht", 230000, 1]];
+        [db.insert [(new Battle).init "Salamina", -480, "The Greeks", 366, "Xerxes", 500, 1]];
+        [db.insert [(new Battle).init "Waterloo", 1815, "Wellington", 68000, "Napoleon", 70000, 0]];
+        [db.insert [(new Battle).init "Gettysburg", 1863, "The North", 76000, "The South", 90000, 1]];
+        [db.insert [(new Battle).init "Midway", 1942, "United States", 28, "Japan", 86, 1]];
+        [db.insert [(new Battle).init "Middle East", 1967, "Israel", 264000, "the Arab states", 547000, 0]];
+        [db.insert [(new Battle).init "Hastings", 1066, "William", 8000, "Harold", 7000, 0]];
+        [db.insert [(new Battle).init "Trafalgar", 1809, "Britain", 27, "France", 33, 0]];
+        [db.insert [(new Battle).init "El Alamein", 1942, "Montgomery", 20000, "Rommel", 96000, 1]];
+        
+        # Print all records, in chronological order
+        [out "The history of warfare:\n"];
+        [print [db.select new Where, new ByYear]];
+
+        [out "\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n\n"];
+        
+        # Print all battles where the winner was on the defence, ordered by the ratio between forces
+        [out "Defenders won against all odds:\n"];
+        [print [db.select new WhereDefenderWon, new ByForcesRatio]];
+        
+        [out "\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n\n"];
+        
+        # Print World War II battles
+        [out "Turning points of WW2:\n"];
+        [print [db.select [(new Year).between 1939, 1945], new ByYear]];
+        
+        [out "\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n\n"];
+        
+        # Remove ancient and medieval battles
+        [out "Modern conflicts:\n"];
+        [db.delete [(new Year).lessThan 1800]];
+        
+        # Print the remaining records, in chronological order
+        [print [db.select new Where, new ByYear]];
+    end;
+end;

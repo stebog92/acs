@@ -1,0 +1,96 @@
+class Query
+   matches Object o -> Int : 0 ; end;
+end;
+
+class Item
+    var
+        Object o;
+        Item rest;
+    end;
+    init Object o, Item rest -> Item:
+        self.o = o;
+        self.rest = rest;
+        self;
+    end;
+    rest -> Item : rest; end;
+    val -> Object : o; end;
+    
+    find Query q -> Int :
+        if [q.matches o] then 1; else if rest == void then 0; else [rest.find q]; end; end;
+    end;
+    
+end;
+
+class HasObject inherits Query
+  var Object target; end;
+  init Object target -> HasObject : self.target=target; self; end;
+  matches Object o -> Int : o == target ; end;
+end;
+
+class Stack
+    var
+        Item i;
+    end;
+    
+    isEmpty -> Int : i == void; end;
+        
+    push Object o:
+        i=[(new Item).init o,i];
+    end;
+    
+    pop -> Object:
+        if [isEmpty] then void;
+        else
+            local Object o = [i.val]; end;
+            i = [i.rest];
+            o;
+        end;
+    end;
+    
+    has Object o -> Int : [find [(new HasObject).init o]]; end;
+    find Query q -> Int : if [isEmpty] then 0; else [i.find q]; end; end;    
+end;
+
+class HasString inherits Query
+  var String target; end;
+  init String target -> HasString : self.target=target; self; end;
+  matches Object o -> Int : {String o} == target ; end;
+end;
+
+class StringStack
+    var Stack stk = new Stack;
+    end;
+    
+    push String s:
+        [stk.push s];    
+    end;
+    
+    pop -> String:
+        local String s = {String [stk.pop]}; end;
+        if s == void then ""; else {String s}; end;
+    end;
+    
+    has String s -> Int : [stk.find [(new HasString).init s]]; end;
+end;
+
+class Main inherits IO
+  var Int a; Int b; Int c; end;
+  print : [out a+" "+b+" "+c+"\n"]; end;
+  main:
+    a = b = c = -1;
+    [print];
+
+    local Stack s = new Stack; StringStack ss = new StringStack; String h = "Hello"; end;
+    a = [s.has ss]; b = [ss.has "Hello"]; c=[ss.has "world"]; [print];
+    
+    [s.push "100"]; [ss.push "Hello"]; [s.push ss];
+    a = [s.has ss]; b = [ss.has "Hello"]; c=[ss.has "world"]; [print];
+    
+    [{StringStack [s.pop]}.push "world"];
+    a = [s.has ss]; b = [ss.has "Hello"]; c=[ss.has "world"]; [print];
+     
+    [ss.push "20"];
+    a = {String [s.pop]} == 100; b = [s.isEmpty]; c = [ss.pop] == 20; 
+    if b*c then [print]; end;
+  end;
+end;

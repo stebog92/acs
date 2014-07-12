@@ -1,0 +1,487 @@
+#
+# C to ARM Compiler
+#
+# Is able to compile simple C functions of the type:
+#
+# int f(int a, int b, int c) {
+#   return b * b - 4 * a * c;
+# }
+#
+# Limitations:
+# - max 4 parameters, all int;
+# - return value is int;
+# - only one statement in function (return)
+# - only math expressions: + , - , *
+# - no local variables - just parameters, int constants and parentheses
+# - no register spill - very complex expressions are not supported  
+#
+
+class Error inherits IO
+    raise:
+        [out "Syntax error, or expression too complex.\n"];
+        [abort];
+    end;
+end;
+
+# Tokens:
+# INT    ::= int
+# RETURN ::= return
+# ID     ::= [a-zA-Z][a-zA-Z0-9_]*
+# NUMBER ::= 0|([1-9][0-9]*)
+# whitespace ::= [ \n\t\r]+
+
+class Token
+    var
+        String type;   # INT, RETURN, ID, NUMBER, EOF, ( , ) ,  { , } , + , - , * , ",";
+        String value;
+    end;
+    init String type, String value -> Token : self.type=type; self.value=value; self; end;
+    type -> String : type; end;
+    value -> String : value; end;
+end;
+
+class CTokenizer
+    var
+        String input;
+        
+        Int pos;
+        Int state;
+        
+        String comment;
+        Int lineStart = 1;
+    end;
+    
+    set String input : self.input = input; end;
+    comment -> String : comment; end;
+    
+    isWhiteSpace String s -> Int :
+        if s == " " then 1;
+        else if s== "\n" then 1;
+        else if s== "\r" then 1;
+        else if s== "\t" then 1;
+        else 0;
+        end;
+        end;
+        end;
+        end;
+    end;
+    
+    isDigit String s -> Int :
+        if s == "0" then 1;
+        else if !([s.toInt]==0) then 1;
+        else 0;
+        end;
+        end;
+    end;
+    
+    isSign String s -> Int:
+        if s == ";" then 1;
+        else if s== "+" then 1;
+        else if s== "-" then 1;
+        else if s== "*" then 1;
+        else if s== "(" then 1;
+        else if s== ")" then 1;
+        else if s== "{" then 1;
+        else if s== "}" then 1;
+        else if s== "," then 1;
+        else 0;
+        end;
+        end;
+        end;
+        end;
+        end;
+        end;
+        end;
+        end;
+        end;
+    end;
+    
+    next -> Token :
+        if  [input.length] <= pos then
+            [(new Token).init "EOF", ""];
+        else
+            local 
+                Token token; 
+                String char;
+                Int startPos = pos; 
+                Int isFinal;                 
+            end;
+            while (token == void)*(pos <= [input.length]) loop                
+                if pos == [input.length] then
+                    char = " "; # some whitespace to flush the current token
+                else
+                    char = input[pos,pos+1];
+                end;
+                isFinal = 0;
+                if state == 0 then # Start
+                    if (char==" ")+(char=="\t") then
+                        state = 1;
+                    else if (char=="\r")+(char=="\n") then
+                        state = 2;
+                    else if char == "0" then
+                        state = 3;
+                    else if [isDigit char] then
+                        state = 4;
+                    else if [isSign char] then
+                        state = 6;
+                    else
+                        state = 5;
+                    end;
+                    end;
+                    end;
+                    end;
+                    end;
+                else if state == 1 then # Space/Tab
+                    if (char==" ")+(char=="\t") then
+                        state = 1;
+                    else if (char=="\r")+(char=="\n") then
+                        state = 2;
+                    else
+                        startPos = pos;
+                        isFinal = 1; # No more whitespace
+                    end;
+                    end;
+                else if state == 2 then # New Line
+                    if (char==" ")+(char=="\t") then
+                        state = 1;
+                        lineStart = 1;  # A new line
+                    else if (char=="\r")+(char=="\n") then
+                        state = 2;
+                    else
+                        lineStart = 1;  # A new line
+                        startPos = pos;
+                        isFinal = 1;    # No more whitespace
+                    end;
+                    end;
+                else if state == 3 then # Zero
+                    if [isWhiteSpace char]+[isSign char] then
+                        isFinal = 1;
+                        token = [(new Token).init "NUM","0"];
+                    else
+                        [(new Error).raise];                       
+                    end;
+                else if state == 4 then # Integer
+                    if [isWhiteSpace char]+[isSign char] then
+                        isFinal = 1;
+                        token = [(new Token).init "NUM",input[startPos,pos]];
+                    else if ![isDigit char] then
+                        [(new Error).raise];                       
+                    end;
+                    end;
+                else if state == 5 then # Id
+                    if [isWhiteSpace char]+[isSign char] then
+                        isFinal = 1;
+                        local String text = input[startPos,pos]; end;
+                        token = [(new Token).init
+                            if text == "int" then "INT";
+                            else if text == "return" then "RETURN";
+                            else "ID";
+                            end;
+                            end
+                        , text];
+                    end;                    
+                else if state == 6 then # Sign
+                    isFinal = 1;
+                    local String text = input[startPos,pos]; end;
+                    token = [(new Token).init text,text];                    
+                end;
+                end;
+                end;
+                end;
+                end;
+                end;
+                end;
+                
+                if !isFinal then
+                    pos = pos + 1;
+
+                    # Print the input text in a comment string, starting with ";"
+                    if lineStart then
+                        comment = comment + "; " ;
+                        lineStart = 0;
+                    end;
+                    comment = comment + char;
+                else
+                    state = 0;
+                end;
+            end;
+            if token == void then
+                token = [(new Token).init "EOF", ""];
+            end;
+            token;
+        end;
+    end;
+end;
+
+## Compiler ##
+
+class Param
+    var
+        String name;
+        Int reg;
+        Param next;
+    end;
+    init String name, Int reg, Param next -> Param : 
+        self.name = name; 
+        self.reg = reg;
+        self.next = next; 
+        self; 
+    end;
+    
+    lookup String symbol -> Int:
+        if name == symbol then reg;
+        else if void == next then [(new Error).raise]; -1;
+        else [next.lookup symbol];  
+        end;
+        end;
+    end;
+end;
+
+class SymbolTable
+    var
+        Param params;
+        Int count;
+    end;
+    count -> Int : count; end;
+    
+    add String name:
+        params = [(new Param).init name, count, params];
+        count = count + 1;
+        if 4 < count then         # Max 4 parameters
+            [(new Error).raise];
+        end;
+    end;
+    
+    lookup String name -> Int:
+        if params == void then [(new Error).raise]; -1;
+        else [params.lookup name];
+        end;
+    end;
+end;
+
+class Code
+    var
+        String code;    # Assembly instructions
+        Int resultReg;  # Register holding the result fo an expression
+        Int regsUsed;   # First available register after evaluating the expression
+    end;
+    init String code, Int resultReg, Int regsUsed -> Code :
+        self.code = code;
+        self.resultReg = resultReg;
+        self.regsUsed = regsUsed;
+        self;
+    end;
+    code -> String : code ; end;
+    resultReg -> Int : resultReg ; end;
+    regsUsed -> Int : regsUsed ; end;
+end;
+
+# Grammar:
+# function    ::= INT ID ( parameters ) { RETURN expression ; }
+# parameters  ::=    |  param rest_params
+# param       ::= INT ID
+# rest_params ::=    |  , param rest_params
+# expression  ::= term add
+# add         ::=    |  + term add | - term add
+# term        ::= fact mul
+# mul         ::=    |  * fact mul
+# fact        ::= ID |  NUMBER     | ( expression )
+
+class CCompiler
+    var
+        CTokenizer tokenStream;
+        Token lookAhead;
+        SymbolTable params = new SymbolTable;
+        Int regsUsed;
+    end;
+    set CTokenizer tokenStream : self.tokenStream = tokenStream; end;
+    
+    useReg Int reg:
+        if 12 < reg then [(new Error).raise]; end;
+        if regsUsed < reg then regsUsed = reg; end;
+    end;
+    
+    match String tokenType -> Token :
+        local Token token = lookAhead; end;
+        if !([lookAhead.type] == tokenType) then
+            [(new Error).raise];
+        end;
+        lookAhead = [tokenStream.next];
+        token;
+    end;
+    
+    function -> String:
+        [match "INT"];
+        local String funcName = [[match "ID"].value]; end;
+        [match "("];
+        [parameters];
+        regsUsed = [params.count];
+        [match ")"];[match "{"];[match "RETURN"];
+        local Code code = [expression [params.count]]; end;
+        [match ";"];[match "}"];
+        
+        local String regs =
+            if regsUsed == 5 then "R4";
+            else if 5 < regsUsed then "R4-R"+(regsUsed-1);
+            else void;
+            end;
+            end;
+        end;
+        
+        "_"+funcName+"\n"
+        + if regs == void then ""; else "\tSTMFD SP!, {"+regs+"}\n"; end
+        + [code.code]
+        +"\tMOV   R0, R"+[code.resultReg]+"\n"
+        + if regs == void then ""; else "\tLDMFD SP!, {"+regs+"}\n"; end
+        +"\tBX    LR\n"
+        +"\n";
+    end;
+    
+    parameters:
+        if [lookAhead.type] == "INT" then
+            [param];
+            [rest_params];
+        else if [lookAhead.type] == ")" then
+        else
+            [(new Error).raise];
+        end;  
+        end;      
+    end;
+    
+    param:
+        [match "INT"];
+        [params.add [[match "ID"].value]];
+    end;
+    
+    rest_params:
+        if [lookAhead.type] == "," then
+            [match ","];
+            [param];
+            [rest_params];
+        else if [lookAhead.type] == ")" then
+        else
+            [(new Error).raise];
+        end;   
+        end;     
+    end;
+
+    # reg = first available temporary register (top of expression evaluation stack)
+    expression Int reg -> Code:
+        local Code code = [term reg]; end;
+        [add reg, code];
+    end;
+    
+    combine String opcode, Int reg, Code left, Code right -> Code:
+        [useReg reg];
+        [(new Code).init 
+             [left.code]
+            +[right.code]
+            +"\t"+opcode+"   R"+reg+", R"+[left.resultReg]+", R"+[right.resultReg]+"\n", reg, reg+1];
+    end;
+    
+    add Int reg, Code left -> Code:
+        if [lookAhead.type] == "+" then
+            [match "+"];
+            local Code right = [term [left.regsUsed]]; end;
+            [add reg, [combine "ADD",reg,left,right]];
+        else if [lookAhead.type] == "-" then
+            [match "-"];
+            local Code right = [term [left.regsUsed]]; end;
+            [add reg, [combine "SUB",reg,left,right]];
+        else if ([lookAhead.type] == ";") + ([lookAhead.type] == ")") then
+            left;
+        else
+            [(new Error).raise]; void;            
+        end;
+        end;
+        end;        
+    end;
+    
+    term Int reg -> Code:
+        local Code code = [fact reg]; end;
+        [mul reg, code];
+    end;
+
+    mul Int reg, Code left -> Code:
+        if [lookAhead.type] == "*" then
+            [match "*"];
+            local Code right = [fact [left.regsUsed]]; end;
+            [mul reg, [combine "MUL",reg,left,right]];
+        else if ([lookAhead.type] == ";") + ([lookAhead.type] == ")")
+              + ([lookAhead.type] == "+") + ([lookAhead.type] == "-") 
+        then
+            left;
+        else
+            [(new Error).raise]; void;
+        end;
+        end;        
+    end;
+    
+    fact Int reg -> Code:
+        if [lookAhead.type] == "ID" then
+            [(new Code).init "", [params.lookup [[match "ID"].value]], reg];
+        else if [lookAhead.type] == "NUM" then
+            [useReg reg];
+            [(new Code).init "\tLDR   R"+reg+", ="+[[match "NUM"].value]+"\n", reg, reg+1];
+        else if [lookAhead.type] == "(" then
+            [match "("];
+            local Code code = [expression reg]; end;
+            [match ")"];
+            code;
+        else
+            [(new Error).raise]; void;
+        end;
+        end;
+        end;        
+    end;
+    
+    compile -> String:
+        lookAhead = [tokenStream.next];
+        [function];
+    end;
+end;
+
+class Main inherits IO
+    compile String program -> String :
+        local
+            CTokenizer tokenStream = new CTokenizer;
+        end; 
+        [tokenStream.set program];
+        local
+            CCompiler compiler = new CCompiler;
+        end; 
+        [compiler.set tokenStream];
+        
+        local
+            String asm = [compiler.compile];
+        end;
+        [tokenStream.comment] + "\n" + asm;
+    end;
+    
+    main:   
+        [out [compile 
+"int f(int a, int b, int c) {\
+    return b * b - 4 * a * c ; \
+    }\
+"]];
+
+        [out [compile 
+"int volume(int pi, int r, int height) {\
+    return pi * r * r * height; \
+    }\
+"]];
+
+        [out [compile 
+"int Taylor_1_div_x(int x) {\
+    return 1-(x-1)+(x-1)*(x-1)-(x-1)*(x-1)*(x-1) ; \
+    }\
+"]];
+
+        [out [compile 
+"int x(int a, int b, int c, int d) {\
+    return (d-a)*0-((a-b)*10+((b-c)*20-(c-d)*30)) ; \
+    }\
+"]];
+
+    end;
+end;

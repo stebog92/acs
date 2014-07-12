@@ -1,0 +1,6 @@
+
+
+for i in $(seq 1 6); do
+        ./script_rulare.sh 4 ./test/julia$i.in && ./test/imgdiff32 out.pgm ./test/julia$i.pgm
+
+done

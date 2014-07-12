@@ -1,0 +1,21 @@
+Tema 3: Robot inteligent
+
+Ciocan Mihai
+342C3
+
+Implementarea foloseste ca mod de explorare parcurgerea in adancime. El se foloseste de functiile validMove(x, y) si getSensorValue(x,y)
+pentru a cunoaste daca urmatoarea mutare este valida (nu este perete) , respectiv pentru a afla valoarea senzorului olfactiv intr-o anumita
+pozitie.
+
+
+Cand robotul ajunge intr-o locatie, daca acesta primeste semnal de la senzor (nu e zero) fiecare locatie din jur devine unsafe, daca aceasta 
+nu este deja vizitata sau este perete. Apoi el va considera toate zonele adiacente care nu sunt unsafe sau pereti (inserare in stack).
+Se repeta algoritmul pana cand stack-ul devine gol;
+
+La afisare vor aparea 2 matrici una cu simboluri si cealalta cu locatiile vizitate.
+Simbolurile reprezinta:
+    v: vizitate
+    m: mlastina
+    w: perete
+    u: unsafe
+    s: neexplorat

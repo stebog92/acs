@@ -1,0 +1,9 @@
+class Main inherits IO
+    main :
+        local
+            String s;
+        end;        
+        s = new string;
+        [out s];
+    end;
+end;

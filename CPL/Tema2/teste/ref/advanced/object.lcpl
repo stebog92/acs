@@ -1,0 +1,16 @@
+# (* Object class operations *)
+
+class K inherits IO
+   main:
+		if [self.typeName] == "Main" then
+			[out {String ["Original".copy]}[1,6][1,3]];
+			[self.abort];
+			[out "...Unreachable"];
+		else
+			[out "...Reachable"];
+		end;
+   end;
+end;
+
+class Main inherits K
+end;

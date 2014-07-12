@@ -1,0 +1,43 @@
+1. Sa se arate ca daca f(n)=teta(g(n)) atunci g(n)=teta(f(n))
+
+2. Ce se intelege prin problema semidecidabila?
+
+3. Fie A,B doua probleme, unde B - NPC. Pentru a demonstra ca A este NP-completa trebuie sa demonstram ca A - NP si ca B se reduce polinomial la A. De ce trebuie sa demonstram ca B se reduce polinomial la A in loc de a demonstra ca A se reduce polinomial la B, asa cum ar parea natural.
+
+4. Ce proprietate trebuie sa aiba un graf neorientat care contine cicluri cu cost negativ pentru ca algoritmul Bellman-Ford sa se termine cu succes?
+
+5. Fie G= (V,E) un graf, n=card(V) si m=card(E)
+a) care este complexitatea algoritmului Warshall-Floyd?
+b) care este complexitatea algoritmului Bellman-Ford
+in functie de n si m
+
+6. Fie un graf neorientat aciclic si conex G= (V,E) cu
+card(V)=n
+a) care este numarul minim si numarul maxim de articulatii pe care le poate avea G ?
+b) care este numarul minim si numarul maxim de punti pe care le poate avea G ?
+în functie de n
+
+7. Fie graful AND-OR (etichetat) din fisierul "a1" atasat (nu sunt sigur ca figura este reprodusa exact). Cate baze de solutie are graful?
+
+8. In graful din fisierul "a2" atasat, arcele ingrosate reprezinta multimea A a arcelor unui arbore minim de acoperire. Sa se traseze o partitionare a grafului (pe figura), partitionare Q ce respecta A
+
+9. Fie Algoritmul lui Dijkstra, din fisierul "a3" atasat (algoritmul era dat in varianta integrala in enunt). De ce inainte de apelul "repozitionare (v,V)" (adica v in heap-ul V) - din secventa de relaxare- nu este necesara testarea existentei nodului v in heap-ul V?
+
+10. Fie h(n) = min {c(n,n') | n' apartine lui succs(n) } o euristica folosita de A*, unde c(n,n') este costul arcului (n,n') in graful G = (V,E) al starilor problemei rezolvate, iar
+succs(n) - multimea succesorilor nodului n in graf. Sa se arate ca euristica este monotona
+
+Problema (enunt aproximativ):
+Fie tipul de date Arb cu constructorii de baza:
+frunza: -> Arb
+nod: Arb la puterea p -> Arb (adica leaga cei p subarbori intr-un Arbore in jurul unui nod oarecare neimportant);
+si constructorii auxiliari:
+n : Arb->int (numarul de noduri)
+cu operatiile:
+n(frunza)=1
+n(nod (D1,D2,...,Dp))=1+suma de la k=1 la p din n(Dk)
+a : Arb->int (numarul de arce)
+cu operatiile:
+a(frunza)=0
+a(nod(D1,D2,...,Dp))=p+suma de la k=1 la p din a(Dk)
+Sa se demonstreze proprietatea:
+a(A)=n(A)-1 , A - Arbore

@@ -1,0 +1,11 @@
+Exception in thread "main" java.lang.NullPointerException
+	at ro.pub.cs.lcpl.LocalDefinition.emitIR(LocalDefinition.java:89)
+	at ro.pub.cs.lcpl.LocalDefinition.emitIR(LocalDefinition.java:98)
+	at ro.pub.cs.lcpl.Program.emitIR(Program.java:337)
+	at LCPLCodeGen.main(LCPLCodeGen.java:23)
+llc: cons2.lcpl.ir:127:1: error: found end of file when expecting more instructions
+
+^
+clang: error: no such file or directory: 'cons2.lcpl.ir.s'
+./eval.sh: line 27: ./cons2: No such file or directory
+rm: cannot remove `cons2': No such file or directory

@@ -1,0 +1,145 @@
+!!ro.pub.cs.lcpl.Program
+classes:
+- features:
+  - !!ro.pub.cs.lcpl.Attribute {init: null, lineNumber: 2, name: s, type: String}
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.Assignment
+        e1: !!ro.pub.cs.lcpl.Symbol {lineNumber: 4, name: s, type: null}
+        lineNumber: 4
+        symbol: self.s
+        type: null
+      lineNumber: 4
+      type: null
+    lineNumber: 4
+    name: set
+    parameters:
+    - {lineNumber: 4, name: s, type: String}
+    returnType: void
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.Dispatch
+        arguments: []
+        lineNumber: 5
+        name: toInt
+        object: !!ro.pub.cs.lcpl.Symbol {lineNumber: 5, name: s, type: null}
+        type: null
+      lineNumber: 5
+      type: null
+    lineNumber: 5
+    name: get
+    parameters: []
+    returnType: Int
+  lineNumber: 1
+  name: IntStr
+  parent: null
+- features:
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.Addition
+        e1: !!ro.pub.cs.lcpl.Multiplication
+          e1: !!ro.pub.cs.lcpl.Symbol {lineNumber: 9, name: a, type: null}
+          e2: !!ro.pub.cs.lcpl.Symbol {lineNumber: 9, name: b, type: null}
+          lineNumber: 9
+          type: null
+        e2: !!ro.pub.cs.lcpl.Symbol {lineNumber: 9, name: c, type: null}
+        lineNumber: 9
+        type: null
+      lineNumber: 9
+      type: null
+    lineNumber: 9
+    name: mac
+    parameters:
+    - {lineNumber: 9, name: a, type: Int}
+    - {lineNumber: 9, name: b, type: Int}
+    - {lineNumber: 9, name: c, type: String}
+    returnType: Int
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.Addition
+        e1: !!ro.pub.cs.lcpl.Multiplication
+          e1: !!ro.pub.cs.lcpl.Symbol {lineNumber: 10, name: a, type: null}
+          e2: !!ro.pub.cs.lcpl.Symbol {lineNumber: 10, name: b, type: null}
+          lineNumber: 10
+          type: null
+        e2: !!ro.pub.cs.lcpl.Dispatch
+          arguments: []
+          lineNumber: 10
+          name: get
+          object: !!ro.pub.cs.lcpl.Symbol {lineNumber: 10, name: c, type: null}
+          type: null
+        lineNumber: 10
+        type: null
+      lineNumber: 10
+      type: null
+    lineNumber: 10
+    name: mac2
+    parameters:
+    - {lineNumber: 10, name: a, type: Int}
+    - {lineNumber: 10, name: b, type: Int}
+    - {lineNumber: 10, name: c, type: IntStr}
+    returnType: Int
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.LocalDefinition
+        init: !!ro.pub.cs.lcpl.NewObject {lineNumber: 12, type: IntStr}
+        lineNumber: 12
+        name: x
+        scope: !!ro.pub.cs.lcpl.Block
+          expressions:
+          - !!ro.pub.cs.lcpl.Dispatch
+            arguments:
+            - !!ro.pub.cs.lcpl.Dispatch
+              arguments:
+              - !!ro.pub.cs.lcpl.IntConstant {lineNumber: 13, type: null, value: 1}
+              - !!ro.pub.cs.lcpl.IntConstant {lineNumber: 13, type: null, value: 2}
+              - !!ro.pub.cs.lcpl.IntConstant {lineNumber: 13, type: null, value: 3}
+              lineNumber: 13
+              name: mac
+              object: null
+              type: null
+            lineNumber: 13
+            name: out
+            object: null
+            type: null
+          - !!ro.pub.cs.lcpl.Dispatch
+            arguments:
+            - !!ro.pub.cs.lcpl.StringConstant {lineNumber: 14, type: null, value: '3'}
+            lineNumber: 14
+            name: set
+            object: !!ro.pub.cs.lcpl.Symbol {lineNumber: 14, name: x, type: null}
+            type: null
+          - !!ro.pub.cs.lcpl.Dispatch
+            arguments:
+            - !!ro.pub.cs.lcpl.Dispatch
+              arguments:
+              - !!ro.pub.cs.lcpl.IntConstant {lineNumber: 15, type: null, value: 1}
+              - !!ro.pub.cs.lcpl.IntConstant {lineNumber: 15, type: null, value: 2}
+              - !!ro.pub.cs.lcpl.Symbol {lineNumber: 15, name: x, type: null}
+              lineNumber: 15
+              name: mac2
+              object: null
+              type: null
+            lineNumber: 15
+            name: out
+            object: null
+            type: null
+          lineNumber: 13
+          type: null
+        type: IntStr
+      lineNumber: 12
+      type: null
+    lineNumber: 11
+    name: main
+    parameters: []
+    returnType: void
+  lineNumber: 8
+  name: Main
+  parent: IO
+lineNumber: 1
+

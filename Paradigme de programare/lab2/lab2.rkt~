@@ -1,0 +1,53 @@
+;; Eficientizarea proceselor recursive in Scheme
+;;----------------------------------------------
+
+;; 1. (1p)
+;; de implementat inversarea unei liste (cu recursivitate pe coada)
+
+;; 2. (1p)
+;; de implementat functia take (cu recursivitate pe stiva)
+;; (take n L) da lista primelor n elemente din lista L
+;; (take 5 '(1 2 3 4 5 6 7 8)) => '(1 2 3 4 5)
+;; (take 5 '(1 2 3 4)) => '(1 2 3 4)
+
+;; 3. (1p)
+;; de implementat take (cu recursivitate pe coada)
+
+;; 4. (1p)
+;; de implementat functia replicate-to-size (cu recursivitate pe stiva)
+;; (replicate-to-size n L) multiplica lista L pana ajunge la
+;; o lista de dimensiune n
+;; (replicate-to-size 10 '(a b c)) => '(a b c a b c a b c a)
+;; (replicate-to-size 2 '(a b c)) => '(a b)
+
+;; 5. (1p)
+;; de implementat functia replicate-to-size (cu recursivitate pe coada)
+
+;; 6. (1p)
+;; de implementat functia zip (cu recursivitate pe stiva)
+;; (zip L1 L2) intoarce o lista in care elementele sunt perechi
+;; de elemente de pe pozitii echivalente din L1 si L2
+;; lista produsa de zip are lungimea celei mai scurte liste 
+;; dintre L1 si L2
+;; (zip '(1 2 3 4) '(a b c d e)) => '((1 a) (2 b) (3 c) (4 d))
+
+;; 7. (1p)
+;; de implementat functia zip (cu recursivitate pe coada)
+
+;; 8. (1p)
+;; de implementat functia deep-length (cu recursivitate pe coada)
+;; (deep-length L) numara elementele din lista L, inclusiv pe cele care 
+;; apar in eventualele subliste
+;; (deep-length '(1 (2 (3 4)) 5 (6) (7 ((8 9) 10)))) => 10
+;; util: functia list? care verifica daca argumentul sau este o lista
+
+;; 9. (2p)
+;; de implementat functia flatten (cu recursivitate pe coada)
+;; (flatten L) liniarizeaza lista in cazul in care aceasta contine subliste
+;; (flatten '(1 (2 (3 4)) 5 (6) (7 ((8 9) 10)))) => '(1 2 3 4 5 6 7 8 9 10)
+
+;; 10. (bonus) (1p)
+;; de implementat functia split-to-sublists
+;; (split-to-sublists L k) imparte L in liste de dimensiune k
+;; (split-to-sublists '(1 2 3 4 5 6 7 8) 3) => '((1 2 3) (4 5 6) (7 8))
+

@@ -1,0 +1,6 @@
+class Main inherits IO
+    mac Int a, Int b, Int c -> Int : a * b + c; end;
+    main :
+        [out [mac 1, 2]];
+    end;
+end;

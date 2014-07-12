@@ -1,0 +1,15 @@
+class Main inherits IO
+    var Int val = 6; end;
+    main :
+        local 
+            Int fact = 1;
+            String s;            
+        end;
+        s = while 0 < val 
+            loop
+                fact = fact * val;
+                val = val - 1;
+            end;
+        [out s];
+    end;
+end;

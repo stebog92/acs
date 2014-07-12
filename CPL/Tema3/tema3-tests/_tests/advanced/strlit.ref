@@ -1,0 +1,12 @@
+>>>This is a string literal<<<
+>>>This
+	is
+	another
+	string literal
+	<<<
+>>>This is
+	#(* a literal *)
+	too<<<
+>>>abcdefghijklm
+opqs	uvwxyz"
+	'{};<<<

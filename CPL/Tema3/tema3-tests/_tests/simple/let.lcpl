@@ -1,0 +1,22 @@
+# (* Simple let constructions *)
+
+class Main  inherits IO
+	main:
+		local Int a = 10; Int b = 20; end;
+		local Int c = 30; end;
+		a = a + c;
+		a + b;
+		local Int a = 0; end;			
+		local Int b = 1; end;
+		if a == 0 then 
+			local Int a = 2; end;
+			b = b + a;
+		end;
+		local Int c = 2; end;
+		[out a+b+c];
+	end;
+end;
+
+
+	
+	

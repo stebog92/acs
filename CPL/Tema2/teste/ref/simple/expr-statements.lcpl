@@ -1,0 +1,17 @@
+class Main
+main:
+	local
+		Int b=3;
+		Int c=0;
+		Int a=(b=1)+(c=1);
+		IO out=new IO;
+	end;
+
+	[out.out "a="+a+"\n"];
+
+	a = if b=1 then c=2; else b=2; end + if b=1 then c+2; else b; end;
+
+	[out.out "a="+a+"\n"];
+	
+	end;
+end;

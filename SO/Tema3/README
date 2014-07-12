@@ -1,0 +1,47 @@
+Tema 3 - Memoria virtuala
+
+Ciocan Mihai
+334CA
+
+
+Am definit pentru rezolvarea temei functiile din biblioteca libvmsim.so dupa cum urmeaza:
+
+
+vmsim_init:
+	- functia doar retine handlerul initial si seteaza vmsim_exception_handler pentru tratarea exceptiilor
+
+vm_alloc:
+	- se genereaza numele pentru fisierele temporare ram si swap iar dupa creare se redimensioneaza in functie de num_pages
+		respectiv num_frames
+	- se aloca zona de memorie cu protectia PROTECTION_NONE, iar apoi se initializeaza structurile aferente - se calculeaza
+        adresa de start a fiecarei pagini
+	"paginile" se retin intr-un vector de pagini ce contine mai multe informatii (ex: starea, protectia etc)
+
+vmsim_exception_handler:
+	- functia gaseste pagina unde s-a realizat exceptia; daca acesta nu este alocata in ram, se va executa functia de
+	demand_page care aloca pagina din ram cu protectia read; 
+	- daca aceasta e alocata dar nu are protectie de write se va schimba protectia cu w_change_protection;
+	- daca insa memoria ram e ocupata, se apeleaza swap_out care va face swap out intotdeauna la prima pagina din ram;
+	functia swap_out cauta o pagina nefolosita in swap si va copia continutul paginii din ram in swap;
+	- daca pagina se afla in swap, se va aloca in ram prin demand page iar continutul din swap se va copia in ram;
+
+vm_free:
+	-demapeaza memoria sau o elibereaza in functie de starea paginii in acel moment;
+	- sterge fisierele temporare si elibereaza structurile respective
+
+vmsim_cleanup:
+	-sterge seteaza handlerul initial
+
+get_vm_entry:
+	- cauta in vectorul de memorie alocata (necesar cand se realizeaza vm_alloc de mai multe ori) si intoarce structura 
+	in functie de pointerul start dat ca parametru (adresa catre care pointeaza start trebuie sa se aflae intre 
+	map->start si map->start + num_pages * page_size)
+
+demand_page:
+	- aloca o pagina din memoria ram;
+
+swap_out:
+	- face swap out la prima pagina din ram
+
+swap_in:
+	- copiaza continutul din pagina din swap in pagina din ram

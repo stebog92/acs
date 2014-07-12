@@ -1,0 +1,36 @@
+#
+# pitix filesystem - test Makefile
+#
+
+CFLAGS = -Wall -Wextra -g -m32
+LDFLAGS = -static -m32
+
+.PHONY: all clean build-pre build-post clean deploy pack run
+
+all: build-pre build-post
+
+build-pre: mkfs.pitix
+
+build-post:
+
+run: mkfs.pitix
+	./_checker
+
+mkfs.pitix: _test/
+	make -C _test/
+
+clean:
+	-rm -f *~
+	-rm pitix-checker.zip
+	make -C _test/ clean
+
+pack: clean
+	zip -r pitix-checker.zip _test/ pitix.files.tar.gz pitix.loop.gz _checker Makefile.checker
+
+deploy: pack
+	scp pitix-checker.zip so2@elf.cs.pub.ro:vmchecker-storer/tests/4-pitix.zip
+	scp pitix-checker.zip so2@elf.cs.pub.ro:res/current/teme/
+	scp _test/pitix.h so2@elf.cs.pub.ro:res/current/teme/
+	scp ../util/pitix-layout.png so2@elf.cs.pub.ro:res/current/teme
+	scp ../util/pitix.files.tar.gz so2@elf.cs.pub.ro:res/current/teme
+	scp ../util/pitix.loop.gz so2@elf.cs.pub.ro:res/current/teme

@@ -1,0 +1,63 @@
+!!ro.pub.cs.lcpl.Program
+classes:
+- features:
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.StringConstant {lineNumber: 2, type: null, value: round}
+      lineNumber: 2
+      type: null
+    lineNumber: 2
+    name: name
+    parameters: []
+    returnType: String
+  lineNumber: 1
+  name: Circle
+  parent: null
+- features:
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.StringConstant {lineNumber: 6, type: null, value: straight}
+      lineNumber: 6
+      type: null
+    lineNumber: 6
+    name: name
+    parameters: []
+    returnType: String
+  lineNumber: 5
+  name: Line
+  parent: null
+- features:
+  - !!ro.pub.cs.lcpl.Attribute {init: null, lineNumber: 10, name: shape, type: Line}
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.Assignment
+        e1: !!ro.pub.cs.lcpl.NewObject {lineNumber: 12, type: Circle}
+        lineNumber: 12
+        symbol: shape
+        type: null
+      - !!ro.pub.cs.lcpl.Dispatch
+        arguments:
+        - !!ro.pub.cs.lcpl.Dispatch
+          arguments: []
+          lineNumber: 13
+          name: name
+          object: !!ro.pub.cs.lcpl.Symbol {lineNumber: 13, name: shape, type: null}
+          type: null
+        lineNumber: 13
+        name: out
+        object: null
+        type: null
+      lineNumber: 12
+      type: null
+    lineNumber: 11
+    name: main
+    parameters: []
+    returnType: void
+  lineNumber: 9
+  name: Main
+  parent: IO
+lineNumber: 1
+

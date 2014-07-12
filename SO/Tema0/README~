@@ -1,0 +1,42 @@
+Tema 0 - HashTable
+
+Ciocan Mihai
+334CA
+
+Solutie :
+
+Pentru rezolvarea temei am creat un header - hashtable.h unde se afla definirea functiilor suportate de hashtable. Implementarea functiilor
+este realizata in hashtable.c. De asemenea headerul contine si doua structuri:
+    - bucket : size - marimea maxima a bucketului
+               last - numarul de cuvinte continute in bucket
+               words - cuvintele din bucket
+    - hashtable :
+               buckets - bucket-urile ce contin cuvintele
+               size - numarul de bucket-uri
+Functiile existente sunt :
+    - create_hashtable : aloca memorie pentru buckets - dimensiunea initiala initiala a fiecaruia fiind 0
+
+    - add_word : adauga cuvantul in hashtable daca acesta nu exista (se foloseste rezultatul functiei find)
+               : se aloca memorie in cazul ca numarul de cuvinte depaseste dimensiunea maxima
+               : cuvantul se adauga pe ultima pozitie
+
+    - remove_add: sterge cuvantul din tabela
+
+    - clear : se goleste tabela de cuvinte
+
+    - find_word : se itereaza prin cuvintele din bucketul aferent si se afiseaza True (si se intoarce 1) sau False (si se intoarce 0) 
+                : in cazul in care e gasit sau nu
+
+    - print_bucket : se afiseaza cuvintele din bucketul respectiv
+
+    - print_hash : se printeaza cuvintele din intreaga tabela ; se foloseste functia print_bucket pentru usurinta
+
+    - resize_hashtable : se redimensioneaza tabela in functie de parametrul primit - double - halve
+                      : se creeaza o noua tabela cu functia create_hashtable si se adauga cuvintele prin recalcularea
+                      : bucketului pentru fiecare cu hash.
+                      : cea veche se sterge cu delete_hashtable
+
+    - delete_hashtable : se sterge tabela (se elibereaza memoria)
+
+Programul elibereaza memoria la iesire, verifica parametrii primiti, apelurile de sistem si afiseaza mesaje corespunzatoare la erori.
+

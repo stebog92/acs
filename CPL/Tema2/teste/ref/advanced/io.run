@@ -1,0 +1,295 @@
+!!ro.pub.cs.lcpl.Program
+classes:
+- &id007
+  features:
+  - &id008 !!ro.pub.cs.lcpl.Attribute
+    attrInitSelf: null
+    init: null
+    lineNumber: 5
+    name: name
+    type: String
+    typeData: &id001 !!ro.pub.cs.lcpl.LCPLClass
+      features:
+      - !!ro.pub.cs.lcpl.Method
+        body: null
+        lineNumber: 0
+        name: length
+        parameters: []
+        parent: *id001
+        returnType: Int
+        returnTypeData: &id002 !!ro.pub.cs.lcpl.IntType {}
+        self:
+          lineNumber: 0
+          name: self
+          type: String
+          variableType: *id001
+      - &id009 !!ro.pub.cs.lcpl.Method
+        body: null
+        lineNumber: 0
+        name: toInt
+        parameters: []
+        parent: *id001
+        returnType: Int
+        returnTypeData: *id002
+        self:
+          lineNumber: 0
+          name: self
+          type: String
+          variableType: *id001
+      lineNumber: 0
+      name: String
+      parent: Object
+      parentData: &id003
+        features:
+        - !!ro.pub.cs.lcpl.Method
+          body: null
+          lineNumber: 0
+          name: abort
+          parameters: []
+          parent: *id003
+          returnType: void
+          returnTypeData: &id012 !!ro.pub.cs.lcpl.NoType {}
+          self:
+            lineNumber: 0
+            name: self
+            type: Object
+            variableType: *id003
+        - !!ro.pub.cs.lcpl.Method
+          body: null
+          lineNumber: 0
+          name: typeName
+          parameters: []
+          parent: *id003
+          returnType: String
+          returnTypeData: *id001
+          self:
+            lineNumber: 0
+            name: self
+            type: Object
+            variableType: *id003
+        - !!ro.pub.cs.lcpl.Method
+          body: null
+          lineNumber: 0
+          name: copy
+          parameters: []
+          parent: *id003
+          returnType: Object
+          returnTypeData: *id003
+          self:
+            lineNumber: 0
+            name: self
+            type: Object
+            variableType: *id003
+        lineNumber: 0
+        name: Object
+        parent: null
+        parentData: null
+  - &id011 !!ro.pub.cs.lcpl.Attribute
+    attrInitSelf: null
+    init: null
+    lineNumber: 6
+    name: age
+    type: Int
+    typeData: *id002
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.Assignment
+        e1: !!ro.pub.cs.lcpl.Dispatch
+          arguments: []
+          lineNumber: 10
+          method: &id005
+            body: null
+            lineNumber: 0
+            name: in
+            parameters: []
+            parent: &id004
+              features:
+              - &id006 !!ro.pub.cs.lcpl.Method
+                body: null
+                lineNumber: 0
+                name: out
+                parameters:
+                - lineNumber: 0
+                  name: msg
+                  type: String
+                  variableType: *id001
+                parent: *id004
+                returnType: IO
+                returnTypeData: *id004
+                self:
+                  lineNumber: 0
+                  name: self
+                  type: IO
+                  variableType: *id004
+              - *id005
+              lineNumber: 0
+              name: IO
+              parent: Object
+              parentData: *id003
+            returnType: String
+            returnTypeData: *id001
+            self:
+              lineNumber: 0
+              name: self
+              type: IO
+              variableType: *id004
+          name: in
+          object: !!ro.pub.cs.lcpl.Dispatch
+            arguments:
+            - !!ro.pub.cs.lcpl.StringConstant
+              lineNumber: 10
+              type: String
+              typeData: *id001
+              value: 'Please enter your name: '
+            lineNumber: 10
+            method: *id006
+            name: out
+            object: !!ro.pub.cs.lcpl.Symbol
+              lineNumber: 9
+              name: self
+              type: Main
+              typeData: *id007
+              variable: &id010 !!ro.pub.cs.lcpl.FormalParam
+                lineNumber: 0
+                name: self
+                type: Main
+                variableType: *id007
+            type: IO
+            typeData: *id004
+          type: String
+          typeData: *id001
+        lineNumber: 10
+        symbol: name
+        symbolData: *id008
+        type: String
+        typeData: *id001
+      - !!ro.pub.cs.lcpl.Assignment
+        e1: !!ro.pub.cs.lcpl.Dispatch
+          arguments: []
+          lineNumber: 11
+          method: *id009
+          name: toInt
+          object: !!ro.pub.cs.lcpl.Dispatch
+            arguments: []
+            lineNumber: 11
+            method: *id005
+            name: in
+            object: !!ro.pub.cs.lcpl.Dispatch
+              arguments:
+              - !!ro.pub.cs.lcpl.StringConstant
+                lineNumber: 11
+                type: String
+                typeData: *id001
+                value: 'Please enter your age: '
+              lineNumber: 11
+              method: *id006
+              name: out
+              object: !!ro.pub.cs.lcpl.Symbol
+                lineNumber: 9
+                name: self
+                type: Main
+                typeData: *id007
+                variable: *id010
+              type: IO
+              typeData: *id004
+            type: String
+            typeData: *id001
+          type: Int
+          typeData: *id002
+        lineNumber: 11
+        symbol: age
+        symbolData: *id011
+        type: Int
+        typeData: *id002
+      - !!ro.pub.cs.lcpl.Dispatch
+        arguments:
+        - !!ro.pub.cs.lcpl.Addition
+          e1: !!ro.pub.cs.lcpl.Addition
+            e1: !!ro.pub.cs.lcpl.StringConstant
+              lineNumber: 12
+              type: String
+              typeData: *id001
+              value: ' Bond and you are 00'
+            e2: !!ro.pub.cs.lcpl.Cast
+              e1: !!ro.pub.cs.lcpl.Symbol
+                lineNumber: 12
+                name: age
+                type: Int
+                typeData: *id002
+                variable: *id011
+              lineNumber: 12
+              type: String
+              typeData: *id001
+            lineNumber: 12
+            type: String
+            typeData: *id001
+          e2: !!ro.pub.cs.lcpl.StringConstant
+            lineNumber: 12
+            type: String
+            typeData: *id001
+            value: ' movies old'
+          lineNumber: 12
+          type: String
+          typeData: *id001
+        lineNumber: 12
+        method: *id006
+        name: out
+        object: !!ro.pub.cs.lcpl.Dispatch
+          arguments:
+          - !!ro.pub.cs.lcpl.Symbol
+            lineNumber: 12
+            name: name
+            type: String
+            typeData: *id001
+            variable: *id008
+          lineNumber: 12
+          method: *id006
+          name: out
+          object: !!ro.pub.cs.lcpl.Dispatch
+            arguments:
+            - !!ro.pub.cs.lcpl.StringConstant
+              lineNumber: 12
+              type: String
+              typeData: *id001
+              value: 'Your name is Bond, '
+            lineNumber: 12
+            method: *id006
+            name: out
+            object: !!ro.pub.cs.lcpl.Symbol
+              lineNumber: 9
+              name: self
+              type: Main
+              typeData: *id007
+              variable: *id010
+            type: IO
+            typeData: *id004
+          type: IO
+          typeData: *id004
+        type: IO
+        typeData: *id004
+      lineNumber: 10
+      type: IO
+      typeData: *id004
+    lineNumber: 9
+    name: main
+    parameters: []
+    parent: *id007
+    returnType: void
+    returnTypeData: *id012
+    self: *id010
+  lineNumber: 3
+  name: Main
+  parent: IO
+  parentData: *id004
+- *id003
+- *id004
+- *id001
+intType: *id002
+ioType: *id004
+lineNumber: 3
+noType: *id012
+nullType: {}
+objectType: *id003
+stringType: *id001
+

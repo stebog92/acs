@@ -1,0 +1,5 @@
+class Main
+    main:
+        "hello"[1,["hello".length]+1];
+    end;
+end;

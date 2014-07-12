@@ -1,0 +1,2 @@
+#(* Just some random expressions *)
+class Main main:[(new IO).out if if 0 then 0;else local Int i=4;IO j;end;[([(if j==void then "Hello";else "world";end+4).typeName][1,5]).length]/2==2; end then "Yes";else "No";end];end;end;

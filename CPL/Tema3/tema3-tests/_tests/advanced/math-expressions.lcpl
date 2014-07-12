@@ -1,0 +1,58 @@
+#(* Complex expressions with parantheses *)
+
+class Matrix 
+var
+	Int a ; Int b ; Int c ;
+	Int d ; Int e ; Int f ;
+	Int g ; Int h ; Int i ;
+end;	
+	init Int va , Int vb , Int vc , Int vd , Int ve , Int vf , Int vg , Int vh , Int vi -> Matrix :
+		 	a = va; b = vb; c = vc;
+		 	d = vd; e = ve; f = vf;
+		 	g = vg; h = vh; i = vi;
+		 	self;
+	end;
+	
+	det -> Int :
+		(a*e*i + b*f*g + c*d*h)-(g*e*c + h*f*a + i*d*b);
+	end;
+end;
+
+class Main 
+var
+	Int n = 5;
+	Int prec = 10;
+end;	
+	factorial Int n-> Int :
+		if n < 1 then
+			1;
+		else
+			[factorial n-1];
+		end;
+	end;
+	
+	taylor Int n, Int m -> Int :
+	   local
+	   Int i=0;
+	   Int sum = 0;
+	   Int pow = 1;
+	   end; 
+			while i < m loop
+				sum = sum + pow / [factorial i];
+				pow = pow * n;
+				i = i + 1;
+			end;
+			sum;
+	end;
+	
+	main:
+	   local
+	       Int val;
+	       Matrix m = new Matrix;
+	       IO out = new IO;
+	   end;
+			val = [taylor n, prec];
+			[out.out val + " "];
+			[out.out [[m.init n, n/2, n, n/2, n, 0, n, 0, n].det]];			
+	end;
+end;

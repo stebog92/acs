@@ -1,0 +1,9 @@
+(clear)
+(load templates.clp)
+(load phutball.clp)
+(reset)
+(assert (world (id round2) (limit 7 7) (ball 3 0) (men 1 2 - 1 3 - 1 4 - 2 1 - 2 3 - 2 5 - 3 1 - 3 2 - 3 4 - 3 5 - 4 1 - 4 3 - 4 5 - 5 2 - 5 3 - 5 4 -)))
+(run)
+STOP_RUN
+(facts)
+(exit)

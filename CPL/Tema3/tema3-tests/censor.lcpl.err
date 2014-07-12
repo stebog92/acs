@@ -1,0 +1,17 @@
+Exception in thread "main" java.lang.NumberFormatException: For input string: "_string_constant.2"
+	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
+	at java.lang.Integer.parseInt(Integer.java:492)
+	at java.lang.Integer.parseInt(Integer.java:527)
+	at ro.pub.cs.lcpl.Assignment.emitIR(Assignment.java:53)
+	at ro.pub.cs.lcpl.Block.emitIR(Block.java:28)
+	at ro.pub.cs.lcpl.IfStatement.emitIR(IfStatement.java:68)
+	at ro.pub.cs.lcpl.Block.emitIR(Block.java:28)
+	at ro.pub.cs.lcpl.LocalDefinition.emitIR(LocalDefinition.java:98)
+	at ro.pub.cs.lcpl.Program.emitIR(Program.java:337)
+	at LCPLCodeGen.main(LCPLCodeGen.java:23)
+llc: censor.lcpl.ir:166:1: error: expected instruction opcode
+L1:
+^
+clang: error: no such file or directory: 'censor.lcpl.ir.s'
+./eval.sh: line 27: ./censor: No such file or directory
+rm: cannot remove `censor': No such file or directory

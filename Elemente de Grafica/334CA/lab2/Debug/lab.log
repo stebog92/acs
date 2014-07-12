@@ -1,0 +1,28 @@
+﻿Build started 11/19/12 12:31:19.
+     1>Project "E:\Elemente de Grafica\334CA\lab2\lab.vcxproj" on node 2 (build target(s)).
+     1>InitializeBuildStatus:
+         Creating "Debug\tema2.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /Idependinte /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp Support3d.cpp Transform3d.cpp WorldDrawer3d_gl.cpp
+         WorldDrawer3d_gl.cpp
+     1>e:\elemente de grafica\334ca\lab2\worlddrawer3d_gl.cpp(254): warning C4305: '=' : truncation from 'double' to 'float'
+         Transform3d.cpp
+         Support3d.cpp
+         main.cpp
+         Generating Code...
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"Debug\tema2.exe" /NOLOGO /LIBPATH:dependinte opengl32.lib glu32.lib freeglut.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\tema2.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"E:\Elemente de Grafica\334CA\lab2\Debug\tema2.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"Debug\tema2.lib" /MACHINE:X86 Debug\main.obj
+         Debug\Support3d.obj
+         Debug\Transform3d.obj
+         Debug\WorldDrawer3d_gl.obj
+         lab.vcxproj -> E:\Elemente de Grafica\334CA\lab2\Debug\tema2.exe
+       Manifest:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:"Debug\tema2.exe;#1" /manifest Debug\tema2.exe.intermediate.manifest
+       FinalizeBuildStatus:
+         Deleting file "Debug\tema2.unsuccessfulbuild".
+         Touching "Debug\tema2.lastbuildstate".
+     1>Done Building Project "E:\Elemente de Grafica\334CA\lab2\lab.vcxproj" (build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:08.54

@@ -1,0 +1,9 @@
+class p inherits q
+    val -> Int : 4; end;
+end;
+
+class Main inherits IO
+    main :
+        [out [(new p).val]];
+    end;
+end;

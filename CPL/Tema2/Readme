@@ -1,0 +1,70 @@
+Tema de casa 2 - Analiza semantica
+
+Ciocan Mihai
+
+342 C3
+
+Pentru analiza semantica solutia implementata parcurge arborele dupa ce acesta va fi generat de analizorul sintactic, prin apelarea in Main a
+metodei handleClasses a nodului program. Voi detalia mai jos cele mai importante tipuri de noduri din ast si modul cum au fost procesate.
+Erorile se verifica pe masura ce se proceseaza nodurile; dupa ce sunt afisate, programul iese fortat print System.exit(0).
+
+
+treenode.handleNode : functie din interfata care seteaza pentru un nod campurile necesare; primeste ca parametrii program, clasa, metoda si 
+                        localdefinition din care expresia face parte
+
+program.handleClasses : creeaza instantele pentru Int, String, Object seteaza tipurile pentru parintii claselor,
+                        colecteaza featurile pentru o clasa (trebuie colectate inainte de procesarea nodurilor, intrucat acestea pot fi
+                        declarate si dupa expresii care au referinta la ele) si proceseaza expresiile - copii ale clasei.
+
+program.canConvert(t1, t2) : verifica daca t1 poate fi convertit la t2. 
+
+lcplclass.collectFeatures: clasa LCPLClass colecteaza attributele si metodele in hashmap necesare nodurilor - copii care au referinte catre ele
+
+lcplclass.checkForErrors: verifica daca exista definit parintele, daca exista mostenire recursiva, daca exista metoda main in clasa Main,
+                            verifica daca parintele este Int sau String, si apoi erorile pentru fiecare feature in parte.
+
+lcplclass.handleNode: proceseaza feature-urile pentru o clasa
+
+attribute.collectFeature : stabileste typeData in functie de type (IntType pentru "Int", NoType pentru "void" si clasa pentru orice alt tip, 
+                            intoarsa de program, care le retine intr-un hashmap)
+
+attribute.checkforErrors: verifica daca exista tipul atributului(clasa), si daca atributul este redefinit (daca apare si in parinte).
+
+attribute.handleNode: daca exista expresia init, se creeaza o metoda noua in ast se proceseaza nodul, si se stabileste tipul, eventual se face
+                        cast daca se poate in caz ca tipul init nu corespunde cu tipul attributului.
+
+method.collectFeature: se stabileste returnTypeData la fel ca in attribute, se proceseaza parametrii(handleNode)
+
+method.handleNode: daca exista body, se proceseaza, si se realiazeaza cast daca tipul body nu corespunde tipului returnTypeData(daca este posibil)
+
+method.checkforErrors: se verifica daca metoda corespunde celei din parinte (are acelasi numar de parametrii, acelasi tip intors si 
+                        aceleasi tipuri pentru parametrii)
+
+assignment.handleNode: daca simbolul are prefixul "self" se cauta referinta in atributele clasei, altfel se verifica localDefinition, parametrii
+                        metodei si atributele clasei si a parintilor pentru a gasi referinta variabile la care se face asignarea.
+                        LocalDefinition contine si definitiile locale ale parintelui(daca exista) deoarece cautarea unei referinte ar trebui
+                        realizata in definitiile locale ale metodei. La final se realizeaza conversia in cazul in care difera tipurile variabile
+                        si a init-ului si in cazul in care acest lucru este posibil.
+                        Pentru erori, se verifica daca exista tipul (clasa) variabilei, se verifica daca tipul initializarii se poate converti
+                        la tipul variabile.
+
+
+symbol.handleNode:  cautarea referintei variabilei e realizata ca in assignment
+
+basedispatch.handlenode:    daca obiectul nu e null, se proceseaza, altfel se initializeaza cu simbolul self si se seteaza referinta catre
+                            metoda, care e cautata dupa nume in clasa tipului obiectului.
+                            daca este static dispatch, se cauta in clasa tipului static specifica.
+                            se casteaza argumentele la parametrii unei functii daca este nevoie.
+                            Pentru erori se verifica daca metoda exista in tipul obiectului si daca lista de argumente corespunde listei de 
+                            parametrii.
+
+staticdispatch.handlenode:  se seteaza tipul clasei in basedispatch si se apeleaza super pentru a procesa nodul
+
+
+localdefinition.handlenode : se proceseaza in plus fata de atribute si assignment si scopul.
+
+addition.handlenode:    intrucat addition poate fi aplicat si pe string si pe int, se verifica daca unul din cei 2 operanzi este string. In
+                        acest caz se incearca castarea amandurora la string, altfel se afiseaza eroare.
+
+
+Observatie: testul while-invalid.lcpl difera de checker deoarece eroare afisata inlocuieste Int cu While (cum ar fi corect).

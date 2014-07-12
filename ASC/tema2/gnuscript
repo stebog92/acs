@@ -1,0 +1,9 @@
+set xtics 1000
+set ytics 0.25
+set xrange [2000:20000]
+set title 'Opteron Times'
+set xlabel 'Matrix Order'
+set ylabel 'Times (s)'
+set grid
+plot 'my-opteron-times' with linespoints title "unoptimized", 'opteron-times' with linespoints title "cblas", 'my-opteron-opt_times' with linespoints title "optimized O2 flag"
+

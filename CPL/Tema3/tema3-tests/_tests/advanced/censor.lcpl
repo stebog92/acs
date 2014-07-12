@@ -1,0 +1,45 @@
+class CensoredString
+  var
+    String string;
+  end;
+  
+  forbid String s : forbidden = s; end;
+  
+  set String s : string = s; end;
+  
+  get -> String:
+     local String s = string; end;
+     if [forbidden.length] == 0 then string;
+     else
+        s = "";
+        local
+            Int i; 
+        end;
+        while i + [forbidden.length] <= [string.length] loop
+             s = s + if string[i,i + [forbidden.length]] == forbidden then
+                i = i + [forbidden.length];
+                replacement;
+            else
+                i = i + 1;
+                string[i-1,i];
+            end;
+        end;
+        s + string[i,[string.length]];
+     end;     
+  end;
+  
+  var
+    String forbidden;
+    String replacement = "***";    
+  end;
+end;
+
+class Main inherits IO
+    main:
+        local CensoredString cs = new CensoredString; end;
+        [cs.set "Fight for freedom! And freedom will win!\n"];
+        [out [cs.get]];
+        [cs.forbid "freedom"];
+        [out [cs.get]];
+    end;
+end;

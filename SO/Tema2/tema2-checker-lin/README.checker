@@ -1,0 +1,2 @@
+Pentru testare, copiati libsompi.so si mpirun in acest director si rulati:
+  make -f Makefile.checker

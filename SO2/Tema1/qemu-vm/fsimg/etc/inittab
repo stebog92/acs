@@ -1,0 +1,11 @@
+::sysinit:/etc/rcS
+tty1::respawn:-/bin/sh
+tty2::respawn:-/bin/sh
+tty3::respawn:-/bin/sh
+tty4::respawn:-/bin/sh
+tty5::respawn:-/bin/sh
+#::respawn:/sbin/getty 38400 tty1
+#::respawn:/sbin/getty 38400 tty2
+#::respawn:/sbin/getty 38400 tty3
+#::respawn:/sbin/getty 38400 tty4
+#::respawn:/sbin/getty 38400 tty5

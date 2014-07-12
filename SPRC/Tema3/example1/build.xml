@@ -1,0 +1,51 @@
+<project name="TLSClientServer" default="client" basedir=".">
+	
+	<target name="clean">
+		<delete dir="bin"/>
+		<delete file="keystore.ks"/>
+	</target>
+
+	<target name="build">
+		<echo message="${line.separator}Sisteme de programe pentru retele de calculatoare 
+			${line.separator}
+			${line.separator}Copyright (C) 2008 Ciprian Dobre &amp; Florin Pop 
+			${line.separator}Univerity Politehnica of Bucharest, Romania 
+			${line.separator}
+			${line.separator}"/>
+		<echo message="Compiling..."/>
+		<mkdir dir="bin/"/>
+		<javac srcdir="." destdir="bin" nowarn="on" debug="true" optimize="true" verbose="false"/>
+	</target>
+
+	<target name="keystore" depends="build">
+		<echo message="Creating fresh keystore"/>
+		<exec command="keytool -genkey -alias student -keyalg DSA -keysize 1024 -keystore keystore.ks -keypass password 
+		-storepass password -dname &quot;CN=Ciprian Dobre, OU=UPB, O=UPB, C=RO&quot;"/>
+	</target>
+
+	<target name="server" depends="keystore">
+		<echo message="Running the server..."/>
+		<java classname="cap5.example1.Server" fork="true">
+			<classpath>
+		    	<pathelement path="bin/"/>
+			</classpath>
+			<jvmarg value="-DKeyStore=keystore.ks"/>
+			<jvmarg value="-DKeyStorePass=password"/>
+			<arg value="5000"/>
+		</java>
+	</target>
+
+	<target name="client" depends="keystore">
+		<echo message="Running the client..."/>
+		<java classname="cap5.example1.Client" fork="true">
+			<classpath>
+	    		<pathelement path="bin/"/>
+			</classpath>
+			<jvmarg value="-DKeyStore=keystore.ks"/>
+			<jvmarg value="-DKeyStorePass=password"/>
+			<arg value="localhost"/>
+			<arg value="5000"/>
+	</java>
+	</target>
+
+</project>

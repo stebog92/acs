@@ -1,0 +1,275 @@
+!!ro.pub.cs.lcpl.Program
+classes:
+- features:
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.LocalDefinition
+        init: null
+        lineNumber: 5
+        name: pos1
+        scope: !!ro.pub.cs.lcpl.LocalDefinition
+          init: null
+          lineNumber: 6
+          name: pos2
+          scope: !!ro.pub.cs.lcpl.Block
+            expressions:
+            - !!ro.pub.cs.lcpl.Assignment
+              e1: !!ro.pub.cs.lcpl.Dispatch
+                arguments:
+                - !!ro.pub.cs.lcpl.Symbol {lineNumber: 8, name: in, type: null}
+                - !!ro.pub.cs.lcpl.IntConstant {lineNumber: 8, type: null, value: 0}
+                lineNumber: 8
+                name: search0
+                object: null
+                type: null
+              lineNumber: 8
+              symbol: pos1
+              type: null
+            - !!ro.pub.cs.lcpl.IfStatement
+              condition: !!ro.pub.cs.lcpl.LessThanEqual
+                e1: !!ro.pub.cs.lcpl.IntConstant {lineNumber: 9, type: null, value: 0}
+                e2: !!ro.pub.cs.lcpl.Symbol {lineNumber: 9, name: pos1, type: null}
+                lineNumber: 9
+                type: null
+              ifExpr: !!ro.pub.cs.lcpl.Block
+                expressions:
+                - !!ro.pub.cs.lcpl.Assignment
+                  e1: !!ro.pub.cs.lcpl.Dispatch
+                    arguments:
+                    - !!ro.pub.cs.lcpl.Symbol {lineNumber: 10, name: in, type: null}
+                    - !!ro.pub.cs.lcpl.Addition
+                      e1: !!ro.pub.cs.lcpl.Symbol {lineNumber: 10, name: pos1, type: null}
+                      e2: !!ro.pub.cs.lcpl.IntConstant {lineNumber: 10, type: null,
+                        value: 1}
+                      lineNumber: 10
+                      type: null
+                    lineNumber: 10
+                    name: search0
+                    object: null
+                    type: null
+                  lineNumber: 10
+                  symbol: pos2
+                  type: null
+                - !!ro.pub.cs.lcpl.IfStatement
+                  condition: !!ro.pub.cs.lcpl.LessThanEqual
+                    e1: !!ro.pub.cs.lcpl.IntConstant {lineNumber: 11, type: null,
+                      value: 0}
+                    e2: !!ro.pub.cs.lcpl.Symbol {lineNumber: 11, name: pos2, type: null}
+                    lineNumber: 11
+                    type: null
+                  ifExpr: !!ro.pub.cs.lcpl.Block
+                    expressions:
+                    - !!ro.pub.cs.lcpl.SubString
+                      endPosition: !!ro.pub.cs.lcpl.Symbol {lineNumber: 11, name: pos2,
+                        type: null}
+                      lineNumber: 11
+                      startPosition: !!ro.pub.cs.lcpl.Addition
+                        e1: !!ro.pub.cs.lcpl.Symbol {lineNumber: 11, name: pos1, type: null}
+                        e2: !!ro.pub.cs.lcpl.IntConstant {lineNumber: 11, type: null,
+                          value: 1}
+                        lineNumber: 11
+                        type: null
+                      stringExpr: !!ro.pub.cs.lcpl.Symbol {lineNumber: 11, name: in,
+                        type: null}
+                      type: null
+                    lineNumber: 11
+                    type: null
+                  lineNumber: 11
+                  thenExpr: !!ro.pub.cs.lcpl.Block
+                    expressions:
+                    - !!ro.pub.cs.lcpl.StringConstant {lineNumber: 11, type: null,
+                      value: ''}
+                    lineNumber: 11
+                    type: null
+                  type: null
+                lineNumber: 10
+                type: null
+              lineNumber: 9
+              thenExpr: !!ro.pub.cs.lcpl.Block
+                expressions:
+                - !!ro.pub.cs.lcpl.StringConstant {lineNumber: 13, type: null, value: ''}
+                lineNumber: 13
+                type: null
+              type: null
+            lineNumber: 8
+            type: null
+          type: Int
+        type: Int
+      lineNumber: 4
+      type: null
+    lineNumber: 3
+    name: extractMiddle
+    parameters:
+    - {name: in, type: String}
+    returnType: String
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.LocalDefinition
+        init: !!ro.pub.cs.lcpl.IntConstant {lineNumber: 19, type: null, value: 0}
+        lineNumber: 19
+        name: found
+        scope: !!ro.pub.cs.lcpl.Block
+          expressions:
+          - !!ro.pub.cs.lcpl.WhileStatement
+            condition: !!ro.pub.cs.lcpl.LogicalNegation
+              e1: !!ro.pub.cs.lcpl.Symbol {lineNumber: 21, name: found, type: null}
+              lineNumber: 21
+              type: null
+            lineNumber: 21
+            loopBody: !!ro.pub.cs.lcpl.Block
+              expressions:
+              - !!ro.pub.cs.lcpl.IfStatement
+                condition: !!ro.pub.cs.lcpl.EqualComparison
+                  e1: !!ro.pub.cs.lcpl.SubString
+                    endPosition: !!ro.pub.cs.lcpl.Addition
+                      e1: !!ro.pub.cs.lcpl.Symbol {lineNumber: 22, name: pos, type: null}
+                      e2: !!ro.pub.cs.lcpl.IntConstant {lineNumber: 22, type: null,
+                        value: 1}
+                      lineNumber: 22
+                      type: null
+                    lineNumber: 22
+                    startPosition: !!ro.pub.cs.lcpl.Symbol {lineNumber: 22, name: pos,
+                      type: null}
+                    stringExpr: !!ro.pub.cs.lcpl.Symbol {lineNumber: 22, name: in,
+                      type: null}
+                    type: null
+                  e2: !!ro.pub.cs.lcpl.StringConstant {lineNumber: 22, type: null,
+                    value: '|'}
+                  lineNumber: 22
+                  type: null
+                ifExpr: !!ro.pub.cs.lcpl.Block
+                  expressions:
+                  - !!ro.pub.cs.lcpl.Assignment
+                    e1: !!ro.pub.cs.lcpl.IntConstant {lineNumber: 22, type: null,
+                      value: 1}
+                    lineNumber: 22
+                    symbol: found
+                    type: null
+                  lineNumber: 22
+                  type: null
+                lineNumber: 22
+                thenExpr: !!ro.pub.cs.lcpl.Block
+                  expressions:
+                  - !!ro.pub.cs.lcpl.Assignment
+                    e1: !!ro.pub.cs.lcpl.Addition
+                      e1: !!ro.pub.cs.lcpl.Symbol {lineNumber: 22, name: pos, type: null}
+                      e2: !!ro.pub.cs.lcpl.IntConstant {lineNumber: 22, type: null,
+                        value: 1}
+                      lineNumber: 22
+                      type: null
+                    lineNumber: 22
+                    symbol: pos
+                    type: null
+                  lineNumber: 22
+                  type: null
+                type: null
+              - !!ro.pub.cs.lcpl.IfStatement
+                condition: !!ro.pub.cs.lcpl.EqualComparison
+                  e1: !!ro.pub.cs.lcpl.Symbol {lineNumber: 23, name: pos, type: null}
+                  e2: !!ro.pub.cs.lcpl.Dispatch
+                    arguments: []
+                    lineNumber: 23
+                    name: length
+                    object: !!ro.pub.cs.lcpl.Symbol {lineNumber: 23, name: in, type: null}
+                    type: null
+                  lineNumber: 23
+                  type: null
+                ifExpr: !!ro.pub.cs.lcpl.Block
+                  expressions:
+                  - !!ro.pub.cs.lcpl.Assignment
+                    e1: !!ro.pub.cs.lcpl.IntConstant {lineNumber: 23, type: null,
+                      value: 1}
+                    lineNumber: 23
+                    symbol: found
+                    type: null
+                  lineNumber: 23
+                  type: null
+                lineNumber: 23
+                thenExpr: null
+                type: null
+              lineNumber: 22
+              type: null
+            type: null
+          - !!ro.pub.cs.lcpl.IfStatement
+            condition: !!ro.pub.cs.lcpl.Symbol {lineNumber: 25, name: found, type: null}
+            ifExpr: !!ro.pub.cs.lcpl.Block
+              expressions:
+              - !!ro.pub.cs.lcpl.IfStatement
+                condition: !!ro.pub.cs.lcpl.EqualComparison
+                  e1: !!ro.pub.cs.lcpl.Symbol {lineNumber: 25, name: pos, type: null}
+                  e2: !!ro.pub.cs.lcpl.Dispatch
+                    arguments: []
+                    lineNumber: 25
+                    name: length
+                    object: !!ro.pub.cs.lcpl.Symbol {lineNumber: 25, name: in, type: null}
+                    type: null
+                  lineNumber: 25
+                  type: null
+                ifExpr: !!ro.pub.cs.lcpl.Block
+                  expressions:
+                  - !!ro.pub.cs.lcpl.UnaryMinus
+                    e1: !!ro.pub.cs.lcpl.IntConstant {lineNumber: 25, type: null,
+                      value: 1}
+                    lineNumber: 25
+                    type: null
+                  lineNumber: 25
+                  type: null
+                lineNumber: 25
+                thenExpr: !!ro.pub.cs.lcpl.Block
+                  expressions:
+                  - !!ro.pub.cs.lcpl.Symbol {lineNumber: 25, name: pos, type: null}
+                  lineNumber: 25
+                  type: null
+                type: null
+              lineNumber: 25
+              type: null
+            lineNumber: 25
+            thenExpr: !!ro.pub.cs.lcpl.Block
+              expressions:
+              - !!ro.pub.cs.lcpl.UnaryMinus
+                e1: !!ro.pub.cs.lcpl.IntConstant {lineNumber: 25, type: null, value: 1}
+                lineNumber: 25
+                type: null
+              lineNumber: 25
+              type: null
+            type: null
+          lineNumber: 21
+          type: null
+        type: Int
+      lineNumber: 18
+      type: null
+    lineNumber: 17
+    name: search0
+    parameters:
+    - {name: in, type: String}
+    - {name: pos, type: Int}
+    returnType: Int
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.Dispatch
+        arguments:
+        - !!ro.pub.cs.lcpl.Dispatch
+          arguments:
+          - !!ro.pub.cs.lcpl.StringConstant {lineNumber: 29, type: null, value: Hello|my|world!}
+          lineNumber: 29
+          name: extractMiddle
+          object: null
+          type: null
+        lineNumber: 29
+        name: out
+        object: null
+        type: null
+      lineNumber: 29
+      type: null
+    lineNumber: 28
+    name: main
+    parameters: []
+    returnType: void
+  lineNumber: 2
+  name: Main
+  parent: IO
+lineNumber: 2
+

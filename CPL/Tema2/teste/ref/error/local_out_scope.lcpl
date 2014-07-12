@@ -1,0 +1,30 @@
+class Cons 
+    var Int xcar; Cons xcdr; end;
+    
+    next -> Cons: xcdr; end;
+    xcar -> Int: xcar; end;
+    last -> Int:
+        local Cons c = self; end;
+        while !(c==void) loop
+           local Int last; end;
+           last=[c.xcar];           
+           c = [c.next];
+        end;  
+        last;      
+    end;
+
+    init Int hd, Cons tl:
+        xcar = hd;
+        xcdr = tl;
+    end;
+end;
+
+class Main
+    main:
+        local Cons c; Int x; end;
+        c = new Cons;
+        x = 10;
+        [c.init x, new Cons];
+        [(new IO).out [c.last]];
+    end;
+end;

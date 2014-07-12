@@ -1,0 +1,3 @@
+grant codeBase "file:/home/mihai/SPRC/lab4/java_example/" {
+        permission java.security.AllPermission;
+};

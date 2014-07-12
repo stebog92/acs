@@ -1,0 +1,13 @@
+CC=g++
+SOURCES=main.cpp
+EXECUTABLE=segment
+
+build: $(EXECUTABLE)
+	$(CC) $(SOURCES) -o $(EXECUTABLE)
+
+run:
+	./$(EXECUTABLE)
+
+clean:
+	rm -f $(EXECUTABLE)
+

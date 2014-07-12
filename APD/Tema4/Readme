@@ -1,0 +1,36 @@
+Tema 4 - Simularea unei retele in MPI
+
+Ciocan Mihai
+334CA
+
+Etapa 1
+    Pentru aflarea topologiei programul va rula algoritmul folosind mesaje de sondaj cu ecou. Fiecare buncar in parte citeste lista proprie
+    de adiacenta inainte de inceperea algoritmului. Initiatorul este intotdeauna nodul cu rankul 0 astfel ca el va trimite mesaje de sondaj
+    vecinilor sai. Acestia vor trimite la randul lor mesaje de sondaj, asteptand apoi topologiile partiale ale vecinilor. Dupa reuniunea lor
+    fiecare va propaga rezultatul inspre initiator. Nodul 0 va primi rezultatele, va costrui topologia completa dupa care o va trimite celorlalte
+    noduri. Daca exista cicluri, mesajele de sondaj in plus vor fi ignorate exista deja un nod sursa.
+    Fiecare nod va costrui tabela de rutare pe baza topologiei primite utilizand bfs, astfel fiecare va stii catre cine sa trimita mesaje pentru
+    un anumit nod;
+
+Etapa 2
+    Fiecare nod va citi din fisier mesajele care ii apartin si nodul destinatie. Ele vor fi retinute intr-un vector alaturi de nodul destinatie.
+    Pentru trimiterea mesajelor la fiecare pas va transmite doar un nod, in timp ce celalte vor astepta mesaje pana primesc mesaje de incheiere
+    a comunicatiei. Daca mesajul este destinat nodului care il primeste acesta este afisat, daca nu atunci el este retrimis pe baza tabelei
+    proprii de rutare mai departe catre nodul destinatie. 
+    Cand un nod termina de trimis mesajele el va trimite tuturor nodurilor un mesaj de inchidere "END". Se vor trimite mai intai mesaje 
+    celor mai indepartate noduri apoi nodurilor mai apropiate fiind siguri astfel ca fiecare nod nu va mai astepta mesaje si toate vor primi
+    aceste mesaje. Distantele au fost calculate tot pe baza topologiei.
+
+Etapa 3
+    Nodul 0 este cel care va stabili pe baza voturilor buncarul lider si cel adj. Astfel el va trimite mesaje tuturor nodurilor pentru interogare.
+    Fiecare nod va trimite cele 2 voturi ale sale nodului 0 astfel la final aflandu-se cei doi castigatori (se stabilesc prin vot majoritar).
+    Voturile pentru cele 2 pozitii sunt separate. In caz de egalitate nodul 0 va trimite iar mesaje de interogare numai pentru o anumita pozitie.
+    Daca se stabilesc castigatorii se trimit mesaje de informare tuturor nodurilor. Comunicatia se realizeaza la fel ca la transmiterea mesajelor
+    de la etapa 2. Fiecare buncar va vota aleator (srand(time(null) * rank); rand() % size). 
+    Deoarece nodul 0 trimite mesajele primul, ceilalti vor insera in mesajele de transmis voturile sale, astfel stiind fiecare de fiecare data
+    cand se reia votul si cand se termina. Fiecare buncar va afisa rezultatul votului. Votul s-ar putea sa dureze putin mai ales daca sunt noduri
+    putine.
+
+Mod rulare: mpirun -np 11 ./tema4 topology mesaje
+Arhiva contine si un script de rulare pe cluster. Programul s-ar putea sa dea crash la mai mult de 15 noduri, din cauza memoriei alocate dinamic
+pentru buffere(1024).

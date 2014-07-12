@@ -1,0 +1,11 @@
+class A
+end;
+
+class B
+end;
+
+class Main
+    main:
+        {B {Object new A}};
+    end;
+end;

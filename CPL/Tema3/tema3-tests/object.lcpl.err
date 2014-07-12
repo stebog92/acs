@@ -1,0 +1,6 @@
+llc: object.lcpl.ir:124:20: error: '%10' defined with type '{ { \4, i32, \2, [0 x i8*] }*, i32, i8* }*'
+	%11 = icmp eq i32 %10, @_string_constant.4
+	                  ^
+clang: error: no such file or directory: 'object.lcpl.ir.s'
+./eval.sh: line 27: ./object: No such file or directory
+rm: cannot remove `object': No such file or directory

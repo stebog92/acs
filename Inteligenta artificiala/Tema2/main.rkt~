@@ -1,0 +1,24 @@
+;(define (read-rule input)
+ ; (let ((name (read input)))
+  ;  (if (eof-object? name)
+   ;     '()
+        
+(define (read-conditions input)
+  (let f ((x (read input)))
+    (if (or (eq? x 'daca) (eq? x 'si))
+        (let ((y (read input))
+              (equ (read input))
+              (z (read input)))
+          (cons (list y z) (f (read input))))
+        '()
+    )
+  )
+)
+
+(call-with-input-file "reguli" 
+  (lambda (p)
+    (read-conditions p)
+  )
+)
+            
+            

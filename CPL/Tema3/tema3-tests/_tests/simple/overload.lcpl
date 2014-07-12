@@ -1,0 +1,28 @@
+class i inherits j
+	var
+		Int i;
+	end;
+	I:i=J;end;
+	J:J=i;end;
+	i Int i -> Int:
+		J=i+1;[I];
+		J=i*2;
+		local Int i = i+2; end;
+		i = i - J;
+		[J];J*i;  
+		end;
+end;
+
+class j
+	var Int J;end;
+end;
+
+class Main
+	var j i = new i; end;
+	main :
+		local
+			i i = {i i};
+		end;
+		[[(new IO).out [i.i 4]].out "\n"]; # -10
+	end;
+end;

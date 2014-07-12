@@ -1,0 +1,20 @@
+class Shape
+	print IO stream, Int x, Int y -> IO:
+		[stream.out "This is a generic shape @("+x+","+y+")\n"];
+	end;
+end;
+
+class Circle inherits Shape
+	print IO stream, Int x, String y -> IO :
+		[stream.out "This is a circle @("+x+","+y+")\n"];
+	end;
+end;
+class Main inherits IO
+	main :
+		local
+			Circle s = new Circle;
+		end;
+		[s.print self,1,"2"] ; # This is a circle
+		[s.Shape.print self,3,4] ; # This is a generic shape
+	end;
+end;

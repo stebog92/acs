@@ -1,0 +1,31 @@
+# Extract string bordered by 0 characters
+class Main inherits IO  
+	extractMiddle String in -> String :
+		local
+			Int pos1;
+			Int pos2;
+		end;
+		pos1 = [ search0 in, 0 ];
+		if 0 <= pos1 then
+			pos2 = [ search0 in, pos1 + 1 ];
+			if 0 <= pos2 then in[pos1+1,pos2]; else ""; end;
+		else
+			"";
+		end;
+	end;
+	
+	search0 String in, Int pos -> Int :
+		local
+			Int found = 0;
+		end ;
+		while !found	loop
+			if in [pos,pos+1] == "|" then found = 1; else pos = pos+1; end;			
+			if pos == [in.length] then found = 1; end;
+		end;
+		if found then if pos == [in.length] then -1; else pos; end; else -1; end;
+	end;
+	
+	main:
+		[out [extractMiddle "Hello|my|world!"]]; # prints "my"
+	end; 
+end;

@@ -1,0 +1,65 @@
+Tema 3 SPRC
+
+Serviciu Securizat de Gestiune a documentelor
+
+Ciocan Mihai
+342C3
+
+Rulare
+server: ant run_server
+authorization_server: ant run_authorization
+client: java -cp classes -DKeyStore=keystores/userX.ks -DKeyStorePass=sprc_userX Client localhost 5000
+cu X : 1 sau 2 sau 3
+
+Certificate si keystore-uri
+
+In directorul keystores se afla keystore-uri generate pentru 4 useri:
+    : CN: user1 passwd: sprc_user1 HR
+    : CN: user2 passwd: sprc_user2 IT
+    : CN: user3 passwd: sprc_user3 Accounting
+    : CN: untrusted_user passwd: sprc_untrusted
+
+Fiecare are in propriul keystore si certificatul serverului si vice-versa. Acelasi lucru este valabil si pentru keystore-ul authority.ks care
+care apartine serviciului de autorizare.
+Toate tipurile de autentificare sunt two-way ssl.
+
+Server
+
+La pornire serverul incearca sa se autentifice la serviciul de autorizare (care trebuie pornit inaine) si apoi asculta pe un anumit port cereri
+de autentificare de la clienti. La conectare fiecare client primeste un socket si un thread propriu (este folosit un pool de threaduri) acesta
+asteptand comenzi de procesat. Comenzile sunt de 3 tipuri:
+    :upload - serverul primeste un fisier de la client (este introdus in folderul files)
+    :download - serverul trimite un fisier la client (din folderul files)
+    :list - trimite numele fisierelor la client
+
+Numele fisierelor este tinut intr-un fisier criptat alaturi de numele ownerului si departamentul din care face parte. Criptarea se realizeaza
+generand o cheie secreta, folosing algoritmul DES si utilizand streamuri de date pentru usurinta scrierii in fisier. De fiecare data cand este
+consultat sau updatat fisierul este decriptat, modificat si criptat la loc.
+In caz ca un user uploadeaza un fisier cu numele "bomba" sau "greva", el va fi trimis la AuthorizationServer pentru banare;
+
+Serverul verifica drepturile de download facand o cerere la AuthorizationServer. In functie de raspunsul primit, serverul va permite sau nu
+continuarea operatiei.
+
+Client
+
+Clientii se ruleaza cu comanda : java -cp classes -DKeyStore=keystores/userX.ks -DKeyStorePass=sprc_userX Client localhost 5000
+unde userX poate fi : user1, user2, user3. Nu am reusit din ant sa trimit comenzi clientului!
+
+Clientii se autentifica la server (trebuie pornit inainte) si asteapta comenzi de la tastatura. In caz ca autentificarea esueaza se va printa
+mesaj la consola. 
+
+Comenzile pot fi: upload, download, list, exit; Downloadarea fisierelor se va realiza in folderul download.
+
+
+AuthorizationServer
+Contine o lista de departamente cu prioritati:
+HR 1
+IT 2
+Accounting 3
+
+Serverul de autorizare primeste cereri de la server pentru a trimite drepturile unui utilizator, sau pentru a bana un utilizator.
+Utilizatorul va avea drept de download pentru toate fisierele cu departamentul ce are prioritate mai mica sau egala cu a sa.
+
+Mentine intr-un fisier clientii banati cu amprenta de timp la care au fost inserati. Perioada este de 30 de secunde, se va verifica la urmatoarea
+consultare, iar daca perioada a expirat, fisierul este updatat.
+

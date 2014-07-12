@@ -1,0 +1,1 @@
+cmd_/home/mihai/SO2/Tema1/checker/_helper/tracer_helper.ko := ld -r -m elf_i386 -T /home/mihai/linux-3.13/scripts/module-common.lds --build-id  -o /home/mihai/SO2/Tema1/checker/_helper/tracer_helper.ko /home/mihai/SO2/Tema1/checker/_helper/tracer_helper.o /home/mihai/SO2/Tema1/checker/_helper/tracer_helper.mod.o

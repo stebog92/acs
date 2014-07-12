@@ -1,0 +1,7 @@
+class Main inherits IO
+    var Int x = 10; end;
+    value -> Int : x; if x == 10 then [out "ten "]; end; end;
+    main :
+        [out [value]];
+    end;
+end;

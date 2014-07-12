@@ -1,0 +1,21 @@
+Parsarea si executia unei masini Turing
+
+Ciocan Mihai
+334CA
+
+Compilare si rulare
+
+Compilarea se realizeaza ruland make rezultand astfel Turing.jar.Jar-ul se poate rula folosind executabilul ./mtx ceea ce inseamna ca testele pot fi rulate cu ./test.sh fara nicio modificare a fisierului (am comentat linia cu make) insa e necesar ca fisierele Turing.jar si mtx sa se afle in acelasi director cu test.sh(probabil trebuie sa se ruleze chmod +x mtx). Probabil ca ultima linie din tests ar trebui stearsa (empty line) pentru ca checkerul va afisa o eroare insa punctajul e corect :)
+
+Prezentare Solutie pe scurt:
+
+Solutia a fost implementata in Java. Pentru construirea masinilor Turing se folosesc in principal clasele State ce reprezinta o stare si TuringMachine ce reprezinta masina turing cu starile si tranzitiile aferente (reprezentarea seamana cu un automat finit - graf).
+Fiecare obiect State contine o lista cu masinile turing ce trebuie executate, si un map cu tranzitiile ce reprezinta asocieri intre elemente ale alfabetului si stari. Obiectele TuringMachine contin o stare initiala, astfel ca in momentul cand masina Turing e rulata fiecare stare ruleaza masinile Turing aferente, si pe baza caracterului citit si a tranzitiilor din starea curenta se trece in starea urmatoare.
+
+Pozitia capului de citire / scriere si banda sunt retinute static in clasa Turing.
+
+Asignarea de nume temporare masinilor Turing presupune maparea numelor cu starea si pozitia de unde urmeaza sa se ruleze masinile turing ce apartin starii respective. Astfel ca in metoda nextState din clasa State se verifica daca exista "un ciclu" sau o referinta la o stare anterioara. In acest caz se intoarce se seteaza in starea ce urmeaza, pozitia de unde trebuie inceputa rularea masinilor Turing.
+
+In cazul numelor pentru simboluri, se realizeaza inlocuirea lor la aparitia referintelor si prelucrarea normala. In cazul aparitiei tranzitiilor de tipul x@{...} variabilele sunt retinute static in Turing iar valorile sunt mapate cu numele variabilelor in momentul stabilirii urmatoarei stari (valoarea fiind caracterul citit de pe banda). In cazul aparitiei x@!{ } se inlocuieste !{ } cu complementarul sau (dat fiind ca stim alfabetul) urmand prelucrarea de mai sus. Masinile elementare au fost hardcodate.
+
+Parsarea a fost realizata cu Jflex facand match pe cat mai multe pattern-uri posibile astfel incat sa pot prelucra cu usurinta obiectele pentru construirea masinilor Turing. Mentionez ca fisierele au fost parsate numai cu Jflex in Turing.lex.

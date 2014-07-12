@@ -1,0 +1,18 @@
+Tema 0 - Kernel API
+
+Ciocan Mihai
+342C3
+
+
+Implementare
+
+Structura listei are un camp de tip char in care se retin numele adaugate in fisierul management. Initializarea s-a realizat cu macro-ul
+LIST_HEAD(list).
+
+Pentru modificarea listei am parsat bufferul si in functie de comanda data (aflata din primele 4 caractere) realizam adugari sau stergeri:
+    -addf am utilizat list_add
+    -adde am utilizat list_add_tail
+    -delf am utilizat list_for_each_safe si list_del stergand primul element cautat
+    -dela la fel ca delf insa stergand toate instantele
+
+Pentru scriere in fisier am utilizat functia seq_printf existenta deja in scheletul de cod.

@@ -1,0 +1,6 @@
+WORD=3
+RPAREN=2
+WS=4
+LPAREN=1
+'('=1
+')'=2

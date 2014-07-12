@@ -1,0 +1,38 @@
+Regula-1: daca has-sauce = yes si sauce = spicy atunci best-body = full
+Regula-2: daca tastiness = delicate atunci best-body = light 0.8
+Regula-3: daca tastiness = average atunci best-body = light 0.3 si best-body = medium 0.6 si best-body = full 0.3
+Regula-4: daca tastiness = strong atunci best-body = medium 0.4 si best-body = full 0.8
+Regula-5: daca has-sauce = yes si sauce = cream atunci best-body = medium 0.4 si best-body = full 0.6
+Regula-6: daca main-component = meat si has-veal = no atunci best-color = red 0.9
+Regula-7: daca main-component = poultry si has-turkey = no atunci best-color = white 0.9 si best-color = red 0.3
+Regula-8: daca main-component = fish atunci best-color = white
+Regula-9: daca main-component = meat si has-sauce = yes si sauce = tomato atunci best-color = red
+Regula-10: daca main-component = poultry si has-turkey = yes atunci best-color = red 0.8 si best-color = white 0.5
+Regula-12: daca has-sauce = yes si sauce = sweet atunci best-sweetness = sweet 0.9 si best-sweetness = medium 0.4
+Regula-13: daca has-sauce = yes si sauce = spicy atunci feature = spiciness
+Regula-14: daca best-body = light atunci recommended-body = light
+Regula-15: daca best-body = medium atunci recommended-body = medium
+Regula-16: daca best-body = full atunci recommended-body = full
+Regula-21: daca best-color = red atunci recommended-color = red
+Regula-22: daca best-color = white atunci recommended-color = white
+Regula-26: daca best-sweetness = dry atunci recommended-sweetness = dry
+Regula-27: daca best-sweetness = medium atunci recommended-sweetness = medium
+Regula-28: daca best-sweetness = sweet atunci recommended-sweetness = sweet
+Regula-33: daca recommended-color = red si recommended-body = medium si recommended-sweetness = medium atunci wine = gamay
+Regula-34: daca recommended-color = red si recommended-body = medium si recommended-sweetness = sweet atunci wine = gamay
+Regula-35: daca recommended-color = white si recommended-body = light si recommended-sweetness = dry atunci wine = chablis.
+Regula-36: daca recommended-color = white si recommended-body = medium si recommended-sweetness = dry atunci wine = sauvignon-blanc
+Regula-37: daca recommended-color = white si recommended-body = medium si recommended-sweetness = dry atunci wine = chardonnay
+Regula-38: daca recommended-color = white si recommended-body = full si recommended-sweetness = medium atunci wine = chardonnay
+Regula-39: daca recommended-color = white si recommended-body = light si recommended-sweetness = dry atunci wine = soave
+Regula-40: daca recommended-color = white si recommended-body = light si recommended-sweetness = medium atunci wine = soave
+Regula-41: daca recommended-color = white si recommended-body = light si recommended-sweetness = medium atunci wine = riesling
+Regula-42: daca recommended-color = white si recommended-body = medium si recommended-sweetness = sweet atunci wine = riesling
+Regula-43: daca recommended-color = white si recommended-body = full si feature = spiciness atunci wine = gewuerztraminer
+Regula-44: daca recommended-color = white si recommended-body = light si recommended-sweetness = medium atunci wine = chenin-blanc
+Regula-45: daca recommended-color = white si recommended-body = light si recommended-sweetness = sweet atunci wine = chenin-blanc
+Regula-46: daca recommended-color = red si recommended-body = light atunci wine = valpolicella
+Regula-47: daca recommended-color = red si recommended-sweetness = dry atunci wine = cabernet-sauvignon si wine = zinfsiel
+Regula-48: daca recommended-color = red si recommended-sweetness = medium atunci wine = cabernet-sauvignon si wine = zinfsiel
+Regula-49: daca recommended-color = red si recommended-body = medium si recommended-sweetness = medium atunci wine = pinot-noir
+Regula-50: daca recommended-color = red si recommended-body = full atunci wine = burgundy

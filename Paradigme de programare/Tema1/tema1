@@ -1,0 +1,83 @@
+(define betaRedex?
+  (lambda (x)
+    (if (list? x)
+        (if (= (length x) 2)
+            (or (betaRedex? (car x)) (lambda0? (car x)))
+            #f
+        )
+        #f
+    )
+  )
+)
+(define lambda0?
+  (lambda (x)
+    (if (list? x)
+        (and (eq? (car x) 'lambda0) (eq? (length x) 3))
+        #f
+    )
+  )
+)
+(define betaRedex
+  (lambda (x)
+    (if (betaRedex? x)
+        (let ((y (betaRedex (car x))))
+          (betaRedex (substitute (caddr y) (cadr y) (cadr x))))
+          (if (lambda0? x)
+              (list (car x) (cadr x) (betaRedex (caddr x)))
+              x
+          )
+    )
+  )
+)
+
+(define paramOfLambda
+  (lambda (x)
+    (cadr x)
+  )
+)
+  
+(define free?
+  (lambda (x y)
+    (if (lambda0? y)
+        (and (not (eq? (paramOfLambda y) x)) (free? x (caddr y)))
+        (if (list? y)
+            (member x y)
+            (eq? x y)
+        )
+    )
+  )
+)
+
+(define substituteParam
+  (lambda (x y z)
+    (if (null? x)
+        '()
+        (if (list? (car x))
+            (cons (substituteParam (car x) y z) (substituteParam (cdr x) y z))
+            (if (eq? (car x) y)
+                (cons z (substituteParam (cdr x) y z))
+                (cons (car x) (substituteParam (cdr x) y z))
+            )
+        )
+    )
+  )
+)
+        
+(define substitute
+ (lambda (e p v)
+   (if (lambda0? e)
+       (if (free? (paramOfLambda e) v)
+           (let ((x (substituteParam e (paramOfLambda e) (gensym (paramOfLambda e)))))
+             (list (car x) (cadr x) (substitute (caddr x) p v)))
+           (list (car e) (cadr e) (substitute (caddr e) p v))
+       )
+       (if (list? e)
+           (substituteParam e p v)
+           (if (eq? e p)
+               v
+               e
+           )
+       )
+   )
+ )
+)

@@ -1,0 +1,1336 @@
+;;;;;;; Standard data types from runtime
+%struct.TObject = type { %struct.__lcpl_rtti* }
+%struct.TString = type { %struct.__lcpl_rtti*, i32, i8* }
+%struct.TIO = type { %struct.__lcpl_rtti* }
+%struct.__lcpl_rtti = type { %struct.TString*, i32, %struct.__lcpl_rtti*, [0 x i8*] }
+
+
+%struct.RObject = type %struct.__lcpl_rtti*
+@RObject = external global %struct.RObject
+%struct.RString = type %struct.__lcpl_rtti*
+@RString = external global %struct.RString
+%struct.RIO = type %struct.__lcpl_rtti*
+@RIO = external global %struct.RIO
+declare void @Object_init(%struct.TObject*)
+declare void @M6_Object_abort(%struct.TObject*)
+declare %struct.TString* @M6_Object_typeName(%struct.TObject*)
+declare %struct.TObject* @M6_Object_copy(%struct.TObject*)
+declare void @IO_init(%struct.TIO*)
+declare %struct.TString* @M2_IO_in(%struct.TIO*)
+declare %struct.TIO* @M2_IO_out(%struct.TIO*, %struct.TString*)
+declare void @String_init(%struct.TString*)
+declare i32 @M6_String_length(%struct.TString*)
+declare i32 @M6_String_toInt(%struct.TString*)
+declare %struct.TString* @M6_String_substring(%struct.TString*, i32, i32)
+declare %struct.TString* @M6_String_concat(%struct.TString*, %struct.TString*)
+declare i32 @M6_String_equal(%struct.TString*, %struct.TString*)
+
+
+declare i8* @__lcpl_new(%struct.__lcpl_rtti*)
+declare void @__lcpl_checkNull(i8*)
+declare i8* @__lcpl_cast(i8*, %struct.__lcpl_rtti*)
+declare %struct.TString* @__lcpl_intToString(i32)
+;;;;;;; Custom code
+;
+; Structure of classes
+;
+%struct.TError = type { %struct.__lcpl_rtti* }
+%struct.TToken = type { %struct.__lcpl_rtti* , %struct.TString*, %struct.TString*}
+%struct.TCTokenizer = type { %struct.__lcpl_rtti* , %struct.TString*, i32, i32, %struct.TString*, i32}
+%struct.TParam = type { %struct.__lcpl_rtti* , %struct.TString*, i32, %struct.TParam*}
+%struct.TSymbolTable = type { %struct.__lcpl_rtti* , %struct.TParam*, i32}
+%struct.TCode = type { %struct.__lcpl_rtti* , %struct.TString*, i32, i32}
+%struct.TCCompiler = type { %struct.__lcpl_rtti* , %struct.TCTokenizer*, %struct.TToken*, %struct.TSymbolTable*, i32}
+%struct.TMain = type { %struct.__lcpl_rtti* }
+; Name of classes
+@class_name.Error = internal constant [6 x i8] c"Error\00"
+@NError = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 5, i8* getelementptr ([6 x i8]* @class_name.Error, i32 0, i32 0) }
+@class_name.Token = internal constant [6 x i8] c"Token\00"
+@NToken = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 5, i8* getelementptr ([6 x i8]* @class_name.Token, i32 0, i32 0) }
+@class_name.CTokenizer = internal constant [11 x i8] c"CTokenizer\00"
+@NCTokenizer = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 10, i8* getelementptr ([11 x i8]* @class_name.CTokenizer, i32 0, i32 0) }
+@class_name.Param = internal constant [6 x i8] c"Param\00"
+@NParam = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 5, i8* getelementptr ([6 x i8]* @class_name.Param, i32 0, i32 0) }
+@class_name.SymbolTable = internal constant [12 x i8] c"SymbolTable\00"
+@NSymbolTable = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 11, i8* getelementptr ([12 x i8]* @class_name.SymbolTable, i32 0, i32 0) }
+@class_name.Code = internal constant [5 x i8] c"Code\00"
+@NCode = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 4, i8* getelementptr ([5 x i8]* @class_name.Code, i32 0, i32 0) }
+@class_name.CCompiler = internal constant [10 x i8] c"CCompiler\00"
+@NCCompiler = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 9, i8* getelementptr ([10 x i8]* @class_name.CCompiler, i32 0, i32 0) }
+@class_name.Main = internal constant [5 x i8] c"Main\00"
+@NMain = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 4, i8* getelementptr ([5 x i8]* @class_name.Main, i32 0, i32 0) }
+; String constants used in the program
+@string_constant.strEmpty = internal constant [1 x i8] c"\00"
+
+@_string_constant.strEmpty = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 0, i8* getelementptr ([1 x i8]* @string_constant.strEmpty, i32 0, i32 0)}
+
+@string_constant.0 = constant [42 x i8] c"Syntax error, or expression too complex.\0A\00"
+@_string_constant.0 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 41, i8* getelementptr ([42 x i8]* @string_constant.0, i32 0, i32 0) }
+@string_constant.1 = constant [42 x i8] c"Syntax error, or expression too complex.\0A\00"
+@_string_constant.1 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 41, i8* getelementptr ([42 x i8]* @string_constant.1, i32 0, i32 0) }
+@string_constant.2 = constant [42 x i8] c"Syntax error, or expression too complex.\0A\00"
+@_string_constant.2 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 41, i8* getelementptr ([42 x i8]* @string_constant.2, i32 0, i32 0) }
+@string_constant.3 = constant [2 x i8] c" \00"
+@_string_constant.3 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.3, i32 0, i32 0) }
+@string_constant.4 = constant [2 x i8] c"\0A\00"
+@_string_constant.4 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.4, i32 0, i32 0) }
+@string_constant.5 = constant [2 x i8] c"\0D\00"
+@_string_constant.5 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.5, i32 0, i32 0) }
+@string_constant.6 = constant [2 x i8] c"	\00"
+@_string_constant.6 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.6, i32 0, i32 0) }
+@string_constant.7 = constant [2 x i8] c"0\00"
+@_string_constant.7 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.7, i32 0, i32 0) }
+@string_constant.8 = constant [2 x i8] c";\00"
+@_string_constant.8 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.8, i32 0, i32 0) }
+@string_constant.9 = constant [2 x i8] c"+\00"
+@_string_constant.9 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.9, i32 0, i32 0) }
+@string_constant.10 = constant [2 x i8] c"-\00"
+@_string_constant.10 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.10, i32 0, i32 0) }
+@string_constant.11 = constant [2 x i8] c"*\00"
+@_string_constant.11 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.11, i32 0, i32 0) }
+@string_constant.12 = constant [2 x i8] c"(\00"
+@_string_constant.12 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.12, i32 0, i32 0) }
+@string_constant.13 = constant [2 x i8] c")\00"
+@_string_constant.13 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.13, i32 0, i32 0) }
+@string_constant.14 = constant [2 x i8] c"{\00"
+@_string_constant.14 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.14, i32 0, i32 0) }
+@string_constant.15 = constant [2 x i8] c"}\00"
+@_string_constant.15 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.15, i32 0, i32 0) }
+@string_constant.16 = constant [2 x i8] c",\00"
+@_string_constant.16 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.16, i32 0, i32 0) }
+@string_constant.17 = constant [4 x i8] c"EOF\00"
+@_string_constant.17 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 3, i8* getelementptr ([4 x i8]* @string_constant.17, i32 0, i32 0) }
+@string_constant.18 = constant [1 x i8] c"\00"
+@_string_constant.18 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 0, i8* getelementptr ([1 x i8]* @string_constant.18, i32 0, i32 0) }
+@string_constant.19 = constant [2 x i8] c" \00"
+@_string_constant.19 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.19, i32 0, i32 0) }
+@string_constant.20 = constant [2 x i8] c" \00"
+@_string_constant.20 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.20, i32 0, i32 0) }
+@string_constant.21 = constant [2 x i8] c"	\00"
+@_string_constant.21 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.21, i32 0, i32 0) }
+@string_constant.22 = constant [2 x i8] c"\0D\00"
+@_string_constant.22 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.22, i32 0, i32 0) }
+@string_constant.23 = constant [2 x i8] c"\0A\00"
+@_string_constant.23 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.23, i32 0, i32 0) }
+@string_constant.24 = constant [2 x i8] c"0\00"
+@_string_constant.24 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.24, i32 0, i32 0) }
+@string_constant.25 = constant [2 x i8] c" \00"
+@_string_constant.25 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.25, i32 0, i32 0) }
+@string_constant.26 = constant [2 x i8] c"	\00"
+@_string_constant.26 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.26, i32 0, i32 0) }
+@string_constant.27 = constant [2 x i8] c"\0D\00"
+@_string_constant.27 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.27, i32 0, i32 0) }
+@string_constant.28 = constant [2 x i8] c"\0A\00"
+@_string_constant.28 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.28, i32 0, i32 0) }
+@string_constant.29 = constant [2 x i8] c" \00"
+@_string_constant.29 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.29, i32 0, i32 0) }
+@string_constant.30 = constant [2 x i8] c"	\00"
+@_string_constant.30 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.30, i32 0, i32 0) }
+@string_constant.31 = constant [2 x i8] c"\0D\00"
+@_string_constant.31 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.31, i32 0, i32 0) }
+@string_constant.32 = constant [2 x i8] c"\0A\00"
+@_string_constant.32 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.32, i32 0, i32 0) }
+@string_constant.33 = constant [4 x i8] c"NUM\00"
+@_string_constant.33 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 3, i8* getelementptr ([4 x i8]* @string_constant.33, i32 0, i32 0) }
+@string_constant.34 = constant [2 x i8] c"0\00"
+@_string_constant.34 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.34, i32 0, i32 0) }
+@string_constant.35 = constant [4 x i8] c"NUM\00"
+@_string_constant.35 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 3, i8* getelementptr ([4 x i8]* @string_constant.35, i32 0, i32 0) }
+@string_constant.36 = constant [4 x i8] c"int\00"
+@_string_constant.36 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 3, i8* getelementptr ([4 x i8]* @string_constant.36, i32 0, i32 0) }
+@string_constant.37 = constant [4 x i8] c"INT\00"
+@_string_constant.37 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 3, i8* getelementptr ([4 x i8]* @string_constant.37, i32 0, i32 0) }
+@string_constant.38 = constant [7 x i8] c"return\00"
+@_string_constant.38 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 6, i8* getelementptr ([7 x i8]* @string_constant.38, i32 0, i32 0) }
+@string_constant.39 = constant [7 x i8] c"RETURN\00"
+@_string_constant.39 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 6, i8* getelementptr ([7 x i8]* @string_constant.39, i32 0, i32 0) }
+@string_constant.40 = constant [3 x i8] c"ID\00"
+@_string_constant.40 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 2, i8* getelementptr ([3 x i8]* @string_constant.40, i32 0, i32 0) }
+@string_constant.41 = constant [3 x i8] c"; \00"
+@_string_constant.41 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 2, i8* getelementptr ([3 x i8]* @string_constant.41, i32 0, i32 0) }
+@string_constant.42 = constant [4 x i8] c"EOF\00"
+@_string_constant.42 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 3, i8* getelementptr ([4 x i8]* @string_constant.42, i32 0, i32 0) }
+@string_constant.43 = constant [1 x i8] c"\00"
+@_string_constant.43 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 0, i8* getelementptr ([1 x i8]* @string_constant.43, i32 0, i32 0) }
+@string_constant.44 = constant [42 x i8] c"Syntax error, or expression too complex.\0A\00"
+@_string_constant.44 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 41, i8* getelementptr ([42 x i8]* @string_constant.44, i32 0, i32 0) }
+@string_constant.45 = constant [2 x i8] c" \00"
+@_string_constant.45 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.45, i32 0, i32 0) }
+@string_constant.46 = constant [2 x i8] c"\0A\00"
+@_string_constant.46 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.46, i32 0, i32 0) }
+@string_constant.47 = constant [2 x i8] c"\0D\00"
+@_string_constant.47 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.47, i32 0, i32 0) }
+@string_constant.48 = constant [2 x i8] c"	\00"
+@_string_constant.48 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.48, i32 0, i32 0) }
+@string_constant.49 = constant [2 x i8] c"0\00"
+@_string_constant.49 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.49, i32 0, i32 0) }
+@string_constant.50 = constant [2 x i8] c";\00"
+@_string_constant.50 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.50, i32 0, i32 0) }
+@string_constant.51 = constant [2 x i8] c"+\00"
+@_string_constant.51 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.51, i32 0, i32 0) }
+@string_constant.52 = constant [2 x i8] c"-\00"
+@_string_constant.52 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.52, i32 0, i32 0) }
+@string_constant.53 = constant [2 x i8] c"*\00"
+@_string_constant.53 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.53, i32 0, i32 0) }
+@string_constant.54 = constant [2 x i8] c"(\00"
+@_string_constant.54 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.54, i32 0, i32 0) }
+@string_constant.55 = constant [2 x i8] c")\00"
+@_string_constant.55 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.55, i32 0, i32 0) }
+@string_constant.56 = constant [2 x i8] c"{\00"
+@_string_constant.56 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.56, i32 0, i32 0) }
+@string_constant.57 = constant [2 x i8] c"}\00"
+@_string_constant.57 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.57, i32 0, i32 0) }
+@string_constant.58 = constant [2 x i8] c",\00"
+@_string_constant.58 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.58, i32 0, i32 0) }
+@string_constant.59 = constant [4 x i8] c"EOF\00"
+@_string_constant.59 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 3, i8* getelementptr ([4 x i8]* @string_constant.59, i32 0, i32 0) }
+@string_constant.60 = constant [1 x i8] c"\00"
+@_string_constant.60 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 0, i8* getelementptr ([1 x i8]* @string_constant.60, i32 0, i32 0) }
+@string_constant.61 = constant [2 x i8] c" \00"
+@_string_constant.61 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.61, i32 0, i32 0) }
+@string_constant.62 = constant [2 x i8] c" \00"
+@_string_constant.62 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.62, i32 0, i32 0) }
+@string_constant.63 = constant [2 x i8] c"	\00"
+@_string_constant.63 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.63, i32 0, i32 0) }
+@string_constant.64 = constant [2 x i8] c"\0D\00"
+@_string_constant.64 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.64, i32 0, i32 0) }
+@string_constant.65 = constant [2 x i8] c"\0A\00"
+@_string_constant.65 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.65, i32 0, i32 0) }
+@string_constant.66 = constant [2 x i8] c"0\00"
+@_string_constant.66 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.66, i32 0, i32 0) }
+@string_constant.67 = constant [2 x i8] c" \00"
+@_string_constant.67 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.67, i32 0, i32 0) }
+@string_constant.68 = constant [2 x i8] c"	\00"
+@_string_constant.68 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.68, i32 0, i32 0) }
+@string_constant.69 = constant [2 x i8] c"\0D\00"
+@_string_constant.69 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.69, i32 0, i32 0) }
+@string_constant.70 = constant [2 x i8] c"\0A\00"
+@_string_constant.70 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.70, i32 0, i32 0) }
+@string_constant.71 = constant [2 x i8] c" \00"
+@_string_constant.71 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.71, i32 0, i32 0) }
+@string_constant.72 = constant [2 x i8] c"	\00"
+@_string_constant.72 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.72, i32 0, i32 0) }
+@string_constant.73 = constant [2 x i8] c"\0D\00"
+@_string_constant.73 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.73, i32 0, i32 0) }
+@string_constant.74 = constant [2 x i8] c"\0A\00"
+@_string_constant.74 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.74, i32 0, i32 0) }
+@string_constant.75 = constant [4 x i8] c"NUM\00"
+@_string_constant.75 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 3, i8* getelementptr ([4 x i8]* @string_constant.75, i32 0, i32 0) }
+@string_constant.76 = constant [2 x i8] c"0\00"
+@_string_constant.76 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.76, i32 0, i32 0) }
+@string_constant.77 = constant [4 x i8] c"NUM\00"
+@_string_constant.77 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 3, i8* getelementptr ([4 x i8]* @string_constant.77, i32 0, i32 0) }
+@string_constant.78 = constant [4 x i8] c"int\00"
+@_string_constant.78 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 3, i8* getelementptr ([4 x i8]* @string_constant.78, i32 0, i32 0) }
+@string_constant.79 = constant [4 x i8] c"INT\00"
+@_string_constant.79 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 3, i8* getelementptr ([4 x i8]* @string_constant.79, i32 0, i32 0) }
+@string_constant.80 = constant [7 x i8] c"return\00"
+@_string_constant.80 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 6, i8* getelementptr ([7 x i8]* @string_constant.80, i32 0, i32 0) }
+@string_constant.81 = constant [7 x i8] c"RETURN\00"
+@_string_constant.81 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 6, i8* getelementptr ([7 x i8]* @string_constant.81, i32 0, i32 0) }
+@string_constant.82 = constant [3 x i8] c"ID\00"
+@_string_constant.82 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 2, i8* getelementptr ([3 x i8]* @string_constant.82, i32 0, i32 0) }
+@string_constant.83 = constant [3 x i8] c"; \00"
+@_string_constant.83 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 2, i8* getelementptr ([3 x i8]* @string_constant.83, i32 0, i32 0) }
+@string_constant.84 = constant [4 x i8] c"EOF\00"
+@_string_constant.84 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 3, i8* getelementptr ([4 x i8]* @string_constant.84, i32 0, i32 0) }
+@string_constant.85 = constant [1 x i8] c"\00"
+@_string_constant.85 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 0, i8* getelementptr ([1 x i8]* @string_constant.85, i32 0, i32 0) }
+@string_constant.86 = constant [42 x i8] c"Syntax error, or expression too complex.\0A\00"
+@_string_constant.86 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 41, i8* getelementptr ([42 x i8]* @string_constant.86, i32 0, i32 0) }
+@string_constant.87 = constant [2 x i8] c" \00"
+@_string_constant.87 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.87, i32 0, i32 0) }
+@string_constant.88 = constant [2 x i8] c"\0A\00"
+@_string_constant.88 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.88, i32 0, i32 0) }
+@string_constant.89 = constant [2 x i8] c"\0D\00"
+@_string_constant.89 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.89, i32 0, i32 0) }
+@string_constant.90 = constant [2 x i8] c"	\00"
+@_string_constant.90 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.90, i32 0, i32 0) }
+@string_constant.91 = constant [2 x i8] c"0\00"
+@_string_constant.91 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.91, i32 0, i32 0) }
+@string_constant.92 = constant [2 x i8] c";\00"
+@_string_constant.92 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.92, i32 0, i32 0) }
+@string_constant.93 = constant [2 x i8] c"+\00"
+@_string_constant.93 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.93, i32 0, i32 0) }
+@string_constant.94 = constant [2 x i8] c"-\00"
+@_string_constant.94 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.94, i32 0, i32 0) }
+@string_constant.95 = constant [2 x i8] c"*\00"
+@_string_constant.95 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.95, i32 0, i32 0) }
+@string_constant.96 = constant [2 x i8] c"(\00"
+@_string_constant.96 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.96, i32 0, i32 0) }
+@string_constant.97 = constant [2 x i8] c")\00"
+@_string_constant.97 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.97, i32 0, i32 0) }
+@string_constant.98 = constant [2 x i8] c"{\00"
+@_string_constant.98 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.98, i32 0, i32 0) }
+@string_constant.99 = constant [2 x i8] c"}\00"
+@_string_constant.99 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.99, i32 0, i32 0) }
+@string_constant.100 = constant [2 x i8] c",\00"
+@_string_constant.100 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.100, i32 0, i32 0) }
+@string_constant.101 = constant [4 x i8] c"EOF\00"
+@_string_constant.101 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 3, i8* getelementptr ([4 x i8]* @string_constant.101, i32 0, i32 0) }
+@string_constant.102 = constant [1 x i8] c"\00"
+@_string_constant.102 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 0, i8* getelementptr ([1 x i8]* @string_constant.102, i32 0, i32 0) }
+@string_constant.103 = constant [2 x i8] c" \00"
+@_string_constant.103 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.103, i32 0, i32 0) }
+@string_constant.104 = constant [2 x i8] c" \00"
+@_string_constant.104 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.104, i32 0, i32 0) }
+@string_constant.105 = constant [2 x i8] c"	\00"
+@_string_constant.105 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.105, i32 0, i32 0) }
+@string_constant.106 = constant [2 x i8] c"\0D\00"
+@_string_constant.106 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.106, i32 0, i32 0) }
+@string_constant.107 = constant [2 x i8] c"\0A\00"
+@_string_constant.107 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.107, i32 0, i32 0) }
+@string_constant.108 = constant [2 x i8] c"0\00"
+@_string_constant.108 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.108, i32 0, i32 0) }
+@string_constant.109 = constant [2 x i8] c" \00"
+@_string_constant.109 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.109, i32 0, i32 0) }
+@string_constant.110 = constant [2 x i8] c"	\00"
+@_string_constant.110 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.110, i32 0, i32 0) }
+@string_constant.111 = constant [2 x i8] c"\0D\00"
+@_string_constant.111 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.111, i32 0, i32 0) }
+@string_constant.112 = constant [2 x i8] c"\0A\00"
+@_string_constant.112 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.112, i32 0, i32 0) }
+@string_constant.113 = constant [2 x i8] c" \00"
+@_string_constant.113 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.113, i32 0, i32 0) }
+@string_constant.114 = constant [2 x i8] c"	\00"
+@_string_constant.114 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.114, i32 0, i32 0) }
+@string_constant.115 = constant [2 x i8] c"\0D\00"
+@_string_constant.115 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.115, i32 0, i32 0) }
+@string_constant.116 = constant [2 x i8] c"\0A\00"
+@_string_constant.116 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.116, i32 0, i32 0) }
+@string_constant.117 = constant [4 x i8] c"NUM\00"
+@_string_constant.117 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 3, i8* getelementptr ([4 x i8]* @string_constant.117, i32 0, i32 0) }
+@string_constant.118 = constant [2 x i8] c"0\00"
+@_string_constant.118 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.118, i32 0, i32 0) }
+@string_constant.119 = constant [4 x i8] c"NUM\00"
+@_string_constant.119 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 3, i8* getelementptr ([4 x i8]* @string_constant.119, i32 0, i32 0) }
+@string_constant.120 = constant [4 x i8] c"int\00"
+@_string_constant.120 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 3, i8* getelementptr ([4 x i8]* @string_constant.120, i32 0, i32 0) }
+@string_constant.121 = constant [4 x i8] c"INT\00"
+@_string_constant.121 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 3, i8* getelementptr ([4 x i8]* @string_constant.121, i32 0, i32 0) }
+@string_constant.122 = constant [7 x i8] c"return\00"
+@_string_constant.122 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 6, i8* getelementptr ([7 x i8]* @string_constant.122, i32 0, i32 0) }
+@string_constant.123 = constant [7 x i8] c"RETURN\00"
+@_string_constant.123 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 6, i8* getelementptr ([7 x i8]* @string_constant.123, i32 0, i32 0) }
+@string_constant.124 = constant [3 x i8] c"ID\00"
+@_string_constant.124 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 2, i8* getelementptr ([3 x i8]* @string_constant.124, i32 0, i32 0) }
+@string_constant.125 = constant [3 x i8] c"; \00"
+@_string_constant.125 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 2, i8* getelementptr ([3 x i8]* @string_constant.125, i32 0, i32 0) }
+@string_constant.126 = constant [4 x i8] c"EOF\00"
+@_string_constant.126 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 3, i8* getelementptr ([4 x i8]* @string_constant.126, i32 0, i32 0) }
+@string_constant.127 = constant [1 x i8] c"\00"
+@_string_constant.127 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 0, i8* getelementptr ([1 x i8]* @string_constant.127, i32 0, i32 0) }
+@string_constant.128 = constant [42 x i8] c"Syntax error, or expression too complex.\0A\00"
+@_string_constant.128 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 41, i8* getelementptr ([42 x i8]* @string_constant.128, i32 0, i32 0) }
+@string_constant.129 = constant [2 x i8] c" \00"
+@_string_constant.129 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.129, i32 0, i32 0) }
+@string_constant.130 = constant [2 x i8] c"\0A\00"
+@_string_constant.130 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.130, i32 0, i32 0) }
+@string_constant.131 = constant [2 x i8] c"\0D\00"
+@_string_constant.131 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.131, i32 0, i32 0) }
+@string_constant.132 = constant [2 x i8] c"	\00"
+@_string_constant.132 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.132, i32 0, i32 0) }
+@string_constant.133 = constant [2 x i8] c"0\00"
+@_string_constant.133 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.133, i32 0, i32 0) }
+@string_constant.134 = constant [2 x i8] c";\00"
+@_string_constant.134 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.134, i32 0, i32 0) }
+@string_constant.135 = constant [2 x i8] c"+\00"
+@_string_constant.135 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.135, i32 0, i32 0) }
+@string_constant.136 = constant [2 x i8] c"-\00"
+@_string_constant.136 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.136, i32 0, i32 0) }
+@string_constant.137 = constant [2 x i8] c"*\00"
+@_string_constant.137 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.137, i32 0, i32 0) }
+@string_constant.138 = constant [2 x i8] c"(\00"
+@_string_constant.138 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.138, i32 0, i32 0) }
+@string_constant.139 = constant [2 x i8] c")\00"
+@_string_constant.139 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.139, i32 0, i32 0) }
+@string_constant.140 = constant [2 x i8] c"{\00"
+@_string_constant.140 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.140, i32 0, i32 0) }
+@string_constant.141 = constant [2 x i8] c"}\00"
+@_string_constant.141 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.141, i32 0, i32 0) }
+@string_constant.142 = constant [2 x i8] c",\00"
+@_string_constant.142 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.142, i32 0, i32 0) }
+@string_constant.143 = constant [4 x i8] c"EOF\00"
+@_string_constant.143 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 3, i8* getelementptr ([4 x i8]* @string_constant.143, i32 0, i32 0) }
+@string_constant.144 = constant [1 x i8] c"\00"
+@_string_constant.144 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 0, i8* getelementptr ([1 x i8]* @string_constant.144, i32 0, i32 0) }
+@string_constant.145 = constant [2 x i8] c" \00"
+@_string_constant.145 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.145, i32 0, i32 0) }
+@string_constant.146 = constant [2 x i8] c" \00"
+@_string_constant.146 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.146, i32 0, i32 0) }
+@string_constant.147 = constant [2 x i8] c"	\00"
+@_string_constant.147 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.147, i32 0, i32 0) }
+@string_constant.148 = constant [2 x i8] c"\0D\00"
+@_string_constant.148 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.148, i32 0, i32 0) }
+@string_constant.149 = constant [2 x i8] c"\0A\00"
+@_string_constant.149 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.149, i32 0, i32 0) }
+@string_constant.150 = constant [2 x i8] c"0\00"
+@_string_constant.150 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.150, i32 0, i32 0) }
+@string_constant.151 = constant [2 x i8] c" \00"
+@_string_constant.151 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.151, i32 0, i32 0) }
+@string_constant.152 = constant [2 x i8] c"	\00"
+@_string_constant.152 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.152, i32 0, i32 0) }
+@string_constant.153 = constant [2 x i8] c"\0D\00"
+@_string_constant.153 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.153, i32 0, i32 0) }
+@string_constant.154 = constant [2 x i8] c"\0A\00"
+@_string_constant.154 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.154, i32 0, i32 0) }
+@string_constant.155 = constant [2 x i8] c" \00"
+@_string_constant.155 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.155, i32 0, i32 0) }
+@string_constant.156 = constant [2 x i8] c"	\00"
+@_string_constant.156 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.156, i32 0, i32 0) }
+@string_constant.157 = constant [2 x i8] c"\0D\00"
+@_string_constant.157 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.157, i32 0, i32 0) }
+@string_constant.158 = constant [2 x i8] c"\0A\00"
+@_string_constant.158 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.158, i32 0, i32 0) }
+@string_constant.159 = constant [4 x i8] c"NUM\00"
+@_string_constant.159 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 3, i8* getelementptr ([4 x i8]* @string_constant.159, i32 0, i32 0) }
+@string_constant.160 = constant [2 x i8] c"0\00"
+@_string_constant.160 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.160, i32 0, i32 0) }
+@string_constant.161 = constant [4 x i8] c"NUM\00"
+@_string_constant.161 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 3, i8* getelementptr ([4 x i8]* @string_constant.161, i32 0, i32 0) }
+@string_constant.162 = constant [4 x i8] c"int\00"
+@_string_constant.162 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 3, i8* getelementptr ([4 x i8]* @string_constant.162, i32 0, i32 0) }
+@string_constant.163 = constant [4 x i8] c"INT\00"
+@_string_constant.163 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 3, i8* getelementptr ([4 x i8]* @string_constant.163, i32 0, i32 0) }
+@string_constant.164 = constant [7 x i8] c"return\00"
+@_string_constant.164 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 6, i8* getelementptr ([7 x i8]* @string_constant.164, i32 0, i32 0) }
+@string_constant.165 = constant [7 x i8] c"RETURN\00"
+@_string_constant.165 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 6, i8* getelementptr ([7 x i8]* @string_constant.165, i32 0, i32 0) }
+@string_constant.166 = constant [3 x i8] c"ID\00"
+@_string_constant.166 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 2, i8* getelementptr ([3 x i8]* @string_constant.166, i32 0, i32 0) }
+@string_constant.167 = constant [3 x i8] c"; \00"
+@_string_constant.167 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 2, i8* getelementptr ([3 x i8]* @string_constant.167, i32 0, i32 0) }
+@string_constant.168 = constant [4 x i8] c"EOF\00"
+@_string_constant.168 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 3, i8* getelementptr ([4 x i8]* @string_constant.168, i32 0, i32 0) }
+@string_constant.169 = constant [1 x i8] c"\00"
+@_string_constant.169 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 0, i8* getelementptr ([1 x i8]* @string_constant.169, i32 0, i32 0) }
+@string_constant.170 = constant [42 x i8] c"Syntax error, or expression too complex.\0A\00"
+@_string_constant.170 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 41, i8* getelementptr ([42 x i8]* @string_constant.170, i32 0, i32 0) }
+@string_constant.171 = constant [2 x i8] c" \00"
+@_string_constant.171 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.171, i32 0, i32 0) }
+@string_constant.172 = constant [2 x i8] c"\0A\00"
+@_string_constant.172 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.172, i32 0, i32 0) }
+@string_constant.173 = constant [2 x i8] c"\0D\00"
+@_string_constant.173 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.173, i32 0, i32 0) }
+@string_constant.174 = constant [2 x i8] c"	\00"
+@_string_constant.174 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.174, i32 0, i32 0) }
+@string_constant.175 = constant [2 x i8] c"0\00"
+@_string_constant.175 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.175, i32 0, i32 0) }
+@string_constant.176 = constant [2 x i8] c";\00"
+@_string_constant.176 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.176, i32 0, i32 0) }
+@string_constant.177 = constant [2 x i8] c"+\00"
+@_string_constant.177 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.177, i32 0, i32 0) }
+@string_constant.178 = constant [2 x i8] c"-\00"
+@_string_constant.178 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.178, i32 0, i32 0) }
+@string_constant.179 = constant [2 x i8] c"*\00"
+@_string_constant.179 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.179, i32 0, i32 0) }
+@string_constant.180 = constant [2 x i8] c"(\00"
+@_string_constant.180 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.180, i32 0, i32 0) }
+@string_constant.181 = constant [2 x i8] c")\00"
+@_string_constant.181 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.181, i32 0, i32 0) }
+@string_constant.182 = constant [2 x i8] c"{\00"
+@_string_constant.182 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.182, i32 0, i32 0) }
+@string_constant.183 = constant [2 x i8] c"}\00"
+@_string_constant.183 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.183, i32 0, i32 0) }
+@string_constant.184 = constant [2 x i8] c",\00"
+@_string_constant.184 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.184, i32 0, i32 0) }
+@string_constant.185 = constant [4 x i8] c"EOF\00"
+@_string_constant.185 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 3, i8* getelementptr ([4 x i8]* @string_constant.185, i32 0, i32 0) }
+@string_constant.186 = constant [1 x i8] c"\00"
+@_string_constant.186 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 0, i8* getelementptr ([1 x i8]* @string_constant.186, i32 0, i32 0) }
+@string_constant.187 = constant [2 x i8] c" \00"
+@_string_constant.187 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.187, i32 0, i32 0) }
+@string_constant.188 = constant [2 x i8] c" \00"
+@_string_constant.188 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.188, i32 0, i32 0) }
+@string_constant.189 = constant [2 x i8] c"	\00"
+@_string_constant.189 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.189, i32 0, i32 0) }
+@string_constant.190 = constant [2 x i8] c"\0D\00"
+@_string_constant.190 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.190, i32 0, i32 0) }
+@string_constant.191 = constant [2 x i8] c"\0A\00"
+@_string_constant.191 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.191, i32 0, i32 0) }
+@string_constant.192 = constant [2 x i8] c"0\00"
+@_string_constant.192 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.192, i32 0, i32 0) }
+@string_constant.193 = constant [2 x i8] c" \00"
+@_string_constant.193 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.193, i32 0, i32 0) }
+@string_constant.194 = constant [2 x i8] c"	\00"
+@_string_constant.194 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.194, i32 0, i32 0) }
+@string_constant.195 = constant [2 x i8] c"\0D\00"
+@_string_constant.195 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.195, i32 0, i32 0) }
+@string_constant.196 = constant [2 x i8] c"\0A\00"
+@_string_constant.196 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.196, i32 0, i32 0) }
+@string_constant.197 = constant [2 x i8] c" \00"
+@_string_constant.197 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.197, i32 0, i32 0) }
+@string_constant.198 = constant [2 x i8] c"	\00"
+@_string_constant.198 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.198, i32 0, i32 0) }
+@string_constant.199 = constant [2 x i8] c"\0D\00"
+@_string_constant.199 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.199, i32 0, i32 0) }
+@string_constant.200 = constant [2 x i8] c"\0A\00"
+@_string_constant.200 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.200, i32 0, i32 0) }
+@string_constant.201 = constant [4 x i8] c"NUM\00"
+@_string_constant.201 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 3, i8* getelementptr ([4 x i8]* @string_constant.201, i32 0, i32 0) }
+@string_constant.202 = constant [2 x i8] c"0\00"
+@_string_constant.202 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.202, i32 0, i32 0) }
+@string_constant.203 = constant [4 x i8] c"NUM\00"
+@_string_constant.203 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 3, i8* getelementptr ([4 x i8]* @string_constant.203, i32 0, i32 0) }
+@string_constant.204 = constant [4 x i8] c"int\00"
+@_string_constant.204 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 3, i8* getelementptr ([4 x i8]* @string_constant.204, i32 0, i32 0) }
+@string_constant.205 = constant [4 x i8] c"INT\00"
+@_string_constant.205 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 3, i8* getelementptr ([4 x i8]* @string_constant.205, i32 0, i32 0) }
+@string_constant.206 = constant [7 x i8] c"return\00"
+@_string_constant.206 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 6, i8* getelementptr ([7 x i8]* @string_constant.206, i32 0, i32 0) }
+@string_constant.207 = constant [7 x i8] c"RETURN\00"
+@_string_constant.207 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 6, i8* getelementptr ([7 x i8]* @string_constant.207, i32 0, i32 0) }
+@string_constant.208 = constant [3 x i8] c"ID\00"
+@_string_constant.208 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 2, i8* getelementptr ([3 x i8]* @string_constant.208, i32 0, i32 0) }
+@string_constant.209 = constant [3 x i8] c"; \00"
+@_string_constant.209 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 2, i8* getelementptr ([3 x i8]* @string_constant.209, i32 0, i32 0) }
+@string_constant.210 = constant [4 x i8] c"EOF\00"
+@_string_constant.210 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 3, i8* getelementptr ([4 x i8]* @string_constant.210, i32 0, i32 0) }
+@string_constant.211 = constant [1 x i8] c"\00"
+@_string_constant.211 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 0, i8* getelementptr ([1 x i8]* @string_constant.211, i32 0, i32 0) }
+@string_constant.212 = constant [4 x i8] c"INT\00"
+@_string_constant.212 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 3, i8* getelementptr ([4 x i8]* @string_constant.212, i32 0, i32 0) }
+@string_constant.213 = constant [3 x i8] c"ID\00"
+@_string_constant.213 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 2, i8* getelementptr ([3 x i8]* @string_constant.213, i32 0, i32 0) }
+@string_constant.214 = constant [2 x i8] c"(\00"
+@_string_constant.214 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.214, i32 0, i32 0) }
+@string_constant.215 = constant [2 x i8] c")\00"
+@_string_constant.215 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.215, i32 0, i32 0) }
+@string_constant.216 = constant [2 x i8] c"{\00"
+@_string_constant.216 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.216, i32 0, i32 0) }
+@string_constant.217 = constant [7 x i8] c"RETURN\00"
+@_string_constant.217 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 6, i8* getelementptr ([7 x i8]* @string_constant.217, i32 0, i32 0) }
+@string_constant.218 = constant [2 x i8] c";\00"
+@_string_constant.218 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.218, i32 0, i32 0) }
+@string_constant.219 = constant [2 x i8] c"}\00"
+@_string_constant.219 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.219, i32 0, i32 0) }
+@string_constant.220 = constant [3 x i8] c"R4\00"
+@_string_constant.220 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 2, i8* getelementptr ([3 x i8]* @string_constant.220, i32 0, i32 0) }
+@string_constant.221 = constant [5 x i8] c"R4-R\00"
+@_string_constant.221 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 4, i8* getelementptr ([5 x i8]* @string_constant.221, i32 0, i32 0) }
+@string_constant.222 = constant [2 x i8] c"_\00"
+@_string_constant.222 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.222, i32 0, i32 0) }
+@string_constant.223 = constant [2 x i8] c"\0A\00"
+@_string_constant.223 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.223, i32 0, i32 0) }
+@string_constant.224 = constant [1 x i8] c"\00"
+@_string_constant.224 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 0, i8* getelementptr ([1 x i8]* @string_constant.224, i32 0, i32 0) }
+@string_constant.225 = constant [14 x i8] c"	STMFD SP!, {\00"
+@_string_constant.225 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 13, i8* getelementptr ([14 x i8]* @string_constant.225, i32 0, i32 0) }
+@string_constant.226 = constant [3 x i8] c"}\0A\00"
+@_string_constant.226 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 2, i8* getelementptr ([3 x i8]* @string_constant.226, i32 0, i32 0) }
+@string_constant.227 = constant [13 x i8] c"	MOV   R0, R\00"
+@_string_constant.227 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 12, i8* getelementptr ([13 x i8]* @string_constant.227, i32 0, i32 0) }
+@string_constant.228 = constant [2 x i8] c"\0A\00"
+@_string_constant.228 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.228, i32 0, i32 0) }
+@string_constant.229 = constant [1 x i8] c"\00"
+@_string_constant.229 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 0, i8* getelementptr ([1 x i8]* @string_constant.229, i32 0, i32 0) }
+@string_constant.230 = constant [14 x i8] c"	LDMFD SP!, {\00"
+@_string_constant.230 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 13, i8* getelementptr ([14 x i8]* @string_constant.230, i32 0, i32 0) }
+@string_constant.231 = constant [3 x i8] c"}\0A\00"
+@_string_constant.231 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 2, i8* getelementptr ([3 x i8]* @string_constant.231, i32 0, i32 0) }
+@string_constant.232 = constant [11 x i8] c"	BX    LR\0A\00"
+@_string_constant.232 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 10, i8* getelementptr ([11 x i8]* @string_constant.232, i32 0, i32 0) }
+@string_constant.233 = constant [2 x i8] c"\0A\00"
+@_string_constant.233 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.233, i32 0, i32 0) }
+@string_constant.234 = constant [4 x i8] c"INT\00"
+@_string_constant.234 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 3, i8* getelementptr ([4 x i8]* @string_constant.234, i32 0, i32 0) }
+@string_constant.235 = constant [2 x i8] c")\00"
+@_string_constant.235 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.235, i32 0, i32 0) }
+@string_constant.236 = constant [4 x i8] c"INT\00"
+@_string_constant.236 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 3, i8* getelementptr ([4 x i8]* @string_constant.236, i32 0, i32 0) }
+@string_constant.237 = constant [3 x i8] c"ID\00"
+@_string_constant.237 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 2, i8* getelementptr ([3 x i8]* @string_constant.237, i32 0, i32 0) }
+@string_constant.238 = constant [2 x i8] c",\00"
+@_string_constant.238 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.238, i32 0, i32 0) }
+@string_constant.239 = constant [2 x i8] c",\00"
+@_string_constant.239 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.239, i32 0, i32 0) }
+@string_constant.240 = constant [2 x i8] c")\00"
+@_string_constant.240 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.240, i32 0, i32 0) }
+@string_constant.241 = constant [2 x i8] c"	\00"
+@_string_constant.241 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.241, i32 0, i32 0) }
+@string_constant.242 = constant [5 x i8] c"   R\00"
+@_string_constant.242 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 4, i8* getelementptr ([5 x i8]* @string_constant.242, i32 0, i32 0) }
+@string_constant.243 = constant [4 x i8] c", R\00"
+@_string_constant.243 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 3, i8* getelementptr ([4 x i8]* @string_constant.243, i32 0, i32 0) }
+@string_constant.244 = constant [4 x i8] c", R\00"
+@_string_constant.244 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 3, i8* getelementptr ([4 x i8]* @string_constant.244, i32 0, i32 0) }
+@string_constant.245 = constant [2 x i8] c"\0A\00"
+@_string_constant.245 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.245, i32 0, i32 0) }
+@string_constant.246 = constant [2 x i8] c"+\00"
+@_string_constant.246 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.246, i32 0, i32 0) }
+@string_constant.247 = constant [2 x i8] c"+\00"
+@_string_constant.247 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.247, i32 0, i32 0) }
+@string_constant.248 = constant [4 x i8] c"ADD\00"
+@_string_constant.248 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 3, i8* getelementptr ([4 x i8]* @string_constant.248, i32 0, i32 0) }
+@string_constant.249 = constant [2 x i8] c"-\00"
+@_string_constant.249 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.249, i32 0, i32 0) }
+@string_constant.250 = constant [2 x i8] c"-\00"
+@_string_constant.250 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.250, i32 0, i32 0) }
+@string_constant.251 = constant [4 x i8] c"SUB\00"
+@_string_constant.251 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 3, i8* getelementptr ([4 x i8]* @string_constant.251, i32 0, i32 0) }
+@string_constant.252 = constant [2 x i8] c";\00"
+@_string_constant.252 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.252, i32 0, i32 0) }
+@string_constant.253 = constant [2 x i8] c")\00"
+@_string_constant.253 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.253, i32 0, i32 0) }
+@string_constant.254 = constant [2 x i8] c"*\00"
+@_string_constant.254 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.254, i32 0, i32 0) }
+@string_constant.255 = constant [2 x i8] c"*\00"
+@_string_constant.255 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.255, i32 0, i32 0) }
+@string_constant.256 = constant [4 x i8] c"MUL\00"
+@_string_constant.256 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 3, i8* getelementptr ([4 x i8]* @string_constant.256, i32 0, i32 0) }
+@string_constant.257 = constant [2 x i8] c";\00"
+@_string_constant.257 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.257, i32 0, i32 0) }
+@string_constant.258 = constant [2 x i8] c")\00"
+@_string_constant.258 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.258, i32 0, i32 0) }
+@string_constant.259 = constant [2 x i8] c"+\00"
+@_string_constant.259 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.259, i32 0, i32 0) }
+@string_constant.260 = constant [2 x i8] c"-\00"
+@_string_constant.260 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.260, i32 0, i32 0) }
+@string_constant.261 = constant [3 x i8] c"ID\00"
+@_string_constant.261 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 2, i8* getelementptr ([3 x i8]* @string_constant.261, i32 0, i32 0) }
+@string_constant.262 = constant [1 x i8] c"\00"
+@_string_constant.262 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 0, i8* getelementptr ([1 x i8]* @string_constant.262, i32 0, i32 0) }
+@string_constant.263 = constant [3 x i8] c"ID\00"
+@_string_constant.263 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 2, i8* getelementptr ([3 x i8]* @string_constant.263, i32 0, i32 0) }
+@string_constant.264 = constant [4 x i8] c"NUM\00"
+@_string_constant.264 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 3, i8* getelementptr ([4 x i8]* @string_constant.264, i32 0, i32 0) }
+@string_constant.265 = constant [9 x i8] c"	LDR   R\00"
+@_string_constant.265 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 8, i8* getelementptr ([9 x i8]* @string_constant.265, i32 0, i32 0) }
+@string_constant.266 = constant [4 x i8] c", =\00"
+@_string_constant.266 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 3, i8* getelementptr ([4 x i8]* @string_constant.266, i32 0, i32 0) }
+@string_constant.267 = constant [4 x i8] c"NUM\00"
+@_string_constant.267 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 3, i8* getelementptr ([4 x i8]* @string_constant.267, i32 0, i32 0) }
+@string_constant.268 = constant [2 x i8] c"\0A\00"
+@_string_constant.268 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.268, i32 0, i32 0) }
+@string_constant.269 = constant [2 x i8] c"(\00"
+@_string_constant.269 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.269, i32 0, i32 0) }
+@string_constant.270 = constant [2 x i8] c"(\00"
+@_string_constant.270 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.270, i32 0, i32 0) }
+@string_constant.271 = constant [2 x i8] c")\00"
+@_string_constant.271 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.271, i32 0, i32 0) }
+@string_constant.272 = constant [42 x i8] c"Syntax error, or expression too complex.\0A\00"
+@_string_constant.272 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 41, i8* getelementptr ([42 x i8]* @string_constant.272, i32 0, i32 0) }
+@string_constant.273 = constant [2 x i8] c" \00"
+@_string_constant.273 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.273, i32 0, i32 0) }
+@string_constant.274 = constant [2 x i8] c"\0A\00"
+@_string_constant.274 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.274, i32 0, i32 0) }
+@string_constant.275 = constant [2 x i8] c"\0D\00"
+@_string_constant.275 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.275, i32 0, i32 0) }
+@string_constant.276 = constant [2 x i8] c"	\00"
+@_string_constant.276 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.276, i32 0, i32 0) }
+@string_constant.277 = constant [2 x i8] c"0\00"
+@_string_constant.277 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.277, i32 0, i32 0) }
+@string_constant.278 = constant [2 x i8] c";\00"
+@_string_constant.278 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.278, i32 0, i32 0) }
+@string_constant.279 = constant [2 x i8] c"+\00"
+@_string_constant.279 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.279, i32 0, i32 0) }
+@string_constant.280 = constant [2 x i8] c"-\00"
+@_string_constant.280 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.280, i32 0, i32 0) }
+@string_constant.281 = constant [2 x i8] c"*\00"
+@_string_constant.281 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.281, i32 0, i32 0) }
+@string_constant.282 = constant [2 x i8] c"(\00"
+@_string_constant.282 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.282, i32 0, i32 0) }
+@string_constant.283 = constant [2 x i8] c")\00"
+@_string_constant.283 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.283, i32 0, i32 0) }
+@string_constant.284 = constant [2 x i8] c"{\00"
+@_string_constant.284 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.284, i32 0, i32 0) }
+@string_constant.285 = constant [2 x i8] c"}\00"
+@_string_constant.285 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.285, i32 0, i32 0) }
+@string_constant.286 = constant [2 x i8] c",\00"
+@_string_constant.286 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.286, i32 0, i32 0) }
+@string_constant.287 = constant [4 x i8] c"EOF\00"
+@_string_constant.287 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 3, i8* getelementptr ([4 x i8]* @string_constant.287, i32 0, i32 0) }
+@string_constant.288 = constant [1 x i8] c"\00"
+@_string_constant.288 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 0, i8* getelementptr ([1 x i8]* @string_constant.288, i32 0, i32 0) }
+@string_constant.289 = constant [2 x i8] c" \00"
+@_string_constant.289 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.289, i32 0, i32 0) }
+@string_constant.290 = constant [2 x i8] c" \00"
+@_string_constant.290 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.290, i32 0, i32 0) }
+@string_constant.291 = constant [2 x i8] c"	\00"
+@_string_constant.291 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.291, i32 0, i32 0) }
+@string_constant.292 = constant [2 x i8] c"\0D\00"
+@_string_constant.292 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.292, i32 0, i32 0) }
+@string_constant.293 = constant [2 x i8] c"\0A\00"
+@_string_constant.293 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.293, i32 0, i32 0) }
+@string_constant.294 = constant [2 x i8] c"0\00"
+@_string_constant.294 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.294, i32 0, i32 0) }
+@string_constant.295 = constant [2 x i8] c" \00"
+@_string_constant.295 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.295, i32 0, i32 0) }
+@string_constant.296 = constant [2 x i8] c"	\00"
+@_string_constant.296 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.296, i32 0, i32 0) }
+@string_constant.297 = constant [2 x i8] c"\0D\00"
+@_string_constant.297 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.297, i32 0, i32 0) }
+@string_constant.298 = constant [2 x i8] c"\0A\00"
+@_string_constant.298 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.298, i32 0, i32 0) }
+@string_constant.299 = constant [2 x i8] c" \00"
+@_string_constant.299 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.299, i32 0, i32 0) }
+@string_constant.300 = constant [2 x i8] c"	\00"
+@_string_constant.300 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.300, i32 0, i32 0) }
+@string_constant.301 = constant [2 x i8] c"\0D\00"
+@_string_constant.301 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.301, i32 0, i32 0) }
+@string_constant.302 = constant [2 x i8] c"\0A\00"
+@_string_constant.302 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.302, i32 0, i32 0) }
+@string_constant.303 = constant [4 x i8] c"NUM\00"
+@_string_constant.303 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 3, i8* getelementptr ([4 x i8]* @string_constant.303, i32 0, i32 0) }
+@string_constant.304 = constant [2 x i8] c"0\00"
+@_string_constant.304 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.304, i32 0, i32 0) }
+@string_constant.305 = constant [4 x i8] c"NUM\00"
+@_string_constant.305 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 3, i8* getelementptr ([4 x i8]* @string_constant.305, i32 0, i32 0) }
+@string_constant.306 = constant [4 x i8] c"int\00"
+@_string_constant.306 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 3, i8* getelementptr ([4 x i8]* @string_constant.306, i32 0, i32 0) }
+@string_constant.307 = constant [4 x i8] c"INT\00"
+@_string_constant.307 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 3, i8* getelementptr ([4 x i8]* @string_constant.307, i32 0, i32 0) }
+@string_constant.308 = constant [7 x i8] c"return\00"
+@_string_constant.308 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 6, i8* getelementptr ([7 x i8]* @string_constant.308, i32 0, i32 0) }
+@string_constant.309 = constant [7 x i8] c"RETURN\00"
+@_string_constant.309 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 6, i8* getelementptr ([7 x i8]* @string_constant.309, i32 0, i32 0) }
+@string_constant.310 = constant [3 x i8] c"ID\00"
+@_string_constant.310 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 2, i8* getelementptr ([3 x i8]* @string_constant.310, i32 0, i32 0) }
+@string_constant.311 = constant [3 x i8] c"; \00"
+@_string_constant.311 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 2, i8* getelementptr ([3 x i8]* @string_constant.311, i32 0, i32 0) }
+@string_constant.312 = constant [4 x i8] c"EOF\00"
+@_string_constant.312 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 3, i8* getelementptr ([4 x i8]* @string_constant.312, i32 0, i32 0) }
+@string_constant.313 = constant [1 x i8] c"\00"
+@_string_constant.313 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 0, i8* getelementptr ([1 x i8]* @string_constant.313, i32 0, i32 0) }
+@string_constant.314 = constant [4 x i8] c"INT\00"
+@_string_constant.314 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 3, i8* getelementptr ([4 x i8]* @string_constant.314, i32 0, i32 0) }
+@string_constant.315 = constant [3 x i8] c"ID\00"
+@_string_constant.315 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 2, i8* getelementptr ([3 x i8]* @string_constant.315, i32 0, i32 0) }
+@string_constant.316 = constant [2 x i8] c"(\00"
+@_string_constant.316 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.316, i32 0, i32 0) }
+@string_constant.317 = constant [2 x i8] c")\00"
+@_string_constant.317 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.317, i32 0, i32 0) }
+@string_constant.318 = constant [2 x i8] c"{\00"
+@_string_constant.318 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.318, i32 0, i32 0) }
+@string_constant.319 = constant [7 x i8] c"RETURN\00"
+@_string_constant.319 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 6, i8* getelementptr ([7 x i8]* @string_constant.319, i32 0, i32 0) }
+@string_constant.320 = constant [2 x i8] c";\00"
+@_string_constant.320 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.320, i32 0, i32 0) }
+@string_constant.321 = constant [2 x i8] c"}\00"
+@_string_constant.321 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.321, i32 0, i32 0) }
+@string_constant.322 = constant [3 x i8] c"R4\00"
+@_string_constant.322 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 2, i8* getelementptr ([3 x i8]* @string_constant.322, i32 0, i32 0) }
+@string_constant.323 = constant [5 x i8] c"R4-R\00"
+@_string_constant.323 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 4, i8* getelementptr ([5 x i8]* @string_constant.323, i32 0, i32 0) }
+@string_constant.324 = constant [2 x i8] c"_\00"
+@_string_constant.324 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.324, i32 0, i32 0) }
+@string_constant.325 = constant [2 x i8] c"\0A\00"
+@_string_constant.325 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.325, i32 0, i32 0) }
+@string_constant.326 = constant [1 x i8] c"\00"
+@_string_constant.326 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 0, i8* getelementptr ([1 x i8]* @string_constant.326, i32 0, i32 0) }
+@string_constant.327 = constant [14 x i8] c"	STMFD SP!, {\00"
+@_string_constant.327 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 13, i8* getelementptr ([14 x i8]* @string_constant.327, i32 0, i32 0) }
+@string_constant.328 = constant [3 x i8] c"}\0A\00"
+@_string_constant.328 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 2, i8* getelementptr ([3 x i8]* @string_constant.328, i32 0, i32 0) }
+@string_constant.329 = constant [13 x i8] c"	MOV   R0, R\00"
+@_string_constant.329 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 12, i8* getelementptr ([13 x i8]* @string_constant.329, i32 0, i32 0) }
+@string_constant.330 = constant [2 x i8] c"\0A\00"
+@_string_constant.330 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.330, i32 0, i32 0) }
+@string_constant.331 = constant [1 x i8] c"\00"
+@_string_constant.331 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 0, i8* getelementptr ([1 x i8]* @string_constant.331, i32 0, i32 0) }
+@string_constant.332 = constant [14 x i8] c"	LDMFD SP!, {\00"
+@_string_constant.332 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 13, i8* getelementptr ([14 x i8]* @string_constant.332, i32 0, i32 0) }
+@string_constant.333 = constant [3 x i8] c"}\0A\00"
+@_string_constant.333 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 2, i8* getelementptr ([3 x i8]* @string_constant.333, i32 0, i32 0) }
+@string_constant.334 = constant [11 x i8] c"	BX    LR\0A\00"
+@_string_constant.334 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 10, i8* getelementptr ([11 x i8]* @string_constant.334, i32 0, i32 0) }
+@string_constant.335 = constant [2 x i8] c"\0A\00"
+@_string_constant.335 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.335, i32 0, i32 0) }
+@string_constant.336 = constant [4 x i8] c"INT\00"
+@_string_constant.336 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 3, i8* getelementptr ([4 x i8]* @string_constant.336, i32 0, i32 0) }
+@string_constant.337 = constant [2 x i8] c")\00"
+@_string_constant.337 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.337, i32 0, i32 0) }
+@string_constant.338 = constant [4 x i8] c"INT\00"
+@_string_constant.338 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 3, i8* getelementptr ([4 x i8]* @string_constant.338, i32 0, i32 0) }
+@string_constant.339 = constant [3 x i8] c"ID\00"
+@_string_constant.339 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 2, i8* getelementptr ([3 x i8]* @string_constant.339, i32 0, i32 0) }
+@string_constant.340 = constant [2 x i8] c",\00"
+@_string_constant.340 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.340, i32 0, i32 0) }
+@string_constant.341 = constant [2 x i8] c",\00"
+@_string_constant.341 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.341, i32 0, i32 0) }
+@string_constant.342 = constant [2 x i8] c")\00"
+@_string_constant.342 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.342, i32 0, i32 0) }
+@string_constant.343 = constant [2 x i8] c"	\00"
+@_string_constant.343 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.343, i32 0, i32 0) }
+@string_constant.344 = constant [5 x i8] c"   R\00"
+@_string_constant.344 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 4, i8* getelementptr ([5 x i8]* @string_constant.344, i32 0, i32 0) }
+@string_constant.345 = constant [4 x i8] c", R\00"
+@_string_constant.345 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 3, i8* getelementptr ([4 x i8]* @string_constant.345, i32 0, i32 0) }
+@string_constant.346 = constant [4 x i8] c", R\00"
+@_string_constant.346 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 3, i8* getelementptr ([4 x i8]* @string_constant.346, i32 0, i32 0) }
+@string_constant.347 = constant [2 x i8] c"\0A\00"
+@_string_constant.347 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.347, i32 0, i32 0) }
+@string_constant.348 = constant [2 x i8] c"+\00"
+@_string_constant.348 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.348, i32 0, i32 0) }
+@string_constant.349 = constant [2 x i8] c"+\00"
+@_string_constant.349 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.349, i32 0, i32 0) }
+@string_constant.350 = constant [4 x i8] c"ADD\00"
+@_string_constant.350 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 3, i8* getelementptr ([4 x i8]* @string_constant.350, i32 0, i32 0) }
+@string_constant.351 = constant [2 x i8] c"-\00"
+@_string_constant.351 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.351, i32 0, i32 0) }
+@string_constant.352 = constant [2 x i8] c"-\00"
+@_string_constant.352 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.352, i32 0, i32 0) }
+@string_constant.353 = constant [4 x i8] c"SUB\00"
+@_string_constant.353 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 3, i8* getelementptr ([4 x i8]* @string_constant.353, i32 0, i32 0) }
+@string_constant.354 = constant [2 x i8] c";\00"
+@_string_constant.354 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.354, i32 0, i32 0) }
+@string_constant.355 = constant [2 x i8] c")\00"
+@_string_constant.355 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.355, i32 0, i32 0) }
+@string_constant.356 = constant [2 x i8] c"*\00"
+@_string_constant.356 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.356, i32 0, i32 0) }
+@string_constant.357 = constant [2 x i8] c"*\00"
+@_string_constant.357 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.357, i32 0, i32 0) }
+@string_constant.358 = constant [4 x i8] c"MUL\00"
+@_string_constant.358 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 3, i8* getelementptr ([4 x i8]* @string_constant.358, i32 0, i32 0) }
+@string_constant.359 = constant [2 x i8] c";\00"
+@_string_constant.359 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.359, i32 0, i32 0) }
+@string_constant.360 = constant [2 x i8] c")\00"
+@_string_constant.360 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.360, i32 0, i32 0) }
+@string_constant.361 = constant [2 x i8] c"+\00"
+@_string_constant.361 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.361, i32 0, i32 0) }
+@string_constant.362 = constant [2 x i8] c"-\00"
+@_string_constant.362 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.362, i32 0, i32 0) }
+@string_constant.363 = constant [3 x i8] c"ID\00"
+@_string_constant.363 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 2, i8* getelementptr ([3 x i8]* @string_constant.363, i32 0, i32 0) }
+@string_constant.364 = constant [1 x i8] c"\00"
+@_string_constant.364 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 0, i8* getelementptr ([1 x i8]* @string_constant.364, i32 0, i32 0) }
+@string_constant.365 = constant [3 x i8] c"ID\00"
+@_string_constant.365 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 2, i8* getelementptr ([3 x i8]* @string_constant.365, i32 0, i32 0) }
+@string_constant.366 = constant [4 x i8] c"NUM\00"
+@_string_constant.366 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 3, i8* getelementptr ([4 x i8]* @string_constant.366, i32 0, i32 0) }
+@string_constant.367 = constant [9 x i8] c"	LDR   R\00"
+@_string_constant.367 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 8, i8* getelementptr ([9 x i8]* @string_constant.367, i32 0, i32 0) }
+@string_constant.368 = constant [4 x i8] c", =\00"
+@_string_constant.368 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 3, i8* getelementptr ([4 x i8]* @string_constant.368, i32 0, i32 0) }
+@string_constant.369 = constant [4 x i8] c"NUM\00"
+@_string_constant.369 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 3, i8* getelementptr ([4 x i8]* @string_constant.369, i32 0, i32 0) }
+@string_constant.370 = constant [2 x i8] c"\0A\00"
+@_string_constant.370 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.370, i32 0, i32 0) }
+@string_constant.371 = constant [2 x i8] c"(\00"
+@_string_constant.371 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.371, i32 0, i32 0) }
+@string_constant.372 = constant [2 x i8] c"(\00"
+@_string_constant.372 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.372, i32 0, i32 0) }
+@string_constant.373 = constant [2 x i8] c")\00"
+@_string_constant.373 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.373, i32 0, i32 0) }
+@string_constant.374 = constant [2 x i8] c"\0A\00"
+@_string_constant.374 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.374, i32 0, i32 0) }
+@string_constant.375 = constant [71 x i8] c"int f(int a, int b, int c) {\0D\0A    return b * b - 4 * a * c ; \0D\0A    }\0D\0A\00"
+@_string_constant.375 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 70, i8* getelementptr ([71 x i8]* @string_constant.375, i32 0, i32 0) }
+@string_constant.376 = constant [83 x i8] c"int volume(int pi, int r, int height) {\0D\0A    return pi * r * r * height; \0D\0A    }\0D\0A\00"
+@_string_constant.376 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 82, i8* getelementptr ([83 x i8]* @string_constant.376, i32 0, i32 0) }
+@string_constant.377 = constant [90 x i8] c"int Taylor_1_div_x(int x) {\0D\0A    return 1-(x-1)+(x-1)*(x-1)-(x-1)*(x-1)*(x-1) ; \0D\0A    }\0D\0A\00"
+@_string_constant.377 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 89, i8* getelementptr ([90 x i8]* @string_constant.377, i32 0, i32 0) }
+@string_constant.378 = constant [99 x i8] c"int x(int a, int b, int c, int d) {\0D\0A    return (d-a)*0-((a-b)*10+((b-c)*20-(c-d)*30)) ; \0D\0A    }\0D\0A\00"
+@_string_constant.378 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 98, i8* getelementptr ([99 x i8]* @string_constant.378, i32 0, i32 0) }
+; Runtime type information and virtual tables
+;
+%struct.RError = type { %struct.TString*, i32, %struct.__lcpl_rtti*, [7 x i8*] }
+@RError = global %struct.RError{ %struct.TString* @NError, i32 4, %struct.__lcpl_rtti* bitcast(%struct.RIO* @RIO to %struct.__lcpl_rtti*),
+[7 x i8*] [i8* bitcast (void (%struct.TError*)* @Error_init to i8*)
+,	i8* bitcast (void(%struct.TObject*)* @M6_Object_abort to i8*)
+,	i8* bitcast (%struct.TString*(%struct.TObject*)* @M6_Object_typeName to i8*)
+,	i8* bitcast (%struct.TObject*(%struct.TObject*)* @M6_Object_copy to i8*)
+,	i8* bitcast (%struct.TString*(%struct.TIO*)* @M2_IO_in to i8*)
+,	i8* bitcast (%struct.TIO*(%struct.TIO*, %struct.TString*)* @M2_IO_out to i8*)
+,	i8* bitcast (void(%struct.TError*)* @M5_Error_raise to i8*)
+]}
+%struct.RToken = type { %struct.TString*, i32, %struct.__lcpl_rtti*, [7 x i8*] }
+@RToken = global %struct.RToken{ %struct.TString* @NToken, i32 10, %struct.__lcpl_rtti* bitcast(%struct.RObject* @RObject to %struct.__lcpl_rtti*),
+[7 x i8*] [i8* bitcast (void (%struct.TToken*)* @Token_init to i8*)
+,	i8* bitcast (void(%struct.TObject*)* @M6_Object_abort to i8*)
+,	i8* bitcast (%struct.TString*(%struct.TObject*)* @M6_Object_typeName to i8*)
+,	i8* bitcast (%struct.TObject*(%struct.TObject*)* @M6_Object_copy to i8*)
+,	i8* bitcast (%struct.TToken*(%struct.TToken*, %struct.TString*, %struct.TString*)* @M5_Token_init to i8*)
+,	i8* bitcast (%struct.TString*(%struct.TToken*)* @M5_Token_type to i8*)
+,	i8* bitcast (%struct.TString*(%struct.TToken*)* @M5_Token_value to i8*)
+]}
+%struct.RCTokenizer = type { %struct.TString*, i32, %struct.__lcpl_rtti*, [10 x i8*] }
+@RCTokenizer = global %struct.RCTokenizer{ %struct.TString* @NCTokenizer, i32 19, %struct.__lcpl_rtti* bitcast(%struct.RObject* @RObject to %struct.__lcpl_rtti*),
+[10 x i8*] [i8* bitcast (void (%struct.TCTokenizer*)* @CTokenizer_init to i8*)
+,	i8* bitcast (void(%struct.TObject*)* @M6_Object_abort to i8*)
+,	i8* bitcast (%struct.TString*(%struct.TObject*)* @M6_Object_typeName to i8*)
+,	i8* bitcast (%struct.TObject*(%struct.TObject*)* @M6_Object_copy to i8*)
+,	i8* bitcast (void(%struct.TCTokenizer*, %struct.TString*)* @M10_CTokenizer_set to i8*)
+,	i8* bitcast (%struct.TString*(%struct.TCTokenizer*)* @M10_CTokenizer_comment to i8*)
+,	i8* bitcast (i32(%struct.TCTokenizer*, %struct.TString*)* @M10_CTokenizer_isWhiteSpace to i8*)
+,	i8* bitcast (i32(%struct.TCTokenizer*, %struct.TString*)* @M10_CTokenizer_isDigit to i8*)
+,	i8* bitcast (i32(%struct.TCTokenizer*, %struct.TString*)* @M10_CTokenizer_isSign to i8*)
+,	i8* bitcast (%struct.TToken*(%struct.TCTokenizer*)* @M10_CTokenizer_next to i8*)
+]}
+%struct.RParam = type { %struct.TString*, i32, %struct.__lcpl_rtti*, [6 x i8*] }
+@RParam = global %struct.RParam{ %struct.TString* @NParam, i32 13, %struct.__lcpl_rtti* bitcast(%struct.RObject* @RObject to %struct.__lcpl_rtti*),
+[6 x i8*] [i8* bitcast (void (%struct.TParam*)* @Param_init to i8*)
+,	i8* bitcast (void(%struct.TObject*)* @M6_Object_abort to i8*)
+,	i8* bitcast (%struct.TString*(%struct.TObject*)* @M6_Object_typeName to i8*)
+,	i8* bitcast (%struct.TObject*(%struct.TObject*)* @M6_Object_copy to i8*)
+,	i8* bitcast (%struct.TParam*(%struct.TParam*, %struct.TString*, i32, %struct.TParam*)* @M5_Param_init to i8*)
+,	i8* bitcast (i32(%struct.TParam*, %struct.TString*)* @M5_Param_lookup to i8*)
+]}
+%struct.RSymbolTable = type { %struct.TString*, i32, %struct.__lcpl_rtti*, [7 x i8*] }
+@RSymbolTable = global %struct.RSymbolTable{ %struct.TString* @NSymbolTable, i32 10, %struct.__lcpl_rtti* bitcast(%struct.RObject* @RObject to %struct.__lcpl_rtti*),
+[7 x i8*] [i8* bitcast (void (%struct.TSymbolTable*)* @SymbolTable_init to i8*)
+,	i8* bitcast (void(%struct.TObject*)* @M6_Object_abort to i8*)
+,	i8* bitcast (%struct.TString*(%struct.TObject*)* @M6_Object_typeName to i8*)
+,	i8* bitcast (%struct.TObject*(%struct.TObject*)* @M6_Object_copy to i8*)
+,	i8* bitcast (i32(%struct.TSymbolTable*)* @M11_SymbolTable_count to i8*)
+,	i8* bitcast (void(%struct.TSymbolTable*, %struct.TString*)* @M11_SymbolTable_add to i8*)
+,	i8* bitcast (i32(%struct.TSymbolTable*, %struct.TString*)* @M11_SymbolTable_lookup to i8*)
+]}
+%struct.RCode = type { %struct.TString*, i32, %struct.__lcpl_rtti*, [8 x i8*] }
+@RCode = global %struct.RCode{ %struct.TString* @NCode, i32 13, %struct.__lcpl_rtti* bitcast(%struct.RObject* @RObject to %struct.__lcpl_rtti*),
+[8 x i8*] [i8* bitcast (void (%struct.TCode*)* @Code_init to i8*)
+,	i8* bitcast (void(%struct.TObject*)* @M6_Object_abort to i8*)
+,	i8* bitcast (%struct.TString*(%struct.TObject*)* @M6_Object_typeName to i8*)
+,	i8* bitcast (%struct.TObject*(%struct.TObject*)* @M6_Object_copy to i8*)
+,	i8* bitcast (%struct.TCode*(%struct.TCode*, %struct.TString*, i32, i32)* @M4_Code_init to i8*)
+,	i8* bitcast (%struct.TString*(%struct.TCode*)* @M4_Code_code to i8*)
+,	i8* bitcast (i32(%struct.TCode*)* @M4_Code_resultReg to i8*)
+,	i8* bitcast (i32(%struct.TCode*)* @M4_Code_regsUsed to i8*)
+]}
+%struct.RCCompiler = type { %struct.TString*, i32, %struct.__lcpl_rtti*, [18 x i8*] }
+@RCCompiler = global %struct.RCCompiler{ %struct.TString* @NCCompiler, i32 16, %struct.__lcpl_rtti* bitcast(%struct.RObject* @RObject to %struct.__lcpl_rtti*),
+[18 x i8*] [i8* bitcast (void (%struct.TCCompiler*)* @CCompiler_init to i8*)
+,	i8* bitcast (void(%struct.TObject*)* @M6_Object_abort to i8*)
+,	i8* bitcast (%struct.TString*(%struct.TObject*)* @M6_Object_typeName to i8*)
+,	i8* bitcast (%struct.TObject*(%struct.TObject*)* @M6_Object_copy to i8*)
+,	i8* bitcast (void(%struct.TCCompiler*, %struct.TCTokenizer*)* @M9_CCompiler_set to i8*)
+,	i8* bitcast (void(%struct.TCCompiler*, i32)* @M9_CCompiler_useReg to i8*)
+,	i8* bitcast (%struct.TToken*(%struct.TCCompiler*, %struct.TString*)* @M9_CCompiler_match to i8*)
+,	i8* bitcast (%struct.TString*(%struct.TCCompiler*)* @M9_CCompiler_function to i8*)
+,	i8* bitcast (void(%struct.TCCompiler*)* @M9_CCompiler_parameters to i8*)
+,	i8* bitcast (void(%struct.TCCompiler*)* @M9_CCompiler_param to i8*)
+,	i8* bitcast (void(%struct.TCCompiler*)* @M9_CCompiler_rest_params to i8*)
+,	i8* bitcast (%struct.TCode*(%struct.TCCompiler*, i32)* @M9_CCompiler_expression to i8*)
+,	i8* bitcast (%struct.TCode*(%struct.TCCompiler*, %struct.TString*, i32, %struct.TCode*, %struct.TCode*)* @M9_CCompiler_combine to i8*)
+,	i8* bitcast (%struct.TCode*(%struct.TCCompiler*, i32, %struct.TCode*)* @M9_CCompiler_add to i8*)
+,	i8* bitcast (%struct.TCode*(%struct.TCCompiler*, i32)* @M9_CCompiler_term to i8*)
+,	i8* bitcast (%struct.TCode*(%struct.TCCompiler*, i32, %struct.TCode*)* @M9_CCompiler_mul to i8*)
+,	i8* bitcast (%struct.TCode*(%struct.TCCompiler*, i32)* @M9_CCompiler_fact to i8*)
+,	i8* bitcast (%struct.TString*(%struct.TCCompiler*)* @M9_CCompiler_compile to i8*)
+]}
+%struct.RMain = type { %struct.TString*, i32, %struct.__lcpl_rtti*, [8 x i8*] }
+@RMain = global %struct.RMain{ %struct.TString* @NMain, i32 4, %struct.__lcpl_rtti* bitcast(%struct.RIO* @RIO to %struct.__lcpl_rtti*),
+[8 x i8*] [i8* bitcast (void (%struct.TMain*)* @Main_init to i8*)
+,	i8* bitcast (void(%struct.TObject*)* @M6_Object_abort to i8*)
+,	i8* bitcast (%struct.TString*(%struct.TObject*)* @M6_Object_typeName to i8*)
+,	i8* bitcast (%struct.TObject*(%struct.TObject*)* @M6_Object_copy to i8*)
+,	i8* bitcast (%struct.TString*(%struct.TIO*)* @M2_IO_in to i8*)
+,	i8* bitcast (%struct.TIO*(%struct.TIO*, %struct.TString*)* @M2_IO_out to i8*)
+,	i8* bitcast (%struct.TString*(%struct.TMain*, %struct.TString*)* @M4_Main_compile to i8*)
+,	i8* bitcast (void(%struct.TMain*)* @M4_Main_main to i8*)
+]}
+; Class initializer (constructor) forError
+define void @Error_init(%struct.TError* %self) {
+%1 = alloca %struct.TError*
+store %struct.TError* %self, %struct.TError** %1
+%2 = load %struct.TError** %1
+%3 = bitcast %struct.TError* %2 to %struct.TIO*
+call void @IO_init(%struct.TIO* %3)
+
+ret void
+}
+; Class initializer (constructor) forToken
+define void @Token_init(%struct.TToken* %self) {
+%1 = alloca %struct.TToken*
+store %struct.TToken* %self, %struct.TToken** %1
+%2 = load %struct.TToken** %1
+%3 = bitcast %struct.TToken* %2 to %struct.TObject*
+call void @Object_init(%struct.TObject* %3)
+
+%4 = getelementptr %struct.TToken* %2, i32 0, i32 1
+store %struct.TString* @_string_constant.strEmpty, %struct.TString** %4
+%5 = getelementptr %struct.TToken* %2, i32 0, i32 2
+store %struct.TString* @_string_constant.strEmpty, %struct.TString** %5
+ret void
+}
+; Class initializer (constructor) forCTokenizer
+define void @CTokenizer_init(%struct.TCTokenizer* %self) {
+%1 = alloca %struct.TCTokenizer*
+store %struct.TCTokenizer* %self, %struct.TCTokenizer** %1
+%2 = load %struct.TCTokenizer** %1
+%3 = bitcast %struct.TCTokenizer* %2 to %struct.TObject*
+call void @Object_init(%struct.TObject* %3)
+
+%4 = getelementptr %struct.TCTokenizer* %2, i32 0, i32 1
+store %struct.TString* @_string_constant.strEmpty, %struct.TString** %4
+%5 = getelementptr %struct.TCTokenizer* %2, i32 0, i32 2
+store i32 0, i32* %5
+%6 = getelementptr %struct.TCTokenizer* %2, i32 0, i32 3
+store i32 0, i32* %6
+%7 = getelementptr %struct.TCTokenizer* %2, i32 0, i32 4
+store %struct.TString* @_string_constant.strEmpty, %struct.TString** %7
+%8 = getelementptr %struct.TCTokenizer* %2, i32 0, i32 5
+store i32 1, i32* %8
+ret void
+}
+; Class initializer (constructor) forParam
+define void @Param_init(%struct.TParam* %self) {
+%1 = alloca %struct.TParam*
+store %struct.TParam* %self, %struct.TParam** %1
+%2 = load %struct.TParam** %1
+%3 = bitcast %struct.TParam* %2 to %struct.TObject*
+call void @Object_init(%struct.TObject* %3)
+
+%4 = getelementptr %struct.TParam* %2, i32 0, i32 1
+store %struct.TString* @_string_constant.strEmpty, %struct.TString** %4
+%5 = getelementptr %struct.TParam* %2, i32 0, i32 2
+store i32 0, i32* %5
+%6 = getelementptr %struct.TParam* %2, i32 0, i32 3
+ret void
+}
+; Class initializer (constructor) forSymbolTable
+define void @SymbolTable_init(%struct.TSymbolTable* %self) {
+%1 = alloca %struct.TSymbolTable*
+store %struct.TSymbolTable* %self, %struct.TSymbolTable** %1
+%2 = load %struct.TSymbolTable** %1
+%3 = bitcast %struct.TSymbolTable* %2 to %struct.TObject*
+call void @Object_init(%struct.TObject* %3)
+
+%4 = getelementptr %struct.TSymbolTable* %2, i32 0, i32 1
+%5 = getelementptr %struct.TSymbolTable* %2, i32 0, i32 2
+store i32 0, i32* %5
+ret void
+}
+; Class initializer (constructor) forCode
+define void @Code_init(%struct.TCode* %self) {
+%1 = alloca %struct.TCode*
+store %struct.TCode* %self, %struct.TCode** %1
+%2 = load %struct.TCode** %1
+%3 = bitcast %struct.TCode* %2 to %struct.TObject*
+call void @Object_init(%struct.TObject* %3)
+
+%4 = getelementptr %struct.TCode* %2, i32 0, i32 1
+store %struct.TString* @_string_constant.strEmpty, %struct.TString** %4
+%5 = getelementptr %struct.TCode* %2, i32 0, i32 2
+store i32 0, i32* %5
+%6 = getelementptr %struct.TCode* %2, i32 0, i32 3
+store i32 0, i32* %6
+ret void
+}
+; Class initializer (constructor) forCCompiler
+define void @CCompiler_init(%struct.TCCompiler* %self) {
+%1 = alloca %struct.TCCompiler*
+store %struct.TCCompiler* %self, %struct.TCCompiler** %1
+%2 = load %struct.TCCompiler** %1
+%3 = bitcast %struct.TCCompiler* %2 to %struct.TObject*
+call void @Object_init(%struct.TObject* %3)
+
+%4 = getelementptr %struct.TCCompiler* %2, i32 0, i32 1
+%5 = getelementptr %struct.TCCompiler* %2, i32 0, i32 2
+%6 = getelementptr %struct.TCCompiler* %2, i32 0, i32 3
+	%7 = call i8* @__lcpl_new(%struct.__lcpl_rtti* bitcast (%struct.RSymbolTable* @RSymbolTable to %struct.__lcpl_rtti*))
+	%8 = bitcast i8* %7 to %struct.TSymbolTable*
+store %struct.TSymbolTable* %8, %struct.TSymbolTable** %6
+%9 = getelementptr %struct.TCCompiler* %2, i32 0, i32 4
+store i32 0, i32* %9
+ret void
+}
+; Class initializer (constructor) forMain
+define void @Main_init(%struct.TMain* %self) {
+%1 = alloca %struct.TMain*
+store %struct.TMain* %self, %struct.TMain** %1
+%2 = load %struct.TMain** %1
+%3 = bitcast %struct.TMain* %2 to %struct.TIO*
+call void @IO_init(%struct.TIO* %3)
+
+ret void
+}
+
+define void @M5_Error_raise (%struct.TError* %self) {
+	; Prologue - save parameters
+	%1 = alloca %struct.TError*
+	store %struct.TError* %self, %struct.TError** %1
+
+	%2 = load %struct.TError** %1
+	%3 = bitcast %struct.TError* %2 to i8*         ; Null ptr check
+	call void @__lcpl_checkNull(i8* %3)
+	%4 = getelementptr %struct.TError* %2, i32 0, i32 0   ; Locate address of RTTI pointer
+	%5 = load %struct.__lcpl_rtti** %4         ; Load RTTI pointer
+	%6 = getelementptr %struct.__lcpl_rtti* %5, i32 0, i32 3, i32 5
+	%7 = load i8** %6
+	%8 = bitcast i8* %7 to %struct.TIO* (%struct.TIO*, %struct.TString*)*  ; Convert char * into function pointer
+	%9 = bitcast %struct.TError* %2 to %struct.TIO*
+	%10 = call %struct.TIO* %8(%struct.TIO* %9, %struct.TString* @_string_constant.272)
+
+	%11 = load %struct.TError** %1
+	%12 = bitcast %struct.TError* %11 to i8*         ; Null ptr check
+	call void @__lcpl_checkNull(i8* %12)
+	%13 = getelementptr %struct.TError* %11, i32 0, i32 0   ; Locate address of RTTI pointer
+	%14 = load %struct.__lcpl_rtti** %13         ; Load RTTI pointer
+	%15 = getelementptr %struct.__lcpl_rtti* %14, i32 0, i32 3, i32 1
+	%16 = load i8** %15
+	%17 = bitcast i8* %16 to void (%struct.TObject*)*  ; Convert char * into function pointer
+	%18 = bitcast %struct.TError* %11 to %struct.TObject*
+	call void %17(%struct.TObject* %18)
+
+	ret void
+}
+define %struct.TToken* @M5_Token_init (%struct.TToken* %self, %struct.TString* %type, %struct.TString* %value) {
+	; Prologue - save parameters
+	%1 = alloca %struct.TToken*
+	store %struct.TToken* %self, %struct.TToken** %1
+
+	%2 = alloca %struct.TString*
+	store %struct.TString* %type, %struct.TString** %2
+	%3 = alloca %struct.TString*
+	store %struct.TString* %value, %struct.TString** %3
+	%4 = load %struct.TString** %2
+	%5 = load %struct.TToken** %1
+	%6 = getelementptr %struct.TToken* %5, i32 0, i32 1
+	store %struct.TString* %4, %struct.TString** %6
+	%7 = load %struct.TString** %3
+	%8 = load %struct.TToken** %1
+	%9 = getelementptr %struct.TToken* %8, i32 0, i32 2
+	store %struct.TString* %7, %struct.TString** %9
+	%10 = load %struct.TToken** %1
+	ret %struct.TToken* %10
+}
+define %struct.TString* @M5_Token_type (%struct.TToken* %self) {
+	; Prologue - save parameters
+	%1 = alloca %struct.TToken*
+	store %struct.TToken* %self, %struct.TToken** %1
+
+	%2 = load %struct.TToken** %1
+	%3 = getelementptr %struct.TToken* %2, i32 0, i32 1
+	%4 = load %struct.TString** %3
+	ret %struct.TString* %4
+}
+define %struct.TString* @M5_Token_value (%struct.TToken* %self) {
+	; Prologue - save parameters
+	%1 = alloca %struct.TToken*
+	store %struct.TToken* %self, %struct.TToken** %1
+
+	%2 = load %struct.TToken** %1
+	%3 = getelementptr %struct.TToken* %2, i32 0, i32 2
+	%4 = load %struct.TString** %3
+	ret %struct.TString* %4
+}
+define void @M10_CTokenizer_set (%struct.TCTokenizer* %self, %struct.TString* %input) {
+	; Prologue - save parameters
+	%1 = alloca %struct.TCTokenizer*
+	store %struct.TCTokenizer* %self, %struct.TCTokenizer** %1
+
+	%2 = alloca %struct.TString*
+	store %struct.TString* %input, %struct.TString** %2
+	%3 = load %struct.TString** %2
+	%4 = load %struct.TCTokenizer** %1
+	%5 = getelementptr %struct.TCTokenizer* %4, i32 0, i32 1
+	store %struct.TString* %3, %struct.TString** %5
+	ret void
+}
+define %struct.TString* @M10_CTokenizer_comment (%struct.TCTokenizer* %self) {
+	; Prologue - save parameters
+	%1 = alloca %struct.TCTokenizer*
+	store %struct.TCTokenizer* %self, %struct.TCTokenizer** %1
+
+	%2 = load %struct.TCTokenizer** %1
+	%3 = getelementptr %struct.TCTokenizer* %2, i32 0, i32 4
+	%4 = load %struct.TString** %3
+	ret %struct.TString* %4
+}
+define i32 @M10_CTokenizer_isWhiteSpace (%struct.TCTokenizer* %self, %struct.TString* %s) {
+	; Prologue - save parameters
+	%1 = alloca %struct.TCTokenizer*
+	store %struct.TCTokenizer* %self, %struct.TCTokenizer** %1
+
+	%2 = alloca %struct.TString*
+	store %struct.TString* %s, %struct.TString** %2
+	%3 = load %struct.TString** %2
+	%4 = icmp eq i32 %3, @_string_constant.299
+	%5 = zext i1 %4 to i32
+	%6 = icmp ne i32 %5, 0
+	br i1 %6, label %L0, label %L1
+L0:
+L1:
+	%7 = load %struct.TString** %2
+	%8 = icmp eq i32 %7, @_string_constant.374
+	%9 = zext i1 %8 to i32
+	%10 = icmp ne i32 %9, 0
+	br i1 %10, label %L3, label %L4
+L3:
+L4:
+	%11 = load %struct.TString** %2
+	%12 = icmp eq i32 %11, @_string_constant.301
+	%13 = zext i1 %12 to i32
+	%14 = icmp ne i32 %13, 0
+	br i1 %14, label %L6, label %L7
+L6:
+L7:
+	%15 = load %struct.TString** %2
+	%16 = icmp eq i32 %15, @_string_constant.343
+	%17 = zext i1 %16 to i32
+	%18 = icmp ne i32 %17, 0
+	br i1 %18, label %L9, label %L10
+L9:
+L10:
+	%19 = phi i32 [ 1, %L11 ], [ %18, %L11 ]
+	%20 = phi i32 [ 1, %L8 ], [ %19, %L11 ]
+	%21 = phi i32 [ 1, %L5 ], [ %20, %L11 ]
+	%22 = phi i32 [ 1, %L2 ], [ %21, %L11 ]
+	ret i32 %22
+}
+define i32 @M10_CTokenizer_isDigit (%struct.TCTokenizer* %self, %struct.TString* %s) {
+	; Prologue - save parameters
+	%1 = alloca %struct.TCTokenizer*
+	store %struct.TCTokenizer* %self, %struct.TCTokenizer** %1
+
+	%2 = alloca %struct.TString*
+	store %struct.TString* %s, %struct.TString** %2
+	%3 = load %struct.TString** %2
+	%4 = icmp eq i32 %3, @_string_constant.304
+	%5 = zext i1 %4 to i32
+	%6 = icmp ne i32 %5, 0
+	br i1 %6, label %L12, label %L13
+L12:
+L13:
+	%7 = load %struct.TString** %2
+	%8 = bitcast %struct.TString* %7 to i8*         ; Null ptr check
+	call void @__lcpl_checkNull(i8* %8)
+	%9 = getelementptr %struct.TString* %7, i32 0, i32 0   ; Locate address of RTTI pointer
+	%10 = load %struct.__lcpl_rtti** %9         ; Load RTTI pointer
+	%11 = getelementptr %struct.__lcpl_rtti* %10, i32 0, i32 3, i32 5
+	%12 = load i8** %11
+	%13 = bitcast i8* %12 to i32 (%struct.TString*)*  ; Convert char * into function pointer
+	%14 = call i32 %13(%struct.TString* %7)
+
+	%15 = icmp eq i32 %14, 0
+	%16 = zext i1 %15 to i32
+	%17 = icmp ne i32 %16, 0
+	%18 = xor i1 %17, true 
+	%19 = zext i1 %18 to i32
+	%20 = icmp ne i32 %19, 0
+	br i1 %20, label %L15, label %L16
+L15:
+L16:
+	%21 = phi i32 [ 1, %L17 ], [ %20, %L17 ]
+	%22 = phi i32 [ 1, %L14 ], [ %21, %L17 ]
+	ret i32 %22
+}
+define i32 @M10_CTokenizer_isSign (%struct.TCTokenizer* %self, %struct.TString* %s) {
+	; Prologue - save parameters
+	%1 = alloca %struct.TCTokenizer*
+	store %struct.TCTokenizer* %self, %struct.TCTokenizer** %1
+
+	%2 = alloca %struct.TString*
+	store %struct.TString* %s, %struct.TString** %2
+	%3 = load %struct.TString** %2
+	%4 = icmp eq i32 %3, @_string_constant.359
+	%5 = zext i1 %4 to i32
+	%6 = icmp ne i32 %5, 0
+	br i1 %6, label %L18, label %L19
+L18:
+L19:
+	%7 = load %struct.TString** %2
+	%8 = icmp eq i32 %7, @_string_constant.361
+	%9 = zext i1 %8 to i32
+	%10 = icmp ne i32 %9, 0
+	br i1 %10, label %L21, label %L22
+L21:
+L22:
+	%11 = load %struct.TString** %2
+	%12 = icmp eq i32 %11, @_string_constant.362
+	%13 = zext i1 %12 to i32
+	%14 = icmp ne i32 %13, 0
+	br i1 %14, label %L24, label %L25
+L24:
+L25:
+	%15 = load %struct.TString** %2
+	%16 = icmp eq i32 %15, @_string_constant.357
+	%17 = zext i1 %16 to i32
+	%18 = icmp ne i32 %17, 0
+	br i1 %18, label %L27, label %L28
+L27:
+L28:
+	%19 = load %struct.TString** %2
+	%20 = icmp eq i32 %19, @_string_constant.372
+	%21 = zext i1 %20 to i32
+	%22 = icmp ne i32 %21, 0
+	br i1 %22, label %L30, label %L31
+L30:
+L31:
+	%23 = load %struct.TString** %2
+	%24 = icmp eq i32 %23, @_string_constant.373
+	%25 = zext i1 %24 to i32
+	%26 = icmp ne i32 %25, 0
+	br i1 %26, label %L33, label %L34
+L33:
+L34:
+	%27 = load %struct.TString** %2
+	%28 = icmp eq i32 %27, @_string_constant.318
+	%29 = zext i1 %28 to i32
+	%30 = icmp ne i32 %29, 0
+	br i1 %30, label %L36, label %L37
+L36:
+L37:
+	%31 = load %struct.TString** %2
+	%32 = icmp eq i32 %31, @_string_constant.321
+	%33 = zext i1 %32 to i32
+	%34 = icmp ne i32 %33, 0
+	br i1 %34, label %L39, label %L40
+L39:
+L40:
+	%35 = load %struct.TString** %2
+	%36 = icmp eq i32 %35, @_string_constant.341
+	%37 = zext i1 %36 to i32
+	%38 = icmp ne i32 %37, 0
+	br i1 %38, label %L42, label %L43
+L42:
+L43:
+	%39 = phi i32 [ 1, %L44 ], [ %38, %L44 ]
+	%40 = phi i32 [ 1, %L41 ], [ %39, %L44 ]
+	%41 = phi i32 [ 1, %L38 ], [ %40, %L44 ]
+	%42 = phi i32 [ 1, %L35 ], [ %41, %L44 ]
+	%43 = phi i32 [ 1, %L32 ], [ %42, %L44 ]
+	%44 = phi i32 [ 1, %L29 ], [ %43, %L44 ]
+	%45 = phi i32 [ 1, %L26 ], [ %44, %L44 ]
+	%46 = phi i32 [ 1, %L23 ], [ %45, %L44 ]
+	%47 = phi i32 [ 1, %L20 ], [ %46, %L44 ]
+	ret i32 %47
+}
+define %struct.TToken* @M10_CTokenizer_next (%struct.TCTokenizer* %self) {
+	; Prologue - save parameters
+	%1 = alloca %struct.TCTokenizer*
+	store %struct.TCTokenizer* %self, %struct.TCTokenizer** %1
+
+	%2 = load %struct.TCTokenizer** %1
+	%3 = getelementptr %struct.TCTokenizer* %2, i32 0, i32 1
+	%4 = load %struct.TString** %3
+	%5 = bitcast %struct.TString* %4 to i8*         ; Null ptr check
+	call void @__lcpl_checkNull(i8* %5)
+	%6 = getelementptr %struct.TString* %4, i32 0, i32 0   ; Locate address of RTTI pointer
+	%7 = load %struct.__lcpl_rtti** %6         ; Load RTTI pointer
+	%8 = getelementptr %struct.__lcpl_rtti* %7, i32 0, i32 3, i32 4
+	%9 = load i8** %8
+	%10 = bitcast i8* %9 to i32 (%struct.TString*)*  ; Convert char * into function pointer
+	%11 = call i32 %10(%struct.TString* %4)
+
+	%12 = load %struct.TCTokenizer** %1
+	%13 = getelementptr %struct.TCTokenizer* %12, i32 0, i32 2
+	%14 = load i32* %13
+%15 = icmp ule i32 %11, %14
+%16 = zext i1 %15 to i32	%17 = icmp ne i32 %16, 0
+	br i1 %17, label %L45, label %L46
+L45:
+	%18 = call i8* @__lcpl_new(%struct.__lcpl_rtti* bitcast (%struct.RToken* @RToken to %struct.__lcpl_rtti*))
+	%19 = bitcast i8* %18 to %struct.TToken*
+	%20 = bitcast %struct.TToken* %19 to i8*         ; Null ptr check
+	call void @__lcpl_checkNull(i8* %20)
+	%21 = getelementptr %struct.TToken* %19, i32 0, i32 0   ; Locate address of RTTI pointer
+	%22 = load %struct.__lcpl_rtti** %21         ; Load RTTI pointer
+	%23 = getelementptr %struct.__lcpl_rtti* %22, i32 0, i32 3, i32 4
+	%24 = load i8** %23
+	%25 = bitcast i8* %24 to %struct.TToken* (%struct.TToken*, %struct.TString*, %struct.TString*)*  ; Convert char * into function pointer
+	%26 = call %struct.TToken* %25(%struct.TToken* %19, %struct.TString* @_string_constant.312, %struct.TString* @_string_constant.364)
+
+L46:
+	%27 = alloca %struct.TToken*
+	store %struct.TToken* null, %struct.TToken** %27
+	%28 = alloca %struct.TString*
+	store %struct.TString* null, %struct.TString** %28
+	%29 = alloca i32
+	%30 = load %struct.TCTokenizer** %1
+	%31 = getelementptr %struct.TCTokenizer* %30, i32 0, i32 2
+	%32 = load i32* %31
+	store i32 %32, i32* %29
+	%33 = alloca i32
+	store i32 0, i32* %33

@@ -1,0 +1,32 @@
+!!ro.pub.cs.lcpl.Program
+classes:
+- features:
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.LocalDefinition
+        init: null
+        lineNumber: 3
+        name: m
+        scope: !!ro.pub.cs.lcpl.Block
+          expressions:
+          - !!ro.pub.cs.lcpl.Dispatch
+            arguments: []
+            lineNumber: 4
+            name: main
+            object: !!ro.pub.cs.lcpl.Symbol {lineNumber: 4, name: m, type: null}
+            type: null
+          lineNumber: 4
+          type: null
+        type: Main
+      lineNumber: 3
+      type: null
+    lineNumber: 2
+    name: main
+    parameters: []
+    returnType: void
+  lineNumber: 1
+  name: Main
+  parent: null
+lineNumber: 1
+

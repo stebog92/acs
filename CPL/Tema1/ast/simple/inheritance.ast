@@ -1,0 +1,27 @@
+!!ro.pub.cs.lcpl.Program
+classes:
+- features:
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.Symbol {lineNumber: 5, name: a, type: null}
+      lineNumber: 5
+      type: null
+    lineNumber: 4
+    name: main
+    parameters: []
+    returnType: void
+  lineNumber: 3
+  name: Main
+  parent: B
+- features:
+  - !!ro.pub.cs.lcpl.Attribute {init: null, lineNumber: 11, name: a, type: Int}
+  lineNumber: 9
+  name: A
+  parent: null
+- features: []
+  lineNumber: 15
+  name: B
+  parent: A
+lineNumber: 3
+

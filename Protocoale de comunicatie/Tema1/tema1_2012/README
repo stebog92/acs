@@ -1,0 +1,15 @@
+Descrierea solutiei implementate
+
+In implementarea acestei teme am ales protocolul cu fereastra glisanta selective repeat ;
+
+send.c
+
+Transmitatorul calculeaza dimensiunea ferestrei dupa formula : (bandwidth * delay) / size_of_packet; Trimite intai header-ul format din numele si 
+marimea fisierului, si marimea ferestrei. Pe masura ce se trimite fereastra, verific daca am primit vreun ack (astept un timp foarte scurt) pe care il
+ prelucrez. Dupa trimiterea intregii ferestre astept primirea tuturor ackurilor si mut fereastra la urmatorul packet ce nu a primit ack; Daca la final
+ bufferul mai are inca pachete fara ack retrimit urmatorul packet din buffer;
+
+recv.c
+
+Receiverul primeste pachete si verifica daca nu sunt corupte (prin crc). In caz afirmativ se verifica daca sunt in intervalul ferestrei si se
+prelucreaza; Se trimite ack imediat ce e primit; Daca nu este primit in ordine e retinut in buffer, si se scrie ulterior in fisier;

@@ -1,0 +1,43 @@
+!!ro.pub.cs.lcpl.Program
+classes:
+- features:
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.Dispatch
+        arguments:
+        - !!ro.pub.cs.lcpl.Dispatch
+          arguments: []
+          lineNumber: 3
+          name: val
+          object: !!ro.pub.cs.lcpl.NewObject {lineNumber: 3, type: p}
+          type: null
+        lineNumber: 3
+        name: out
+        object: null
+        type: null
+      lineNumber: 3
+      type: null
+    lineNumber: 2
+    name: main
+    parameters: []
+    returnType: void
+  lineNumber: 1
+  name: Main
+  parent: IO
+- features:
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.IntConstant {lineNumber: 8, type: null, value: 4}
+      lineNumber: 8
+      type: null
+    lineNumber: 8
+    name: val
+    parameters: []
+    returnType: Int
+  lineNumber: 7
+  name: p
+  parent: p
+lineNumber: 1
+

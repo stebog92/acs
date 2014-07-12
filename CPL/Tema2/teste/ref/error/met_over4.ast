@@ -1,0 +1,130 @@
+!!ro.pub.cs.lcpl.Program
+classes:
+- features:
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.Dispatch
+        arguments:
+        - !!ro.pub.cs.lcpl.Addition
+          e1: !!ro.pub.cs.lcpl.Addition
+            e1: !!ro.pub.cs.lcpl.Addition
+              e1: !!ro.pub.cs.lcpl.Addition
+                e1: !!ro.pub.cs.lcpl.StringConstant {lineNumber: 3, type: null, value: This is a generic shape @(}
+                e2: !!ro.pub.cs.lcpl.Symbol {lineNumber: 3, name: x, type: null}
+                lineNumber: 3
+                type: null
+              e2: !!ro.pub.cs.lcpl.StringConstant {lineNumber: 3, type: null, value: ','}
+              lineNumber: 3
+              type: null
+            e2: !!ro.pub.cs.lcpl.Symbol {lineNumber: 3, name: y, type: null}
+            lineNumber: 3
+            type: null
+          e2: !!ro.pub.cs.lcpl.StringConstant
+            lineNumber: 3
+            type: null
+            value: |
+              )
+          lineNumber: 3
+          type: null
+        lineNumber: 3
+        name: out
+        object: !!ro.pub.cs.lcpl.Symbol {lineNumber: 3, name: stream, type: null}
+        type: null
+      lineNumber: 3
+      type: null
+    lineNumber: 2
+    name: print
+    parameters:
+    - {lineNumber: 2, name: stream, type: IO}
+    - {lineNumber: 2, name: x, type: Int}
+    - {lineNumber: 2, name: y, type: Int}
+    returnType: IO
+  lineNumber: 1
+  name: Shape
+  parent: null
+- features:
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.Dispatch
+        arguments:
+        - !!ro.pub.cs.lcpl.Addition
+          e1: !!ro.pub.cs.lcpl.Addition
+            e1: !!ro.pub.cs.lcpl.Addition
+              e1: !!ro.pub.cs.lcpl.Addition
+                e1: !!ro.pub.cs.lcpl.StringConstant {lineNumber: 9, type: null, value: This is a circle @(}
+                e2: !!ro.pub.cs.lcpl.Symbol {lineNumber: 9, name: x, type: null}
+                lineNumber: 9
+                type: null
+              e2: !!ro.pub.cs.lcpl.StringConstant {lineNumber: 9, type: null, value: ','}
+              lineNumber: 9
+              type: null
+            e2: !!ro.pub.cs.lcpl.Symbol {lineNumber: 9, name: y, type: null}
+            lineNumber: 9
+            type: null
+          e2: !!ro.pub.cs.lcpl.StringConstant
+            lineNumber: 9
+            type: null
+            value: |
+              )
+          lineNumber: 9
+          type: null
+        lineNumber: 9
+        name: out
+        object: !!ro.pub.cs.lcpl.Symbol {lineNumber: 9, name: stream, type: null}
+        type: null
+      lineNumber: 9
+      type: null
+    lineNumber: 8
+    name: print
+    parameters:
+    - {lineNumber: 8, name: stream, type: IO}
+    - {lineNumber: 8, name: x, type: Int}
+    - {lineNumber: 8, name: y, type: Int}
+    returnType: void
+  lineNumber: 7
+  name: Circle
+  parent: Shape
+- features:
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.LocalDefinition
+        init: !!ro.pub.cs.lcpl.NewObject {lineNumber: 15, type: Circle}
+        lineNumber: 15
+        name: s
+        scope: !!ro.pub.cs.lcpl.Block
+          expressions:
+          - !!ro.pub.cs.lcpl.Dispatch
+            arguments:
+            - !!ro.pub.cs.lcpl.Symbol {lineNumber: 17, name: self, type: null}
+            - !!ro.pub.cs.lcpl.IntConstant {lineNumber: 17, type: null, value: 1}
+            - !!ro.pub.cs.lcpl.IntConstant {lineNumber: 17, type: null, value: 2}
+            lineNumber: 17
+            name: print
+            object: !!ro.pub.cs.lcpl.Symbol {lineNumber: 17, name: s, type: null}
+            type: null
+          - !!ro.pub.cs.lcpl.StaticDispatch
+            arguments:
+            - !!ro.pub.cs.lcpl.Symbol {lineNumber: 18, name: self, type: null}
+            - !!ro.pub.cs.lcpl.IntConstant {lineNumber: 18, type: null, value: 3}
+            - !!ro.pub.cs.lcpl.IntConstant {lineNumber: 18, type: null, value: 4}
+            lineNumber: 18
+            name: print
+            object: !!ro.pub.cs.lcpl.Symbol {lineNumber: 18, name: s, type: null}
+            type: Shape
+          lineNumber: 17
+          type: null
+        type: Circle
+      lineNumber: 14
+      type: null
+    lineNumber: 13
+    name: main
+    parameters: []
+    returnType: void
+  lineNumber: 12
+  name: Main
+  parent: IO
+lineNumber: 1
+

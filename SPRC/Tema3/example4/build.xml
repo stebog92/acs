@@ -1,0 +1,24 @@
+<project name="PBenc" default="run" basedir=".">
+
+	<target name="clean">
+		<delete dir="cap5"/>	
+	</target>
+
+	<target name="build">
+		<echo message="${line.separator}Sisteme de programe pentru retele de calculatoare 
+			${line.separator}
+			${line.separator}Copyright (C) 2008 Ciprian Dobre &amp; Florin Pop 
+			${line.separator}Univerity Politehnica of Bucharest, Romania 
+			${line.separator}
+			${line.separator}"/>
+		<echo message="Compiling"/>
+		<javac srcdir="." destdir="." nowarn="on" debug="true" optimize="true" verbose="false"/>
+	</target>
+	
+	<target name="run" depends="build">
+		<echo message="Executing encryption"/>
+		<java classname="capV.example4.PBenc" fork="true">
+		</java>
+	</target>
+	
+</project>

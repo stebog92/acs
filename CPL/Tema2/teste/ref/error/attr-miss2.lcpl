@@ -1,0 +1,18 @@
+class intModel
+   var Int value; end;
+   setValue Int value : self.value = value; end;
+end;
+
+class int inherits intModel
+   getValue -> Int : value; end;
+end;
+
+class Main inherits IO
+    mac Int a, Int b, int c -> Int : a * b + [c.getValue]; end;
+    main :
+        local intModel y; end;
+        x = new int;
+        [x.setValue 3];
+        [out [mac 1, 2, {int x}]];
+    end;
+end;

@@ -1,0 +1,13 @@
+(define curry->uncurry
+  (lambda (f)
+    (lambda (x y)
+    ((f x) y))))
+(define uncurry->curry
+  (lambda (f)
+    (lambda (x)
+      (lambda (y)
+    (f x y)))))
+(define f1
+  (lambda (x)
+    (lambda (y)
+      (+ x y))))

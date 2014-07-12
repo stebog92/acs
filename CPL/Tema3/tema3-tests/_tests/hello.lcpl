@@ -1,0 +1,5 @@
+class Main inherits IO
+    main :
+        [out "Hello world!"];
+    end;
+end;

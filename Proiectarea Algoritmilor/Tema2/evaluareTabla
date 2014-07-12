@@ -1,0 +1,40 @@
+double evaluateBoard(bkg_board board, color player) {
+    int n = 0, m = 0, checkers = 0, single = 0;
+    for (int i = 1; i <= 24; i++) {
+        if (board.player_board [player][i] > 1) {
+            n += 2;
+            if (board.player_board [player][i] > 4)
+                n--;
+            if (player == WHITE && i <= 6 && i > 0) {
+                checkers += board.player_board[player][i];
+                n++;
+            }
+            if (player == BLACK && i >= 19 && i < 25) {
+                n++;
+                checkers += board.player_board[player][i];
+            }
+        }
+	if (board.player_board[player][i] == 1)
+	{
+		if (player == WHITE && i <= 6 && i > 0)
+			single --;
+		if (player == BLACK && i >= 19 && i < 25)
+			single --;
+	}
+
+    }
+    for (int i = 1; i <= 24; i++) {
+        if (board.player_board [opponent(player)][i] > 1) {
+            m -= 2;
+            if (board.player_board [opponent(player)][i] > 4)
+                m++;
+        }
+    }
+    checkers = 15 - checkers;
+    if (WHITE)
+        return 0.01 * (n + m) + 0.029 * (board.player_board[player][0] - board.player_board[player][25]) + 0.02 * checkers/* + 0.001 * single*/;
+    else
+        return 0.01 * (n + m) + 0.029 * (board.player_board[player][25] - board.player_board[player][0]) + 0.02 * checkers /*+ 0.001 * single*/;
+
+
+}

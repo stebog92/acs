@@ -1,0 +1,17 @@
+!!ro.pub.cs.lcpl.Program
+classes:
+- features:
+  - !!ro.pub.cs.lcpl.Method {body: null, lineNumber: 2, name: main, parameters: null,
+    parent: null, returnType: void, returnTypeData: null, self: null}
+  lineNumber: 1
+  name: Main
+  parent: IO
+  parentData: null
+intType: null
+ioType: null
+lineNumber: 1
+noType: null
+nullType: null
+objectType: null
+stringType: null
+

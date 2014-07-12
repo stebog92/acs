@@ -1,0 +1,76 @@
+class Vertex
+    print IO stream: [stream.out ("("+x+","+y+")")]; end;
+    init Int x, Int y, Vertex next:
+        self.x=x;
+        self.y=y;
+        self.next=next;
+    end;
+    print_all IO stream :
+        [print stream];
+        if !(void == next) then [stream.out "-"]; [next.print_all stream]; end;
+    end;
+    var Int x; Int y; Vertex next; end;
+end;
+
+class Shape
+    sides -> Int : 0; end;
+end;
+
+class Triangle inherits Shape
+    sides -> Int : 3; end;
+end;
+
+class Line inherits Shape
+    sides -> Int : 1; end;
+end;
+
+class Poly
+    print IO stream : [vx.print_all stream]; [stream.out("\n")]; end;
+    var
+        Shape s = [baseShape];
+        Vertex vx = 
+            if [s.sides] == 3 then
+                local 
+                    Vertex vx = new Vertex;
+                    Vertex vy; 
+                end;
+                [vx.init 0,0,void];
+                vy = new Vertex;
+                [vy.init 0,2,vx];
+                vx = new Vertex;
+                [vx.init 1,1,vy];
+                vx; 
+            else
+                if 1 == [s.sides] then
+                    local 
+                        Vertex vx = new Vertex;
+                        Vertex vy = new Vertex; 
+                    end;
+                    [vx.init 1,1,void];
+                    [vy.init 0,0,vx];
+                    vy;
+                else
+                    void;
+                end;
+            end;
+    end;
+    baseShape -> Shape : void ; end;
+end;
+
+class Poly3 inherits Poly
+    baseShape -> Shape : new Triangle; end;
+end;
+class Poly1 inherits Poly
+    baseShape -> Shape : new Line; end;
+end;
+
+class Main inherits IO
+	main:
+	   [p.print self];
+	   [p3.print self];
+	end;
+    var
+    Poly p = new Poly1;
+    Poly p3 = new Poly3;
+    end;
+end;			

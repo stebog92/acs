@@ -1,0 +1,14 @@
+Tema2 - Indexarea documentelor
+
+Ciocan Mihai
+334CA
+
+
+In implementare temei am folosit obiectele ExecutorService pentru operatiile de map si reduce, cate unul pentru fiecare operatie, si am construit 3 clase ce implementeaza interfata callable:
+- Prima, MapFile, primeste ca paremetru un obiect de tip File, un int care specifica de unde incepe portiunea pentru care se contorizeaza cuvintele (begin), si size lungimea portiunii. De asemenea verifica si daca citirea incepe in mojlocul unui cuvant (verifica daca un char inainte de begin e alfabetic) sau se termina in mijlocul unui cuvant caz in care se citesc caractere pana la sfarsitul acestuia. Pentru delimitare folosesc StringTokenizer si retin frecventele intr-un HashMap, acestea reprezentand un rezultat partial al fisierului.
+
+- A doua clasa, ReduceFile, primeste o lista de rezultate partiale si creeaza rezultatele finale prin reuniunea lor. Se ordoneaza descrescator dupa numarul de aparitii si se retin primele N cuvinte cele mai frecvente. Se calculeaza si frecventele de aparitie si se intoarce un HashMap acesta reprezentand rezultatele finale ale unui fisier.
+
+- A treia clasa, FindWords, verifica daca toate cuvintele cautate se afla printre cele mai frecvente N cuvinte ale unui fisier. Intoarce un HashMap cu numele fisierului si true daca conditia de mai sus e adevarata si false in caz contrar.
+
+La final rezultatele se printeaza in fisierul de output din linia de comanda.

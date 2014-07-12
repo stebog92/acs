@@ -1,0 +1,68 @@
+Tema de casă 1 - Analiza sintactică
+
+Ciocan Mihai 
+342C3
+
+
+In descrierea rezolvarii voi detalia regulile mai complexe celelalte fiind triviale:
+
+	expression - face match pe expresii obisnuite in afara de metode, clase, atribute, definitii locale;
+		     consta din:
+			equalityExpression ('=' assignmentExpression)?
+
+	equalityExpression: regula face match pe expresii de genul expr == expr;
+		     consta din:
+			relationalExpression '==' relationalExpression
+	
+	relationalExpression: regula face match pe expresii de genul expr (<= | < )  expr;
+		     consta din:
+			additiveExpression (('<=' | '<' ) additiveExpression)*;
+
+	additiveExpression: regula face match pe expresii de genul expr ('-' | '+' )  expr;
+		     consta din:
+			multiplicativeExpression ( (PLUS^ | SUB^ ) multiplicativeExpression )*
+
+	multiplicativeExpression: regula face match pe expresii de genul expr ('/' | '*' )  expr;
+		     consta din:
+			unaryExpression	((STAR^ | DIV^ ) unaryExpression)*;
+
+	unaryExpression: face match pe:  '-' expr
+		     consta din:
+			'-' unaryExpression | simpleUnaryExpression;
+	
+	simpleUnaryExpression: face match pe: '!' expr
+		     consta din:
+			:	'!' unaryExpression
+			|	primaryExpression ('['expression ',' expression ']')* ;
+
+	primaryExpression: -face match pe apelari de metode, cast, statements, new_object, literal;
+	literal: poate fi numar intreg, sir de caractere sau cifre;
+	decl_section:  -face match pe attribute multiple si intoarce o lista formata din acestea;
+	local_decl:	-face match pe attribute multiple si creeaza un obiect LocalDefinition in felul urmator:
+			- daca contine un singur attribut scopul sau este expresia de dupa 'end'
+			- altfel pentru fiecare attribut se creeaza un localDefinition, scopul fiind obiectul LocalDefinition
+			 pentru cel din fata, ultimul avand scop expresia de dupa 'end';
+
+	block:	-poate contine expresii multiple si un singur LocalDefinition astfel ca regula asociata este:
+		(expression ';')+ local_decl?  |  local_decl;
+
+Pentru expresiile de genul (expr)* care trebuiau inserate intr-o lista, am folosit ca practica generala variabile locale pentru reguli
+declarate cu scope { declaratii } si initializate in @init. Inserarea am realizat-o astfel: (e = expr {list.add($e);}) *;
+
+
+Bonus:
+	Pentru bonus am creat clasele in fisierul vector din src:
+		-ArrayAccess extinde UnaryBracket:	expr[ expr ]
+		-AttributeArray extinde Attibute: type id []( = expr)?
+		-NewObjectArray extinde UnaryBracket: new type [expresie];
+		-ArrayAssign extinde Expression:	x[expression] = expression;
+		-UnaryBracket: un obiect util pentru nodurile intermediare UnaryBracket
+
+	Expresia '[ expr ]' poate aparea din regula care face match pe substring '[expr(, expr)? ]' si astfel am creat un nod intermediar
+	care returna un obiect de tip NewObjectArray daca expresia din fata e NewObject, sau ArrayAccess. In caz ca se realiza match si pe
+	substring( adica urma si partea a doua) construiam un obiect SubString din obiectul creat anterior si expresia pentru indexul end;
+
+	Array-urile au caracter general: pot fi create orice fel de obiecte de tip array, multi-dimensionale si se pot accesa cu index orice
+	fel de expresii.
+	Nu am reusit sa afisez structurile noi cu yaml, probabil ca trebuie incluse si ele in jar.
+	

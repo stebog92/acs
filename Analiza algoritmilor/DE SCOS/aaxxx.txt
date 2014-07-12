@@ -1,0 +1,152 @@
+1.de demonstrat ca o(p(n))+teta(q(n))=teta(n^k) unde p si q sunt
+polinoame de ordinul k in n
+
+2.daca o problema are starile finite si tranzitiile inttre stari
+decidabile sa se arate ca e decidabila
+
+3.daca pentru o problema de aproximare dura se gaseste ca delta(n<f
+(n) ce consecinte are acest lucru?
+
+4.se da un algoritm de genul
+Alg(){
+y=choice(M);
+if test(y,M) succes; //complexitate teta(n)
+operatie(y,m); //complexitate teta(n^2)
+fail;
+}
+care e camplexitatea in cazul cel mai defavorabil?
+
+5.daca b e o problema npdura si vrem sa aratam ca a e npd ce trebuie
+sa aratam,ca a<p b sau b<p a?
+
+problema 1:
+o inductie structurala ...pe o lista ...cu multe
+proprietati...cons,reverse si @....ceva care a spus el ca a spus la
+curs ca va da si la examen...
+
+problema 2:
+q="sa se decida daca g are o k clica" care e duritatea lui q daca g
+e un graf bipartil.
+
+
+
+---------------------------
+
+
+Teorie:
+1.Sa se reduca relatzia F(n)=o(h(n))/teta(h(n))
+2.Sa se specifice care este relatia dintre decidabilitate si
+controlabilitate.
+3.Se dadea un algoritm cu vreo 3 functzii de complexitati
+diferite.Sa se spuna care este complexitatea(temporala).
+4.Daca o functie de potentzial este constanta care este costul
+amortizat al unui sir de operatzii.
+5.Si sa se dadeau doua probleme Q1,Q2(nu mai stiu exact cum).Sa se
+precizeze duritatea lor.
+
+Probleme:
+1.Aveam un arbore Arb si un tip de date T.
+Aveam constructorii
+frunza:->Arb// crea arborele cu un singur nod
+nod:Arb^p->Arb// crea un arbore prin concatenarea a p arbori intr-un
+singur nod radacina.
+
+Operatorii:
+n:Arb->int
+si cu proprietatile
+n(frunza)=1
+n(nod(d1,d2,...dp))=1+suma(n(dk))//numarul nodurilor din graf
+
+a:Arb->int
+a(frunza)=0
+a(nod(d1,..dp))=p+suma(a(dk))//numarul arcelor din graf
+
+sa se arate ca a(arb)=n(arb)-1;
+
+
+2.Aveam o lista cu contructorii cons si void si nishte operatori
+cut si add. Sa se calculeze costul amortizat al unei secvente de
+operatii add(cam ciudata problema)
+
+
+---------------------------
+
+
+1.sa se spune daca relatia o(n^k)+teta(n^k)=o(n^k) este valida pt
+k<=0.
+R:atentie este o mic!relatia nu etsi valida
+
+2.sa se defineasca corectitudinea totala a unui algoritm si sa se
+spuna daca problema corectitudinii totale este sau nu decidabila.
+R:definitia e din curs si "cica" ar fi semidecidabila din cauza
+lui"se_terminaAlg()"
+
+3.sa se defineasca NLOGSPACE si sa se specifice relatia dintre
+NLOGSPACE,P si NP
+R:definitia de la NLOGSPACE e in curs si relatia este NLOGSPACE<P<NP
+
+4.sa se justifice duritatea lui SAT-DNF(forma disjunctiva)-nu sunt
+sigura daca asa era.:D
+
+5.se dadea un algoritm determinist cu un for de la 1 la n si ce cerea
+complexitatea SPATIALA a acestuia
+R:O(lg(n)) sau ln...nu mai stiu sigur
+
+probleme:(3+2)
+1:era o inductie structurala cu o lista.nu am exact datele.ideea e ca
+trebuie stiuta rezolvarea unei pb prin inductie structurala.
+
+2:o pb mai simpla.sa se justifice costul amortizat al unor op pt o
+lista. se facea cu metoda potentialui.
+bonus:1 punct
+
+------------------------
+
+
+1) De demonstrat ca o nu este reflexiva
+2) Avem o problema Q : " se da un program P : I -> O si o specificatie 
+Spec : IxO -> { 0, 1 }; Se verifica daca P satisface specificatia 
+Spec".
+    Sa se spuna in ce clasa de complexitate face parte Q
+ATENTIE : Q nu este decidabil;
+3) Se da o problema Hmin = "Se cauta intr-un graf complet G cu muchii 
+de cost diferite un ciclu hamilton de cost minim!". Se stie ca exista o 
+solutie de aproximare cu factorul delta(n) cu delta in NLOGSPACE. 
+Pornind de la aceasta ipoteza, ce se poate spune despre complexitatea 
+temporala a problemei k-clicii.
+4) Care sunt propietatile necesare unei functii fi pentru a putea fi 
+folosita ca metoda de potentialului.
+5) Se da un algoritm nedeterminist A. Complexitatea angelica a acestuia 
+este f(n). Complexitatea cailor pentru care iesirea este 0 este 
+sigma_mare(f( n)).  Care este complexitatea pentru cazul defavorabil al 
+algoritmului A.
+
+Problema 1) Se da TDA-ul Ring. cu elemente int
+Ring ::= void | ins( int, Ring );
+min : int x Ring -> bool
+
+min( e, void ) = 1;
+min( e, ins( e', X ) ) = e <= e' ^ min( e, X );
+
+Sa se demonstreze ca pentru orice X apartinand lui Ring si orice e si 
+e' din int avem : P( e, e', X ) = ( e <= e' ) ^ min( e', X ) => min( e, 
+X );
+
+Problema 2) Exista doua probleme: Ham1 = "Exista un ciclu hamiltonian 
+intr-un graf neorientat" si Ham2 = "Exista un ciclu hamiltonian intr-un 
+graf bipartit". Se da un algoritm de reducere F din Ham1 in Ham2 si se 
+cere sa se spuna daca este corect ( +justificare ).
+
+  F( G1 )
+{
+ V1 = noduri din G1; E1 = muchii din G1;
+V2 = V1; E2 = multimea vida;
+
+foreach( (u,v) apartinand E1 )
+{
+Se adauga in V2 un nod alfa care nu exista in V2;
+Se adauga muchiile (u, alfa) si (alfa, v);
+}
+G2 = (V2, E2 );
+return G2;
+}

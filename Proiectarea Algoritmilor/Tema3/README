@@ -1,0 +1,27 @@
+Tema 3 PA - Segmentare de imagini
+
+Ciocan Mihai
+324CA
+
+In implementarea temei am creat o structura pxl ce contine campurile:
+	-val : valoarea pixelului din imagine;
+	-ngb : un map ce reprezinta vecinii pixelului (numarul si costul muchiei pana la vecin), operatia de interogare se realizeaza in O(1)
+		pentru fiecare vecin;
+	-ok : o valoare bool care indica daca pixelul face sau nu parte din foreground sau background;
+Fiecare pixel este numerotat in ordine de la stanga la dreapta, si se poate deduce din formula linia * numar_coloane + coloana; Source si sink
+sunt in continuare: numar_coloane * numar_linie, respectiv numar_coloane * numar_linie + 1;
+
+Capacitatile muchiilor, intre vecinii pixelului si pixel si cele 2 noduri, source si sink, sunt calculate pe baza formulelor din enuntul temei;
+
+Algoritmul ce realizeaza taietura minima este edmonds-karp clasic, insa pentru fiecare pixel saturez intai drumurile (cele cu 2 muchii) de la source la sink(fiind cele mai scurte, ideal pentru ca algoritmul EK gaseste cele mai scurte cai de crestere prin bfs insa cu o complexitate mult mai mare) ceea ce scade mult timpul de executie al programului. In rest ,cat timp exista cai nesaturate in graf, pentru fiecare cale gasita, saturez si adaug minimul la energie; Atunci cand nu mai exista drumuri nesaturate la sink rulez din nou bfs pentru a decide pentru fiecare pixel
+daca face parte din foreground sau din background. Un pixel face parte din foreground daca este reachable din source;
+
+Complexitatea algorimului EK este O(V * E^2) fiecare drum de crestere fiind gasit in O(E) si fiecare drum nu poate fi mai mare decat |V| - 1;
+Astfel pot fi maxim O(V * E) iteratii si fiecare iteratie dureaza O(E) de unde si complexitatea de O (V * E^2);
+
+Mentionez ca testele intra in timp si cu optimizare si fara (pe testul 16 fara optimizare programul ruleaza in aproximativ 15 secunde, iar cu
+O2 - 5 secunde), iar fisierul segment.pgm este identic cu example.pgm pentru fiecare test;
+
+
+
+

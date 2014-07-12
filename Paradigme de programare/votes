@@ -1,0 +1,13 @@
+(candidates Bibo Fido Fred)
+(votes Bibo Fred)
+(votes Bibo Fido)
+(votes Fido Fred)
+(votes Fred Fred)
+(votes Lolo Fido)
+(votes Margo Fred)
+(votes Barney Fido)
+(votes Barney Fido)
+(votes Grumpy Fido)
+(votes Olive Popayee)
+(votes Alice Fido)
+

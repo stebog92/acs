@@ -1,0 +1,213 @@
+#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include "lib.h"
+
+#define HOST "127.0.0.1"
+#define PORT 10001
+int window_size = 0;
+/*typedef struct {
+	int package;
+	char* msg;
+	int length;
+} elem;
+	
+typedef struct {
+	elem** elements;
+	int head;
+	int tail;
+	int max;
+} _buffer;
+
+_buffer make_buffer ()
+{
+	_buffer new;
+	new.head = 0;
+	new.tail = 0;
+	new.max = window_size;
+	new.elements = calloc (window_size, sizeof (elem*));
+	return new;
+}
+
+
+elem* top (_buffer buffer)
+{
+	return buffer.elements[buffer.head];
+}
+void remove_top (_buffer* buffer)
+{
+	elem* to_remove = buffer->elements[buffer->head];
+	free(to_remove->msg);
+	free(to_remove);
+
+	buffer->head++;
+	
+	if (buffer->head == buffer->max)
+	{
+		buffer->head = 0;
+		buffer->tail = 0;
+	}
+}
+
+void push (_buffer* b, int p, msg x)
+{
+	elem* new = malloc (sizeof (elem));
+	new->package = p;
+	new->msg = malloc (1400 * sizeof(char));
+	sscanf (x.payload, "%*d%s", new->msg);
+	new->length = strlen (new->msg);
+	b->elements[b->tail] = new;
+	b->tail ++;
+}
+int size (_buffer* b)
+{
+	return b->tail - b->head;
+}*/
+	
+int fd;
+int fs;
+int receive_header (int argc, char **argv)
+{
+	msg *r,t;
+	char filename[1400], filesize[1400], windowsize[1400];
+	int sender_wins;
+	
+	if (argc == 2)
+	{
+		window_size = atoi(argv[1] + 7);
+	}
+	r = receive_message();
+	if (!r)
+	{
+		perror("Receive message");
+		return -1;
+	}
+	//find the filename;
+	int name = 1, size = 0, window = 0, crt = 0,i;
+
+	if (r->type!=1)
+	{
+		printf("Expecting filename and size message\n");
+		return -1;
+	}
+
+	for (i = 0;i < r->len; i++)
+	{
+		if (crt >= 1400)
+		{
+			printf("Malformed message received! Bailing out");
+			return -1;
+		}
+		if (name)
+		{
+			if (r->payload[i]=='\n') 
+			{
+				name = 0;
+				size = 1;
+				filename[crt] = 0;
+				crt = 0;
+			}
+			else
+			filename[crt++] = r->payload[i];
+    		}
+		else
+		if (size)
+		{
+			if (r->payload[i]=='\n')
+			{
+				size = 0;
+				window = 1;
+				filesize[crt] = 0;
+				crt = 0;
+			}
+			else 
+			filesize[crt++] = r->payload[i];
+		}
+		else
+		if (window)
+		{
+			if (r->payload[i]=='\n')
+			{
+				window = 0;
+				windowsize[crt] = 0;
+				crt = 0;
+			}
+			else 
+			windowsize[crt++] = r->payload[i];
+		}
+	}
+	fs = atoi(filesize);
+	char fn[2000];
+
+	sprintf(fn,"recv_%s", filename);
+	printf("Receiving file %s of size %d\n",fn,fs);	
+	fd = open(fn,O_WRONLY|O_CREAT,0644);
+	if (fd<0) 
+	{
+		perror("Failed to open file\n");
+	}
+	sender_wins = atoi (windowsize);
+	if (window_size != 0)
+	{
+		if (window_size < sender_wins)
+			sender_wins = window_size;
+		else
+			window_size = sender_wins;
+	}
+	else
+	{
+		window_size = sender_wins;
+	}
+	sprintf (t.payload, "%d", sender_wins);
+	t.len = strlen (t.payload) + 1;
+	send_message (&t);
+	return 0;	
+}
+
+void receive_content ()
+{
+	int packet;
+	int begin = 0, end = window_size - 1;
+	_buffer buffer = make_buffer();
+	int last_ack = -1;
+	msg *r, m;
+	while (fs)
+	{
+		r = receive_message();
+		sscanf(r->payload, "%d%*s", &packet);
+		if (packet >= begin && packet <= end)
+		{
+			if (packet == begin)
+			{
+				begin++;
+				while (size(&buffer) != 0 && begin == top (buffer)->package)
+				{
+
+					write (fd, top(buffer)->msg ,top(buffer)->length);
+					begin ++;
+					remove_top(&buffer);
+				}
+				end = begin + window_size - 1;
+				last_ack = begin - 1;
+			}
+			else
+			{
+				push(&buffer, packet,*r);
+			}
+				sprintf (m.payload, "%d", last_ack);
+				m.len = strlen (m.payload) + 1;
+				send_message (&m);
+				fs -= r->len;
+		}
+	}
+	close (fd);
+}
+int main(int argc,char** argv)
+{
+	init(HOST,PORT);
+	receive_header(argc, argv);
+	receive_content ();
+	return 0;
+}

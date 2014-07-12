@@ -1,0 +1,19 @@
+Exception in thread "main" java.lang.NumberFormatException: For input string: "_string_constant.1"
+	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
+	at java.lang.Integer.parseInt(Integer.java:492)
+	at java.lang.Integer.parseInt(Integer.java:527)
+	at ro.pub.cs.lcpl.Block.emitIR(Block.java:30)
+	at ro.pub.cs.lcpl.IfStatement.emitIR(IfStatement.java:68)
+	at ro.pub.cs.lcpl.Block.emitIR(Block.java:28)
+	at ro.pub.cs.lcpl.IfStatement.emitIR(IfStatement.java:57)
+	at ro.pub.cs.lcpl.Block.emitIR(Block.java:28)
+	at ro.pub.cs.lcpl.LocalDefinition.emitIR(LocalDefinition.java:98)
+	at ro.pub.cs.lcpl.LocalDefinition.emitIR(LocalDefinition.java:98)
+	at ro.pub.cs.lcpl.Program.emitIR(Program.java:337)
+	at LCPLCodeGen.main(LCPLCodeGen.java:23)
+llc: string-search-zero.lcpl.ir:130:68: error: expected value token
+	%37 = call %struct.TString* @M6_String_substring(%struct.TString* %%36, i32 %%34, i32 %35)
+	                                                                  ^
+clang: error: no such file or directory: 'string-search-zero.lcpl.ir.s'
+./eval.sh: line 27: ./string-search-zero: No such file or directory
+rm: cannot remove `string-search-zero': No such file or directory

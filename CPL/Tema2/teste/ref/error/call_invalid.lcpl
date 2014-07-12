@@ -1,0 +1,23 @@
+class A 
+    method Int a, Int b -> Int :
+        a + b;
+    end;
+end;
+
+class B inherits A
+    method Int a, Int b -> Int :
+        a * b;
+    end;
+end;
+
+class Main inherits IO
+    var 
+        B obj = new B;
+    end;
+    
+    main :
+            [print [obj.method 1, 2]];
+            [out [obj.A.method 3, 4]];
+            [out [obj.B.method 5, 6]];
+    end;
+end;

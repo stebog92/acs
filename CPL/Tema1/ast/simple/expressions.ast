@@ -1,0 +1,168 @@
+!!ro.pub.cs.lcpl.Program
+classes:
+- features:
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.Dispatch
+        arguments:
+        - !!ro.pub.cs.lcpl.Addition
+          e1: !!ro.pub.cs.lcpl.Symbol {lineNumber: 4, name: s, type: null}
+          e2: !!ro.pub.cs.lcpl.StringConstant
+            lineNumber: 4
+            type: null
+            value: |2+
+
+          lineNumber: 4
+          type: null
+        lineNumber: 4
+        name: out
+        object: null
+        type: null
+      lineNumber: 4
+      type: null
+    lineNumber: 4
+    name: o
+    parameters:
+    - {name: s, type: String}
+    returnType: void
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.Dispatch
+        arguments:
+        - !!ro.pub.cs.lcpl.Addition
+          e1: !!ro.pub.cs.lcpl.IntConstant {lineNumber: 6, type: null, value: 1}
+          e2: !!ro.pub.cs.lcpl.IntConstant {lineNumber: 6, type: null, value: 2}
+          lineNumber: 6
+          type: null
+        lineNumber: 6
+        name: o
+        object: null
+        type: null
+      - !!ro.pub.cs.lcpl.Dispatch
+        arguments:
+        - !!ro.pub.cs.lcpl.Subtraction
+          e1: !!ro.pub.cs.lcpl.IntConstant {lineNumber: 7, type: null, value: 123}
+          e2: !!ro.pub.cs.lcpl.IntConstant {lineNumber: 7, type: null, value: 1000}
+          lineNumber: 7
+          type: null
+        lineNumber: 7
+        name: o
+        object: null
+        type: null
+      - !!ro.pub.cs.lcpl.Dispatch
+        arguments:
+        - !!ro.pub.cs.lcpl.Division
+          e1: !!ro.pub.cs.lcpl.IntConstant {lineNumber: 8, type: null, value: 3}
+          e2: !!ro.pub.cs.lcpl.IntConstant {lineNumber: 8, type: null, value: 4}
+          lineNumber: 8
+          type: null
+        lineNumber: 8
+        name: o
+        object: null
+        type: null
+      - !!ro.pub.cs.lcpl.Dispatch
+        arguments:
+        - !!ro.pub.cs.lcpl.Multiplication
+          e1: !!ro.pub.cs.lcpl.IntConstant {lineNumber: 9, type: null, value: 10}
+          e2: !!ro.pub.cs.lcpl.IntConstant {lineNumber: 9, type: null, value: 20}
+          lineNumber: 9
+          type: null
+        lineNumber: 9
+        name: o
+        object: null
+        type: null
+      - !!ro.pub.cs.lcpl.Dispatch
+        arguments:
+        - !!ro.pub.cs.lcpl.UnaryMinus
+          e1: !!ro.pub.cs.lcpl.IntConstant {lineNumber: 10, type: null, value: 100}
+          lineNumber: 10
+          type: null
+        lineNumber: 10
+        name: o
+        object: null
+        type: null
+      - !!ro.pub.cs.lcpl.Dispatch
+        arguments:
+        - !!ro.pub.cs.lcpl.LessThan
+          e1: !!ro.pub.cs.lcpl.IntConstant {lineNumber: 11, type: null, value: 5}
+          e2: !!ro.pub.cs.lcpl.IntConstant {lineNumber: 11, type: null, value: 3}
+          lineNumber: 11
+          type: null
+        lineNumber: 11
+        name: o
+        object: null
+        type: null
+      - !!ro.pub.cs.lcpl.Dispatch
+        arguments:
+        - !!ro.pub.cs.lcpl.LessThanEqual
+          e1: !!ro.pub.cs.lcpl.IntConstant {lineNumber: 12, type: null, value: 4}
+          e2: !!ro.pub.cs.lcpl.IntConstant {lineNumber: 12, type: null, value: 7}
+          lineNumber: 12
+          type: null
+        lineNumber: 12
+        name: o
+        object: null
+        type: null
+      - !!ro.pub.cs.lcpl.Dispatch
+        arguments:
+        - !!ro.pub.cs.lcpl.EqualComparison
+          e1: !!ro.pub.cs.lcpl.IntConstant {lineNumber: 13, type: null, value: 100}
+          e2: !!ro.pub.cs.lcpl.IntConstant {lineNumber: 13, type: null, value: 100}
+          lineNumber: 13
+          type: null
+        lineNumber: 13
+        name: o
+        object: null
+        type: null
+      - !!ro.pub.cs.lcpl.Dispatch
+        arguments:
+        - !!ro.pub.cs.lcpl.LogicalNegation
+          e1: !!ro.pub.cs.lcpl.IntConstant {lineNumber: 14, type: null, value: 10}
+          lineNumber: 14
+          type: null
+        lineNumber: 14
+        name: o
+        object: null
+        type: null
+      - !!ro.pub.cs.lcpl.Dispatch
+        arguments:
+        - !!ro.pub.cs.lcpl.EqualComparison
+          e1: !!ro.pub.cs.lcpl.VoidConstant {lineNumber: 15, type: null}
+          e2: !!ro.pub.cs.lcpl.VoidConstant {lineNumber: 15, type: null}
+          lineNumber: 15
+          type: null
+        lineNumber: 15
+        name: o
+        object: null
+        type: null
+      - !!ro.pub.cs.lcpl.Dispatch
+        arguments:
+        - !!ro.pub.cs.lcpl.EqualComparison
+          e1: !!ro.pub.cs.lcpl.VoidConstant {lineNumber: 16, type: null}
+          e2: !!ro.pub.cs.lcpl.Symbol {lineNumber: 16, name: self, type: null}
+          lineNumber: 16
+          type: null
+        lineNumber: 16
+        name: o
+        object: null
+        type: null
+      - !!ro.pub.cs.lcpl.Dispatch
+        arguments:
+        - !!ro.pub.cs.lcpl.IntConstant {lineNumber: 17, type: null, value: 0}
+        lineNumber: 17
+        name: o
+        object: null
+        type: null
+      lineNumber: 6
+      type: null
+    lineNumber: 5
+    name: main
+    parameters: []
+    returnType: void
+  lineNumber: 3
+  name: Main
+  parent: IO
+lineNumber: 3
+

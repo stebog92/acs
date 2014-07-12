@@ -1,0 +1,27 @@
+         CLIPS (V6.24 06/15/06)
+CLIPS> CLIPS> Defining deftemplate: world
+Defining deftemplate: win
+TRUE
+CLIPS> Defining deftemplate: visited
+Defining deftemplate: visited_in
+Defining defrule: r1 +j
+Defining defrule: r2 +j+j+j+j
+Defining defrule: r3 +j+j+j+j
+Defining defrule: r4 +j+j+j+j
+Defining defrule: r5 +j+j+j+j
+Defining defrule: r6 +j+j+j+j
+Defining defrule: r7 +j+j+j+j
+Defining defrule: r8 +j+j+j+j
+Defining defrule: r9 +j+j+j+j
+Defining defrule: r13 +j+j+j+j
+Defining defrule: r11 +j+j+j
+Defining defrule: r12 +j
+Defining defrule: r14 +j
+Defining defrule: r15 +j
+TRUE
+CLIPS> CLIPS> <Fact-1>
+CLIPS> CLIPS> STOP_RUN
+CLIPS> f-0     (initial-fact)
+f-25    (win (id round2) (moves 3 0 - 0 3 - 3 3 - 6 3 -))
+For a total of 2 facts.
+CLIPS> 

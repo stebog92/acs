@@ -1,0 +1,8 @@
+--2013-05-24 20:23:57--  http://localhost:8888/static/small00.dat
+Resolving localhost (localhost)... 127.0.0.1
+Connecting to localhost (localhost)|127.0.0.1|:8888... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: unspecified
+Saving to: `small00.dat'
+
+     0K ..

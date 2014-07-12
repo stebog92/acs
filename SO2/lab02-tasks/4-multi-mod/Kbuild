@@ -1,0 +1,2 @@
+obj-m = supermodul.o
+supermodul-y = mod1.o mod2.o

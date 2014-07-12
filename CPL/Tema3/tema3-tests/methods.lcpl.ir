@@ -1,0 +1,267 @@
+;;;;;;; Standard data types from runtime
+%struct.TObject = type { %struct.__lcpl_rtti* }
+%struct.TString = type { %struct.__lcpl_rtti*, i32, i8* }
+%struct.TIO = type { %struct.__lcpl_rtti* }
+%struct.__lcpl_rtti = type { %struct.TString*, i32, %struct.__lcpl_rtti*, [0 x i8*] }
+
+
+%struct.RObject = type %struct.__lcpl_rtti*
+@RObject = external global %struct.RObject
+%struct.RString = type %struct.__lcpl_rtti*
+@RString = external global %struct.RString
+%struct.RIO = type %struct.__lcpl_rtti*
+@RIO = external global %struct.RIO
+declare void @Object_init(%struct.TObject*)
+declare void @M6_Object_abort(%struct.TObject*)
+declare %struct.TString* @M6_Object_typeName(%struct.TObject*)
+declare %struct.TObject* @M6_Object_copy(%struct.TObject*)
+declare void @IO_init(%struct.TIO*)
+declare %struct.TString* @M2_IO_in(%struct.TIO*)
+declare %struct.TIO* @M2_IO_out(%struct.TIO*, %struct.TString*)
+declare void @String_init(%struct.TString*)
+declare i32 @M6_String_length(%struct.TString*)
+declare i32 @M6_String_toInt(%struct.TString*)
+declare %struct.TString* @M6_String_substring(%struct.TString*, i32, i32)
+declare %struct.TString* @M6_String_concat(%struct.TString*, %struct.TString*)
+declare i32 @M6_String_equal(%struct.TString*, %struct.TString*)
+
+
+declare i8* @__lcpl_new(%struct.__lcpl_rtti*)
+declare void @__lcpl_checkNull(i8*)
+declare i8* @__lcpl_cast(i8*, %struct.__lcpl_rtti*)
+declare %struct.TString* @__lcpl_intToString(i32)
+;;;;;;; Custom code
+;
+; Structure of classes
+;
+%struct.TMain = type { %struct.__lcpl_rtti* }
+; Name of classes
+@class_name.Main = internal constant [5 x i8] c"Main\00"
+@NMain = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 4, i8* getelementptr ([5 x i8]* @class_name.Main, i32 0, i32 0) }
+; String constants used in the program
+@string_constant.strEmpty = internal constant [1 x i8] c"\00"
+
+@_string_constant.strEmpty = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 0, i8* getelementptr ([1 x i8]* @string_constant.strEmpty, i32 0, i32 0)}
+
+@string_constant.0 = constant [2 x i8] c"a\00"
+@_string_constant.0 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.0, i32 0, i32 0) }
+@string_constant.1 = constant [2 x i8] c"b\00"
+@_string_constant.1 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.1, i32 0, i32 0) }
+@string_constant.2 = constant [2 x i8] c"c\00"
+@_string_constant.2 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.2, i32 0, i32 0) }
+@string_constant.3 = constant [2 x i8] c" \00"
+@_string_constant.3 = global %struct.TString { %struct.__lcpl_rtti* bitcast(%struct.RString* @RString to %struct.__lcpl_rtti*), i32 1, i8* getelementptr ([2 x i8]* @string_constant.3, i32 0, i32 0) }
+; Runtime type information and virtual tables
+;
+%struct.RMain = type { %struct.TString*, i32, %struct.__lcpl_rtti*, [9 x i8*] }
+@RMain = global %struct.RMain{ %struct.TString* @NMain, i32 4, %struct.__lcpl_rtti* bitcast(%struct.RObject* @RObject to %struct.__lcpl_rtti*),
+[9 x i8*] [i8* bitcast (void (%struct.TMain*)* @Main_init to i8*)
+,	i8* bitcast (void(%struct.TObject*)* @M6_Object_abort to i8*)
+,	i8* bitcast (%struct.TString*(%struct.TObject*)* @M6_Object_typeName to i8*)
+,	i8* bitcast (%struct.TObject*(%struct.TObject*)* @M6_Object_copy to i8*)
+,	i8* bitcast (i32(%struct.TMain*, i32, i32)* @M4_Main_sum to i8*)
+,	i8* bitcast (%struct.TString*(%struct.TMain*, %struct.TString*, %struct.TString*, %struct.TString*)* @M4_Main_first to i8*)
+,	i8* bitcast (i32(%struct.TMain*, i32, %struct.TString*, i32)* @M4_Main_recurse to i8*)
+,	i8* bitcast (i32(%struct.TMain*, i32)* @M4_Main_fact to i8*)
+,	i8* bitcast (void(%struct.TMain*)* @M4_Main_main to i8*)
+]}
+; Class initializer (constructor) forMain
+define void @Main_init(%struct.TMain* %self) {
+%1 = alloca %struct.TMain*
+store %struct.TMain* %self, %struct.TMain** %1
+%2 = load %struct.TMain** %1
+%3 = bitcast %struct.TMain* %2 to %struct.TObject*
+call void @Object_init(%struct.TObject* %3)
+
+ret void
+}
+
+define i32 @M4_Main_sum (%struct.TMain* %self, i32 %a, i32 %b) {
+	; Prologue - save parameters
+	%1 = alloca %struct.TMain*
+	store %struct.TMain* %self, %struct.TMain** %1
+
+	%2 = alloca i32
+	store i32 %a, i32* %2
+	%3 = alloca i32
+	store i32 %b, i32* %3
+	%4 = load i32* %2
+	%5 = load i32* %3
+	%6 = add i32 %4, %5
+	ret i32 %6
+}
+define %struct.TString* @M4_Main_first (%struct.TMain* %self, %struct.TString* %x, %struct.TString* %y, %struct.TString* %z) {
+	; Prologue - save parameters
+	%1 = alloca %struct.TMain*
+	store %struct.TMain* %self, %struct.TMain** %1
+
+	%2 = alloca %struct.TString*
+	store %struct.TString* %x, %struct.TString** %2
+	%3 = alloca %struct.TString*
+	store %struct.TString* %y, %struct.TString** %3
+	%4 = alloca %struct.TString*
+	store %struct.TString* %z, %struct.TString** %4
+	%5 = load %struct.TString** %4
+	%6 = load %struct.TString** %3
+	%7 = load %struct.TString** %2
+	ret %struct.TString* %7
+}
+define i32 @M4_Main_recurse (%struct.TMain* %self, i32 %x, %struct.TString* %y, i32 %z) {
+	; Prologue - save parameters
+	%1 = alloca %struct.TMain*
+	store %struct.TMain* %self, %struct.TMain** %1
+
+	%2 = alloca i32
+	store i32 %x, i32* %2
+	%3 = alloca %struct.TString*
+	store %struct.TString* %y, %struct.TString** %3
+	%4 = alloca i32
+	store i32 %z, i32* %4
+	%5 = load %struct.TMain** %1
+	%6 = bitcast %struct.TMain* %5 to i8*         ; Null ptr check
+	call void @__lcpl_checkNull(i8* %6)
+	%7 = getelementptr %struct.TMain* %5, i32 0, i32 0   ; Locate address of RTTI pointer
+	%8 = load %struct.__lcpl_rtti** %7         ; Load RTTI pointer
+	%9 = getelementptr %struct.__lcpl_rtti* %8, i32 0, i32 3, i32 6
+	%10 = load i8** %9
+	%11 = bitcast i8* %10 to i32 (%struct.TMain*, i32, %struct.TString*, i32)*  ; Convert char * into function pointer
+	%12 = load i32* %2
+	%13 = add i32 %12, 1
+	%14 = load %struct.TString** %3
+	%15 = load i32* %4
+	%16 = icmp ne i32 %15, 0
+	%17 = xor i1 %16, true 
+	%18 = zext i1 %17 to i32
+	%19 = call i32 %11(%struct.TMain* %5, i32 %13, %struct.TString* %14, i32 %18)
+
+	ret i32 %19
+}
+define i32 @M4_Main_fact (%struct.TMain* %self, i32 %n) {
+	; Prologue - save parameters
+	%1 = alloca %struct.TMain*
+	store %struct.TMain* %self, %struct.TMain** %1
+
+	%2 = alloca i32
+	store i32 %n, i32* %2
+	%3 = load i32* %2
+%4 = icmp ult i32 %3, 1
+%5 = zext i1 %4 to i32	%6 = icmp ne i32 %5, 0
+	br i1 %6, label %L0, label %L1
+L0:
+L1:
+	%7 = load i32* %2
+	%8 = load %struct.TMain** %1
+	%9 = bitcast %struct.TMain* %8 to i8*         ; Null ptr check
+	call void @__lcpl_checkNull(i8* %9)
+	%10 = getelementptr %struct.TMain* %8, i32 0, i32 0   ; Locate address of RTTI pointer
+	%11 = load %struct.__lcpl_rtti** %10         ; Load RTTI pointer
+	%12 = getelementptr %struct.__lcpl_rtti* %11, i32 0, i32 3, i32 7
+	%13 = load i8** %12
+	%14 = bitcast i8* %13 to i32 (%struct.TMain*, i32)*  ; Convert char * into function pointer
+	%15 = load i32* %2
+	%16 = sub i32 %15, 1
+	%17 = call i32 %14(%struct.TMain* %8, i32 %16)
+
+	%18 = mul i32 %7, %17
+	%19 = phi i32 [ 1, %L2 ], [ %18, %L2 ]
+	ret i32 %19
+}
+define void @M4_Main_main (%struct.TMain* %self) {
+	; Prologue - save parameters
+	%1 = alloca %struct.TMain*
+	store %struct.TMain* %self, %struct.TMain** %1
+
+	%2 = alloca %struct.TIO*
+	%3 = call i8* @__lcpl_new(%struct.__lcpl_rtti* bitcast (%struct.RIO* @RIO to %struct.__lcpl_rtti*))
+	%4 = bitcast i8* %3 to %struct.TIO*
+	store %struct.TIO* %4, %struct.TIO** %2
+	%5 = load %struct.TIO** %2
+	%6 = bitcast %struct.TIO* %5 to i8*         ; Null ptr check
+	call void @__lcpl_checkNull(i8* %6)
+	%7 = getelementptr %struct.TIO* %5, i32 0, i32 0   ; Locate address of RTTI pointer
+	%8 = load %struct.__lcpl_rtti** %7         ; Load RTTI pointer
+	%9 = getelementptr %struct.__lcpl_rtti* %8, i32 0, i32 3, i32 5
+	%10 = load i8** %9
+	%11 = bitcast i8* %10 to %struct.TIO* (%struct.TIO*, %struct.TString*)*  ; Convert char * into function pointer
+	%12 = load %struct.TMain** %1
+	%13 = bitcast %struct.TMain* %12 to i8*         ; Null ptr check
+	call void @__lcpl_checkNull(i8* %13)
+	%14 = getelementptr %struct.TMain* %12, i32 0, i32 0   ; Locate address of RTTI pointer
+	%15 = load %struct.__lcpl_rtti** %14         ; Load RTTI pointer
+	%16 = getelementptr %struct.__lcpl_rtti* %15, i32 0, i32 3, i32 5
+	%17 = load i8** %16
+	%18 = bitcast i8* %17 to %struct.TString* (%struct.TMain*, %struct.TString*, %struct.TString*, %struct.TString*)*  ; Convert char * into function pointer
+	%19 = call %struct.TString* %18(%struct.TMain* %12, %struct.TString* @_string_constant.0, %struct.TString* @_string_constant.1, %struct.TString* @_string_constant.2)
+
+	%20 = call %struct.TIO* %11(%struct.TIO* %5, %struct.TString* %19)
+
+	%21 = load %struct.TIO** %2
+	%22 = bitcast %struct.TIO* %21 to i8*         ; Null ptr check
+	call void @__lcpl_checkNull(i8* %22)
+	%23 = getelementptr %struct.TIO* %21, i32 0, i32 0   ; Locate address of RTTI pointer
+	%24 = load %struct.__lcpl_rtti** %23         ; Load RTTI pointer
+	%25 = getelementptr %struct.__lcpl_rtti* %24, i32 0, i32 3, i32 5
+	%26 = load i8** %25
+	%27 = bitcast i8* %26 to %struct.TIO* (%struct.TIO*, %struct.TString*)*  ; Convert char * into function pointer
+	%28 = load %struct.TMain** %1
+	%29 = bitcast %struct.TMain* %28 to i8*         ; Null ptr check
+	call void @__lcpl_checkNull(i8* %29)
+	%30 = getelementptr %struct.TMain* %28, i32 0, i32 0   ; Locate address of RTTI pointer
+	%31 = load %struct.__lcpl_rtti** %30         ; Load RTTI pointer
+	%32 = getelementptr %struct.__lcpl_rtti* %31, i32 0, i32 3, i32 4
+	%33 = load i8** %32
+	%34 = bitcast i8* %33 to i32 (%struct.TMain*, i32, i32)*  ; Convert char * into function pointer
+	%35 = call i32 %34(%struct.TMain* %28, i32 10, i32 100)
+
+	%36 = call %struct.TString* @__lcpl_intToString(i32 %35)
+	%37 = call %struct.TIO* %27(%struct.TIO* %21, %struct.TString* %36)
+
+	%38 = load %struct.TIO** %2
+	%39 = bitcast %struct.TIO* %38 to i8*         ; Null ptr check
+	call void @__lcpl_checkNull(i8* %39)
+	%40 = getelementptr %struct.TIO* %38, i32 0, i32 0   ; Locate address of RTTI pointer
+	%41 = load %struct.__lcpl_rtti** %40         ; Load RTTI pointer
+	%42 = getelementptr %struct.__lcpl_rtti* %41, i32 0, i32 3, i32 5
+	%43 = load i8** %42
+	%44 = bitcast i8* %43 to %struct.TIO* (%struct.TIO*, %struct.TString*)*  ; Convert char * into function pointer
+	%45 = call %struct.TIO* %44(%struct.TIO* %38, %struct.TString* @_string_constant.3)
+
+	%46 = load %struct.TIO** %2
+	%47 = bitcast %struct.TIO* %46 to i8*         ; Null ptr check
+	call void @__lcpl_checkNull(i8* %47)
+	%48 = getelementptr %struct.TIO* %46, i32 0, i32 0   ; Locate address of RTTI pointer
+	%49 = load %struct.__lcpl_rtti** %48         ; Load RTTI pointer
+	%50 = getelementptr %struct.__lcpl_rtti* %49, i32 0, i32 3, i32 5
+	%51 = load i8** %50
+	%52 = bitcast i8* %51 to %struct.TIO* (%struct.TIO*, %struct.TString*)*  ; Convert char * into function pointer
+	%53 = load %struct.TMain** %1
+	%54 = bitcast %struct.TMain* %53 to i8*         ; Null ptr check
+	call void @__lcpl_checkNull(i8* %54)
+	%55 = getelementptr %struct.TMain* %53, i32 0, i32 0   ; Locate address of RTTI pointer
+	%56 = load %struct.__lcpl_rtti** %55         ; Load RTTI pointer
+	%57 = getelementptr %struct.__lcpl_rtti* %56, i32 0, i32 3, i32 7
+	%58 = load i8** %57
+	%59 = bitcast i8* %58 to i32 (%struct.TMain*, i32)*  ; Convert char * into function pointer
+	%60 = call i32 %59(%struct.TMain* %53, i32 5)
+
+	%61 = call %struct.TString* @__lcpl_intToString(i32 %60)
+	%62 = call %struct.TIO* %52(%struct.TIO* %46, %struct.TString* %61)
+
+	ret void
+}
+define void @startup() {
+	%1 = call i8* @__lcpl_new(%struct.__lcpl_rtti* bitcast (%struct.RMain* @RMain to %struct.__lcpl_rtti*))
+	%2 = bitcast i8* %1 to %struct.TMain*                       ; Convert char * into destination type
+	; Dispatch to main method
+	%3 = bitcast %struct.TMain* %2 to i8*
+	call void @__lcpl_checkNull(i8* %3)
+	%4 = getelementptr %struct.TMain* %2, i32 0, i32 0
+	%5 = load %struct.__lcpl_rtti** %4
+	%6 = getelementptr %struct.__lcpl_rtti* %5, i32 0, i32 3
+	%7 = bitcast [0 x i8*]* %6 to i8**
+	%8 = getelementptr i8** %7, i32 8
+	%9 = load i8** %8
+	%10 = bitcast i8* %9 to void (%struct.TMain*)*
+	call void %10(%struct.TMain* %2)
+	ret void
+}

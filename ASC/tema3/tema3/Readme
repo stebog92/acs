@@ -1,0 +1,38 @@
+TEMA 3 ASC - TV CHANNEL PREVIEW RENDERING
+
+Ciocan Mihai
+334CA
+
+
+Ideea implementarii a fost ca ppu-ul sa trimita fiecarui spu cate o imagine de scalat din fiecare stream si sa astepte notificari de la spu
+prin mailbox cu eventuri atunci cand au terminat de scalat. Dupa ce s-au primit notificari de la toate spu-urile se va scrie imaginea mare cu 
+cele 16 imagini scalate si se vor trimite notificari prin mailbox catre spu-uri sa inceapa procesarea imaginilor urmatoare.
+
+PPU
+Citirea imaginilor se realizeaza in threadul principal, dupa care se construiesc structurile ce vor fi trimise fiecarui spu in parte.
+Practic se vor seta pointerii catre imagini, si se va calcula pozitia unde fiecare spu va trebui sa transfere imaginea scalata in Main Storage,
+fara a fi necesar un memcpy suplimentar.
+
+Comunicarea cu spu-urile se realizeaza cu mailbox cu eventuri in threadul principal(dupa ce s-au creat threadurile). Se asteapta pentru fiecare
+frame 16 notificari de la fiecare spu, se scrie imaginea in fisier, dupa care se trimit notificari catre spu-uri pentru a procesa urmatoarea
+imagine.
+
+SPU
+
+In spu se realizeaza transfer DMA pentru a aduce in memorie structura fiecarei imagini. Pentru o imagine se realizeaza urmatoarele operatii:
+    - pentru fiecare pixel din imaginea scalata se transfera prin DMA SCALE_FACTOR linii din imaginea initiala.
+    - se vectorizeaza cele SCALE_FACTOR linii si se realizeaza spu_avg (byte average)
+    - se aduna cele SCALE_FACTOR * 3 valori si se imparte la 4 stabilind astfel valoarea finala a pixelului
+    - practic pentru un pixel ideea era sa se faca o medie pentru fiecare valoare (RGB) din patratul corespunzator din imaginea mare
+
+Se transfera imaginea finala in pozitia calculata in ppu. Pentru ca transferul sa fie posibil, am transmis de fiecare data 4 bytes din imaginea
+iar din regulile transferului DMA ultimii 4 biti ai adreselor trebuie sa coincida. Astfel ca am alocat un buffer de 16 bytes(aliniat la 128) si 
+de fiecare data cand cei 4 bytes de transferat se aflau la o adresa ce nu avea ultimii 4 biti identici cu locul de transfer, copiam datele in
+buffer la offset potrivit.
+
+Observatii
+
+In urma rularii am observat faptul ca byte average nu ofera efectele dorite intrucat imaginile rezultate au niste dungi verticale, insa
+sunt similare cu output-ul din serial. Timpul final este comparativ cu cel serial (s-ar putea sa fie de la incarcarea blade-urilor).
+Probabil daca transferul final era optimizat astfel incat sa se transfere mai multe chunckuri (ceea ce ar fi necesitat paddinguri) timpul s-ar fi
+micsorat.

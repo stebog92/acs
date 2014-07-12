@@ -1,0 +1,108 @@
+!!ro.pub.cs.lcpl.Program
+classes:
+- features:
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.Dispatch
+        arguments:
+        - !!ro.pub.cs.lcpl.Dispatch
+          arguments: []
+          lineNumber: 3
+          name: val
+          object: !!ro.pub.cs.lcpl.Symbol {lineNumber: 3, name: x, type: null}
+          type: null
+        lineNumber: 3
+        name: out
+        object: null
+        type: null
+      lineNumber: 3
+      type: null
+    lineNumber: 2
+    name: main
+    parameters: []
+    returnType: void
+  lineNumber: 1
+  name: Main
+  parent: ph
+- features:
+  - !!ro.pub.cs.lcpl.Attribute
+    init: !!ro.pub.cs.lcpl.NewObject {lineNumber: 9, type: x}
+    lineNumber: 9
+    name: x
+    type: x
+  lineNumber: 7
+  name: ph
+  parent: IO
+- features:
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.IntConstant {lineNumber: 14, type: null, value: 4}
+      lineNumber: 14
+      type: null
+    lineNumber: 14
+    name: the_value
+    parameters: []
+    returnType: Int
+  lineNumber: 13
+  name: r
+  parent: p
+- features:
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.IntConstant {lineNumber: 18, type: null, value: 4}
+      lineNumber: 18
+      type: null
+    lineNumber: 18
+    name: value
+    parameters: []
+    returnType: Int
+  lineNumber: 17
+  name: q
+  parent: r
+- features:
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.IntConstant {lineNumber: 22, type: null, value: 4}
+      lineNumber: 22
+      type: null
+    lineNumber: 22
+    name: val
+    parameters: []
+    returnType: Int
+  lineNumber: 21
+  name: p
+  parent: q
+- features:
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.IntConstant {lineNumber: 26, type: null, value: 4}
+      lineNumber: 26
+      type: null
+    lineNumber: 26
+    name: myValue
+    parameters: []
+    returnType: Int
+  lineNumber: 25
+  name: t
+  parent: p
+- features:
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.IntConstant {lineNumber: 30, type: null, value: 4}
+      lineNumber: 30
+      type: null
+    lineNumber: 30
+    name: last_value
+    parameters: []
+    returnType: Int
+  lineNumber: 29
+  name: x
+  parent: t
+lineNumber: 1
+

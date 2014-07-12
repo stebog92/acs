@@ -1,0 +1,24 @@
+IA Tema 2
+
+Ciocan Mihai
+342 C3
+
+Implementarea citeste regulile din fisierul cu nume 'reguli' si realizeaza backward chaining pentru aflarea tipului de vin pentru un anumit meniu.
+Initial filtrez toate regulile ce au drept concluzie vin si incerc sa le satisfac folosind procedura satisfy.
+
+Satisfy este procedura principala care primeste ca parametru o concluzie pe care incearca sa o satisfaca dupa urmatorul algoritm:
+	- cauta atributul in memoria de lucru (care initial este vida) - daca este gasita algoritmul se termina si concluzia e satisfacuta
+	- daca atributul nu e in memoria de lucru se vor consulta faptele (facts) - in caz ca exista in fapte atributul va fi adaugat
+	in memoria de lucru si intoarce valoarea sa
+	- daca atributul nu se afla in nicio lista de mai sus, se verifica daca e monovalued - in acest caz daca atributul se afla
+	deja in memoria de lucru intoarce false
+	- altfel filtrez toate regulile pentru aceasta concluzie si incerc sa satisfac premisele folosind tot satisfy - toate vor face
+	modificari asupra memoriei de lucru (folosesc foldr si pentru premise si pentru reguli)
+	- atributul va intra in memorie cu coeficientul min(premise) * coeficient_concluzie
+	- in caz ca exista mai multe reguli, se vor procesa toate, iar daca attributul exista deja in memoria de lucru
+	va avea coeficientul c = c1 + c2 - c1 * c2
+
+Procedura solve este un wrapper peste satisfy si cauta toate atributele cautate - in acest caz 'vin' - si le intoarce sub forma ceruta
+(vin (value1 cnf1) (value2 cnf2) ..)
+	
+	 

@@ -1,0 +1,6 @@
+llc: string.lcpl.ir:224:68: error: expected value token
+	%79 = call %struct.TString* @M6_String_substring(%struct.TString* %%78, i32 0, i32 %77)
+	                                                                  ^
+clang: error: no such file or directory: 'string.lcpl.ir.s'
+./eval.sh: line 27: ./string: No such file or directory
+rm: cannot remove `string': No such file or directory

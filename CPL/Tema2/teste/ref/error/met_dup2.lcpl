@@ -1,0 +1,10 @@
+class p
+    val -> Int : 4; end;
+    val Int x -> Int : x+5; end;
+end;
+
+class Main inherits IO
+    main :
+        [out [(new p).val 3]];
+    end;
+end;

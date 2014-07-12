@@ -1,0 +1,296 @@
+!!ro.pub.cs.lcpl.Program
+classes:
+- features:
+  - !!ro.pub.cs.lcpl.Attribute {init: null, lineNumber: 3, name: string, type: String}
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.Assignment
+        e1: !!ro.pub.cs.lcpl.Symbol {lineNumber: 6, name: s, type: null}
+        lineNumber: 6
+        symbol: forbidden
+        type: null
+      lineNumber: 6
+      type: null
+    lineNumber: 6
+    name: forbid
+    parameters:
+    - {lineNumber: 6, name: s, type: String}
+    returnType: void
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.Assignment
+        e1: !!ro.pub.cs.lcpl.Symbol {lineNumber: 8, name: s, type: null}
+        lineNumber: 8
+        symbol: string
+        type: null
+      lineNumber: 8
+      type: null
+    lineNumber: 8
+    name: set
+    parameters:
+    - {lineNumber: 8, name: s, type: String}
+    returnType: void
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.LocalDefinition
+        init: !!ro.pub.cs.lcpl.Symbol {lineNumber: 11, name: string, type: null}
+        lineNumber: 11
+        name: s
+        scope: !!ro.pub.cs.lcpl.Block
+          expressions:
+          - !!ro.pub.cs.lcpl.IfStatement
+            condition: !!ro.pub.cs.lcpl.EqualComparison
+              e1: !!ro.pub.cs.lcpl.Dispatch
+                arguments: []
+                lineNumber: 12
+                name: length
+                object: !!ro.pub.cs.lcpl.Symbol {lineNumber: 12, name: forbidden,
+                  type: null}
+                type: null
+              e2: !!ro.pub.cs.lcpl.IntConstant {lineNumber: 12, type: null, value: 0}
+              lineNumber: 12
+              type: null
+            ifExpr: !!ro.pub.cs.lcpl.Block
+              expressions:
+              - !!ro.pub.cs.lcpl.Symbol {lineNumber: 12, name: string, type: null}
+              lineNumber: 12
+              type: null
+            lineNumber: 12
+            thenExpr: !!ro.pub.cs.lcpl.Block
+              expressions:
+              - !!ro.pub.cs.lcpl.Assignment
+                e1: !!ro.pub.cs.lcpl.StringConstant {lineNumber: 14, type: null, value: ''}
+                lineNumber: 14
+                symbol: s
+                type: null
+              - !!ro.pub.cs.lcpl.LocalDefinition
+                init: null
+                lineNumber: 16
+                name: i
+                scope: !!ro.pub.cs.lcpl.Block
+                  expressions:
+                  - !!ro.pub.cs.lcpl.WhileStatement
+                    condition: !!ro.pub.cs.lcpl.LessThanEqual
+                      e1: !!ro.pub.cs.lcpl.Addition
+                        e1: !!ro.pub.cs.lcpl.Symbol {lineNumber: 18, name: i, type: null}
+                        e2: !!ro.pub.cs.lcpl.Dispatch
+                          arguments: []
+                          lineNumber: 18
+                          name: length
+                          object: !!ro.pub.cs.lcpl.Symbol {lineNumber: 18, name: forbidden,
+                            type: null}
+                          type: null
+                        lineNumber: 18
+                        type: null
+                      e2: !!ro.pub.cs.lcpl.Dispatch
+                        arguments: []
+                        lineNumber: 18
+                        name: length
+                        object: !!ro.pub.cs.lcpl.Symbol {lineNumber: 18, name: string,
+                          type: null}
+                        type: null
+                      lineNumber: 18
+                      type: null
+                    lineNumber: 18
+                    loopBody: !!ro.pub.cs.lcpl.Block
+                      expressions:
+                      - !!ro.pub.cs.lcpl.Assignment
+                        e1: !!ro.pub.cs.lcpl.Addition
+                          e1: !!ro.pub.cs.lcpl.Symbol {lineNumber: 19, name: s, type: null}
+                          e2: !!ro.pub.cs.lcpl.IfStatement
+                            condition: !!ro.pub.cs.lcpl.EqualComparison
+                              e1: !!ro.pub.cs.lcpl.SubString
+                                endPosition: !!ro.pub.cs.lcpl.Addition
+                                  e1: !!ro.pub.cs.lcpl.Symbol {lineNumber: 19, name: i,
+                                    type: null}
+                                  e2: !!ro.pub.cs.lcpl.Dispatch
+                                    arguments: []
+                                    lineNumber: 19
+                                    name: length
+                                    object: !!ro.pub.cs.lcpl.Symbol {lineNumber: 19,
+                                      name: forbidden, type: null}
+                                    type: null
+                                  lineNumber: 19
+                                  type: null
+                                lineNumber: 19
+                                startPosition: !!ro.pub.cs.lcpl.Symbol {lineNumber: 19,
+                                  name: i, type: null}
+                                stringExpr: !!ro.pub.cs.lcpl.Symbol {lineNumber: 19,
+                                  name: string, type: null}
+                                type: null
+                              e2: !!ro.pub.cs.lcpl.Symbol {lineNumber: 19, name: forbidden,
+                                type: null}
+                              lineNumber: 19
+                              type: null
+                            ifExpr: !!ro.pub.cs.lcpl.Block
+                              expressions:
+                              - !!ro.pub.cs.lcpl.Assignment
+                                e1: !!ro.pub.cs.lcpl.Addition
+                                  e1: !!ro.pub.cs.lcpl.Symbol {lineNumber: 20, name: i,
+                                    type: null}
+                                  e2: !!ro.pub.cs.lcpl.Dispatch
+                                    arguments: []
+                                    lineNumber: 20
+                                    name: length
+                                    object: !!ro.pub.cs.lcpl.Symbol {lineNumber: 20,
+                                      name: forbidden, type: null}
+                                    type: null
+                                  lineNumber: 20
+                                  type: null
+                                lineNumber: 20
+                                symbol: i
+                                type: null
+                              - !!ro.pub.cs.lcpl.Symbol {lineNumber: 21, name: replacement,
+                                type: null}
+                              lineNumber: 20
+                              type: null
+                            lineNumber: 19
+                            thenExpr: !!ro.pub.cs.lcpl.Block
+                              expressions:
+                              - !!ro.pub.cs.lcpl.Assignment
+                                e1: !!ro.pub.cs.lcpl.Addition
+                                  e1: !!ro.pub.cs.lcpl.Symbol {lineNumber: 23, name: i,
+                                    type: null}
+                                  e2: !!ro.pub.cs.lcpl.IntConstant {lineNumber: 23,
+                                    type: null, value: 1}
+                                  lineNumber: 23
+                                  type: null
+                                lineNumber: 23
+                                symbol: i
+                                type: null
+                              - !!ro.pub.cs.lcpl.SubString
+                                endPosition: !!ro.pub.cs.lcpl.Symbol {lineNumber: 24,
+                                  name: i, type: null}
+                                lineNumber: 24
+                                startPosition: !!ro.pub.cs.lcpl.Subtraction
+                                  e1: !!ro.pub.cs.lcpl.Symbol {lineNumber: 24, name: i,
+                                    type: null}
+                                  e2: !!ro.pub.cs.lcpl.IntConstant {lineNumber: 24,
+                                    type: null, value: 1}
+                                  lineNumber: 24
+                                  type: null
+                                stringExpr: !!ro.pub.cs.lcpl.Symbol {lineNumber: 24,
+                                  name: string, type: null}
+                                type: null
+                              lineNumber: 23
+                              type: null
+                            type: null
+                          lineNumber: 19
+                          type: null
+                        lineNumber: 19
+                        symbol: s
+                        type: null
+                      lineNumber: 19
+                      type: null
+                    type: null
+                  - !!ro.pub.cs.lcpl.Addition
+                    e1: !!ro.pub.cs.lcpl.Symbol {lineNumber: 27, name: s, type: null}
+                    e2: !!ro.pub.cs.lcpl.SubString
+                      endPosition: !!ro.pub.cs.lcpl.Dispatch
+                        arguments: []
+                        lineNumber: 27
+                        name: length
+                        object: !!ro.pub.cs.lcpl.Symbol {lineNumber: 27, name: string,
+                          type: null}
+                        type: null
+                      lineNumber: 27
+                      startPosition: !!ro.pub.cs.lcpl.Symbol {lineNumber: 27, name: i,
+                        type: null}
+                      stringExpr: !!ro.pub.cs.lcpl.Symbol {lineNumber: 27, name: string,
+                        type: null}
+                      type: null
+                    lineNumber: 27
+                    type: null
+                  lineNumber: 18
+                  type: null
+                type: Int
+              lineNumber: 14
+              type: null
+            type: null
+          lineNumber: 12
+          type: null
+        type: String
+      lineNumber: 11
+      type: null
+    lineNumber: 10
+    name: get
+    parameters: []
+    returnType: String
+  - !!ro.pub.cs.lcpl.Attribute {init: null, lineNumber: 32, name: forbidden, type: String}
+  - !!ro.pub.cs.lcpl.Attribute
+    init: !!ro.pub.cs.lcpl.StringConstant {lineNumber: 33, type: null, value: '***'}
+    lineNumber: 33
+    name: replacement
+    type: String
+  lineNumber: 1
+  name: CensoredString
+  parent: null
+- features:
+  - !!ro.pub.cs.lcpl.Method
+    body: !!ro.pub.cs.lcpl.Block
+      expressions:
+      - !!ro.pub.cs.lcpl.LocalDefinition
+        init: !!ro.pub.cs.lcpl.NewObject {lineNumber: 39, type: CensoredString}
+        lineNumber: 39
+        name: cs
+        scope: !!ro.pub.cs.lcpl.Block
+          expressions:
+          - !!ro.pub.cs.lcpl.Dispatch
+            arguments:
+            - !!ro.pub.cs.lcpl.StringConstant
+              lineNumber: 40
+              type: null
+              value: |
+                Fight for freedom! And freedom will win!
+            lineNumber: 40
+            name: set
+            object: !!ro.pub.cs.lcpl.Symbol {lineNumber: 40, name: cs, type: null}
+            type: null
+          - !!ro.pub.cs.lcpl.Dispatch
+            arguments:
+            - !!ro.pub.cs.lcpl.Dispatch
+              arguments: []
+              lineNumber: 41
+              name: get
+              object: !!ro.pub.cs.lcpl.Symbol {lineNumber: 41, name: cs, type: null}
+              type: null
+            lineNumber: 41
+            name: out
+            object: null
+            type: null
+          - !!ro.pub.cs.lcpl.Dispatch
+            arguments:
+            - !!ro.pub.cs.lcpl.StringConstant {lineNumber: 42, type: null, value: freedom}
+            lineNumber: 42
+            name: forbid
+            object: !!ro.pub.cs.lcpl.Symbol {lineNumber: 42, name: cs, type: null}
+            type: null
+          - !!ro.pub.cs.lcpl.Dispatch
+            arguments:
+            - !!ro.pub.cs.lcpl.Dispatch
+              arguments: []
+              lineNumber: 43
+              name: get
+              object: !!ro.pub.cs.lcpl.Symbol {lineNumber: 43, name: cs, type: null}
+              type: null
+            lineNumber: 43
+            name: out
+            object: null
+            type: null
+          lineNumber: 40
+          type: null
+        type: CensoredString
+      lineNumber: 39
+      type: null
+    lineNumber: 38
+    name: main
+    parameters: []
+    returnType: void
+  lineNumber: 37
+  name: Main
+  parent: IO
+lineNumber: 1
+

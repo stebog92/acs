@@ -1,0 +1,580 @@
+                           Coduri
+
+     Informatiile   schimbate   intre   diferite   sisteme   sunt 
+codificate,  pentru  a realiza adaptarea statistica a  sursei  la 
+canalul  de comunicatie. Canalul de comunicatie poate fi  afectat 
+sau   nu  de  perturbatii.Un  canal  neperturbat  ar   corespunde 
+unei  criptari  sau  compresii a informatiei, pe  cind  un  canal 
+perturbat transmisiei acesteia.
+     Sistemele   actuale   care   inglobeaza   calculatoare    si 
+echipamente  automate  necesita o transmisie cit  mai  corecta  a 
+informatiei;  pentru  aceasta  semnalul  trimis  este   prelucrat 
+inainte de a fi emis. Prelucrarea semnalului se realizeaza foarte 
+usor  in cazul transmisiei de semnale discrete, prin  codificare. 
+Receptorul  va  decodifica  semnalul  primit  si  va  incerca  sa 
+estimeze daca au aparut erori.
+     Pentru  tratarea codificarii/decodificarii s-a dezvoltat  un 
+amplu   aparat   matematic,  bazat  pe  calculul   vectorial   si 
+polinomial.  Astfel, in cazul codurilor bloc, folosind  alfabetul 
+binar  {0,1},  se pot realiza 2^n combinatii (cuvinte de  cod  de 
+aceeasi lungime n) folosind n biti. Aceste cuvinte de cod pot  fi 
+asimilate  cu  vectori  sau cu polinoame.  Daca  toate  cele  2^n 
+combinatii  reprezinta cuvinte utile (cu sens),  atunci  aparitia 
+unei erori transforma un cuvint de cod in altul, fara a se  putea 
+realiza  detectia  sau corectia erorilor.  De  aceea,  informatia 
+utila  va  fi  codificata  pe  k<n  biti,  ceilalti  m=n-k   biti 
+redundanti fiind folositi pentru controlul erorilor. 
+     Foarte  larg  folosite  din cauza  proprietatilor  lor  sunt 
+codurile ciclice. Acestea au la baza un polinom generator, g(x) , 
+de  grad  m,  fiecare cuvint de cod  fiind  multiplu  al  acestui 
+polinom.  Cuvintele  de cod se obtin formind  combinatii  liniare 
+intre liniile matricei generatoare G:
+       +-        -+     
+       |     g(x) | 
+       |   x*g(x) |   
+   G = | x^2*g(x) | 
+       |   . . .  |             
+       | x^k*g(x) |  
+       +-        -+ 
+
+          1.1 Detectia erorilor
+     Pentru   a   se  pastra   compatibilitatea   cu   operatiile 
+vectoriale, se lucreaza in clasa polinoamelor modulo p(x)=x^n + 1 
+, radacinile lui g(x) fiind printre cele ale lui p(x).
+     Cuvintul  de cod care se emite este multiplu al  polinomului 
+generator, deci daca nu apar erori, cuvintul receptionat va fi la 
+fel  multiplu  de g(x). Daca se receptioneaza un cuvint  care  nu 
+este  multiplu  de  g(x), receptorul a  detectat  eroarea  si  va 
+incerca corectarea ei, fie cerind retransmisia mesajului  eronat, 
+fie efectuind corectia necesara, daca restul obtinut permite.
+     Pentru simplificarea implementarii hardware a codificarii cu 
+coduri  ciclice  in  locul operatiilor  aritmetice  obisnuite  se 
+folosesc operatiile modulo 2, care nu necesita lungime  variabila 
+a  rezultatului si nici logica pentru manipularea  transportului, 
+folosindu-se  porti XOR. Astfel operatiile de adunare si  scadere 
+sunt identice.
+     Pentru  a afla cuvintul de cod din bitii de  informatie,  se 
+imparte  mesajul la un "numar magic", obtinindu-se un cit  si  un 
+rest. Citul nu are rangul controlabil, deci se va folosi  restul, 
+care are gradul cel putin cu 1 mai mic decit impartitorul.
+     Astfel  mesajul,  adus la gradul n-1 prin inmultire  cu  x^m 
+(shiftare  stinga  cu  m pozitii) va  fi  impartit  la  polinomul 
+generator, restul obtinut fiind apendat mesajului pentru a  forma 
+cuvintul de cod care va fi emis. 
+     La  receptie, se verifica daca s-a primit un cuvint  de  cod 
+(restul nul la impartirea prin polinomul generator).
+     Considerind  mesajul  << CfyU >>  si  numarul  magic  69665, 
+(adica 11000011 01100110 11111001 01010101 si 10001000000100001 )
+impartirea decurge astfel  
+ 11000011011001101111100101010101
+ 10001000000100001
+------------------
+ x10010110111011001
+  10001000000100001                 
+  -----------------
+  x00111101111110001
+   00000000000000000
+   -----------------
+   x01111011111100011
+    00000000000000000
+    -----------------
+    x11110111111000111
+     10001000000100001
+     -----------------
+     x11111111111001100
+      . . . . . . . . .
+     Ultimul  rest va fi 1011011000110010, iar citul se  formeaza 
+luind primul bit din fiecare rest partial.
+     Aceasta   schema   de  operatie  indica   folosirea   pentru 
+implementare a unui registru de deplasare, in care se va  acumula 
+restul,  citul  nefiind util. Pentru ca toti bitii  de  mesaj  sa 
+participe  la  formarea restului, se vor introduce  zerouri  dupa 
+ultimul  bit de mesaj, pina ce acesta ajunge pe pozitia  cea  mai 
+semnificativa in registru (aceasta este shiftarea despre care s-a 
+vorbit anterior). Pentru a realiza scaderea din restul partial  a 
+impartitorului (polinomul generator) pe pozitiile corespunzatoare 
+coeficientilor  nenuli din g(x) vor exista porti XOR intre  bitul 
+cel mai semnificativ al registrului si bitul precedent.
+     Observatii  
+    i) Deoarece primul bit din registru va fi intotdeauna 1 si el 
+nu  mai  participa la calcule, registrul poate avea  un  bit  mai 
+putin( de exemplu, in cazul unui polinom de grad 16 se vor folosi 
+16 biti in loc de 17).
+     Codurile ciclice (CRC) se folosesc de catre dispozitivele de 
+comunicatie si controloarele de disc. Cele mai uzitate sunt :
+     CRC12     : x^12 + x^11 + x^3 + x^2 + 1 
+     CRC16     : x^16 + x^15 + x^2 + 1
+     CRCCCITT  : x^16 + x^12 + x^5 + 1
+     CRC32     : x^32 + x^26 + x^23 + x^22 + x^16 + x^12 + x^11 +
+                 x^10 + x^8  + x^7  + x^6  + x^4  + x^2  + x  + 1
+     ii)  Existind 8 biti de informatie, care vor forma un  numar 
+finit de combinatii(2^8=256) este foarte eficient a se calcula in 
+avans CRC-ul pentru toate combinatiile posibile, si a se completa 
+un  tabel  cu valoril gasite. Astfel se  cistiga  timp,  deoarece 
+indexarea intr-un tablou e mai rapida decit realizarea efectiva a 
+impartirii de fiecare data.
+
+          1.2 Corectia erorilor
+     Daca  w  este  cuvintul  de cod emis  si  w'  este  cuvintul 
+receptionat si daca au aparut e erori, atunci exista relatia :
+               w' = w + E ,
+unde E este un vector care are e biti de 1. Problema care se pune 
+este de a determina pe ce pozitii au aparut erori si de a aduna 1 
+acolo pentru a realiza corectia.
+     Pentru  aceasta  se  formeaza matricea de  control  H  ,  in 
+functie de matricea caracteristica a polinomului generator T (  a 
+registrului de deplasare ).
+     H = [ U  T*U  T^2*U  . . .  T^(n-1)*U ]
+          +-                      -+            +-   -+   
+          |  0  1  0  . . .  0     |            |  0  |        
+          |  0  0  1  . . .  0     |            |  0  |      
+     T =  |  .  .  .  . . .  .     |       U =  |  0  |            
+          |  0  0  0         1     |            |. . .|      
+          |  1  g1 g2 . . . g(m-1) |            |  1  | 
+          +-                     - +            +-   -+        
+    unde
+ g(x) = 1 + g1 * x + g2 * x^2 + . . . + g(m-1) * x^(m-1) + x^m
+este polinomul generator.
+     T este o matrice periodica : T = T^n.
+     La  receptia  unui cuvint de cod w se  calculeaza  sindromul 
+(corectorul) :         z = H * w(t)  ; w(t) = w transpus.
+Daca  acesta  este nul, nu au aparut erori. Daca  este  nenul  au 
+aparut   erori,   si  daca  matricea   H   indeplineste   anumite 
+conditii  (corectorii diferiti pentru fiecare eroare, ceea ce  se 
+intimpla  cind sumele a e coloane din H sunt distincte,  e  fiind 
+numarul  de  erori  care  se doresc  corectate)  erorile  se  pot 
+corecta. In functie de T si z se poate identifica unde a aparut o 
+eroare si se iau masurile de rigoare.
+     De exemplu, fie codul corector de o eroare( e=1 ) :
+     n=15, m=4, k=11,  g(x) = 1 + x + x^4
+Formam T si calculam H :
+         +-       -+       
+         | 0 1 0 0 |       
+     T = | 0 0 1 0 |   H = [ U  T*U  . . . T^14*U ]                           
+         | 0 0 0 1 |       
+         | 1 1 0 0 |       
+         +-       -+       
+         +-                             -+       
+         | 0 0 0 1 0 0 1 1 0 1 0 1 1 1 1 |       
+     H = | 0 0 1 0 0 1 1 0 1 0 1 1 1 1 0 |   
+         | 0 1 0 0 1 1 0 1 0 1 1 1 1 0 0 |       
+         | 1 0 0 1 1 0 1 0 1 1 1 1 0 0 0 |       
+         +-                             -+       
+     Fie acum mesajul 10101010101 , avind 11 biti.
+Adaugind  0000  la sfirsit si impartind la  g(x)  obtinem  restul 
+1011(x^3 + x + 1), pe care il adaugam pe pozitiile cele mai putin 
+semnificative, obtinind cuvintul de cod :
+     w = 101010101011011    +   +
+     Este imediat ca        | 0 |
+               H * w(t) =   | 0 |
+                            | 0 |
+                            | 0 |
+                            +   +
+     Observatie : Daca se foloseste matricea H in aceasta  forma, 
+w  trebuie  folosit  invers,  pentru  a  corespunde  bitul  i  cu 
+elementul T^i si nu cu T^(n-i).
+     Sa consideram ca se altereaza bitul 12, adica
+     w'= 110110101011101
+                    ^- acest bit e eronat
+     Atunci,
+             +-                             -+    +-  -+   +-  -+
+             | 0 0 0 1 0 0 1 1 0 1 0 1 1 1 1 |    |  1 |   |  1 |
+  H * w(t)=  | 0 0 1 0 0 1 1 0 1 0 1 1 1 1 0 | *  |  1 | = |  1 |
+             | 0 1 0 0 1 1 0 1 0 1 1 1 1 0 0 |    |  0 |   |  1 |
+             | 1 0 0 1 1 0 1 0 1 1 1 1 0 0 0 |    |  1 |   |  1 |
+             +-                             -+    |  1 |   +-  -+
+                                                  |  0 |
+                                                  |  1 |
+                                                  |  0 |
+                                                  |  1 |
+                                                  |  0 |
+                                                  |  1 |
+                                                  |  1 |
+                                                  |  1 |
+                                                  |  0 |
+                                                  |  1 |
+                                                  +-  -+
+adica  s-a obtinut exact coloana 12 din H, deci  s-a  identificat 
+pozitia cu eroare. Pentru corectie, se inmulteste z=H*w(t) cu  T, 
+pina ce se obtine [ 1 0 0 . . . 0 ]. In acest moment, se aduna  1 
+la valoarea din registrul de deplasare, care la fiecare inmultire 
+anterioara a fost shiftat pentru a se obtine bitii buni si care a 
+ajuns astfel cu bitul eronat pe prima pozitie.
+     Daca  ar  fi aparut 2 erori, z era suma celor  doua  coloane 
+afectate  si nu se putea corecta. In cazul a trei erori, nu  este 
+sigura nici  detectia . 
+     Alte coduri :
+   e=3,n=15,m=4,k=11 , g(x)= 1 + x + x^2 + x^4 + x^5 + x^8 + x^10
+   e=1,n=7,k=4,m=3 , g(x)= 1 + x + x^3              (Hamming)
+   e=2,n=15,k=7,m=8 , g(x)= 1 + x + x^2 + x^4 + x^8 (BCH)
+
+
+-----------------------------------------------------------------
+
+Utilizarea codurilor ciclice (CRC - Cyclic Redundancy Cheak) este 
+o metoda puternica de detectie a erorilor ap|rute in transmiterea 
+informaEiei. Dintre performanEele utilizarii unui cod de  control 
+de  16  biti amintim ca erori de 1, 2 sau de un  num|r  impar  de 
+biti,  precum  si erori in rafal| sub 16 biti sint  detectate  in 
+proportie  de 100% ; erori  in rafala de  17 biti sint  detectate 
+in proportie de 99,9969 % , iar erori in rafala de peste 17 biti, 
+in proportie de 99,9984 % .
+
+Cele  mai  raspindite  polinoame generatoare  sint  CRC  -  CCITT 
+(utilizat si in HDLC/SDLC) avind forma 
+         X16 + X12 + X5 + 1 
+si IBM BySync, denumit CRC-16, avind forma 
+         X16 + X15 + X2 + 1.  
+Valoarea  de  control asociata unui sir de biti  se  obtine  prin 
+aritmetica  modulo  2.  Aceasta  simplifica  enorm  implementarea 
+hardware, neexistind biti de transport si imprumut. Implementarea 
+reclama  doar  utilizarea  unor  circuite  simple  (registre   de 
+deplasare   si  porti  de  tip  sau-exclusiv),   incorporate   in 
+dispozitivele de control al comunicatiei si, in egala masura,  in 
+controloarele  discurilor magnetice (la care controlul ciclic  al 
+datelor este, de asemenea important).
+
+Circuitul din figura 4.2 realizeaza operatia de impartire modulo-
+2  cu  1021h.  Ideea  este ca,  la  fiecare  pas  al  impartirii, 
+urmatorul  bit al deampartitului este alaturat restului  partial, 
+dupa  care, rezultatul este combinat prin XOR (sau  exclusiv)  cu 
+impartitorul,   pentru  a  produce  un  nou  rest.   Functionarea 
+circuitului se bazeaza pe urmatoarele reguli:
+-  bitii  deimpartitului sunt introdusi, unul  cate  unul,   prin 
+pozitia  cea mai putin semnificativa a registrului de  deplasare, 
+restul bitilor fiind deplasati corespunzator;
+-  portile  XOR  intre elemente realizeaza  operatia  de  scadere 
+modulo-2;
+- bitul cel mai semnificativ (din pozitia 16) al noului rest este 
+totdeauna zero, deci pentru el nu trebuie sa existe un element de 
+memorare in registru.
+
++->cat
+|------<-----------------<------------------<-----+
+|               |             1 1   |   1 1 1 1   |
+|   0 1 2 3 4   |   5 6 7 8 9 0 1   |   2 3 4 5   |
+|  +---------+  v  +-------------+  v  +-------+  |
+++>| | | | | |- + -| | | | | | | |- + >| | | | |--+
+ | +---------+     +-------------+     +-------+  
+ ^  1 0 0 0 0       1 0 0 0 0 0 0       1 0 0 0   divizor 1021h
+ |                                                
+ |intrare biti informatie
+                           Figura 4.2.
+
+Deoarece,  initial, registrul de deplasare este zero, reactia  de 
+la  bitul 15 la intrarile circuitelor XOR este zero, deci  primii 
+16  pasi  de  operare a circuitului  realizeaza  doar  deplasarea 
+mesajului  (deimpartitului)  in registru. Efectul  impartirii  se 
+simte  abia atunci cand prima unitate a mesajului este  transmisa 
+pe linia catului. 
+
+Dupa  ce  ultimul bit al mesajului a fost introdus  in  registru, 
+ceea  ce se obtine nu este, inca, CRC. +n cazul limita,  in  care 
+mesajul  ar  avea  16 biti, restul ar  reprezenta  chiar  dublura 
+mesajului, nefiind foarte util in realizarea verificarii.  Pentru 
+a  inregistra un efect al fiecarui bit de mesaj asupra  restului, 
+procesul de calcul al CRC continua cu introducerea unui sir de 16 
+zerouri (care realizeaza "golirea" registrului de deplasare).
+
+Pentru   a  elimina  intarzierea  de  16  pasi  intre   inceperea 
+calculului   si  activarea  efectului  primului  bit   nenul   al 
+mesajului, se recurge la varianta din figura 4.3, care difera  de 
+precedenta prin modul in care deimpartitul se scade din rest:  in 
+varianta  precedenta, reactia provenea direct de la bitul  15  al 
+registrului.  +n noua varianta, linia catului este obtinuta  prin 
+operatia XOR intre bitul mesajului si bitul 15 al registrului  de 
+deplasare.  Prelucrarea  unui  mesaj  cu  acest  circuit  produce 
+acelasi  rezultat ca acela obtinut de  circuitul precedent cu  un 
+mesaj la care s-au adaugat 16 zerouri.
+
+ +------------------------------------------------+
+ |              |             1 1   |   1 1 1 1   |
+ |  0 1 2 3 4   |   5 6 7 8 9 0 1   |   2 3 4 5   ^
+ | +---------+  v  +-------------+  v  +-------+  |
+ +>| | | | | |- + -| | | | | | | |- + >| | | | |- + ---> cat
+   +---------+     +-------------+     +-------+  |
+    1 0 0 0 0       1 0 0 0 0 0 0       1 0 0 0   |
+                                                  ^
+                                        intrare biti informatie
+                           Figura 4.3.
+
+Varianta  de  circuit  utilizata  in  calculul  CRC  CCITT   este 
+prezentata in figura 4.4.
+
+                                                +--------+
+                                                | poarta |
+ +----------------------------------------------+--------+
+ |              |             1 1   |   1 1 1 1   |
+ |  0 1 2 3 4   |   5 6 7 8 9 0 1   |   2 3 4 5   |---+ 2
+ | +---------+  v  +-------------+  v  +-------+  |     ------> 
+ +>| | | | | |- + -| | | | | | | |- + >| | | | |- +       iesire
+   +---------+     +-------------+     +-------+  |---+ 1
+    1 0 0 0 0       1 0 0 0 0 0 0       1 0 0 0   |
+                                                  ^
+                                        intrare biti informatie
+                           Figura 4.4.
+
+CCITT  recomanda blocuri de informatie avind lungimi de n =  260, 
+500,  980  sau  3860 de biti.  Dispozitivul  de  codificare  este 
+prezentat in figura 4.3 si are urmatoarea functionare :
+- initial, comutatorul este in pozitia 1 si poarta este deschisa; 
+bitii  de  date sint aplicati la iesire,  precum si  sumatorului 
+modulo 2 ;
+-  dupa  transmiterea bitilor de date, se inchide  poarta si  se 
+trece  comutatorul  pe pozitia 2; ca urmare, sint  transmisi  pe 
+linie bitii de control.
+
+Transmiterea  datelor  incepe  cu  bitul  cel  mai  semnificativ. 
+Configuratia  circuitului  de codificare  corespunde  polinomului 
+generator  CRC  - CCITT, ai carui coeficienti  corespund  valorii 
+hexazecimale 11021h. Pentru fiecare bit 1 din impartitor,  exista 
+o  poarta  suma modulo 2. Registrul de deplasare  folosit  (avind 
+bitul cel mai semnificativ in dreapta) pastreaza restul  (partial 
+si  final)  si are 16 biti. Acest numar de  biti  este  suficient 
+pentru  un  divizor de 17 biti (11021h) deoarece  bitul  cel  mai 
+semnificativ  al  restului partial are totdeauna  valoarea  zero, 
+cunoscuta.
+
+Bitii mesajului sint deplasati, unul cite unul, in bitul cel  mai 
+semnificativ  al  registrului de deplasare,  facindu-se  totodata 
+scaderea (modulo 2) din fiecare pas al impartirii. Bitul deplasat 
+din pozitia 15 al registrului reprezinta citul.
+
+Dispozitivul  de  control al receptiei are o  structura  similara 
+codificatorului,  asa cum reiese din figura 4.5.
+                                                
+      +------------------------------------------------+
+      |              |             1 1   |   1 1 1 1   |
+      |  0 1 2 3 4   |   5 6 7 8 9 0 1   |   2 3 4 5   |
+      | +---------+  v  +-------------+  v  +-------+  |
+  ----+>| | | | | |- + -| | | | | | | |- + >| | | | |--+
+intrare +---------+     +-------------+     +-------+  
+         1 0 0 0 0       1 0 0 0 0 0 0       1 0 0 0   
+                                                  
+                           Figura 4.5.
+
+Circuitul  reface impartirea mesajului prin polinomul  generator, 
+restul fiind zero in cazul unei transmisii fara erori si  diferit 
+de zero in caz contrar. 
+
++n  cazul  protocolului HDLC cadrul contine (dupa  cum  se  stie) 
+urmatoarele cimpuri:
+ delimitator   informatie     secv.control   delimitator
+
++n  cazul  procedurii  HDLC  la emisie  se  procedeaza in  modul 
+urmator:
+- se initializeaza registrul de deplasare RD cu zero;
+- se inverseaza primii 16 biti (de dupa delimitatorul de  inceput 
+  al   cadrului)  inainte  de  a-i  introduce in  registrul   de 
+  deplasare; echivaleaza cu initializarea cu 1 a registrului RD;
+- se deplaseaza in RD restul cadrului neinversat;
+- se  inverseaza  restul ramas in RD si se  emite  pe  linie  ca 
+  secventa de control a cadrului.
+
+La receptie
+- se initializeaza RD cu zero ;
+- se  inverseaza  primele 16 cifre  binare  receptionate si  se 
+  introduc in RD ;
+- se introduc celelate cifre, nemodificate, pina la secventa  de     
+  control a cadrului;
+- se inverseaza secventa de control si se introduce in  registrul 
+  de deplasare.
++n absenta erorilor, continutul lui RD va fi zero.
+
+--------------------------------------------------------------------
+Algoritmul  TLR  (Tea-Leaf Reader) permite o implementare software  usoara  si 
+rapida  pentru a calcula un CRC (Cyclical Redundancy Check), atat pentru  CRC-
+16,  cat  si pentru CRC-32. Are la baza tehnici din  criptologie;  lucrand  la 
+nivel  de octet este mult mai rapid decat algoritmul clasic care  lucreaza  la 
+nivel de bit.
+
+Acest algoritm foloseste o tabela pentru a anticipa efectul urmatorilor 8 biti 
+asupra  valorii CRC, tabela care este calculata "off-line", spre deosebire  de 
+algoritmul  la  nivel de bit, unde calculele se fac pentru fiecare bit  de  la 
+intrare. Deci, algoritmul cuprinde 2 parti: cea care  calculeaza 
+tabela ("off-line") si partea propriu-zisa, care foloseste "on-line" tabela.
+
+La  calculul  CRC-32  sunt  necesare 5 tabele de  256  octeti  pentru  a  afla 
+urmatorii 8 biti din CRC. Cei 4 octeti de paritate sunt folositi ca indecsi in 
+4  tabele de cautare. Cele 4 rezultate sunt combinate prin XOR.  Rezultatul 
+este  combinat prin XOR cu urmatorul octet de la intrare, iar octetul  obtinut  astfel 
+este folosit ca index in tabela "tea-leaf" pentru a obtine urmatorul octet  de 
+rang mare din CRC.
+
+4 octeti de paritate CRC-32 (initial zero)
++-----+-----+-----+-----+
+| P4  | P3  | P2  | P1  |
++--|--+--|--+--|--+--|--+
+   |     |     |     +--------->Tabela 1------>R1   
+   |     |     +--------------->Tabela 2------>R2  
+   |     +--------------------->Tabela 3------>R3   
+   +--------------------------->Tabela 4------>R4    
+
+                               R = R1 + R2 + R3 + R4
+
+Intrare
++-----+-----+-----+-----+
+| ... | i+2 | i+1 |  i  |
++-----+-----+-----+-----+
+                Intrare(i) + R ---->Tabela "tea-leaf"--->noul P4
+
+Algoritmul  necesita doar 5 cautari in tabela, 5 operatii XOR, si 4  shift-ari 
+pentru fiecare octet de la intrare.
+
+Pentru  CRC-16sunt necesare doar 2 tabele de paritate in locul celor 4  de  la 
+CRC-32.
+
+Partea  algoritmului  care  se ocupa de  construirea  tabelelor stabileste  cum 
+influenteaza termenii polinomului urmatorii 8 biti shift-ati prin octetii  CRC 
+de paritate. Vor rezulta 5 tabele pentru CRC-32 si 4 pentru CRC-16.
+
+Ca exemplu, consideram polinomul x^16 + x^15 + x^13 + x^8 + x^6 + x^3 + x + 1.
+
+Metoda clasica (bit cu bit)
+   Intrare                                   bitii CRC-16
+                      |    ^     ^              ^       ^        ^     ^  ^
+                      V    |     |              |       |        |     |  |
++--+--+--+--+--+--+--+--+ +--+--+--+--+--+--+--+--+ +--+--+--+--+--+--+--+--+
+|23|22|21|20|19|18|17|16| |15|14|13|12|11|10| 9| 8| | 7| 6| 5| 4| 3| 2| 1| 0|
++--+--+--+--+--+--+--+--+ +--+--+--+--+--+--+--+--+ +--+--+--+--+--+--+--+--+
+
+Pentru primul bit de la intrare se executa XOR intre bitii 16,15,13,8,6,3,1,0, 
+apoi se shift-eaza la dreapta in bitul 15.
+
+Varianta TLR
+
+Operatiile descrise la metoda clasica pot fi vazute astfel:
+
+-pentru primul bit: 16 + 15 + 13 +  8 +  6 +  3 +  1 +  0  -> r1
+-pentru urmatorul : 17 + r1 + 14 +  9 +  7 +  4 +  2 +  1  -> r2
+                    18 + r2 + 15 + 10 +  8 +  5 +  3 +  2  -> r3 
+                    19 + r3 + r1 + 11 +  9 +  6 +  4 +  3  -> r4
+                    20 + r4 + r2 + 12 + 10 +  7 +  5 +  4  -> r5
+                    21 + r5 + r3 + 13 + 11 +  8 +  6 +  5  -> r6
+                    22 + r6 + r4 + 14 + 12 +  9 +  7 +  6  -> r7
+-pentru  ultimul  : 23 + r7 + r5 + 15 + 13 + 10 +  8 +  7  -> r8
+
+Pentru a implementa aceasta prin tabele, sunt necesare 3 tabele: 2 de  cautare 
+pentru octetii de paritate si tabela "tea-leaf". 
+
+Intrarea  pentru  prima  tabela o formeaza bitii 0 ..7  din cei  16  biti  CRC 
+(bitii   cei  mai  din  dreapta),  iar  iesirea  va  fi  data   de   pozitiile 
+corespunzatoare din relatiile r1 .. r8.
+
+Rezultatul R1 va fi
++--+--+--+--+--+--+--+--+
+| H| G| F| E| D| C| B| A|
++-|+-|+-|+-|+-|+-|+-|+-|+
+  |  |  |  |  |  |  |  +--- 6 +  3 +  1 +  0  din r1
+  |  |  |  |  |  |  +------ 7 +  4 +  2 +  1  din r2
+  |  |  |  |  |  +---------      5 +  3 +  2  din r3
+  |  |  |  |  +------------      6 +  4 +  3  din r4
+  |  |  |  +---------------      7 +  5 +  4  din r5
+  |  |  +------------------           6 +  5  din r6
+  |  +---------------------           7 +  6  din r7
+  +------------------------                7  din r8
+
+Pentru a doua tabela intrarea o constituie bitii 8-15 din registrul CRC de  16 
+biti (cei mai din stanga). Din nou iesirea este determinata de relatiile r1 .. 
+r8.
+
+Rezultatul R2 va fi
++--+--+--+--+--+--+--+--+
+| P| O| N| M| L| K| J| I|
++-|+-|+-|+-|+-|+-|+-|+-|+
+  |  |  |  |  |  |  |  +--- 15 + 13 +  8                 din r1
+  |  |  |  |  |  |  +------      14 +  9                 din r2
+  |  |  |  |  |  +---------      15 + 10 +  8            din r3
+  |  |  |  |  +------------           11 +  9            din r4
+  |  |  |  +---------------           12 + 10            din r5
+  |  |  +------------------           13 + 11 +  8       din r6
+  |  +---------------------           14 + 12 +  9       din r7
+  +------------------------           15 + 13 + 10 +  8  din r8
+
+Facand XOR intre R1 si R2 obtinem rezultatul R, pe un octet (bitii 0 .. 7)
+
+
++--+--+--+--+--+--+--+--+  
+|R7|R6|R5|R4|R3|R2|R1|R0|  
++-|+-|+-|+-|+-|+-|+-|+-|+  
+  |  |  |  |  |  |  |  +--A+I 15 + 13 +  8      +      6 +  3 +  1 +  0
+  |  |  |  |  |  |  +-----B+J      14 +  9      +      7 +  4 +  2 +  1
+  |  |  |  |  |  +--------C+K      15 + 10 +  8      +      5 +  3 +  2
+  |  |  |  |  +-----------D+L           11 +  9      +      6 +  4 +  3
+  |  |  |  +--------------E+M           12 + 10      +      7 +  5 +  4
+  |  |  +-----------------F+N           13 + 11 +  8      +      6 +  5
+  |  +--------------------G+O           14 + 12 +  9      +      7 +  6
+  +-----------------------H+P           15 + 13 + 10 +  8      +      7
+
+Facand acum XOR intre rezultat si octetul de intrare (bitii 16 .. 23)  obtinem 
+un octet (T .. T7) care indica intrarea in tabela "tea-leaf":
+
++--+--+--+--+--+--+--+--+  
+|T7|T6|T5|T4|T3|T2|T1|T0|  
++-|+-|+-|+-|+-|+-|+-|+-|+  
+  |  |  |  |  |  |  |  +--R0+16= 16 + 15 + 13 +  8 +  6 +  3 +  1 +  0
+  |  |  |  |  |  |  +-----R1+17= 17 + 14 +  9 +  7 +  4 +  2 +  1     
+  |  |  |  |  |  +--------R2+18= 18 + 15 + 10 +  8 +  5 +  3 +  2
+  |  |  |  |  +-----------R3+19= 19 + 11 +  9 +  6 +  4 +  3
+  |  |  |  +--------------R4+20= 20 + 12 + 10 +  7 +  5 +  4
+  |  |  +-----------------R5+21= 21 + 13 + 11 +  8 +  6 +  5
+  |  +--------------------R6+22= 22 + 14 + 12 +  9 +  7 +  6
+  +-----------------------R7+23= 23 + 15 + 13 + 10 +  8 +  7
+
+Se observa ca 
+         
+        T0= r1                   
+        T1= r2 - bitul r1        
+        T2= r3 - bitul r2        
+        T3= r4 - bitii (r3 + r1) 
+        T4= r5 - bitii (r4 + r2) 
+        T5= r6 - bitii (r5 + r3) 
+        T6= r7 - bitii (r6 + r4) 
+        T7= r8 - bitii (r7 + r5)
+
+Avand  bitii T0 .. T7 ca intrare ce ramane de facut pentru  tabela  "tea-leaf" 
+este sa completeze relatiile r1 .. r7 (r1 este deja completata de T0):
+
++--+--+--+--+--+--+--+--+  
+|'H|'G|'F|'E|'D|'C|'B|'A|  
++-|+-|+-|+-|+-|+-|+-|+-|+  
+  |  |  |  |  |  |  |  +--- T0         = r1 = noul bit 16
+  |  |  |  |  |  |  +------ T1 + A'    = r2 = noul bit 17
+  |  |  |  |  |  +--------- T2 + B'    = r3 = noul bit 18
+  |  |  |  |  +------------ T3 + C'+ A'= r4 = noul bit 19
+  |  |  |  +--------------- T4 + D'+ B'= r5 = noul bit 20
+  |  |  +------------------ T5 + E'+ C'= r6 = noul bit 21
+  |  +--------------------- T6 + F'+ D'= r7 = noul bit 22
+  +------------------------ T7 + G'+ E'= r8 = noul bit 23
+
+Acum o shift-are la dreapta cu un octet va cauza urmatoarele:
+
+ 8 -> 0    si    A' ->  8  si urmatorul octet de mesaj -> 23 .. 16
+ 9 -> 1    si    B' ->  9
+10 -> 2    si    C' -> 10
+11 -> 3    si    D' -> 11
+12 -> 4    si    E' -> 12
+13 -> 5    si    F' -> 13
+14 -> 6    si    G' -> 14
+15 -> 7    si    H' -> 15
+
+Consideram  un  CRC-32 cu 17 coeficienti nenuli. In varianta bit cu  bit  sunt 
+necesare  17 extrageri, 17 operatii XOR, 5 shift-ari pentru fiecare bit de  la 
+intrare,  adica  312 instructiuni per octet. Cu tabele de  cautare  nu  exista 
+extrageri, ci doar 5 cautari in tabela, 5 operatii XOR, 5 shift-ari, adica  15 
+instructiuni  per  octet.  Partea de buclare  pentru  parcurgerea  sirului  de 
+intrare necesita cel putin 2 instructiuni per bit, pe cand metoda TLR necesita 
+2 instructiuni per octet.
+
+Considerand   un  ciclu  de  acces  de  4  microsecunde  si   disponibilitatea 
+instructiunii XOR, se obtine urmatorul tabel :
+
+                              Bit cu bit              Tea-Leaf Reader
+CRC     Nr. termeni   1 caracter  400 caractere   1 caracter  400 caractere
+                       microsec     milisec        microsec     milisec           
+
+CRC-32      17           1312          524             68          27
+CRC-32      15           1184          473             68          27
+CRC-32      11            928          371             68          27
+CRC-16       7            608          243             44          27
+CRC-16       5            480          192             44          27

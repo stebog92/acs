@@ -1,0 +1,6 @@
+llc: let1.lcpl.ir:113:1: error: expected instruction opcode
+L1:
+^
+clang: error: no such file or directory: 'let1.lcpl.ir.s'
+./eval.sh: line 27: ./let1: No such file or directory
+rm: cannot remove `let1': No such file or directory

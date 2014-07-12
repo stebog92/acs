@@ -1,0 +1,31 @@
+class Main inherits ph
+    main :
+        [out [x.val]];
+    end;
+end;
+
+class ph inherits IO
+    var
+        x x = new x;
+    end;
+end;
+
+class r inherits p
+    the_value -> Int : 4; end;
+end;
+
+class q inherits r
+    value -> Int : 4; end;
+end;
+
+class p inherits q
+    val -> Int : 4; end;
+end;
+
+class t inherits p
+    myValue -> Int : 4; end;
+end;
+
+class x inherits t
+    last_value -> Int : 4; end;
+end;

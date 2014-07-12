@@ -1,0 +1,38 @@
+<project name="Tema2" default="all" basedir=".">
+
+    <target name="all" depends="server" />
+    <target name="encryption">
+        <javac srcdir = "encryption" destdir = "." includeantruntime="false" />
+    </target>
+    <target name="server" depends = "encryption, interfaces">
+        <javac srcdir = "." includeantruntime="false" />
+    </target>
+
+    <target name="interfaces">
+        <javac srcdir = "interfaces" includeantruntime="false"/>
+    </target>
+
+    <target name="run_server">
+        <exec executable="python" spawn = "true">
+            <arg line="-m SimpleHTTPServer 8000"/>
+        </exec>
+        <java classname="Server" fork = "true">
+            <jvmarg value = "-Djava.rmi.server.codebase=http://localhost/encryption/"/>
+            <jvmarg value = "-Djava.rmi.server.hostname=localhost" />
+            <jvmarg value = "-Djava.security.policy=server.policy" />
+        </java>
+    </target>
+
+    <target name="clean">
+        <delete>
+            <fileset dir="interfaces" includes="*.class"/>
+        </delete>
+        <delete>
+            <fileset dir="." includes="*.class"/>
+        </delete>
+        <delete>
+            <fileset dir="encryption" includes="*.class"/>
+        </delete>
+
+    </target>
+</project>
